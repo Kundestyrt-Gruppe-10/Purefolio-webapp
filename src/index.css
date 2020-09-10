@@ -4,3 +4,18 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+:root {
+  --main-white-color: rgb(247,248,246);
+  --main-black-color: rgb(19,22,28);
+  --sec-purple-color: rgb(63,24,170);
+  --sec-orange-color: rgb(232,127,56);
+  --third-blue-color: rgb(127,150,247); 
+  --thrid-teal-color: rgb(0,55,74);
+  --third-paleorange-color: rgb(249,196,160);
+  --third-turquoise-color: rgb(145,229,206);
+  --third-redorange-color: rgb(168,73,36);
+  --third-bluegrey-bolor: rgb(206,216,244);
+  --third-purple-color: rgb(63,24,170);
+  --third-orange-color: rgb(232,127,56);
+}
