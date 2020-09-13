@@ -17,6 +17,16 @@ export const Header: React.FC = () => {
           </Nav>
         </NavArea>
         <HRule active={false} />
+        <HeaderInfo active={false}>
+          <Headline active={false}>ESG Risk Rating</Headline>
+          <HeaderText active={false}>
+            Proin condimentum accumsan velit, sed fermentum sapien mollis non.
+            Donec id lorem eu ipsum dignissim maximus vitae non lorem. Nam
+            dictum odio ut dui scelerisque, eu mattis felis egestas. Ut aliquam
+            nisl id pharetra pellentesque. Nam ac auctor ipsum, dapibus gravida
+            quam. Nam id ultricies arcu. Donec aliquet malesuada volutpat.
+          </HeaderText>
+        </HeaderInfo>
       </Background>
     </>
   );
@@ -26,6 +36,7 @@ const Background = styled.div<{ active: boolean }>`
     margin: 0;
     background-color: var(--sec-purple-color);
     padding 0 50px;
+    color: white;
 `;
 
 const NavArea = styled.div<{ active: boolean }>`
@@ -36,7 +47,7 @@ const NavArea = styled.div<{ active: boolean }>`
 `;
 
 const Nav = styled.nav<{ active: boolean }>`
-  width: 50%;
+  width: 40%;
   height: 80px;
   display: flex;
   flex-direction: row;
@@ -45,20 +56,34 @@ const Nav = styled.nav<{ active: boolean }>`
 `;
 
 const NavButton = styled.a<{ active: boolean }>`
-  color: white;
   font: Roboto, sans-serif;
 `;
 
 const Logo = styled.a<{ active: boolean }>`
-  width: 50%;
-  color: white;
+  width: 60%;
   font: Roboto, sans-serif;
 `;
 
 const HRule = styled.hr<{ active: boolean }>`
-  color: white;
   background-color: white;
-  height: 1px;
+  height: 0.8px;
+  border: none;
 `;
 
-const HeaderInfo = styled.div<{ active: boolean }>``;
+const HeaderInfo = styled.div<{ active: boolean }>`
+  margin: 0;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: row;
+  jusify-content: space-between;
+`;
+
+const Headline = styled.h1<{ active: boolean }>`
+  width: 60%;
+  font-size: 24px;
+  font-weight: 900;
+`;
+
+const HeaderText = styled.p<{ active: boolean }>`
+  width: 40%;
+`;
