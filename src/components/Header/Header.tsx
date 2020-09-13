@@ -6,17 +6,17 @@ import styled from 'styled-components';
 export const Header: React.FC = () => {
   return (
     <>
-      <Background>
-        <NavArea>
-          <Logo>Nordic Trustee</Logo>
-          <Nav>
-            <NavButton>Test</NavButton>
-            <NavButton>Test</NavButton>
-            <NavButton>Test</NavButton>
-            <NavButton>Test</NavButton>
+      <Background active={false}>
+        <NavArea active={false}>
+          <Logo active={false}>Nordic Trustee</Logo>
+          <Nav active={false}>
+            <NavButton active={false}>Test</NavButton>
+            <NavButton active={false}>Test</NavButton>
+            <NavButton active={false}>Test</NavButton>
+            <NavButton active={false}>Test</NavButton>
           </Nav>
         </NavArea>
-        <HRule />
+        <HRule active={false} />
       </Background>
     </>
   );
