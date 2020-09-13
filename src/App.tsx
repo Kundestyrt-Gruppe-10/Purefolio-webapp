@@ -1,5 +1,5 @@
 import React from 'react';
-import { WelcomeMessage } from './components/WelcomeMessage/WelcomeMessage';
+import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import './index.css';
 
@@ -9,6 +9,7 @@ export class App extends React.Component {
     return (
       <>
         <Header />
+        <Footer />
       </>
     );
   }
