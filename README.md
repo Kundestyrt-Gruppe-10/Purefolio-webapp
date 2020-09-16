@@ -6,6 +6,10 @@ Developing locally is done with `webpack-dev-server` and is run on port 3000
 Hot reload and history API fallback are enabled by default
 
 ```
+$ npm install
+```
+
+```
 $ npm start
 ```
 
