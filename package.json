@@ -10,8 +10,6 @@
     "build:analyze": "ANALYZE=true webpack --env.production",
     "test": "jest --coverage src",
     "test:watch": "jest src --watch",
-    "test:e2e": "testcafe chrome e2e/tests/**/*.test.ts",
-    "test:e2e:jenkins": "testcafe --app './scripts/serve-dist.sh' chrome:headless e2e/tests/**/*.test.ts",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
@@ -52,7 +50,6 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-order": "4.1.0",
     "stylelint-prettier": "1.1.2",
-    "testcafe": "1.9.2",
     "ts-jest": "26.3.0",
     "ts-loader": "8.0.3",
     "typescript": "4.0.2",
