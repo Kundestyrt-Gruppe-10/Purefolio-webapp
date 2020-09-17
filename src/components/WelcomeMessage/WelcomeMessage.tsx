@@ -17,7 +17,8 @@ export const WelcomeMessage: React.FC<Props> = ({
   return (
     <div className={styles.container}>
       <div>
-        Welcome to <span className={styles.highlight}>{appName}</span>
+        Hei, Sier sindre fra skyent. Welcome to{' '}
+        <span className={styles.highlight}>{appName}</span>
       </div>
       <div>Built {appBuildTime}</div>
       <div>Commit hash: {commitHash}</div>
