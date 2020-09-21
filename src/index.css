@@ -19,4 +19,9 @@ body {
   --third-bluegrey-bolor: rgb(206, 216, 244);
   --third-purple-color: rgb(63, 24, 170);
   --third-orange-color: rgb(232, 127, 56);
+  --font-size-tiny: 14px;
+  --font-size-small: 16px;
+  --font-size-medium: 20px;
+  --font-size-large: 24px;
+  --font-size-xlarge: 40px;
 }

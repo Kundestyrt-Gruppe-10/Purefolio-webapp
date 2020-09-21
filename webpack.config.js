@@ -32,8 +32,9 @@ module.exports = (env) => {
           include: path.resolve(__dirname, 'src'),
         },
         {
-          test: /\.(svg|png)$/i,
-          use: 'url-loader',
+          test: /\.(svg|png|jpe?g)$/i,
+          use: 'file-loader',
+          //TODO: fix image-loading
         },
         {
           test: /(?<!\.module)\.css$/,
