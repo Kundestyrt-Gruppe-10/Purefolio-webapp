@@ -39,7 +39,7 @@ const NavArea = styled.div<{ active: boolean }>`
 `;
 
 const Nav = styled.nav<{ active: boolean }>`
-  width: 40%;
+  width: 30%;
   height: 80px;
   display: flex;
   flex-direction: row;
@@ -52,7 +52,7 @@ const NavButton = styled.a<{ active: boolean }>`
 `;
 
 const LogoContainer = styled.a<{ active: boolean }>`
-  width: 60%;
+  width: 70%;
   font: Roboto, sans-serif;
 `;
 

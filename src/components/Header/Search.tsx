@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import SearchIcon from '../../img/search-icon.svg';
 
 export default class Search extends Component {
   public render(): JSX.Element {
@@ -12,10 +13,14 @@ export default class Search extends Component {
 }
 
 const Input = styled.input<{ active: boolean }>`
-  color: white;
-  font-size: var(--font-size-medium);
+  color: var(--main-black-color);
+  font-size: var(--font-size-tiny);
   font-family: Roboto;
-  background: var(--sec-purple-color);
+  background: var(--main-white-color);
   border: none;
   width: 300px;
+  margin: 0 0 0 30px;
+  padding: 10px;
+  border-radius: 0;
+  background-image: 'url(' ${SearchIcon} ')';
 `;
