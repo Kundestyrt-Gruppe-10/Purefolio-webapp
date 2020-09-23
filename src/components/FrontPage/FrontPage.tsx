@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MainImage from '../../img/nordic-illustrasjon-1920x1491.jpg';
 
 //var MainImage = require('../../img/nordic-illustrasjon-1920x1491.jpg');
 
@@ -8,7 +9,7 @@ export const FrontPage: React.FC = () => {
     <>
       <Layout active={false}>
         <ImageArea active={false}>
-          {/*<Image src={MainImage} active={false}/>*/}
+          <Image src={MainImage} alt="FrontpageImage" active={false} />
         </ImageArea>
         <TextArea active={false}>
           <Headline active={false}>PureFolio</Headline>

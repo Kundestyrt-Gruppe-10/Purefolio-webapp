@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Search from './Search';
-
-//var logo = require('../../img/NT_Logo_original_primaer_negativ_RGB.svg');
+import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
 
 export const Header: React.FC = () => {
   return (
@@ -10,7 +9,7 @@ export const Header: React.FC = () => {
       <Background active={false}>
         <NavArea active={false}>
           <LogoContainer active={false}>
-            {/*<Logo src={logo} active={false}/>*/}
+            <Logo src={logo} alt="Title" active={false} />
           </LogoContainer>
           <Nav active={false}>
             <NavButton active={false}>Test</NavButton>
