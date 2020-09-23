@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 export default class Search extends Component {
-  public render() {
+  public render(): JSX.Element {
     return (
       <>
         <Input placeholder="Search by country or industry" active={false} />
