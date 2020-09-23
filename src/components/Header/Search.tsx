@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import SearchIcon from '../../img/search-icon.svg';
+import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 
 export default class Search extends Component {
   public render(): JSX.Element {
