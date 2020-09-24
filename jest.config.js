@@ -1,4 +1,8 @@
 module.exports = {
+  /*roots: ["<rootDir>/src"],
+  transform:{
+    "^.+\\.tsx?$": "ts-jest",
+  },*/
   globals: {
     __OVERRIDE_API_ENDPOINT__: null,
   },

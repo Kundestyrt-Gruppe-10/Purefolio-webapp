@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sc-bdnylx looHFP"
+>
+  <p
+    className="sc-gtssRu HIQSu"
+  >
+    This project is developed by students for Nordic Trustee, for the course TDT4290 at Norwegian University of Science and Technology.
+  </p>
+  <div
+    className="sc-dlnjPT hmQamB"
+  >
+    <a
+      className="sc-hKFyIo"
+    >
+      Test
+    </a>
+    <a
+      className="sc-hKFyIo"
+    >
+      Test
+    </a>
+    <a
+      className="sc-hKFyIo"
+    >
+      Test
+    </a>
+    <a
+      className="sc-hKFyIo"
+    >
+      Test
+    </a>
+  </div>
+</div>
+`;

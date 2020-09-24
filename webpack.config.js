@@ -34,7 +34,6 @@ module.exports = (env) => {
         {
           test: /\.(svg|png|jpe?g)$/i,
           use: 'file-loader',
-          //TODO: fix image-loading
         },
         {
           test: /(?<!\.module)\.css$/,
@@ -56,6 +55,12 @@ module.exports = (env) => {
             },
             'postcss-loader',
           ],
+        },
+        {
+          test: /\.tsx?$/,
+          exclude: /\.test.tsx?$/,
+          include: /src/,
+          use: 'awesome-typescript-loader?silent=true',
         },
       ],
     },

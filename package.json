@@ -15,14 +15,24 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/jest": "26.0.13",
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@types/jest": "^26.0.14",
     "@types/jest-each": "24.3.0",
     "@types/react": "16.9.49",
     "@types/react-dom": "16.9.8",
+    "@types/react-test-renderer": "^16.9.3",
     "@types/styled-components": "^5.1.3",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
     "autoprefixer": "9.8.6",
+    "babel-jest": "^26.3.0",
     "babel-plugin-styled-components": "^1.11.1",
     "clean-webpack-plugin": "3.0.0",
     "css-loader": "4.2.2",
@@ -46,6 +56,7 @@
     "lint-staged": "10.3.0",
     "postcss-loader": "3.0.0",
     "prettier": "^2.1.1",
+    "react-test-renderer": "^16.13.1",
     "source-map-loader": "1.1.0",
     "speed-measure-webpack-plugin": "1.3.3",
     "style-loader": "1.2.1",
@@ -55,7 +66,7 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-order": "4.1.0",
     "stylelint-prettier": "1.1.2",
-    "ts-jest": "26.3.0",
+    "ts-jest": "^26.3.0",
     "ts-loader": "8.0.3",
     "typescript": "4.0.2",
     "url-loader": "4.1.0",
@@ -94,6 +105,20 @@
     "*.css": [
       "stylelint --fix",
       "prettier --write"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
     ]
   }
 }
