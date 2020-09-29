@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Search from './Search';
+import SearchBar from './SearchBar';
 import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
 
 export const Header: React.FC = () => {
@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
             <NavButton active={false}>Test</NavButton>
           </Nav>
         </NavArea>
-        <Search />
+        <SearchBar />
       </Background>
     </>
   );
