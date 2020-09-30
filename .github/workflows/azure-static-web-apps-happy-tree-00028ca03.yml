@@ -10,28 +10,6 @@ on:
       - master
 
 jobs:
-  test:
-    name: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: npm/yarn/pnpm install
-        # You may pin to the exact commit or the version.
-        # uses: Jaid/action-npm-install@9483da054882538350947c4147de4c8adbf0d597
-        uses: Jaid/action-npm-install@v1.2.4
-        with:
-          # NODE_ENV setting for installing execution (affects the amount of dependencies installed, but I would recommend keeping development in any case).
-          nodeEnv: production # optional, default is development
-          # Can be "npm", "yarn", "pnpm" or "auto". "auto" will determine the package manager by looking into the repo's files. This is very accurate, so you normally don't want to change this.
-          packageManager: npm # optional, default is auto
-          # If true and node_modules folder already exists, this action will be skipped assuming npm install is not required.
-          #skipIfNodeModulesExists: # optional, default is false
-      - name: NPM Tests
-         # You may pin to the exact commit or the version.
-        # uses: anna-money/github-actions-npm@be01351e07211a87a3c71e5a51d795ff9cbdd5b3
-        uses: anna-money/github-actions-npm@v1
-      - name: build
-        run: npm build
-      
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
@@ -49,9 +27,9 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match you app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "./src" # App source code path
+          app_location: "/" # App source code path
           #api_location: "api" # Api source code path - optional
-          app_artifact_location: "./dist" # Built app content directory - optional
+          app_artifact_location: "build/" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
