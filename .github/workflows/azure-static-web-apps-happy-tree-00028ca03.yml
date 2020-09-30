@@ -10,9 +10,6 @@ on:
       - master
 
 jobs:
-  install:
-    name: Install Dependencies
-    runs-on: ubuntu-latest
   test:
     name: test
     runs-on: ubuntu-latest
