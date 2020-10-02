@@ -14,10 +14,8 @@ export interface QueryProviderProps {
 export const GlobalContext = createContext<QueryProviderProps>({
   searchQuery: '',
   /*eslint-disable */
-
   setSearchQuery: () => {}, //suppress all warnings between comments
-  
-/*eslint-enable */
+  /*eslint-enable */
 });
 
 export const GlobalProvider = ({ children }: Props): JSX.Element => {
