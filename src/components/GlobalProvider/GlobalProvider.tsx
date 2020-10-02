@@ -1,5 +1,3 @@
-/* eslint no-empty-function: ["error", { "allow": ["arrowFunctions"] }] */
-/* eslint-env es6 */
 import React, { useState, createContext, ReactNode, useContext } from 'react';
 
 interface Props {
@@ -14,7 +12,7 @@ export interface QueryProviderProps {
 export const GlobalContext = createContext<QueryProviderProps>({
   searchQuery: '',
   /*eslint-disable */
-  setSearchQuery: () => {}, //suppress all warnings between comments
+  setSearchQuery: () => {}, //suppress all warnings between comments, allowing empty arrow function 
   /*eslint-enable */
 });
 
