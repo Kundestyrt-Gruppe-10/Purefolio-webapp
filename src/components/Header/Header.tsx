@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SearchBar } from './SearchBar';
 import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   return (
@@ -9,10 +10,14 @@ export const Header: React.FC = () => {
       <Background active={false}>
         <NavArea active={false}>
           <LogoContainer active={false}>
-            <Logo src={logo} alt="Title" active={false} />
+            <Link to="/">
+              <Logo src={logo} alt="Title" active={false} />
+            </Link>
           </LogoContainer>
           <Nav active={false}>
-            <NavButton active={false}>Test</NavButton>
+            <Link to="/test" style={{ textDecoration: 'none', color: 'white' }}>
+              <NavButton active={false}>Test</NavButton>
+            </Link>
             <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>
@@ -49,6 +54,8 @@ const Nav = styled.nav<{ active: boolean }>`
 
 const NavButton = styled.a<{ active: boolean }>`
   font: Roboto, sans-serif;
+  color: var(--main-color-white);
+  text-decoration: none;
 `;
 
 const LogoContainer = styled.a<{ active: boolean }>`
