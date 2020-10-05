@@ -1,27 +1,44 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Fuse from 'fuse.js';
-import { GlobalContext, useQuery } from '../GlobalProvider/GlobalProvider';
+import { useQuery } from '../GlobalProvider/GlobalProvider';
 
 const data = [
-  { id: 1, country: 'Norway' },
-  { id: 2, country: 'Sweden' },
-  { id: 3, country: 'Denmark' },
-  { id: 4, country: 'Finland' },
+  { regionCode: 1, regionName: 'Norway' },
+  { regionCode: 2, regionName: 'Sweden' },
+  { regionCode: 3, regionName: 'Denmark' },
+  { regionCode: 4, regionName: 'Finland' },
 ];
+/*fetchCountries(){
+  fetch('https://purefolio-backend-test.azurewebsites.net/regions')
+  .then(res => res.json())
+  .then(data => this.setState({data:data}));
+  console.log("Data: ", this.state.data);
+}*/
 
 export const SearchResults: React.FC = () => {
-  const fuse = new Fuse(data, {
-    keys: ['country'],
-  });
-  const { searchQuery, setSearchQuery } = useQuery();
-  //const {searchProvider} = useContext(GlobalContext);
-  const results = fuse.search(searchQuery);
-  console.log(results);
+  //const [result, setResult] = useState({});
+  const { searchQuery, regionCodes, setRegionCodes } = useQuery();
+
+  const options = {
+    keys: ['regionName'],
+  };
+  const fuse = new Fuse(data, options);
+  const res = fuse.search(searchQuery);
+  const regionResult = res.map((region) => region.item);
+
+  console.log(regionCodes);
+
   return (
     <>
       <ul>
-        {results.map((result, i) => {
-          return <li key={result.item.id}>{result.item.country}</li>;
+        {regionResult.map((result) => {
+          return (
+            <li key={result.regionCode}>
+              <button onClick={() => setRegionCodes([result.regionCode])}>
+                {result.regionName}
+              </button>
+            </li>
+          );
         })}
       </ul>
     </>

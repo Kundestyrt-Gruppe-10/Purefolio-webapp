@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
-import { GlobalContext, useQuery } from '../GlobalProvider/GlobalProvider';
+import { useQuery } from '../GlobalProvider/GlobalProvider';
 import { Button } from '../Button';
 
 //TODO: Only update search results on enter key
 
 export const SearchBar: React.FC = () => {
   //const {searchProvider} = useContext(GlobalContext);
-  const { searchQuery, setSearchQuery } = useQuery();
+  const { setSearchQuery } = useQuery();
   return (
     <>
       <Input
