@@ -21,12 +21,12 @@ export const Footer: React.FC = () => {
 };
 
 const Background = styled.div<{ active: boolean }>`
-    margin: 0;
-    background-color: var(--main-black-color);
-    padding 50px;
-    color: white;
-    display: flex;
-    flex-direction: row wrap;
+  margin: 0;
+  background-color: var(--main-black-color);
+  padding: 50px;
+  color: white;
+  display: flex;
+  flex-direction: row wrap;
 `;
 
 const FooterInfo = styled.p<{ active: boolean }>`

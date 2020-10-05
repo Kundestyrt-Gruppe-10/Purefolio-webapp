@@ -9,15 +9,20 @@ import { Button } from '../Button';
 export const SearchBar: React.FC = () => {
   //const {searchProvider} = useContext(GlobalContext);
   const { setSearchQuery } = useQuery();
+
+  const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      setSearchQuery(
+        (document.getElementById('searchInput') as HTMLInputElement).value,
+      );
+    }
+  };
+
   return (
     <>
       <Input
         id="searchInput"
-        onKeyUp={() =>
-          setSearchQuery(
-            (document.getElementById('searchInput') as HTMLInputElement).value,
-          )
-        }
+        onKeyPress={handleKeywordKeyPress}
         placeholder="Search by country or industry"
         active={false}
       />
