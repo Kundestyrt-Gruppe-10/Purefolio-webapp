@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SearchBar } from './SearchBar';
 import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   return (
@@ -15,9 +15,7 @@ export const Header: React.FC = () => {
             </Link>
           </LogoContainer>
           <Nav active={false}>
-            <Link to="/test" style={{ textDecoration: 'none', color: 'white' }}>
-              <NavButton active={false}>Test</NavButton>
-            </Link>
+            <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>

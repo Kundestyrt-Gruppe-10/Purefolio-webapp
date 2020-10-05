@@ -15,7 +15,7 @@ export class App extends React.Component {
           <Router>
             <Header />
             <Switch>
-              <Route path="/result">
+              <Route path="/results/">
                 <SearchResults />
               </Route>
               <Route path="/">

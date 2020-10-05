@@ -3,18 +3,20 @@ import styled from 'styled-components';
 import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../GlobalProvider/GlobalProvider';
 import { Button } from '../Button';
+import { useHistory } from 'react-router-dom';
 
-//TODO: Only update search results on enter key
+// TODO: Clear search bar on redirect to home page
 
 export const SearchBar: React.FC = () => {
-  //const {searchProvider} = useContext(GlobalContext);
   const { setSearchQuery } = useQuery();
+  const history = useHistory();
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       setSearchQuery(
         (document.getElementById('searchInput') as HTMLInputElement).value,
       );
+      history.push(`/results/`);
     }
   };
 
@@ -29,11 +31,12 @@ export const SearchBar: React.FC = () => {
       <Button
         id="searchButton"
         active={false}
-        onClick={() =>
+        onClick={() => {
           setSearchQuery(
             (document.getElementById('searchInput') as HTMLInputElement).value,
-          )
-        }
+          );
+          history.push(`/results/`);
+        }}
       >
         Search
       </Button>
