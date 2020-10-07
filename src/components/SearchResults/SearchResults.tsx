@@ -10,7 +10,6 @@ interface ResultInterface {
 }
 
 export const SearchResults: React.FC = () => {
-  //const [result, setResult] = useState({});
   const { searchQuery } = useQuery();
 
   const [loading, setLoading] = useState(true);
