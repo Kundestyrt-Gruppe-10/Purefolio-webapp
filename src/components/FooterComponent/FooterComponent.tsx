@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Footer: React.FC = () => {
+export const FooterComponent: React.FC = () => {
   return (
     <>
       <Background active={false}>

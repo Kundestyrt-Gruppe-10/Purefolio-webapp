@@ -9,7 +9,7 @@ interface ResultInterface {
   area: number;
 }
 
-export const SearchResults: React.FC = () => {
+export const SearchResultsPage: React.FC = () => {
   const { searchQuery } = useQuery();
 
   const [loading, setLoading] = useState(true);

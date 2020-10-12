@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
-import { useQuery } from '../GlobalProvider/GlobalProvider';
+import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { Button } from '../Button';
 import { useHistory } from 'react-router-dom';
 
