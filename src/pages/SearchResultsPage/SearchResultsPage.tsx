@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
 import { useQuery } from '../GlobalProvider/GlobalProvider';
+import { getConfig } from '../../utils/config-utils';
 
 interface ResultInterface {
   regionID: number;
@@ -28,7 +29,7 @@ export const SearchResultsPage: React.FC = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch('http://localhost:5000/regions/');
+      const res = await fetch(getConfig().apiUrl + '/regions/');
       /*eslint-disable */
       const ResObj: ResultInterface[] = await res.json();
       /*eslint-enable */
