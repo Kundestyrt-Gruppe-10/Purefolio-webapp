@@ -5,6 +5,7 @@ import { FrontPage } from './pages/FrontPage/FrontPage';
 import { SearchResultsPage } from './pages/SearchResultsPage/SearchResultsPage';
 import './index.css';
 import { GlobalProvider } from './pages/GlobalProvider/GlobalProvider';
+import { NaceRegionCardContainer } from './components/NaceRegionCard/NaceRegionCard';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 export class App extends React.Component {
@@ -14,14 +15,15 @@ export class App extends React.Component {
         <GlobalProvider>
           <Router>
             <HeaderComponent />
-            <Switch>
+            <NaceRegionCardContainer />
+            {/*<Switch>
               <Route path="/results/">
                 <SearchResultsPage />
               </Route>
               <Route path="/">
                 <FrontPage />
               </Route>
-            </Switch>
+            </Switch>*/}
             <FooterComponent />
           </Router>
         </GlobalProvider>
