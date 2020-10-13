@@ -64,6 +64,9 @@ module.exports = (env) => {
     },
     output: {
       filename: '[name].[contentHash].js',
+      // Added for fixing nested path bug, where it looked for js files in folders
+      // See: https://stackoverflow.com/questions/39698609/react-router-nested-routes-error
+      publicPath: '/',
       path: path.resolve(__dirname, 'build'),
     },
     optimization: {
