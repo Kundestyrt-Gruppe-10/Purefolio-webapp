@@ -11,40 +11,49 @@ import {
   Route,
   BrowserRouter,
   Redirect,
+  RouteComponentProps,
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
+import { ProgressPlugin } from 'webpack';
 
-export class App extends React.Component {
-  render() {
-    return (
-      <>
-        <GlobalProvider>
-          <BrowserRouter>
+export const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <GlobalProvider>
+        <Switch>
+          <Route exact path="/chartpage">
+            {/* TODO: redirect to different default page?*/}
+            <Redirect to="/chartpage/1/1" />
+          </Route>
+          <Route
+            path="/chartpage/:naceRegionIdString/:esgFactor"
+            render={(
+              props: RouteComponentProps<{
+                naceReagionIdString: string;
+                esgFactor: string;
+              }>,
+            ) => (
+              <ChartPage
+                naceRegionIdString={props.match.params.naceReagionIdString}
+                esgFactor={props.match.params.esgFactor}
+              />
+            )}
+          />
+          <Route path="/results/">
+            <SearchResultsPage />
+          </Route>
+          <Route exact path="/">
             <HeaderComponent />
-            <Switch>
-              {/* TODO: Add url params */}
-              <Route path="/chartpage/" exact>
-                <ChartPage />
-              </Route>
-              <Route path="/chartpage/:id/">
-                <ChartPage />
-              </Route>
-              <Route path="/results/">
-                <SearchResultsPage />
-              </Route>
-              <Route exact path="/">
-                <FrontPage />
-              </Route>
-              <Route path="/404">
-                <NotFoundPage />
-              </Route>
-              <Redirect to="/404" />
-            </Switch>
-            <FooterComponent />
-          </BrowserRouter>
-        </GlobalProvider>
-      </>
-    );
-  }
-}
+            <FrontPage />
+          </Route>
+          <Route path="/404">
+            <NotFoundPage />
+          </Route>
+          <Redirect to="/404" />
+        </Switch>
+        <FooterComponent />
+      </GlobalProvider>
+    </BrowserRouter>
+  );
+};
