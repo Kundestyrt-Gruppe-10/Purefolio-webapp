@@ -16,7 +16,7 @@ type IEnvToConfigMap = {
 
 const envToConfigMap: IEnvToConfigMap = {
   [Environment.LOCAL]: {
-    apiUrl: 'http://localhost:8080',
+    apiUrl: 'http://localhost:5000',
     environment: Environment.LOCAL,
   },
   [Environment.DEV]: {
@@ -24,11 +24,11 @@ const envToConfigMap: IEnvToConfigMap = {
     environment: Environment.DEV,
   },
   [Environment.STAGING]: {
-    apiUrl: '',
+    apiUrl: 'https://purefolio-backend-test.azurewebsites.net',
     environment: Environment.STAGING,
   },
   [Environment.PROD]: {
-    apiUrl: '',
+    apiUrl: 'https://purefolio-backend-test.azurewebsites.net',
     environment: Environment.PROD,
   },
 };

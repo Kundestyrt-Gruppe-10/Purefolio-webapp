@@ -3,7 +3,7 @@ module.exports = {
     __OVERRIDE_API_ENDPOINT__: null,
   },
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testResultsProcessor: 'jest-sonar-reporter',
   moduleNameMapper: {
     '\\.(css)$': 'identity-obj-proxy',

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Footer } from './components/Footer/Footer';
-import { Header } from './components/Header/Header';
-import { FrontPage } from './components/FrontPage/FrontPage';
-import { SearchResults } from './components/SearchResults/SearchResults';
+import { FooterComponent } from './components/FooterComponent/FooterComponent';
+import { HeaderComponent } from './components/HeaderComponent/HeaderComponent';
+import { FrontPage } from './pages/FrontPage/FrontPage';
+import { SearchResultsPage } from './pages/SearchResultsPage/SearchResultsPage';
 import './index.css';
-import { GlobalProvider } from './components/GlobalProvider/GlobalProvider';
+import { GlobalProvider } from './pages/GlobalProvider/GlobalProvider';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { OverviewTable } from './components/OverviewTable/OverviewTable';
 
@@ -14,17 +14,17 @@ export class App extends React.Component {
       <>
         <GlobalProvider>
           <Router>
-            <Header />
+            <HeaderComponent />
             <Switch>
               <Route path="/results/">
-                <SearchResults />
+                <SearchResultsPage />
                 <OverviewTable />
               </Route>
               <Route path="/">
                 <FrontPage />
               </Route>
             </Switch>
-            <Footer />
+            <FooterComponent />
           </Router>
         </GlobalProvider>
       </>
