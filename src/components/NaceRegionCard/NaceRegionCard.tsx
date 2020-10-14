@@ -1,8 +1,9 @@
-import { fontsize } from '*.svg';
 import React from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 import { Redirect } from 'react-router-dom';
+
+const cardList = [1, 2, 3, 4];
 
 const data = [
   { regionId: 1, value: 'Norway', label: 'Norway' },
@@ -17,13 +18,15 @@ const data = [
   { regionId: 10, value: 'Switzerland', label: 'Switzerland' },
 ];
 
-const customStyles = {};
+interface colorID {
+  id: number;
+}
 
-export const NaceRegionCard: React.FC = () => {
+export const NaceRegionCard: React.FC<colorID> = (props: colorID) => {
   return (
     <>
       <CardBackground active={true}>
-        <CardBar active={true} />
+        <CardBar colorId={props.id} />
         <CardTop active={true}>
           <Select
             className="country-select"
@@ -31,7 +34,7 @@ export const NaceRegionCard: React.FC = () => {
             active={true}
             options={data}
           />
-          <Button danger={true}>
+          <Button danger={false}>
             <i
               className="material-icons"
               style={{ fontSize: 'inherit', fontWeight: 'bold' }}
@@ -39,7 +42,7 @@ export const NaceRegionCard: React.FC = () => {
               add
             </i>
           </Button>
-          <Button danger={true}>
+          <Button danger={false}>
             <i
               className="material-icons"
               style={{ fontSize: 'inherit', fontWeight: 'bold' }}
@@ -47,7 +50,12 @@ export const NaceRegionCard: React.FC = () => {
               minimize
             </i>
           </Button>
-          <DangerButton danger={true}>
+          <DangerButton
+            danger={true}
+            onClick={() => {
+              removeCard(props.id);
+            }}
+          >
             <i
               className="material-icons"
               style={{ fontSize: 'inherit', fontWeight: 'bold' }}
@@ -88,12 +96,37 @@ export const NaceRegionCard: React.FC = () => {
 export const NaceRegionCardContainer: React.FC = () => {
   return (
     <Background active={true}>
-      <NaceRegionCard />
-      <NaceRegionCard />
-      <NaceRegionCard />
-      <NaceRegionCard />
+      {cardList.map((item) => (
+        <NaceRegionCard key={item} id={item} />
+      ))}
     </Background>
   );
+};
+
+const removeCard = (id: number) => {
+  console.log(id);
+  console.log(cardList);
+  for (let i = cardList.length - 1; i >= 0; i--) {
+    if (cardList[i] === id) {
+      cardList.splice(i, 1);
+    }
+  }
+  console.log(cardList);
+};
+
+const handleColorType = (colorID: number) => {
+  switch (colorID) {
+    case 1:
+      return 'var( --sec-orange-color)';
+    case 2:
+      return 'var(--third-turquoise-color)';
+    case 3:
+      return 'var(--sec-purple-color)';
+    case 4:
+      return 'var(--third-paleorange-color)';
+    case 5:
+      return 'var(--thrid-teal-color)';
+  }
 };
 
 const Background = styled.div<{ active: boolean }>`
@@ -116,45 +149,11 @@ const CardBackground = styled.div<{ active: boolean }>`
   font-size: var(--font-size-tiny);
 `;
 
-const CardBar = styled.div<{ active: boolean }>`
+const CardBar = styled.div<{ colorId: number }>`
   padding: 5px 70px;
   margin: 0;
-  background-color: var(--third-turquoise-color);
+  background-color: ${({ colorId }) => handleColorType(colorId)};
 `;
-
-const DropDownMenu = styled.select<{ active: boolean }>`
-  border-color: var(--sec-purple-color);
-  border-width: 3px;
-  background-color: var(--third-bluegrey-color);
-  padding: 8px 70px;
-  margin: 5px 0 15px 0;
-`;
-
-const CountryDropDown = styled.select<{ active: boolean }>`
-  width: 65%;
-  border: none;
-  background-color: var(--third-bluegrey-color);
-  padding: 8px 0;
-  margin: 10px 0 15px 0;
-  font-weight: 700;
-  font-size: var(--font-size-tiny);
-`;
-
-/*
-const CustomSelect = styled(ReactSelect)`
-  & .Select__indicator Select__dropdown-indicator {
-    border-color: transparent transparent red;
-    color: red;
-    background: red;
-  }
-
-  font-weight: 700;
-  font-size: var(--font-size-tiny);
-
-  width: 65%;
-  margin: 10px 0 15px 0;
-`;
-*/
 
 const DropDownOptions = styled.option<{ active: boolean }>`
   color: var(--sec-purple-color);
