@@ -24,7 +24,6 @@ export const App: React.FC = () => {
         <Switch>
           <Route exact path="/chartpage">
             {/* TODO: redirect to different default page?*/}
-            <Redirect to="/chartpage/1/1" />
           </Route>
           <Route
             path="/chartpage/:naceRegionIdString/:esgFactor"

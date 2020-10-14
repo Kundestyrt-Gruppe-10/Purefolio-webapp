@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { OverviewTable } from '../../components/OverviewTable/OverviewTable';
 
 interface UrlParams {
   naceRegionIdString: string;
@@ -12,15 +13,9 @@ export const ChartPage: React.FC<UrlParams> = ({
 }) => {
   let naceRegionIdList: number[];
   console.log(esgFactor);
-  try {
-    naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
-  } catch (error) {
-    return <Redirect to="/404" />;
-  }
   return (
     <>
-      {/**TODO: ChartPageHeader */}
-
+      <OverviewTable />
       {/**TODO: NaceRegionCardContainer*/}
 
       {/**TODO: ChartView*/}
