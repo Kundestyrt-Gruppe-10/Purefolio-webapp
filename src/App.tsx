@@ -6,6 +6,7 @@ import { SearchResults } from './components/SearchResults/SearchResults';
 import './index.css';
 import { GlobalProvider } from './components/GlobalProvider/GlobalProvider';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { OverviewTable } from './components/OverviewTable/OverviewTable';
 
 export class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ export class App extends React.Component {
             <Switch>
               <Route path="/results/">
                 <SearchResults />
+                <OverviewTable />
               </Route>
               <Route path="/">
                 <FrontPage />
