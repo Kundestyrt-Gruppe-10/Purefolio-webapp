@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { FooterComponent } from '../../components/FooterComponent/FooterComponent';
+import { Redirect } from 'react-router-dom';
+import { OverviewTable } from '../../components/OverviewTable/OverviewTable';
 
 interface UrlParams {
   naceRegionIdString: string;
@@ -13,15 +12,16 @@ export const ChartPage: React.FC<UrlParams> = ({
   esgFactor,
 }) => {
   let naceRegionIdList: number[];
-  try {
+  console.log(esgFactor);
+  /*try {
     naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
   } catch (error) {
     return <Redirect to="/404" />;
   }
+  */
   return (
     <>
-      {/**TODO: ChartPageHeader */}
-
+      <OverviewTable />
       {/**TODO: NaceRegionCardContainer*/}
 
       {/**TODO: ChartView*/}
