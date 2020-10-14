@@ -117,7 +117,7 @@ const UpperBox = styled.div<{ active: boolean }>`
   margin-left: 5%;
   margin-right: 5%;
   font-size: 20px;
-  border-bottom: 0.5px solid #ced8f4;
+  border-bottom: 0.6px solid #ced8f4;
   font-weight: 700;
   height: 50%;
 `;
