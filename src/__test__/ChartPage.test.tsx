@@ -3,7 +3,6 @@ import { setupServer } from 'msw/node';
 import { naces } from '../mockData';
 import {
   isValidNaceRegionIdString,
-  ChartPage,
   naceRegionIdStringToListOrThrow404,
 } from '../pages/ChartPage/ChartPage';
 
@@ -16,7 +15,6 @@ const server = setupServer(
     return res(ctx.json(naces));
   }),
 );
-/*eslint-enable*/
 
 beforeAll(() => {
   // Establish requests interception layer before all tests.
@@ -31,6 +29,7 @@ afterAll(() => {
 
   server.close();
 });
+/*eslint-enable*/
 
 test('renders a book data', () => {
   // Render components, perform requests, API communication is covered.

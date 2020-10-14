@@ -13,6 +13,7 @@ export const ChartPage: React.FC<UrlParams> = ({
   esgFactor,
 }) => {
   let naceRegionIdList: number[];
+  console.log(esgFactor);
   try {
     naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
   } catch (error) {
@@ -40,10 +41,11 @@ export const isValidNaceRegionIdString = (naceRegionIdString: string) => {
 export const naceRegionIdStringToListOrThrow404 = (
   naceRegionIdString: string,
 ): number[] => {
+  console.log('TEST');
+  console.log(naceRegionIdString);
+  console.log(isValidNaceRegionIdString(naceRegionIdString));
   if (!isValidNaceRegionIdString(naceRegionIdString)) {
     throw new Error('Illegal argument');
   }
-  console.log(naceRegionIdString);
-  console.log(isValidNaceRegionIdString(naceRegionIdString));
   return naceRegionIdString.split(',').map(Number);
 };

@@ -6,7 +6,6 @@ import { SearchResultsPage } from './pages/SearchResultsPage/SearchResultsPage';
 import './index.css';
 import { GlobalProvider } from './pages/GlobalProvider/GlobalProvider';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   BrowserRouter,
@@ -15,7 +14,6 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { ProgressPlugin } from 'webpack';
 
 export const App: React.FC = () => {
   return (
@@ -30,12 +28,12 @@ export const App: React.FC = () => {
             path="/chartpage/:naceRegionIdString/:esgFactor"
             render={(
               props: RouteComponentProps<{
-                naceReagionIdString: string;
+                naceRegionIdString: string;
                 esgFactor: string;
               }>,
             ) => (
               <ChartPage
-                naceRegionIdString={props.match.params.naceReagionIdString}
+                naceRegionIdString={props.match.params.naceRegionIdString}
                 esgFactor={props.match.params.esgFactor}
               />
             )}
