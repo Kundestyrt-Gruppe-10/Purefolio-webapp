@@ -1,10 +1,11 @@
 import { fontsize } from '*.svg';
 import React from 'react';
 import styled from 'styled-components';
+import Select from 'react-select';
 
 const data = [
-  { regionId: 1, regionName: 'Norway' },
-  { regionId: 2, regionName: 'Sweden' },
+  { regionId: 1, regionName: 'Norway', label: 'Norway' },
+  { regionId: 2, regionName: 'Sweden', label: 'Sweden' },
   { regionId: 3, regionName: 'Denmark' },
   { regionId: 4, regionName: 'Finland' },
   { regionId: 5, regionName: 'United Kingdom' },
@@ -21,16 +22,7 @@ export const NaceRegionCard: React.FC = () => {
       <CardBackground active={true}>
         <CardBar active={true} />
         <CardTop active={true}>
-          <CountryDropDown active={true}>
-            Norway
-            {data.map((country) => {
-              return (
-                <DropDownOptions key={country.regionId} active={true}>
-                  {country.regionName}
-                </DropDownOptions>
-              );
-            })}
-          </CountryDropDown>
+          <CustomSelect active={true} options={data} />
           <Button danger={true}>
             <i
               className="material-icons"
@@ -117,6 +109,34 @@ const CountryDropDown = styled.select<{ active: boolean }>`
   font-size: var(--font-size-tiny);
 `;
 
+const CustomSelect = styled(Select)`
+  /*.react-select__indicators {
+    background-color: red;
+    border: solid red 2px;
+    background-color: black;
+  }
+  & .Select__dropdown-indicator{
+    color: red;
+  }*/
+  &.Select--multi {
+    .Select-value {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+
+  & .Select-placeholder {
+    font-size: smaller;
+  }
+
+  width: 65%;
+  padding: 8px 0;
+  margin: 10px 0 15px 0;
+  font-weight: 700;
+  font-size: var(--font-size-tiny);
+  background-color: var(--third-bluegrey-color);
+`;
+
 const DropDownOptions = styled.option<{ active: boolean }>`
   color: var(--sec-purple-color);
   text-align-last: left;
@@ -128,6 +148,10 @@ const CardTop = styled.div<{ active: boolean }>`
 `;
 
 const Button = styled.button<{ danger: boolean }>`
+  &:hover {
+    background: var(--sec-purple-color);
+    color: var(--third-bluegrey-color);
+  }
   width: 16px;
   height: 16px;
   padding: 0;
@@ -139,13 +163,17 @@ const Button = styled.button<{ danger: boolean }>`
 `;
 
 const DangerButton = styled.button<{ danger: boolean }>`
+  &:hover {
+    background: #b00020;
+    color: var(--third-bluegrey-color);
+  }
   width: 16px;
   height: 16px;
   padding: 0;
   font-size: 12px;
   margin: auto;
-  border: 1.5px var(--third-redorange-color) solid;
-  color: var(--third-redorange-color);
+  border: 1.5px #b00020 solid;
+  color: #b00020;
   background-color: var(--third-bluegrey-color);
 `;
 
