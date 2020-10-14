@@ -28,3 +28,64 @@ body {
   --font-size-large: 24px;
   --font-size-xlarge: 40px;
 }
+
+.country-select {
+  background: var(--third-bluegrey-color);
+  border: none;
+  border-radius: 0;
+  font-weight: 600;
+  margin: 10px 0;
+  width: 65%;
+}
+
+.react-select-container {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.react-select__indicator-separator {
+  display: none;
+}
+
+.react-select__control {
+  background: var(--third-bluegrey-color) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  opacity: 1 !important;
+  padding: 0;
+}
+
+.react-select__value-container {
+  background: var(--third-bluegrey-color);
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.react-select__indicator {
+  border: none;
+  border-radius: 0;
+  color: var(--main-black-color) !important;
+  opacity: 1;
+}
+
+.react-select__menu {
+  background: var(--third-bluegrey-color) !important;
+  border: none;
+  border-radius: 0 !important;
+  opacity: 1;
+}
+
+.react-select__menu-list {
+  border: none;
+  border-radius: 0;
+  opacity: 1;
+}
+
+.react-select__option {
+  border: none;
+  border-radius: 0;
+  display: none;
+}

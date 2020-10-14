@@ -2,19 +2,22 @@ import { fontsize } from '*.svg';
 import React from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
+import { Redirect } from 'react-router-dom';
 
 const data = [
-  { regionId: 1, regionName: 'Norway', label: 'Norway' },
-  { regionId: 2, regionName: 'Sweden', label: 'Sweden' },
-  { regionId: 3, regionName: 'Denmark' },
-  { regionId: 4, regionName: 'Finland' },
-  { regionId: 5, regionName: 'United Kingdom' },
-  { regionId: 6, regionName: 'Germany' },
-  { regionId: 7, regionName: 'France' },
-  { regionId: 8, regionName: 'Spain' },
-  { regionId: 9, regionName: 'Italy' },
-  { regionId: 10, regionName: 'Switzerland' },
+  { regionId: 1, value: 'Norway', label: 'Norway' },
+  { regionId: 2, value: 'Sweden', label: 'Sweden' },
+  { regionId: 3, value: 'Denmark', label: 'Denmark' },
+  { regionId: 4, value: 'Finland', label: 'Finland' },
+  { regionId: 5, value: 'United Kingdom', label: 'United Kingdom' },
+  { regionId: 6, value: 'Germany', label: 'Germany' },
+  { regionId: 7, value: 'France', label: 'France' },
+  { regionId: 8, value: 'Spain', label: 'Spain' },
+  { regionId: 9, value: 'Italy', label: 'Italy' },
+  { regionId: 10, value: 'Switzerland', label: 'Switzerland' },
 ];
+
+const customStyles = {};
 
 export const NaceRegionCard: React.FC = () => {
   return (
@@ -22,7 +25,12 @@ export const NaceRegionCard: React.FC = () => {
       <CardBackground active={true}>
         <CardBar active={true} />
         <CardTop active={true}>
-          <CustomSelect active={true} options={data} />
+          <Select
+            className="country-select"
+            classNamePrefix="react-select"
+            active={true}
+            options={data}
+          />
           <Button danger={true}>
             <i
               className="material-icons"
@@ -49,9 +57,29 @@ export const NaceRegionCard: React.FC = () => {
           </DangerButton>
         </CardTop>
         <Text active={true}>Industry:</Text>
-        <DropDownMenu active={true}>Industry</DropDownMenu>
+        <div
+          style={{
+            border: '2px solid var(--sec-purple-color)',
+            marginBottom: '10px',
+          }}
+        >
+          <Select
+            width="100%"
+            height="5px"
+            classNamePrefix="react-select"
+            active={true}
+            options={data}
+          />
+        </div>
         <Text active={true}>Sub-sector:</Text>
-        <DropDownMenu active={true}> Subsector</DropDownMenu>
+        <div style={{ border: '2px solid var(--sec-purple-color)' }}>
+          <Select
+            width="100%"
+            classNamePrefix="react-select"
+            active={true}
+            options={data}
+          />
+        </div>
       </CardBackground>
     </>
   );
@@ -109,33 +137,21 @@ const CountryDropDown = styled.select<{ active: boolean }>`
   font-size: var(--font-size-tiny);
 `;
 
-const CustomSelect = styled(Select)`
-  /*.react-select__indicators {
-    background-color: red;
-    border: solid red 2px;
-    background-color: black;
-  }
-  & .Select__dropdown-indicator{
+/*
+const CustomSelect = styled(ReactSelect)`
+  & .Select__indicator Select__dropdown-indicator {
+    border-color: transparent transparent red;
     color: red;
-  }*/
-  &.Select--multi {
-    .Select-value {
-      display: inline-flex;
-      align-items: center;
-    }
+    background: red;
   }
 
-  & .Select-placeholder {
-    font-size: smaller;
-  }
-
-  width: 65%;
-  padding: 8px 0;
-  margin: 10px 0 15px 0;
   font-weight: 700;
   font-size: var(--font-size-tiny);
-  background-color: var(--third-bluegrey-color);
+
+  width: 65%;
+  margin: 10px 0 15px 0;
 `;
+*/
 
 const DropDownOptions = styled.option<{ active: boolean }>`
   color: var(--sec-purple-color);
