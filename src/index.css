@@ -33,6 +33,7 @@ body {
   background: var(--third-bluegrey-color);
   border: none;
   border-radius: 0;
+  font-size: var(--font-size-small);
   font-weight: 600;
   margin: 10px 0;
   width: 65%;

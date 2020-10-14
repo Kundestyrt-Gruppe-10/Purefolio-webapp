@@ -44,7 +44,7 @@ export const NaceRegionCard: React.FC = () => {
               className="material-icons"
               style={{ fontSize: 'inherit', fontWeight: 'bold' }}
             >
-              remove
+              minimize
             </i>
           </Button>
           <DangerButton danger={true}>
@@ -90,6 +90,8 @@ export const NaceRegionCardContainer: React.FC = () => {
     <Background active={true}>
       <NaceRegionCard />
       <NaceRegionCard />
+      <NaceRegionCard />
+      <NaceRegionCard />
     </Background>
   );
 };
@@ -103,6 +105,7 @@ const Background = styled.div<{ active: boolean }>`
 `;
 
 const CardBackground = styled.div<{ active: boolean }>`
+  width: 200px;
   padding: 0px 20px 20px 20px;
   margin: 10px;
   display: flex;
