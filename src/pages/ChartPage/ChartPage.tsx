@@ -44,12 +44,12 @@ export const ChartPage: React.FC<UrlParams> = ({
   const history = useHistory();
 
   // Check if correct URL and parse URL string
-  let naceRegionIdList: number[][];
-  let esgFactorId: number;
+  // let naceRegionIdList: number[][];
+  // let esgFactorId: number;
   try {
-    naceRegionIdList = naceRegionIdStringToList(naceRegionIdString);
+    // naceRegionIdList = naceRegionIdStringToList(naceRegionIdString);
     if (isValidEsgFactorIdString(esgFactorIdString)) {
-      esgFactorId = Number(esgFactorIdString);
+      // esgFactorId = Number(esgFactorIdString);
     } else {
       throw new Error('Illegal argument');
     }
