@@ -19,8 +19,8 @@ export const ChartPage: React.FC<UrlParams> = ({
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
 
-  let naceRegionIdList: number[];
   // Check if correct URL and parse URL string
+  let naceRegionIdList: number[][];
   try {
     naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
   } catch (error) {
@@ -54,7 +54,7 @@ export const ChartPage: React.FC<UrlParams> = ({
         <h1>loading...</h1>
       ) : error ? (
         /* TODO: Make error component */
-        <h1>Error: {error.message}</h1>
+        <h1 data-testid="error">Error: {error.message}</h1>
       ) : (
         <>
           <h1>
@@ -74,18 +74,18 @@ export const ChartPage: React.FC<UrlParams> = ({
 };
 
 export const isValidNaceRegionIdString = (naceRegionIdString: string) => {
-  return /^[0-9,.]*$/.test(naceRegionIdString);
+  return /^[0-9,.;]*$/.test(naceRegionIdString);
 };
 
 /**
- * Input: '1,2,3,4,5'
- * Output: [1,2,3,4,5]
+ * Input: '11,12;21;22'
+ * Output: [[11,12],[21,22]]
  */
 export const naceRegionIdStringToListOrThrow404 = (
   naceRegionIdString: string,
-): number[] => {
+): number[][] => {
   if (!isValidNaceRegionIdString(naceRegionIdString)) {
     throw new Error('Illegal argument');
   }
-  return naceRegionIdString.split(',').map(Number);
+  return naceRegionIdString.split(';').map((s) => s.split(',').map(Number));
 };
