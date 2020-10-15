@@ -14,6 +14,7 @@ export const ChartPage: React.FC<UrlParams> = ({
   console.log(esgFactor);
   try {
     naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
+    console.log(naceRegionIdList);
   } catch (error) {
     return <Redirect to="/404" />;
   }

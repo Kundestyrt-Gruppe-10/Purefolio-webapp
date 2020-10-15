@@ -5,7 +5,6 @@ import { FrontPage } from './pages/FrontPage/FrontPage';
 import { SearchResultsPage } from './pages/SearchResultsPage/SearchResultsPage';
 import './index.css';
 import { GlobalProvider } from './pages/GlobalProvider/GlobalProvider';
-import { NaceRegionCardContainer } from './components/NaceRegionCard/NaceRegionCard';
 import {
   Switch,
   Route,
