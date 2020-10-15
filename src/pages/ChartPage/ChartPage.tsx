@@ -1,7 +1,6 @@
 import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { FooterComponent } from '../../components/FooterComponent/FooterComponent';
+import { Redirect } from 'react-router-dom';
+import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 
 interface UrlParams {
   naceRegionIdString: string;
@@ -21,8 +20,7 @@ export const ChartPage: React.FC<UrlParams> = ({
   }
   return (
     <>
-      {/**TODO: ChartPageHeader */}
-
+      <OverviewTableComponent />
       {/**TODO: NaceRegionCardContainer*/}
 
       {/**TODO: ChartView*/}

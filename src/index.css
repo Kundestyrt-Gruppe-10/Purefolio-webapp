@@ -1,10 +1,10 @@
 /* Roboto font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
+  background-color: var(--main-white-color);
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  background-color: var(--main-white-color);
 }
 
 :root {
@@ -17,7 +17,7 @@ body {
   --third-paleorange-color: rgb(249, 196, 160);
   --third-turquoise-color: rgb(145, 229, 206);
   --third-redorange-color: rgb(168, 73, 36);
-  --third-bluegrey-bolor: rgb(206, 216, 244);
+  --third-bluegrey-color: rgb(206, 216, 244);
   --third-purple-color: rgb(63, 24, 170);
   --third-orange-color: rgb(232, 127, 56);
   --font-size-tiny: 14px;

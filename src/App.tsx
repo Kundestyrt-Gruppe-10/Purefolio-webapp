@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
+import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTable';
 
 export const App: React.FC = () => {
   return (
@@ -22,7 +23,6 @@ export const App: React.FC = () => {
         <Switch>
           <Route exact path="/chartpage">
             {/* TODO: redirect to different default page?*/}
-            <Redirect to="/chartpage/1/1" />
           </Route>
           <Route
             path="/chartpage/:naceRegionIdString/:esgFactor"
@@ -44,6 +44,9 @@ export const App: React.FC = () => {
           <Route exact path="/">
             <HeaderComponent />
             <FrontPage />
+          </Route>
+          <Route path="/overviewtable">
+            <OverviewTableComponent />
           </Route>
           <Route path="/404">
             <NotFoundPage />

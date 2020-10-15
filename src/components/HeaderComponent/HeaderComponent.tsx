@@ -52,7 +52,7 @@ const Nav = styled.nav<{ active: boolean }>`
 
 const NavButton = styled.a<{ active: boolean }>`
   font: Roboto, sans-serif;
-  color: var(--main-color-white);
+  color: #f7f8f6;
   text-decoration: none;
 `;
 
