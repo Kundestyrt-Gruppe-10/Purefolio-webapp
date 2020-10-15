@@ -1,28 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
+import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { Nace, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 
-interface UrlParams {
-  naceRegionIdString: string;
-  esgFactor: string;
+// ----Helper functions----
+export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
+  return /^[0-9,.;]*$/.test(naceRegionIdString);
+}
+export function isValidEsgFactorIdString(esgFactorString: string): boolean {
+  return /^[0-9]*$/.test(esgFactorString);
+}
+/**
+ * Input: '11,12;21;22'
+ * Output: [[11,12],[21,22]]
+ */
+export function naceRegionIdStringToList(
+  naceRegionIdString: string,
+): number[][] {
+  if (!isValidNaceRegionIdString(naceRegionIdString)) {
+    throw new Error('Illegal argument');
+  }
+  return naceRegionIdString.split(';').map((s) => s.split(',').map(Number));
 }
 
+// Props interface
+interface UrlParams {
+  naceRegionIdString: string;
+  esgFactorIdString: string;
+}
+
+// ----React Component----
 export const ChartPage: React.FC<UrlParams> = ({
   naceRegionIdString,
-  esgFactor,
+  esgFactorIdString,
 }) => {
   // ----States----
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
+  const history = useHistory();
 
   // Check if correct URL and parse URL string
   let naceRegionIdList: number[][];
+  let esgFactorId: number;
   try {
-    naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
+    naceRegionIdList = naceRegionIdStringToList(naceRegionIdString);
+    if (isValidEsgFactorIdString(esgFactorIdString)) {
+      esgFactorId = Number(esgFactorIdString);
+    } else {
+      throw new Error('Illegal argument');
+    }
   } catch (error) {
     return <Redirect to="/404" />;
   }
@@ -45,22 +75,34 @@ export const ChartPage: React.FC<UrlParams> = ({
     }
 
     void fetchData();
-  }, [naceRegionIdString, esgFactor]);
+  }, [naceRegionIdString, esgFactorIdString]);
+
+  /**
+   * Sets new url parameters and pushes the new state to history
+   * @param naceRegionIdList
+   * @param esgFactor
+   */
+  function setUrlParams(naceRegionIdList: string, esgFactor: string) {
+    const path = '/chartpage/' + naceRegionIdList + '/' + esgFactor;
+    history.push(path);
+  }
 
   // Render components
   return (
     <>
       {loading ? (
-        <h1>loading...</h1>
+        <h1>Laster...</h1>
       ) : error ? (
         /* TODO: Make error component */
         <h1 data-testid="error">Error: {error.message}</h1>
       ) : (
         <>
           <h1>
-            {regionList ? regionList[0].regionName : null}
-            {naceList ? naceList[0].naceName : null}
+            {regionList && regionList[0] ? regionList[0].regionName : null}
+            {naceList && naceList[0] ? naceList[0].naceName : null}
+            {esgFactorIdString}
           </h1>
+          <button onClick={() => setUrlParams('2,2', '2')}>Click me! </button>
           <OverviewTableComponent />
         </>
       )}
@@ -71,21 +113,4 @@ export const ChartPage: React.FC<UrlParams> = ({
       {/**TODO: ChartView*/}
     </>
   );
-};
-
-export const isValidNaceRegionIdString = (naceRegionIdString: string) => {
-  return /^[0-9,.;]*$/.test(naceRegionIdString);
-};
-
-/**
- * Input: '11,12;21;22'
- * Output: [[11,12],[21,22]]
- */
-export const naceRegionIdStringToListOrThrow404 = (
-  naceRegionIdString: string,
-): number[][] => {
-  if (!isValidNaceRegionIdString(naceRegionIdString)) {
-    throw new Error('Illegal argument');
-  }
-  return naceRegionIdString.split(';').map((s) => s.split(',').map(Number));
 };

@@ -3,7 +3,7 @@ import { setupServer } from 'msw/node';
 import { naces } from '../mockData';
 import {
   isValidNaceRegionIdString,
-  naceRegionIdStringToListOrThrow404,
+  naceRegionIdStringToList,
 } from '../pages/ChartPage/ChartPage';
 
 // TODO: Fix eslint
@@ -48,10 +48,18 @@ describe('Function: isValidNaceRegionIdString', () => {
     expect(isValidNaceRegionIdString('2,2;a,a;e,e')).toBeFalsy();
   });
 });
+describe('Function: isValidEsgFactorString', () => {
+  it('Works on simple input', () => {
+    expect(isValidNaceRegionIdString('155')).toBeTruthy();
+  });
+  it('Fails on wrong input: IE letters', () => {
+    expect(isValidNaceRegionIdString('123a')).toBeFalsy();
+  });
+});
 
 describe('Function: naceRegionIdStringToListOrThrow404', () => {
   it('Returns list of number given correct input', () => {
-    expect(naceRegionIdStringToListOrThrow404('1,1;4,4;2,2')).toEqual([
+    expect(naceRegionIdStringToList('1,1;4,4;2,2')).toEqual([
       [1, 1],
       [4, 4],
       [2, 2],
@@ -59,7 +67,7 @@ describe('Function: naceRegionIdStringToListOrThrow404', () => {
   });
   it('Redirects on wrong input', () => {
     expect(() => {
-      naceRegionIdStringToListOrThrow404('1,ae,22');
+      naceRegionIdStringToList('1,ae,22');
     }).toThrow('Illegal argument');
   });
 });

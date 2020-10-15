@@ -8,7 +8,7 @@ import { GlobalProvider } from './pages/GlobalProvider/GlobalProvider';
 import {
   Switch,
   Route,
-  BrowserRouter,
+  BrowserRouter as Router,
   Redirect,
   RouteComponentProps,
 } from 'react-router-dom';
@@ -18,7 +18,7 @@ import { OverviewTableComponent } from './components/OverviewTableComponent/Over
 
 export const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <GlobalProvider>
         <Switch>
           <Route exact path="/chartpage">
@@ -26,16 +26,16 @@ export const App: React.FC = () => {
             <Redirect to="/chartpage/1,1/1" />
           </Route>
           <Route
-            path="/chartpage/:naceRegionIdString/:esgFactor"
+            path="/chartpage/:naceRegionIdString/:esgFactorIdString"
             render={(
               props: RouteComponentProps<{
                 naceRegionIdString: string;
-                esgFactor: string;
+                esgFactorIdString: string;
               }>,
             ) => (
               <ChartPage
                 naceRegionIdString={props.match.params.naceRegionIdString}
-                esgFactor={props.match.params.esgFactor}
+                esgFactorIdString={props.match.params.esgFactorIdString}
               />
             )}
           />
@@ -56,6 +56,6 @@ export const App: React.FC = () => {
         </Switch>
         <FooterComponent />
       </GlobalProvider>
-    </BrowserRouter>
+    </Router>
   );
 };
