@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const OverviewTable: React.FC = () => {
+export const OverviewTableComponent: React.FC = () => {
   return (
     <OuterContainer active={false}>
       <TableContainer active={false}>

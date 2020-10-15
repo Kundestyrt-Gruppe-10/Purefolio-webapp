@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { OverviewTable } from '../../components/OverviewTable/OverviewTable';
+import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 
 interface UrlParams {
   naceRegionIdString: string;
@@ -13,9 +13,14 @@ export const ChartPage: React.FC<UrlParams> = ({
 }) => {
   let naceRegionIdList: number[];
   console.log(esgFactor);
+  try {
+    naceRegionIdList = naceRegionIdStringToListOrThrow404(naceRegionIdString);
+  } catch (error) {
+    return <Redirect to="/404" />;
+  }
   return (
     <>
-      <OverviewTable />
+      <OverviewTableComponent />
       {/**TODO: NaceRegionCardContainer*/}
 
       {/**TODO: ChartView*/}
@@ -34,10 +39,11 @@ export const isValidNaceRegionIdString = (naceRegionIdString: string) => {
 export const naceRegionIdStringToListOrThrow404 = (
   naceRegionIdString: string,
 ): number[] => {
+  console.log('TEST');
+  console.log(naceRegionIdString);
+  console.log(isValidNaceRegionIdString(naceRegionIdString));
   if (!isValidNaceRegionIdString(naceRegionIdString)) {
     throw new Error('Illegal argument');
   }
-  console.log(naceRegionIdString);
-  console.log(isValidNaceRegionIdString(naceRegionIdString));
   return naceRegionIdString.split(',').map(Number);
 };
