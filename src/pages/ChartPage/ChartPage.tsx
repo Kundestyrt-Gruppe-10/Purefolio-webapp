@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { Nace, Region } from '../../types';
+import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 
 // ----Helper functions----
@@ -25,14 +25,13 @@ export function naceRegionIdStringToList(
   return naceRegionIdString.split(';').map((s) => s.split(',').map(Number));
 }
 
-// Props interface
-interface UrlParams {
+interface Props {
   naceRegionIdString: string;
   esgFactorIdString: string;
 }
 
 // ----React Component----
-export const ChartPage: React.FC<UrlParams> = ({
+export const ChartPage: React.FC<Props> = ({
   naceRegionIdString,
   esgFactorIdString,
 }) => {
@@ -41,13 +40,15 @@ export const ChartPage: React.FC<UrlParams> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
+  const [naceRegionData, setNaceRegionData] = useState<NaceRegionData[]>();
+  const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const history = useHistory();
 
   // Check if correct URL and parse URL string
-  // let naceRegionIdList: number[][];
+  let naceRegionIdList: number[][];
   // let esgFactorId: number;
   try {
-    // naceRegionIdList = naceRegionIdStringToList(naceRegionIdString);
+    naceRegionIdList = naceRegionIdStringToList(naceRegionIdString);
     if (isValidEsgFactorIdString(esgFactorIdString)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
@@ -67,9 +68,19 @@ export const ChartPage: React.FC<UrlParams> = ({
       ApiGet<Nace[]>('/naces')
         .then((res) => setNaceList(res))
         .catch((err) => setError(err));
-
-      // TODO: Fetch naceregionData
-      //naceRegionIdList.map(nace)
+      /* 
+      ApiGet<string[]>('/tables/esg-factors')
+        .then((res) => setEsgFactorList(res))
+        .catch((err) => setError(err));
+ */
+      naceRegionIdList.map((naceId) =>
+        ApiGet<NaceRegionData[]>(`/naceregiondata/${naceId[0]}/${naceId[1]}`)
+          .then((res) => setNaceRegionData(res))
+          .catch((err) => {
+            console.log(err);
+            setError(err);
+          }),
+      );
 
       setLoading(false);
     }
@@ -102,6 +113,13 @@ export const ChartPage: React.FC<UrlParams> = ({
             {naceList && naceList[0] ? naceList[0].naceName : null}
             {esgFactorIdString}
           </h1>
+          <ul>
+            {naceRegionData?.map((data) => (
+              <li key={data.naceRegionDataId}>
+                Emission: {data.emissionPerYear} Year:{data.year}
+              </li>
+            ))}
+          </ul>
           <button onClick={() => setUrlParams('2,2', '2')}>Click me! </button>
           <OverviewTableComponent />
         </>
