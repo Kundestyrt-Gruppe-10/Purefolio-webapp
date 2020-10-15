@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 import { Redirect } from 'react-router-dom';
@@ -18,11 +18,15 @@ const data = [
   { regionId: 10, value: 'Switzerland', label: 'Switzerland' },
 ];
 
-interface colorID {
+interface NaceRegionCardInterface {
   id: number;
+  deleteCard(id: number): void;
+  addCard(): void;
 }
 
-export const NaceRegionCard: React.FC<colorID> = (props: colorID) => {
+export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
+  props: NaceRegionCardInterface,
+) => {
   return (
     <>
       <CardBackground active={true}>
@@ -34,7 +38,12 @@ export const NaceRegionCard: React.FC<colorID> = (props: colorID) => {
             active={true}
             options={data}
           />
-          <Button danger={false}>
+          <Button
+            danger={false}
+            onClick={() => {
+              props.addCard();
+            }}
+          >
             <i
               className="material-icons"
               style={{ fontSize: 'inherit', fontWeight: 'bold' }}
@@ -53,7 +62,7 @@ export const NaceRegionCard: React.FC<colorID> = (props: colorID) => {
           <DangerButton
             danger={true}
             onClick={() => {
-              removeCard(props.id);
+              props.deleteCard(props.id);
             }}
           >
             <i
@@ -94,24 +103,52 @@ export const NaceRegionCard: React.FC<colorID> = (props: colorID) => {
 };
 
 export const NaceRegionCardContainer: React.FC = () => {
+  const [list, setList] = useState(cardList); // integer state
+  let newList = [...list];
+
+  useEffect(() => {
+    setList(newList);
+  }, [newList]);
+
+  const deleteCard = (id: number) => {
+    newList = newList
+      .filter(function (item) {
+        return item !== id;
+      })
+      .map((num) => num);
+    console.log(newList);
+    return () => {
+      setList(newList);
+    }; // update the state to force render
+  };
+
+  const addCard = () => {
+    console.log('Test');
+    let i;
+    for (i = 1; i < 6; i++) {
+      if (!list.includes(i)) {
+        newList.push(i);
+        break;
+      }
+    }
+    console.log(newList);
+    return () => {
+      setList(newList);
+    };
+  };
+
   return (
     <Background active={true}>
-      {cardList.map((item) => (
-        <NaceRegionCard key={item} id={item} />
+      {list.map((item) => (
+        <NaceRegionCard
+          deleteCard={deleteCard}
+          addCard={addCard}
+          key={item}
+          id={item}
+        />
       ))}
     </Background>
   );
-};
-
-const removeCard = (id: number) => {
-  console.log(id);
-  console.log(cardList);
-  for (let i = cardList.length - 1; i >= 0; i--) {
-    if (cardList[i] === id) {
-      cardList.splice(i, 1);
-    }
-  }
-  console.log(cardList);
 };
 
 const handleColorType = (colorID: number) => {
