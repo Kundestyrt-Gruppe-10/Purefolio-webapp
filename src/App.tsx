@@ -75,9 +75,6 @@ export const App: React.FC = () => {
             </Route>
             <Redirect to="/404" />
           </Switch>
-          <FooterContainer>
-            <FooterComponent />
-          </FooterContainer>
         </BaseLayoutContainer>
       </GlobalProvider>
     </Router>
