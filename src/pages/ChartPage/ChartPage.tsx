@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
+import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
+import { ContentContainer } from '../../components/BaseLayout';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -68,11 +70,12 @@ export const ChartPage: React.FC<Props> = ({
       ApiGet<Nace[]>('/naces')
         .then((res) => setNaceList(res))
         .catch((err) => setError(err));
-      /* 
+
       ApiGet<string[]>('/tables/esg-factors')
         .then((res) => setEsgFactorList(res))
         .catch((err) => setError(err));
- */
+      console.log(esgFactorList);
+
       naceRegionIdList.map((naceId) =>
         ApiGet<NaceRegionData[]>(`/naceregiondata/${naceId[0]}/${naceId[1]}`)
           .then((res) => setNaceRegionData(res))
@@ -101,34 +104,70 @@ export const ChartPage: React.FC<Props> = ({
   // Render components
   return (
     <>
-      {loading ? (
-        <h1>Laster...</h1>
-      ) : error ? (
-        /* TODO: Make error component */
-        <h1 data-testid="error">Error: {error.message}</h1>
-      ) : (
-        <>
-          <h1>
-            {regionList && regionList[0] ? regionList[0].regionName : null}
-            {naceList && naceList[0] ? naceList[0].naceName : null}
-            {esgFactorIdString}
-          </h1>
-          <ul>
-            {naceRegionData?.map((data) => (
-              <li key={data.naceRegionDataId}>
-                Emission: {data.emissionPerYear} Year:{data.year}
-              </li>
-            ))}
-          </ul>
-          <button onClick={() => setUrlParams('2,2', '2')}>Click me! </button>
-          <OverviewTableComponent />
-        </>
-      )}
-      {/**TODO: ChartPageHeader */}
-
-      {/**TODO: NaceRegionCardContainer*/}
-
-      {/**TODO: ChartView*/}
+      <ChartPageHeaderContainer>
+        {/**TODO: ChartPageHeader */}
+        <h1>PLACEHOLDER HEADER</h1>
+      </ChartPageHeaderContainer>
+      <ContentContainer>
+        <ChartPageContainer>
+          {loading ? (
+            <h1>Laster...</h1>
+          ) : error ? (
+            /* TODO: Make error component */
+            <h1 data-testid="error">Error: {error.message}</h1>
+          ) : (
+            <>
+              <NaceRegionCardContainer>
+                {/**TODO: NaceRegionCardContainer*/}
+                <h1>PLACEHOLDER NaceRegionCARD</h1>
+              </NaceRegionCardContainer>
+              <ChartViewContainer>
+                {/**TODO: ChartView*/}
+                <h1>PLACEHOLDER ChartViewContainer</h1>
+                <OverviewTableComponent />
+              </ChartViewContainer>
+              <h1>
+                {regionList && regionList[0] ? regionList[0].regionName : null}
+                {naceList && naceList[0] ? naceList[0].naceName : null}
+                {esgFactorIdString}
+              </h1>
+              <ul>
+                {naceRegionData?.map((data) => (
+                  <li key={data.naceRegionDataId}>
+                    Emission: {data.emissionPerYear} Year:{data.year}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => setUrlParams('2,2', '2')}>
+                Click me!{' '}
+              </button>
+            </>
+          )}
+        </ChartPageContainer>
+      </ContentContainer>
     </>
   );
 };
+
+const ChartPageHeaderContainer = styled.div`
+  grid-column-start: left-pad-start;
+  grid-column-end: right-pad-stop;
+  grid-row-start: header-start;
+  grid-row-end: header-stop;
+`;
+const NaceRegionCardContainer = styled.div`
+  grid-column-start: main-start;
+  grid-column-end: main-stop;
+  grid-row-start: card-start;
+  grid-row-end: card-stop;
+`;
+const ChartViewContainer = styled.div`
+  grid-column-start: left-pad-stop;
+  grid-column-end: right-pad-start;
+  grid-row-start: main-start;
+  grid-row-end: main-stop;
+`;
+
+const ChartPageContainer = styled.div`
+  grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];
+`;
