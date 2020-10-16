@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
+import { ChartView } from './components/ChartView/ChartView';
 
 export const App: React.FC = () => {
   return (
@@ -43,7 +44,8 @@ export const App: React.FC = () => {
           </Route>
           <Route exact path="/">
             <HeaderComponent />
-            <FrontPage />
+            {/*<FrontPage />*/}
+            <ChartView />
           </Route>
           <Route path="/404">
             <NotFoundPage />
