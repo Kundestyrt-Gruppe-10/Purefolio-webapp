@@ -3,11 +3,13 @@ import { setupServer } from 'msw/node';
 import { naces } from '../mockData';
 import {
   isValidNaceRegionIdString,
-  naceRegionIdStringToListOrThrow404,
+  naceRegionIdStringToList,
 } from '../pages/ChartPage/ChartPage';
 
 // TODO: Fix eslint
 /*eslint-disable*/
+
+// TODO: Implement msw properly
 const server = setupServer(
   // Describe the requests to mock.
 
@@ -37,23 +39,55 @@ test('renders a book data', () => {
 
 describe('Function: isValidNaceRegionIdString', () => {
   it('Works on simple input', () => {
-    expect(isValidNaceRegionIdString('55')).toBeTruthy();
+    expect(isValidNaceRegionIdString('1,1')).toBeTruthy();
   });
   it('Works on array of input', () => {
-    expect(isValidNaceRegionIdString('55,22,33')).toBeTruthy();
+    expect(isValidNaceRegionIdString('5,5;2,2;3,3')).toBeTruthy();
   });
   it('Fails on wrong input: IE letters', () => {
-    expect(isValidNaceRegionIdString('22,aa,ee')).toBeFalsy();
+    expect(isValidNaceRegionIdString('2,2;a,a;e,e')).toBeFalsy();
+  });
+});
+describe('Function: isValidEsgFactorString', () => {
+  it('Works on simple input', () => {
+    expect(isValidNaceRegionIdString('155')).toBeTruthy();
+  });
+  it('Fails on wrong input: IE letters', () => {
+    expect(isValidNaceRegionIdString('123a')).toBeFalsy();
   });
 });
 
 describe('Function: naceRegionIdStringToListOrThrow404', () => {
   it('Returns list of number given correct input', () => {
-    expect(naceRegionIdStringToListOrThrow404('1,44,22')).toEqual([1, 44, 22]);
+    expect(naceRegionIdStringToList('1,1;4,4;2,2')).toEqual([
+      [1, 1],
+      [4, 4],
+      [2, 2],
+    ]);
   });
   it('Redirects on wrong input', () => {
     expect(() => {
-      naceRegionIdStringToListOrThrow404('1,ssae,22');
+      naceRegionIdStringToList('1,ae,22');
     }).toThrow('Illegal argument');
   });
 });
+
+// TODO: E2E tests with msw does not work in a browserless environment
+// Mabye use cypress?
+/*eslint-disable*/
+/*
+describe('Chartpage routing', () => {
+  it('Works on correct route', () => {
+    const history = createMemoryHistory();
+    history.push('/chartpage/1,1/1');
+    const document = render(
+      <Router history={history}>
+        <ChartPage naceRegionIdString="1,1" esgFactor="1" />
+      </Router>,
+    );
+
+    expect(document.findByTestId('error')).toBeUndefined();
+  });
+});
+
+*/
