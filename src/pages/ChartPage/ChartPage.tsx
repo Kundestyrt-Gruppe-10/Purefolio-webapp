@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
+import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -124,6 +125,7 @@ export const ChartPage: React.FC<Props> = ({
               <ChartViewContainer>
                 {/**TODO: ChartView*/}
                 <h1>PLACEHOLDER ChartViewContainer</h1>
+                <BarchartComponent />
                 <OverviewTableComponent />
               </ChartViewContainer>
               <h1>
