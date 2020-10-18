@@ -10,6 +10,7 @@ body {
 :root {
   --main-white-color: rgb(247, 248, 246);
   --main-black-color: rgb(19, 22, 28);
+  --main-blackAlpha-color: rgba(19, 22, 28, 0.53);
   --sec-purple-color: rgb(63, 24, 170);
   --sec-orange-color: rgb(232, 127, 56);
   --third-blue-color: rgb(127, 150, 247);
