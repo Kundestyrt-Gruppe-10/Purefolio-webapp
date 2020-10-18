@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { OverviewTable } from '../../components/OverviewTable/OverviewTable';
+import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
 import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
 
 interface UrlParams {
@@ -23,6 +24,7 @@ export const ChartPage: React.FC<UrlParams> = ({
   return (
     <>
       <ChartPageHeaderComponent />
+      <HistoryGraphComponent />
       <OverviewTable />
       {/**TODO: NaceRegionCardContainer*/}
 
