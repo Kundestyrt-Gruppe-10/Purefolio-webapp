@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCard';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -117,10 +118,7 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              <NaceRegionCardContainer>
-                {/**TODO: NaceRegionCardContainer*/}
-                <h1>PLACEHOLDER NaceRegionCARD</h1>
-              </NaceRegionCardContainer>
+              <NaceRegionCardContainer />
               <ChartViewContainer>
                 {/**TODO: ChartView*/}
                 <h1>PLACEHOLDER ChartViewContainer</h1>
@@ -154,12 +152,6 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
-`;
-const NaceRegionCardContainer = styled.div`
-  grid-column-start: main-start;
-  grid-column-end: main-stop;
-  grid-row-start: card-start;
-  grid-row-end: card-stop;
 `;
 const ChartViewContainer = styled.div`
   grid-column-start: left-pad-stop;
