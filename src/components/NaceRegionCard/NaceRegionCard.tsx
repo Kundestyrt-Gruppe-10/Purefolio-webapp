@@ -20,8 +20,10 @@ const data = [
 
 interface NaceRegionCardInterface {
   id: number;
+  /*
   deleteCard(id: number): void;
   addCard(): void;
+  */
 }
 
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
@@ -41,7 +43,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <Button
             danger={false}
             onClick={() => {
-              props.addCard();
+              // props.addCard();
             }}
           >
             <i
@@ -62,7 +64,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <DangerButton
             danger={true}
             onClick={() => {
-              props.deleteCard(props.id);
+              // props.deleteCard(props.id);
             }}
           >
             <i
@@ -104,12 +106,13 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
 
 export const NaceRegionCardContainer: React.FC = () => {
   const [list, setList] = useState(cardList); // integer state
-  let newList = [...list];
-
+  const newList = [...list];
+  /*
   useEffect(() => {
     setList(newList);
   }, [newList]);
-
+  */
+  /*
   const deleteCard = (id: number) => {
     newList = newList
       .filter(function (item) {
@@ -136,13 +139,14 @@ export const NaceRegionCardContainer: React.FC = () => {
       setList(newList);
     };
   };
+  */
 
   return (
     <Background active={true}>
       {list.map((item) => (
         <NaceRegionCard
-          deleteCard={deleteCard}
-          addCard={addCard}
+          /*deleteCard={deleteCard}
+          addCard={addCard}*/
           key={item}
           id={item}
         />

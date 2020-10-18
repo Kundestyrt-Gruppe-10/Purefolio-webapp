@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
+import { NaceRegionCardContainer } from './components/NaceRegionCard/NaceRegionCard';
 
 export const App: React.FC = () => {
   return (
@@ -40,6 +41,9 @@ export const App: React.FC = () => {
           />
           <Route path="/results/">
             <SearchResultsPage />
+          </Route>
+          <Route path="/naceregion/">
+            <NaceRegionCardContainer />
           </Route>
           <Route exact path="/">
             <HeaderComponent />
