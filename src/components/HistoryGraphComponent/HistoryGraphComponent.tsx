@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
@@ -13,46 +14,40 @@ import {
 
 const data = [
   {
-    name: 'Page A',
+    name: '2014',
     uv: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
-    name: 'Page B',
+    name: '2015',
     uv: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
-    name: 'Page C',
+    name: '2016',
     uv: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
-    name: 'Page D',
+    name: '2017',
     uv: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
-    name: 'Page E',
+    name: '2018',
     uv: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
-    name: 'Page F',
+    name: '2019',
     uv: 2390,
     pv: 3800,
     amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
   },
 ];
 
@@ -60,35 +55,36 @@ export const HistoryGraphComponent: React.FC = () => {
   return (
     <OuterContainer active={false}>
       <TableContainer active={false}>
+        <GraphContainer active={false}>
+          <ResponsiveContainer aspect={2} width="96%" height="97%">
+            <LineChart
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 30,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" stroke="#f7f8f6" />
+              <YAxis stroke="#f7f8f6" />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="pv"
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            </LineChart>
+          </ResponsiveContainer>
+        </GraphContainer>
         <UpperBox active={false}>
           <TitleBox active={false}>Air Emission accounts</TitleBox>
           <PeriodBox active={false}>Period: 2014-2018</PeriodBox>
         </UpperBox>
-        <LineChart
-          /*TODO: Make size responsive/flex */
-          width={950}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="pv"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
       </TableContainer>
     </OuterContainer>
   );
@@ -98,7 +94,9 @@ const OuterContainer = styled.div<{ active: boolean }>`
   height: 75vh;
   margin: auto;
   padding-top: 8em;
+  padding-bottom: 50px;
 `;
+
 const TableContainer = styled.div<{ active: boolean }>`
   background-color: var(--third-bluegrey-color);
   width: 90%;
@@ -106,8 +104,21 @@ const TableContainer = styled.div<{ active: boolean }>`
   position: relative;
   border-radius: 5px;
   padding-top: 20px;
+  padding-bottom: 20px;
   z-index: 1;
 `;
+
+const GraphContainer = styled.div<{ active: boolean }>`
+  background-color: var(--sec-purple-color);
+  width: 90%;
+  margin: auto;
+  position: relative;
+  border-radius: 5px;
+  padding-top: 10px;
+  z-index: 1;
+  transform: translateY(-70px);
+`;
+
 const TableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
@@ -131,16 +142,6 @@ const UpperBox = styled.div<{ active: boolean }>`
   font-size: 20px;
   border-bottom: 0.6px solid #ced8f4;
   font-weight: 700;
-  height: 50%;
-`;
-
-const LowerBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 5%;
-  margin-right: 5%;
   height: 50%;
 `;
 
@@ -169,21 +170,6 @@ const TableDataContainer = styled.div<{ active: boolean }>`
   width: 81%;
   margin: auto;
   font-weight: 400;
-`;
-
-const TableRow = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border-bottom: 2px dotted #abbdd7;
-  height: 40px;
-  font-size: 14px;
-  &:nth-child(1) {
-    font-weight: 700;
-  }
-  &:nth-last-child(1) {
-    border: none;
-  }
 `;
 
 const TableBox = styled.div<{ active: boolean }>`
