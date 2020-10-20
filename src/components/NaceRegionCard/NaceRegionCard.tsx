@@ -64,17 +64,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
     props.setNaceRegionId(naceId, regionId, props.id);
   };
   /*eslint-enable*/
-  console.log('RegionId: ', regionId);
-  console.log('NaceId: ', naceId);
 
-  /*
-      velger RegionId = 2
-      velger NaceId = 2
-      "2,2"
-      Dytter opp til NaceRegionCardContainer
-      "2,2;3,3"
-      setUrlParam("2,2;3;3")
-    */
   return (
     <>
       <CardBackground active={true}>
@@ -169,6 +159,31 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     const newNaceRegionIdList = naceRegionIdList;
     newNaceRegionIdList[cardId] = naceRegion;
     setNaceRegionIdList(newNaceRegionIdList);
+  }
+
+  // Convert naceRegionIdList to a string that can be used to set URL params
+  function naceRegionIdListToString(naceRegionIdList: number[][]) {
+    let naceRegionIdString = '';
+    let naceIt, regionIt;
+    for (naceIt = 0; naceIt < naceRegionIdList.length; naceIt++) {
+      for (
+        regionIt = 0;
+        regionIt < naceRegionIdList[naceIt].length;
+        regionIt++
+      ) {
+        naceRegionIdString += naceRegionIdList[naceIt][regionIt].toString();
+        if (regionIt + 1 != naceRegionIdList[naceIt].length) {
+          naceRegionIdString += ',';
+        }
+      }
+      if (naceIt + 1 != naceRegionIdList.length) {
+        naceRegionIdString += ';';
+      }
+    }
+
+    console.log('naceRegionIdString: ', naceRegionIdString);
+
+    return naceRegionIdString;
   }
 
   //TODO: Fix add/remove card functions
