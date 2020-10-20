@@ -65,33 +65,37 @@ export const ChartPage: React.FC<Props> = ({
 
   // Fetch data from API
   useEffect(() => {
-    function fetchData() {
-      ApiGet<Region[]>('/regions')
-        .then((res) => setRegionList(res))
-        .catch((err) => setError(err));
+    async function fetchData() {
+      return await Promise.all([
+        ApiGet<Region[]>('/regions')
+          .then((res) => setRegionList(res))
+          .catch((err) => setError(err)),
 
-      ApiGet<Nace[]>('/naces')
-        .then((res) => setNaceList(res))
-        .catch((err) => setError(err));
+        ApiGet<Nace[]>('/naces')
+          .then((res) => setNaceList(res))
+          .catch((err) => setError(err)),
 
-      ApiGet<string[]>('/tables/esg-factors')
-        .then((res) => setEsgFactorList(res))
-        .catch((err) => setError(err));
+        ApiGet<string[]>('/tables/esg-factors')
+          .then((res) => setEsgFactorList(res))
+          .catch((err) => setError(err)),
 
-      Promise.all(
-        naceRegionIdList.map((regionIdNaceId) =>
-          ApiGet<NaceRegionData[]>(
-            `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+        Promise.all(
+          naceRegionIdList.map((regionIdNaceId) =>
+            ApiGet<NaceRegionData[]>(
+              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+            ).then((res) => {
+              if (res.length < 1) throw new Error('one list was empy');
+              return res;
+            }),
           ),
-        ),
-      )
-        .then((res) => {
-          console.log('AWAIT ALLL:');
-          console.log(res);
-          setNaceRegionData(res);
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
+        )
+          .then((res) => {
+            console.log('AWAIT ALLL:');
+            console.log(res);
+            setNaceRegionData(res);
+          })
+          .catch((err) => setError(err)),
+      ]);
 
       /*       naceRegionIdList.map((regionIdNaceId) =>
         ApiGet<NaceRegionData[]>(
@@ -116,7 +120,7 @@ export const ChartPage: React.FC<Props> = ({
       ); */
     }
 
-    void fetchData();
+    void fetchData().then((res) => setLoading(false));
   }, [naceRegionIdString, esgFactorIdString]);
 
   /**
