@@ -46,7 +46,7 @@ export const ChartPage: React.FC<Props> = ({
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
-  const [esgFactorList, setEsgFactorList] = useState<string[]>();
+  const [, /*esgFactorList*/ setEsgFactorList] = useState<string[]>();
   const history = useHistory();
 
   // Check if correct URL and parse URL string
@@ -84,6 +84,7 @@ export const ChartPage: React.FC<Props> = ({
             ApiGet<NaceRegionData[]>(
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
             ).then((res) => {
+              console.log(res);
               if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
@@ -120,7 +121,7 @@ export const ChartPage: React.FC<Props> = ({
       ); */
     }
 
-    void fetchData().then((res) => setLoading(false));
+    void fetchData().then(() => setLoading(false));
   }, [naceRegionIdString, esgFactorIdString]);
 
   /**
@@ -166,7 +167,7 @@ export const ChartPage: React.FC<Props> = ({
               <ul>
                 {!loading && naceRegionDataListList ? (
                   <BarchartComponent
-                    naceRegionData2={naceRegionDataListList}
+                    naceRegionData={naceRegionDataListList}
                     esgFactor={'emissionPerYear'}
                   />
                 ) : (

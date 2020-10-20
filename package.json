@@ -11,8 +11,8 @@
     "build:analyze": "ANALYZE=true webpack --env.production",
     "test": "jest --coverage src",
     "test:watch": "jest src --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src"
   },
   "license": "Apache-2.0",
   "devDependencies": {
@@ -103,7 +103,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix src"
     ],
     "*.css": [
       "stylelint --fix",
