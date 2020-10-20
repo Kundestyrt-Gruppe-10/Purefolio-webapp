@@ -52,32 +52,26 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.setUrlParams(newUrlString, '1');
   }
 
-  //TODO: Fix remove card functions
-  /*
-  useEffect(() => {
-    setList(newList);
-  }, [newList]);
-  */
-  /*
-  const deleteCard = (id: number) => {
-    newList = newList
+  function deleteCard(id: number) {
+    let newNaceRegionIdList = naceRegionIdList;
+    newNaceRegionIdList = newNaceRegionIdList
       .filter(function (item) {
-        return item !== id;
+        return newNaceRegionIdList.indexOf(item) !== id;
       })
       .map((num) => num);
-    console.log(newList);
-    return () => {
-      setList(newList);
-    }; // update the state to force render
-  };
-  */
+    setNaceRegionIdList(newNaceRegionIdList);
+    const newUrlString = naceRegionIdListToString(newNaceRegionIdList);
+    props.setUrlParams(newUrlString, '1');
+  }
+
+  //TODO: deleteCard() sets URL correctly, however it does not rerender correctly. Needs fix
 
   return (
     <Background active={true}>
       {props.naceRegionIdList.map((item, index) => (
         <NaceRegionCard
-          // deleteCard={deleteCard}
           addCard={addCard}
+          deleteCard={deleteCard}
           key={index}
           id={index}
           regionList={props.regionList}
@@ -103,7 +97,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
 const Background = styled.div<{ active: boolean }>`
   margin: 0;
   background-color: var(--main-white-color);
-  padding: 0 100px;
+  padding: 50px 20px 20px 20px;
   display: flex;
   flex-direction: row;
 `;

@@ -20,7 +20,7 @@ export const ChartViewTabs: React.FC = () => {
         <ChartTabs active={true}>History Graph</ChartTabs>
         <ChartTabs active={true}>History Diagram</ChartTabs>
         <ChartTabs active={true}>Overview Table</ChartTabs>
-        <ChartTabs active={true}>Percentace Table</ChartTabs>
+        <ChartTabs active={true}>Percentage Table</ChartTabs>
       </ChartTabsContainer>
     </>
   );
@@ -28,7 +28,6 @@ export const ChartViewTabs: React.FC = () => {
 
 const ChartViewContainer = styled.div<{ active: boolean }>`
   background-color: var(--main-white-color);
-  padding: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -43,7 +42,7 @@ const ContainerLine = styled.hr<{ active: boolean }>`
 `;
 
 const ChartTabsContainer = styled.nav<{ active: boolean }>`
-  width: 30%;
+  width: 40%;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -57,7 +56,7 @@ const ChartTabs = styled.a<{ active: boolean }>`
   background-color: var(--main-white-color);
   color: var(--main-blackAlpha-color);
   text-decoration: none;
-  font-size: var(--font-size-xtiny);
+  font-size: var(--font-size-tiny);
   :hover {
     color: var(--main-black-color);
     font-weight: 700;

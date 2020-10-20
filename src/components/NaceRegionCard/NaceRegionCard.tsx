@@ -76,7 +76,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <DangerButton
             danger={true}
             onClick={() => {
-              // props.deleteCard(props.id);
+              props.deleteCard(props.id);
             }}
           >
             <i

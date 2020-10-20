@@ -107,7 +107,7 @@ export const ChartPage: React.FC<Props> = ({
     <>
       <ChartPageHeaderContainer>
         {/**TODO: ChartPageHeader */}
-        <h1>PLACEHOLDER HEADER</h1>
+        <p>Placeholder header</p>
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>
@@ -129,6 +129,7 @@ export const ChartPage: React.FC<Props> = ({
                 />
               ) : null}
               <ChartView />
+              {/*
               <h1>
                 {regionList && regionList[0] ? regionList[0].regionName : null}
                 {naceList && naceList[0] ? naceList[0].naceName : null}
@@ -141,9 +142,7 @@ export const ChartPage: React.FC<Props> = ({
                   </li>
                 ))}
               </ul>
-              <button onClick={() => setUrlParams('2,2', '2')}>
-                Click me!{' '}
-              </button>
+              */}
             </>
           )}
         </ChartPageContainer>
@@ -157,6 +156,8 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
+  background: var(--sec-purple-color);
+  color: var(--main-white-color);
 `;
 const ChartViewContainer = styled.div`
   grid-column-start: left-pad-stop;

@@ -83,9 +83,8 @@ export const OverviewTableComponent: React.FC = () => {
 };
 
 const OuterContainer = styled.div<{ active: boolean }>`
-  height: 75vh;
   margin: auto;
-  padding-top: 8em;
+  margin: 70px 0 30px 0;
   width: 100%;
 `;
 const TableContainer = styled.div<{ active: boolean }>`
@@ -117,7 +116,7 @@ const UpperBox = styled.div<{ active: boolean }>`
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
-  font-size: 20px;
+  font-size: var(--font-size-medium);
   border-bottom: 0.5px solid #ced8f4;
   font-weight: 700;
   height: 50%;
@@ -166,7 +165,7 @@ const TableRow = styled.div<{ active: boolean }>`
   justify-content: space-between;
   border-bottom: 2px dotted #abbdd7;
   height: 40px;
-  font-size: 14px;
+  font-size: var(--font-size-tiny);
   &:nth-child(1) {
     font-weight: 700;
   }
