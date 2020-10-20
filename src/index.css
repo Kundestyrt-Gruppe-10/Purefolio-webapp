@@ -1,5 +1,5 @@
 /* Roboto font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
   background-color: var(--main-white-color);
@@ -10,6 +10,7 @@ body {
 :root {
   --main-white-color: rgb(247, 248, 246);
   --main-black-color: rgb(19, 22, 28);
+  --main-blackAlpha-color: rgba(19, 22, 28, 0.53);
   --sec-purple-color: rgb(63, 24, 170);
   --sec-orange-color: rgb(232, 127, 56);
   --third-blue-color: rgb(127, 150, 247);
@@ -20,6 +21,7 @@ body {
   --third-bluegrey-color: rgb(206, 216, 244);
   --third-purple-color: rgb(63, 24, 170);
   --third-orange-color: rgb(232, 127, 56);
+  --font-size-xtiny: 12px;
   --font-size-tiny: 14px;
   --font-size-small: 16px;
   --font-size-medium: 20px;

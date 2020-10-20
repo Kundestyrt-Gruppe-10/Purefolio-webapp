@@ -29,7 +29,7 @@
     "react/prop-types": "off",
     "react/self-closing-comp": "error",
     "deprecation/deprecation": "error",
-    "import/no-unresolved": "off",
-    "@typescript-eslint/unbound-method": "off"
+    "import/no-unresolved": "error",
+    "@typescript-eslint/unbound-method": "error"
   }
 }

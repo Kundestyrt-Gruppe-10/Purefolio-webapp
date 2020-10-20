@@ -5,4 +5,9 @@ import './styles/variables.css';
 
 import { App } from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { FooterComponent } from './components/FooterComponent/FooterComponent';
+
+ReactDOM.render(
+  [<App key="1" />, <FooterComponent key="2" />],
+  document.getElementById('root'),
+);
