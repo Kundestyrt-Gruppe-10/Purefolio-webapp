@@ -4,19 +4,13 @@ import Select from 'react-select';
 //import { Redirect } from 'react-router-dom';
 //import {ChartPage} from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
-import {
-  NaceRegionCardInterface,
-  NaceRegionContainerInterface,
-  SelectItemInterface,
-} from './types';
+import { NaceRegionCardInterface, SelectItemInterface } from './types';
 
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   props: NaceRegionCardInterface,
 ) => {
   const [regionId, setRegionId] = useState<number>(props.regionId);
   const [naceId, setNaceId] = useState<number>(props.naceId);
-  //console.log("Regions: ", props.regionList);
-  //console.log("Naces: ", props.naceList);
   const selectRegion: SelectItemInterface[] = props.regionList.map(
     (region: Region) => ({
       label: region.regionName,
