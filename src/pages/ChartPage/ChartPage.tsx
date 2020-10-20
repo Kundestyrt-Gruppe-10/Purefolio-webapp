@@ -43,7 +43,9 @@ export const ChartPage: React.FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
-  const [naceRegionData, setNaceRegionData] = useState<NaceRegionData[]>();
+  const [naceRegionDataListList, setNaceRegionData] = useState<
+    NaceRegionData[][]
+  >();
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const history = useHistory();
 
@@ -75,18 +77,43 @@ export const ChartPage: React.FC<Props> = ({
       ApiGet<string[]>('/tables/esg-factors')
         .then((res) => setEsgFactorList(res))
         .catch((err) => setError(err));
-      console.log(esgFactorList);
 
-      naceRegionIdList.map((naceId) =>
-        ApiGet<NaceRegionData[]>(`/naceregiondata/${naceId[0]}/${naceId[1]}`)
-          .then((res) => setNaceRegionData(res))
+      Promise.all(
+        naceRegionIdList.map((regionIdNaceId) =>
+          ApiGet<NaceRegionData[]>(
+            `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+          ),
+        ),
+      )
+        .then((res) => {
+          console.log('AWAIT ALLL:');
+          console.log(res);
+          setNaceRegionData(res);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+
+      /*       naceRegionIdList.map((regionIdNaceId) =>
+        ApiGet<NaceRegionData[]>(
+          // `/naceregiondata?regionId=${regionIdNaceId[0]}&naceId=${regionIdNaceId[1]}`,
+          `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+        )
+          .then((res) => {
+            // console.log(regionIdNaceId);
+            // console.log(res);
+            let newState: NaceRegionData[][];
+            if (naceRegionDataListList) {
+              newState = naceRegionDataListList?.concat([res]);
+            } else {
+              newState = [res];
+            }
+            setNaceRegionData(newState);
+          })
           .catch((err) => {
             console.log(err);
             setError(err);
           }),
-      );
-
-      setLoading(false);
+      ); */
     }
 
     void fetchData();
@@ -125,7 +152,6 @@ export const ChartPage: React.FC<Props> = ({
               <ChartViewContainer>
                 {/**TODO: ChartView*/}
                 <h1>PLACEHOLDER ChartViewContainer</h1>
-                <BarchartComponent />
                 <OverviewTableComponent />
               </ChartViewContainer>
               <h1>
@@ -134,11 +160,22 @@ export const ChartPage: React.FC<Props> = ({
                 {esgFactorIdString}
               </h1>
               <ul>
-                {naceRegionData?.map((data) => (
-                  <li key={data.naceRegionDataId}>
-                    Emission: {data.emissionPerYear} Year:{data.year}
-                  </li>
-                ))}
+                {!loading && naceRegionDataListList ? (
+                  <BarchartComponent
+                    naceRegionData2={naceRegionDataListList}
+                    esgFactor={'emissionPerYear'}
+                  />
+                ) : (
+                  <h1>No naceRegionDataListList</h1>
+                )}
+                {naceRegionDataListList?.map((naceRegionDataList) =>
+                  naceRegionDataList.map((naceRegionData) => {
+                    <li key={naceRegionData.naceRegionDataId}>
+                      Emission: {naceRegionData.emissionPerYear} Year:
+                      {naceRegionData.year}
+                    </li>;
+                  }),
+                )}
               </ul>
               <button onClick={() => setUrlParams('2,2', '2')}>
                 Click me!{' '}
