@@ -8,52 +8,75 @@ import { GlobalProvider } from './pages/GlobalProvider/GlobalProvider';
 import {
   Switch,
   Route,
-  BrowserRouter,
+  BrowserRouter as Router,
   Redirect,
   RouteComponentProps,
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { ChartView } from './components/ChartView/ChartView';
+import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTable';
+import {
+  BaseLayoutContainer,
+  ContentContainer,
+  FooterContainer,
+  HeaderContainer,
+} from './components/BaseLayout';
 
 export const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <GlobalProvider>
-        <Switch>
-          <Route exact path="/chartpage">
-            {/* TODO: redirect to different default page?*/}
-            <Redirect to="/chartpage/1/1" />
-          </Route>
-          <Route
-            path="/chartpage/:naceRegionIdString/:esgFactor"
-            render={(
-              props: RouteComponentProps<{
-                naceRegionIdString: string;
-                esgFactor: string;
-              }>,
-            ) => (
-              <ChartPage
-                naceRegionIdString={props.match.params.naceRegionIdString}
-                esgFactor={props.match.params.esgFactor}
-              />
-            )}
-          />
-          <Route path="/results/">
-            <SearchResultsPage />
-          </Route>
-          <Route exact path="/">
-            <HeaderComponent />
-            {/*<FrontPage />*/}
-            <ChartView />
-          </Route>
-          <Route path="/404">
-            <NotFoundPage />
-          </Route>
-          <Redirect to="/404" />
-        </Switch>
-        <FooterComponent />
+        <BaseLayoutContainer>
+          <Switch>
+            <Route exact path="/chartpage">
+              {/* TODO: redirect to different default page? Redirect in component instead?*/}
+              <Redirect to="/chartpage/1,1/1" />
+            </Route>
+            <Route
+              path="/chartpage/:naceRegionIdString/:esgFactorIdString"
+              render={(
+                props: RouteComponentProps<{
+                  naceRegionIdString: string;
+                  esgFactorIdString: string;
+                }>,
+              ) => (
+                <ChartPage
+                  naceRegionIdString={props.match.params.naceRegionIdString}
+                  esgFactorIdString={props.match.params.esgFactorIdString}
+                />
+              )}
+            />
+            <Route path="/results/">
+              <HeaderContainer>
+                <HeaderComponent />
+              </HeaderContainer>
+              <ContentContainer>
+                <SearchResultsPage />
+              </ContentContainer>
+            </Route>
+            <Route exact path="/">
+              <HeaderContainer>
+                <HeaderComponent />
+              </HeaderContainer>
+              <ContentContainer>
+                <FrontPage />
+              </ContentContainer>
+            </Route>
+            <Route path="/overviewtable">
+              <OverviewTableComponent />
+            </Route>
+            <Route path="/404">
+              <HeaderContainer>
+                <HeaderComponent />
+              </HeaderContainer>
+              <ContentContainer>
+                <NotFoundPage />
+              </ContentContainer>
+            </Route>
+            <Redirect to="/404" />
+          </Switch>
+        </BaseLayoutContainer>
       </GlobalProvider>
-    </BrowserRouter>
+    </Router>
   );
 };

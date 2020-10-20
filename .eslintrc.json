@@ -30,6 +30,6 @@
     "react/self-closing-comp": "error",
     "deprecation/deprecation": "error",
     "import/no-unresolved": "error",
-    "@typescript-eslint/unbound-method": "off"
+    "@typescript-eslint/unbound-method": "error"
   }
 }
