@@ -1,5 +1,4 @@
 import React from 'react';
-import { FooterComponent } from './components/FooterComponent/FooterComponent';
 import { HeaderComponent } from './components/HeaderComponent/HeaderComponent';
 import { FrontPage } from './pages/FrontPage/FrontPage';
 import { SearchResultsPage } from './pages/SearchResultsPage/SearchResultsPage';
@@ -14,12 +13,10 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { NaceRegionCardContainer } from './components/NaceRegionCard/NaceRegionCard';
 import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTable';
 import {
   BaseLayoutContainer,
   ContentContainer,
-  FooterContainer,
   HeaderContainer,
 } from './components/BaseLayout';
 
@@ -54,9 +51,6 @@ export const App: React.FC = () => {
               <ContentContainer>
                 <SearchResultsPage />
               </ContentContainer>
-            </Route>
-            <Route path="/naceregion/">
-              <NaceRegionCardContainer />
             </Route>
             <Route exact path="/">
               <HeaderContainer>

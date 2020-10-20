@@ -1,34 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
+//import {ChartPage} from '../../pages/ChartPage/ChartPage';
+import { Nace, Region } from '../../types';
 
-const cardList = [1, 2, 3, 4];
-
-const data = [
-  { regionId: 1, value: 'Norway', label: 'Norway' },
-  { regionId: 2, value: 'Sweden', label: 'Sweden' },
-  { regionId: 3, value: 'Denmark', label: 'Denmark' },
-  { regionId: 4, value: 'Finland', label: 'Finland' },
-  { regionId: 5, value: 'United Kingdom', label: 'United Kingdom' },
-  { regionId: 6, value: 'Germany', label: 'Germany' },
-  { regionId: 7, value: 'France', label: 'France' },
-  { regionId: 8, value: 'Spain', label: 'Spain' },
-  { regionId: 9, value: 'Italy', label: 'Italy' },
-  { regionId: 10, value: 'Switzerland', label: 'Switzerland' },
-];
+const cardList = [1, 2, 3];
 
 interface NaceRegionCardInterface {
   id: number;
+  regionList: Region[];
+  naceList: Nace[];
+  naceId: number;
+  regionId: number;
+  setNaceRegionId(naceId: number, regionId: number, cardId: number): void;
   /*
   deleteCard(id: number): void;
   addCard(): void;
   */
 }
 
+interface NaceRegionContainerInterface {
+  regionList: Region[];
+  naceList: Nace[];
+  setUrlParams(naceRegionIdList: string, esgFactor: string): void;
+  naceRegionIdList: number[][];
+}
+
+interface SelectItemInterface {
+  label: string;
+  value: number;
+}
+
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   props: NaceRegionCardInterface,
 ) => {
+  const [regionId, setRegionId] = useState<number>(props.regionId);
+  const [naceId, setNaceId] = useState<number>(props.naceId);
+  //console.log("Regions: ", props.regionList);
+  //console.log("Naces: ", props.naceList);
+  const selectRegion: SelectItemInterface[] = props.regionList.map(
+    (region: Region) => ({
+      label: region.regionName,
+      value: region.regionId,
+    }),
+  );
+
+  const selectNace: SelectItemInterface[] = props.naceList.map(
+    (nace: Nace) => ({
+      label: nace.naceName,
+      value: nace.naceId,
+    }),
+  );
+
+  /*eslint-disable*/
+  const handleChangeRegion = (selectedOption: any) => {
+    setRegionId(selectedOption.value);
+    props.setNaceRegionId(naceId, regionId, props.id);
+  };
+
+  const handleChangeNace = (selectedOption: any) =>{
+    setNaceId(selectedOption.value);
+    props.setNaceRegionId(naceId, regionId, props.id);
+  };
+  /*eslint-enable*/
+  console.log('RegionId: ', regionId);
+  console.log('NaceId: ', naceId);
+
+  /*
+      velger RegionId = 2
+      velger NaceId = 2
+      "2,2"
+      Dytter opp til NaceRegionCardContainer
+      "2,2;3,3"
+      setUrlParam("2,2;3;3")
+    */
   return (
     <>
       <CardBackground active={true}>
@@ -38,7 +84,9 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             className="country-select"
             classNamePrefix="react-select"
             active={true}
-            options={data}
+            options={selectRegion}
+            defaultValue={selectRegion[props.regionId]}
+            onChange={handleChangeRegion}
           />
           <Button
             danger={false}
@@ -87,7 +135,9 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             height="5px"
             classNamePrefix="react-select"
             active={true}
-            options={data}
+            options={selectNace}
+            defaultValue={selectNace[props.naceId]}
+            onChange={handleChangeNace}
           />
         </div>
         <Text active={true}>Sub-sector:</Text>
@@ -96,7 +146,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             width="100%"
             classNamePrefix="react-select"
             active={true}
-            options={data}
+            options={selectNace}
           />
         </div>
       </CardBackground>
@@ -104,9 +154,20 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   );
 };
 
-export const NaceRegionCardContainer: React.FC = () => {
-  const [list, setList] = useState(cardList); // integer state
-  const newList = [...list];
+export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
+  props: NaceRegionContainerInterface,
+) => {
+  const [naceRegionIdList, setNaceRegionIdList] = useState<number[][]>();
+  const [list /*setList*/] = useState(cardList); // integer state
+  //const newList = [...list];
+
+  function setNaceRegionId(regionId: number, naceId: number, cardId: number) {
+    const naceRegion = [naceId, regionId];
+    const newNaceRegionIdList = naceRegionIdList;
+    newNaceRegionIdList[cardId] = naceRegion;
+    setNaceRegionIdList(newNaceRegionIdList);
+  }
+  //TODO: Fix add/remove card functions
   /*
   useEffect(() => {
     setList(newList);
@@ -140,6 +201,10 @@ export const NaceRegionCardContainer: React.FC = () => {
     };
   };
   */
+  /*
+  Prop: setURLParam
+  function sendToNaceRegionCard
+ */
 
   return (
     <Background active={true}>
@@ -149,8 +214,17 @@ export const NaceRegionCardContainer: React.FC = () => {
           addCard={addCard}*/
           key={item}
           id={item}
+          regionList={props.regionList}
+          naceList={props.naceList}
+          naceId={1} //{props.naceRegionIdList[item][0]}
+          regionId={1} //{props.naceRegionIdList[item][1]}
+          setNaceRegionId={setNaceRegionId}
         />
       ))}
+      <AddCardButton active={true}>
+        {' '}
+        <i className="material-icons">add</i>
+      </AddCardButton>
     </Background>
   );
 };
@@ -181,7 +255,7 @@ const Background = styled.div<{ active: boolean }>`
 const CardBackground = styled.div<{ active: boolean }>`
   width: 200px;
   padding: 0px 20px 20px 20px;
-  margin: 10px;
+  margin: 0 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -194,11 +268,6 @@ const CardBar = styled.div<{ colorId: number }>`
   padding: 5px 70px;
   margin: 0;
   background-color: ${({ colorId }) => handleColorType(colorId)};
-`;
-
-const DropDownOptions = styled.option<{ active: boolean }>`
-  color: var(--sec-purple-color);
-  text-align-last: left;
 `;
 
 const CardTop = styled.div<{ active: boolean }>`
@@ -239,4 +308,11 @@ const DangerButton = styled.button<{ danger: boolean }>`
 const Text = styled.div<{ active: boolean }>`
   font-size: var(--font-size-xtiny);
   font-weight: 600;
+`;
+
+const AddCardButton = styled.button<{ active: boolean }>`
+  background-color: var(--third-bluegrey-color);
+  color: var(--sec-purple-color);
+  border: none;
+  height: 40px;
 `;

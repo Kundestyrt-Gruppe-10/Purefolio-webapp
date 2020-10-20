@@ -16,7 +16,7 @@ export function isValidEsgFactorIdString(esgFactorString: string): boolean {
   return /^[0-9]*$/.test(esgFactorString);
 }
 /**
- * Input: '11,12;21;22'
+ * Input: '11,12;21,22'
  * Output: [[11,12],[21,22]]
  */
 export function naceRegionIdStringToList(
@@ -118,7 +118,16 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              <NaceRegionCardContainer />
+              {regionList && naceList ? (
+                <NaceRegionCardContainer
+                  regionList={regionList}
+                  naceList={naceList}
+                  setUrlParams={setUrlParams}
+                  naceRegionIdList={naceRegionIdStringToList(
+                    naceRegionIdString,
+                  )}
+                />
+              ) : null}
               <ChartViewContainer>
                 {/**TODO: ChartView*/}
                 <h1>PLACEHOLDER ChartViewContainer</h1>
