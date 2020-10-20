@@ -157,7 +157,9 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
 export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
   props: NaceRegionContainerInterface,
 ) => {
-  const [naceRegionIdList, setNaceRegionIdList] = useState<number[][]>();
+  const [naceRegionIdList, setNaceRegionIdList] = useState<number[][]>(
+    props.naceRegionIdList,
+  );
   const [list /*setList*/] = useState(cardList); // integer state
   //const newList = [...list];
 

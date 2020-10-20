@@ -118,7 +118,7 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              {regionList && naceList ? (
+              {regionList && naceList && naceRegionIdString ? (
                 <NaceRegionCardContainer
                   regionList={regionList}
                   naceList={naceList}
