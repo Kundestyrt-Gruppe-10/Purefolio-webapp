@@ -5,8 +5,7 @@ import Select from 'react-select';
 //import {ChartPage} from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
 
-const cardList = [1, 2, 3];
-
+// Interfaces:
 interface NaceRegionCardInterface {
   id: number;
   regionList: Region[];
@@ -32,6 +31,7 @@ interface SelectItemInterface {
   value: number;
 }
 
+// Components:
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   props: NaceRegionCardInterface,
 ) => {
@@ -55,12 +55,12 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
 
   /*eslint-disable*/
   const handleChangeRegion = (selectedOption: any) => {
-    setRegionId(selectedOption.value);
+    setRegionId(selectedOption.value-1);  // Convert 1-indexed value to 0-indexed array
     props.setNaceRegionId(naceId, regionId, props.id);
   };
 
   const handleChangeNace = (selectedOption: any) =>{
-    setNaceId(selectedOption.value);
+    setNaceId(selectedOption.value-1);  // Convert 1-indexed value to 0-indexed array
     props.setNaceRegionId(naceId, regionId, props.id);
   };
   /*eslint-enable*/
@@ -160,15 +160,17 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
   const [naceRegionIdList, setNaceRegionIdList] = useState<number[][]>(
     props.naceRegionIdList,
   );
-  const [list /*setList*/] = useState(cardList); // integer state
+  // const [list /*setList*/] = useState(cardList); // integer state
   //const newList = [...list];
 
+  // Function passes as prop to NaceRegionCard, so that it can update the NaceRegionIdList
   function setNaceRegionId(regionId: number, naceId: number, cardId: number) {
     const naceRegion = [naceId, regionId];
     const newNaceRegionIdList = naceRegionIdList;
     newNaceRegionIdList[cardId] = naceRegion;
     setNaceRegionIdList(newNaceRegionIdList);
   }
+
   //TODO: Fix add/remove card functions
   /*
   useEffect(() => {
@@ -210,16 +212,16 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
 
   return (
     <Background active={true}>
-      {list.map((item) => (
+      {props.naceRegionIdList.map((item, index) => (
         <NaceRegionCard
           /*deleteCard={deleteCard}
           addCard={addCard}*/
-          key={item}
-          id={item}
+          key={index}
+          id={index}
           regionList={props.regionList}
           naceList={props.naceList}
-          naceId={1} //{props.naceRegionIdList[item][0]}
-          regionId={1} //{props.naceRegionIdList[item][1]}
+          naceId={props.naceRegionIdList[index][0]}
+          regionId={props.naceRegionIdList[index][1]}
           setNaceRegionId={setNaceRegionId}
         />
       ))}
@@ -233,15 +235,15 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
 
 const handleColorType = (colorID: number) => {
   switch (colorID) {
-    case 1:
+    case 0:
       return 'var( --sec-orange-color)';
-    case 2:
+    case 1:
       return 'var(--third-turquoise-color)';
-    case 3:
+    case 2:
       return 'var(--sec-purple-color)';
-    case 4:
+    case 3:
       return 'var(--third-paleorange-color)';
-    case 5:
+    case 4:
       return 'var(--thrid-teal-color)';
   }
 };
@@ -249,7 +251,7 @@ const handleColorType = (colorID: number) => {
 const Background = styled.div<{ active: boolean }>`
   margin: 0;
   background-color: var(--main-white-color);
-  padding: 100px;
+  padding: 0 100px;
   display: flex;
   flex-direction: row;
 `;
