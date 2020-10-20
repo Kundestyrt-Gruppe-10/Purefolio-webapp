@@ -27,13 +27,15 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
 
   /*eslint-disable*/
   const handleChangeRegion = (selectedOption: any) => {
-    setRegionId(selectedOption.value-1);  // Convert 1-indexed value to 0-indexed array
-    props.setNaceRegionId(naceId, regionId, props.id);
+    const newRegionId = selectedOption.value-1; // Convert 1-indexed value to 0-indexed array
+    setRegionId(newRegionId);
+    props.setNaceRegionId(naceId, newRegionId, props.id);
   };
 
   const handleChangeNace = (selectedOption: any) =>{
-    setNaceId(selectedOption.value-1);  // Convert 1-indexed value to 0-indexed array
-    props.setNaceRegionId(naceId, regionId, props.id);
+    const newNaceId = selectedOption.value-1; // Convert 1-indexed value to 0-indexed array
+    setNaceId(newNaceId);
+    props.setNaceRegionId(newNaceId, regionId, props.id);
   };
   /*eslint-enable*/
 
@@ -140,6 +142,7 @@ const Background = styled.div<{ active: boolean }>`
 `;
 
 const CardBackground = styled.div<{ active: boolean }>`
+  z-index: 2;
   width: 200px;
   padding: 0px 20px 20px 20px;
   margin: 0 10px;

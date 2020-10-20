@@ -10,16 +10,16 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.naceRegionIdList,
   );
   // const [list /*setList*/] = useState(cardList); // integer state
-  //const newList = [...list];
+  // const newList = [...list];
 
   // Function passes as prop to NaceRegionCard, so that it can update the NaceRegionIdList
-  function setNaceRegionId(regionId: number, naceId: number, cardId: number) {
-    const naceRegion = [naceId, regionId];
+  function setNaceRegionId(naceId: number, regionId: number, cardId: number) {
+    const naceRegion = [naceId, regionId]; // Set naceID and regionID pair
     const newNaceRegionIdList = naceRegionIdList;
     newNaceRegionIdList[cardId] = naceRegion;
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(naceRegionIdList);
-    props.setUrlParams(newUrlString, '1'); //TODO: URL params update is one step behind, needs fix
+    props.setUrlParams(newUrlString, '1');
   }
 
   // Convert naceRegionIdList to a string that can be used to set URL params
