@@ -4,34 +4,12 @@ import Select from 'react-select';
 //import { Redirect } from 'react-router-dom';
 //import {ChartPage} from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
+import {
+  NaceRegionCardInterface,
+  NaceRegionContainerInterface,
+  SelectItemInterface,
+} from './types';
 
-// Interfaces:
-interface NaceRegionCardInterface {
-  id: number;
-  regionList: Region[];
-  naceList: Nace[];
-  naceId: number;
-  regionId: number;
-  setNaceRegionId(naceId: number, regionId: number, cardId: number): void;
-  /*
-  deleteCard(id: number): void;
-  addCard(): void;
-  */
-}
-
-interface NaceRegionContainerInterface {
-  regionList: Region[];
-  naceList: Nace[];
-  setUrlParams(naceRegionIdList: string, esgFactor: string): void;
-  naceRegionIdList: number[][];
-}
-
-interface SelectItemInterface {
-  label: string;
-  value: number;
-}
-
-// Components:
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   props: NaceRegionCardInterface,
 ) => {
@@ -141,110 +119,6 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
         </div>
       </CardBackground>
     </>
-  );
-};
-
-export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
-  props: NaceRegionContainerInterface,
-) => {
-  const [naceRegionIdList, setNaceRegionIdList] = useState<number[][]>(
-    props.naceRegionIdList,
-  );
-  // const [list /*setList*/] = useState(cardList); // integer state
-  //const newList = [...list];
-
-  // Function passes as prop to NaceRegionCard, so that it can update the NaceRegionIdList
-  function setNaceRegionId(regionId: number, naceId: number, cardId: number) {
-    const naceRegion = [naceId, regionId];
-    const newNaceRegionIdList = naceRegionIdList;
-    newNaceRegionIdList[cardId] = naceRegion;
-    setNaceRegionIdList(newNaceRegionIdList);
-  }
-
-  // Convert naceRegionIdList to a string that can be used to set URL params
-  function naceRegionIdListToString(naceRegionIdList: number[][]) {
-    let naceRegionIdString = '';
-    let naceIt, regionIt;
-    for (naceIt = 0; naceIt < naceRegionIdList.length; naceIt++) {
-      for (
-        regionIt = 0;
-        regionIt < naceRegionIdList[naceIt].length;
-        regionIt++
-      ) {
-        naceRegionIdString += naceRegionIdList[naceIt][regionIt].toString();
-        if (regionIt + 1 != naceRegionIdList[naceIt].length) {
-          naceRegionIdString += ',';
-        }
-      }
-      if (naceIt + 1 != naceRegionIdList.length) {
-        naceRegionIdString += ';';
-      }
-    }
-
-    console.log('naceRegionIdString: ', naceRegionIdString);
-
-    return naceRegionIdString;
-  }
-
-  //TODO: Fix add/remove card functions
-  /*
-  useEffect(() => {
-    setList(newList);
-  }, [newList]);
-  */
-  /*
-  const deleteCard = (id: number) => {
-    newList = newList
-      .filter(function (item) {
-        return item !== id;
-      })
-      .map((num) => num);
-    console.log(newList);
-    return () => {
-      setList(newList);
-    }; // update the state to force render
-  };
-
-  const addCard = () => {
-    console.log('Test');
-    let i;
-    for (i = 1; i < 6; i++) {
-      if (!list.includes(i)) {
-        newList.push(i);
-        break;
-      }
-    }
-    console.log(newList);
-    return () => {
-      setList(newList);
-    };
-  };
-  */
-  /*
-  Prop: setURLParam
-  function sendToNaceRegionCard
- */
-
-  return (
-    <Background active={true}>
-      {props.naceRegionIdList.map((item, index) => (
-        <NaceRegionCard
-          /*deleteCard={deleteCard}
-          addCard={addCard}*/
-          key={index}
-          id={index}
-          regionList={props.regionList}
-          naceList={props.naceList}
-          naceId={props.naceRegionIdList[index][0]}
-          regionId={props.naceRegionIdList[index][1]}
-          setNaceRegionId={setNaceRegionId}
-        />
-      ))}
-      <AddCardButton active={true}>
-        {' '}
-        <i className="material-icons">add</i>
-      </AddCardButton>
-    </Background>
   );
 };
 

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
-import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCard';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
 
 // ----Helper functions----
