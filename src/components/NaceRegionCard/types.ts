@@ -7,10 +7,8 @@ export interface NaceRegionCardInterface {
   naceId: number;
   regionId: number;
   setNaceRegionId(naceId: number, regionId: number, cardId: number): void;
-  /*
-  deleteCard(id: number): void;
-  addCard(): void;
-  */
+  addCard(naceId: number, regionId: number): void;
+  // deleteCard(id: number): void;
 }
 
 export interface NaceRegionContainerInterface {

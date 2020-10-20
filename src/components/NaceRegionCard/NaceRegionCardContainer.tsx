@@ -41,13 +41,18 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
         naceRegionIdString += ';';
       }
     }
-
-    console.log('naceRegionIdString: ', naceRegionIdString);
-
     return naceRegionIdString;
   }
 
-  //TODO: Fix add/remove card functions
+  function addCard(naceId: number, regionId: number) {
+    const newNaceRegionIdList = naceRegionIdList;
+    newNaceRegionIdList.push([naceId, regionId]);
+    setNaceRegionIdList(newNaceRegionIdList);
+    const newUrlString = naceRegionIdListToString(naceRegionIdList);
+    props.setUrlParams(newUrlString, '1');
+  }
+
+  //TODO: Fix remove card functions
   /*
   useEffect(() => {
     setList(newList);
@@ -65,33 +70,14 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
       setList(newList);
     }; // update the state to force render
   };
-
-  const addCard = () => {
-    console.log('Test');
-    let i;
-    for (i = 1; i < 6; i++) {
-      if (!list.includes(i)) {
-        newList.push(i);
-        break;
-      }
-    }
-    console.log(newList);
-    return () => {
-      setList(newList);
-    };
-  };
   */
-  /*
-  Prop: setURLParam
-  function sendToNaceRegionCard
- */
 
   return (
     <Background active={true}>
       {props.naceRegionIdList.map((item, index) => (
         <NaceRegionCard
-          /*deleteCard={deleteCard}
-          addCard={addCard}*/
+          // deleteCard={deleteCard}
+          addCard={addCard}
           key={index}
           id={index}
           regionList={props.regionList}
@@ -101,7 +87,12 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
           setNaceRegionId={setNaceRegionId}
         />
       ))}
-      <AddCardButton active={true}>
+      <AddCardButton
+        active={true}
+        onClick={() => {
+          addCard(0, 0);
+        }}
+      >
         {' '}
         <i className="material-icons">add</i>
       </AddCardButton>

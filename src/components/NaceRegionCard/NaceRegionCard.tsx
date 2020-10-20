@@ -55,7 +55,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <Button
             danger={false}
             onClick={() => {
-              // props.addCard();
+              props.addCard(props.naceId, props.regionId);
             }}
           >
             <i
@@ -104,6 +104,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             onChange={handleChangeNace}
           />
         </div>
+        {/*
         <Text active={true}>Sub-sector:</Text>
         <div style={{ border: '2px solid var(--sec-purple-color)' }}>
           <Select
@@ -113,12 +114,14 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             options={selectNace}
           />
         </div>
+        */}
       </CardBackground>
     </>
   );
 };
 
 const handleColorType = (colorID: number) => {
+  colorID = colorID % 5;
   switch (colorID) {
     case 0:
       return 'var( --sec-orange-color)';
