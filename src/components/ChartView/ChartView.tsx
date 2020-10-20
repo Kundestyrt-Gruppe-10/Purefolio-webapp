@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
 
 export const ChartView: React.FC = () => {
   return (
     <ChartViewContainer active={false}>
+      <ContainerLine active={true} />
       <ChartViewTabs />
+      <OverviewTableComponent />
+      <ContainerLine active={true} />
     </ChartViewContainer>
   );
 };
@@ -12,14 +16,12 @@ export const ChartView: React.FC = () => {
 export const ChartViewTabs: React.FC = () => {
   return (
     <>
-      <ContainerLine active={true} />
       <ChartTabsContainer active={true}>
         <ChartTabs active={true}>History Graph</ChartTabs>
         <ChartTabs active={true}>History Diagram</ChartTabs>
         <ChartTabs active={true}>Overview Table</ChartTabs>
         <ChartTabs active={true}>Percentace Table</ChartTabs>
       </ChartTabsContainer>
-      <ContainerLine active={true} />
     </>
   );
 };

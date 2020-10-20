@@ -86,6 +86,7 @@ const OuterContainer = styled.div<{ active: boolean }>`
   height: 75vh;
   margin: auto;
   padding-top: 8em;
+  width: 100%;
 `;
 const TableContainer = styled.div<{ active: boolean }>`
   background-color: var(--third-bluegrey-color);

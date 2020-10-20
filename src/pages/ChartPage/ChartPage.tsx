@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
@@ -7,6 +6,7 @@ import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCard';
+import { ChartView } from '../../components/ChartView/ChartView';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -128,11 +128,7 @@ export const ChartPage: React.FC<Props> = ({
                   )}
                 />
               ) : null}
-              <ChartViewContainer>
-                {/**TODO: ChartView*/}
-                <h1>PLACEHOLDER ChartViewContainer</h1>
-                <OverviewTableComponent />
-              </ChartViewContainer>
+              <ChartView />
               <h1>
                 {regionList && regionList[0] ? regionList[0].regionName : null}
                 {naceList && naceList[0] ? naceList[0].naceName : null}
