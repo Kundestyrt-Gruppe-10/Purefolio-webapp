@@ -126,8 +126,8 @@ export const ChartPage: React.FC<Props> = ({
               <ChartViewContainer>
                 {/**TODO: ChartView*/}
                 <h1>PLACEHOLDER ChartViewContainer</h1>
-                <OverviewTableComponent />
                 <HistoryGraphComponent />
+                <OverviewTableComponent />
               </ChartViewContainer>
               <h1>
                 {regionList && regionList[0] ? regionList[0].regionName : null}

@@ -15,39 +15,51 @@ import {
 const data = [
   {
     name: '2014',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    Norway: 4552353,
+    Sweden: 3035235,
+    Denmark: 4425235,
+    Netherlands: 5235235,
+    Germany: 13664235,
   },
   {
     name: '2015',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    Norway: 5052353,
+    Sweden: 3435235,
+    Denmark: 5025235,
+    Netherlands: 6235235,
+    Germany: 14664635,
   },
   {
     name: '2016',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    Norway: 5152353,
+    Sweden: 3835235,
+    Denmark: 5245235,
+    Netherlands: 6535235,
+    Germany: 16542635,
   },
   {
     name: '2017',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    Norway: 5152353,
+    Sweden: 4035235,
+    Denmark: 5425235,
+    Netherlands: 6435235,
+    Germany: 18664265,
   },
   {
     name: '2018',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    Norway: 5152353,
+    Sweden: 4035235,
+    Denmark: 5425235,
+    Netherlands: 7235235,
+    Germany: 22664635,
   },
   {
     name: '2019',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    Norway: 5352353,
+    Sweden: 4035235,
+    Denmark: 5225235,
+    Netherlands: 7525235,
+    Germany: 23664635,
   },
 ];
 
@@ -56,7 +68,7 @@ export const HistoryGraphComponent: React.FC = () => {
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
-          <ResponsiveContainer aspect={2} width="96%" height="97%">
+          <ResponsiveContainer aspect={2} width="97%" height="97%">
             <LineChart
               data={data}
               margin={{
@@ -68,28 +80,66 @@ export const HistoryGraphComponent: React.FC = () => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" stroke="#f7f8f6" />
-              <YAxis stroke="#f7f8f6" />
+              <YAxis tickFormatter={DataFormater} stroke="#f7f8f6" />
               <Tooltip />
-              <Legend />
+              {/*TODO: Fix color fetching from index.css */}
               <Line
                 type="monotone"
-                dataKey="pv"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
+                dataKey="Norway"
+                stroke="#e87f38"
+                strokeWidth={2}
               />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+              <Line
+                type="monotone"
+                dataKey="Sweden"
+                stroke="#a84924"
+                strokeWidth={2}
+              />
+              <Line
+                type="monotone"
+                dataKey="Denmark"
+                stroke="#91e5ce"
+                strokeWidth={2}
+              />
+              <Line
+                type="monotone"
+                dataKey="Netherlands"
+                stroke="#f9c4a0"
+                strokeWidth={2}
+              />
+              <Line
+                type="monotone"
+                dataKey="Germany"
+                stroke="#7f96f7"
+                strokeWidth={2}
+              />
             </LineChart>
           </ResponsiveContainer>
         </GraphContainer>
-        <UpperBox active={false}>
-          <TitleBox active={false}>Air Emission accounts</TitleBox>
-          <PeriodBox active={false}>Period: 2014-2018</PeriodBox>
-        </UpperBox>
+        <TextBox active={false}>
+          <TitleBox active={false}>History Graph</TitleBox>
+          <PeriodBox active={false}>Year: 2014-2018</PeriodBox>
+          <ESGFactorBox active={false}>
+            ESG Factor: Air Emission accounts
+          </ESGFactorBox>
+        </TextBox>
       </TableContainer>
     </OuterContainer>
   );
 };
 
+/*Help function to display Y-axis value with base of number */
+const DataFormater = (number: number) => {
+  if (number > 1000000000) {
+    return (number / 1000000000).toString() + 'B';
+  } else if (number > 1000000) {
+    return (number / 1000000).toString() + 'M';
+  } else if (number > 1000) {
+    return (number / 1000).toString() + 'K';
+  } else {
+    return number.toString();
+  }
+};
 const OuterContainer = styled.div<{ active: boolean }>`
   height: 75vh;
   margin: auto;
@@ -103,7 +153,7 @@ const TableContainer = styled.div<{ active: boolean }>`
   margin: auto;
   position: relative;
   border-radius: 5px;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 20px;
   z-index: 1;
 `;
@@ -132,20 +182,20 @@ const TableTitleContainer = styled.div<{ active: boolean }>`
   color: #f7f8f6;
 `;
 
-const UpperBox = styled.div<{ active: boolean }>`
+const TextBox = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
-  font-size: 20px;
   border-bottom: 0.6px solid #ced8f4;
-  font-weight: 700;
   height: 50%;
 `;
 
 const TitleBox = styled.div<{ active: boolean }>`
+  font-size: 20px;
+  font-weight: 700;
   margin-right: auto;
   text-align: center;
 `;
@@ -172,7 +222,8 @@ const TableDataContainer = styled.div<{ active: boolean }>`
   font-weight: 400;
 `;
 
-const TableBox = styled.div<{ active: boolean }>`
+const ESGFactorBox = styled.div<{ active: boolean }>`
+  font-size: 12px;
   text-align: center;
   align-self: center;
   flex-basis: 16.7%;
