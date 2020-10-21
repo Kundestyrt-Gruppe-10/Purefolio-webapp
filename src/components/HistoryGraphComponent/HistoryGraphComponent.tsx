@@ -59,7 +59,7 @@ export const HistoryGraphComponent: React.FC = () => {
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
-          <ResponsiveContainer aspect={2.5} width="97%" height="97%">
+          <ResponsiveContainer aspect={2.7} width="97%" height="97%">
             <LineChart
               data={data}
               margin={{
@@ -200,6 +200,8 @@ const TitleBox = styled.div<{ active: boolean }>`
   font-weight: 700;
   margin-right: auto;
   text-align: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const UnitOfMeasureBox = styled.div<{ active: boolean }>`
@@ -220,12 +222,16 @@ const ESGFactorContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const PeriodContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const DescriptorBox = styled.div<{ active: boolean }>`
