@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
+import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
 import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
 import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
@@ -147,6 +148,7 @@ export const ChartPage: React.FC<Props> = ({
                   />
                 ) : null}
               </ChartView>
+              <HistoryGraphComponent />
             </>
           )}
         </ChartPageContainer>

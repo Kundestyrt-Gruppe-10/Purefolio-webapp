@@ -122,7 +122,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
 };
 
 // TODO: Used other places, should be moved to an util file
-export const handleColorType = (colorID: number) => {
+export const handleColorType = (colorID: number): string => {
   colorID = colorID % 5;
   switch (colorID) {
     case 0:
@@ -135,6 +135,8 @@ export const handleColorType = (colorID: number) => {
       return 'var(--third-paleorange-color)';
     case 4:
       return 'var(--thrid-teal-color)';
+    default:
+      return 'var( --sec-orange-color)';
   }
 };
 
