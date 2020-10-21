@@ -18,7 +18,7 @@ const data = [
     Norway: 4552353,
     Sweden: 3035235,
     Denmark: 4425235,
-    Netherlands: 5235235,
+    Netherlands: 8235235,
     Germany: 13664235,
   },
   {
@@ -26,7 +26,7 @@ const data = [
     Norway: 5052353,
     Sweden: 3435235,
     Denmark: 5025235,
-    Netherlands: 6235235,
+    Netherlands: 9235235,
     Germany: 14664635,
   },
   {
@@ -34,7 +34,7 @@ const data = [
     Norway: 5152353,
     Sweden: 3835235,
     Denmark: 5245235,
-    Netherlands: 6535235,
+    Netherlands: 9535235,
     Germany: 16542635,
   },
   {
@@ -42,7 +42,7 @@ const data = [
     Norway: 5152353,
     Sweden: 4035235,
     Denmark: 5425235,
-    Netherlands: 6435235,
+    Netherlands: 9435235,
     Germany: 18664265,
   },
   {
@@ -50,16 +50,8 @@ const data = [
     Norway: 5152353,
     Sweden: 4035235,
     Denmark: 5425235,
-    Netherlands: 7235235,
-    Germany: 22664635,
-  },
-  {
-    name: '2019',
-    Norway: 5352353,
-    Sweden: 4035235,
-    Denmark: 5225235,
-    Netherlands: 7525235,
-    Germany: 23664635,
+    Netherlands: 9235235,
+    Germany: 19664635,
   },
 ];
 
@@ -68,7 +60,7 @@ export const HistoryGraphComponent: React.FC = () => {
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
-          <ResponsiveContainer aspect={2} width="97%" height="97%">
+          <ResponsiveContainer aspect={2} width="100%" height="100%">
             <LineChart
               data={data}
               margin={{
@@ -117,11 +109,22 @@ export const HistoryGraphComponent: React.FC = () => {
           </ResponsiveContainer>
         </GraphContainer>
         <TextBox active={false}>
-          <TitleBox active={false}>History Graph</TitleBox>
-          <PeriodBox active={false}>Year: 2014-2018</PeriodBox>
-          <ESGFactorBox active={false}>
-            ESG Factor: Air Emission accounts
-          </ESGFactorBox>
+          <TableTitleContainer active={false}>
+            <TitleBox active={false}>History Graph</TitleBox>
+            <UnitOfMeasureContainer active={false}>
+              By millions tons of CO2
+            </UnitOfMeasureContainer>
+          </TableTitleContainer>
+          <ESGFactorContainer active={false}>
+            <DescriptorBox active={false}>ESG Factor:</DescriptorBox>
+            <DescriptionBox active={false}>
+              Air Emission accounts
+            </DescriptionBox>
+          </ESGFactorContainer>
+          <PeriodContainer active={false}>
+            <DescriptorBox active={false}>Year:</DescriptorBox>
+            <DescriptionBox active={false}> 2014-2018</DescriptionBox>
+          </PeriodContainer>
         </TextBox>
       </TableContainer>
     </OuterContainer>
@@ -169,19 +172,6 @@ const GraphContainer = styled.div<{ active: boolean }>`
   transform: translateY(-70px);
 `;
 
-const TableTitleContainer = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: column;
-  background-color: var(--sec-purple-color);
-  width: 90%;
-  height: 96px;
-  left: 5%;
-  top: -60px;
-  position: absolute;
-  border-radius: 5px;
-  color: #f7f8f6;
-`;
-
 const TextBox = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
@@ -192,7 +182,22 @@ const TextBox = styled.div<{ active: boolean }>`
   border-bottom: 0.6px solid #ced8f4;
   height: 50%;
 `;
-
+const TableTitleContainer = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-bottom: 0.6px solid #ced8f4;
+  height: 50%;
+  &:nth-child(1) {
+    text-align: left;
+  }
+  &:nth-child(2) {
+    text-align: left;
+  }
+`;
 const TitleBox = styled.div<{ active: boolean }>`
   font-size: 20px;
   font-weight: 700;
@@ -200,29 +205,38 @@ const TitleBox = styled.div<{ active: boolean }>`
   text-align: center;
 `;
 
-const PeriodBox = styled.div<{ active: boolean }>``;
-
-const YearBox = styled.div<{ active: boolean }>`
+const UnitOfMeasureContainer = styled.div<{ active: boolean }>`
   flex-basis: 16.7%;
   text-align: center;
+  align-self: end;
+`;
+
+const ESGFactorContainer = styled.div<{ active: boolean }>`
+  font-size: 12px;
+  text-align: center;
+  align-self: center;
+  flex-basis: 16.7%;
   &:nth-child(1) {
     text-align: left;
   }
 `;
-
-const TableDataContainer = styled.div<{ active: boolean }>`
-  position: relative;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: -1;
-  width: 81%;
-  margin: auto;
-  font-weight: 400;
+const DescriptorBox = styled.div<{ active: boolean }>`
+  font-size: 12px;
+  text-align: right;
+  align-self: center;
+  }
 `;
 
-const ESGFactorBox = styled.div<{ active: boolean }>`
+const PeriodContainer = styled.div<{ active: boolean }>`
+  font-size: 12px;
+  text-align: center;
+  align-self: center;
+  flex-basis: 16.7%;
+  &:nth-child(1) {
+    text-align: left;
+  }
+`;
+const DescriptionBox = styled.div<{ active: boolean }>`
   font-size: 12px;
   text-align: center;
   align-self: center;
