@@ -33,7 +33,6 @@ const HeaderContainer = styled.div<{ active: boolean }>`
   color: white;
   display: flex;
   flex-direction: row;
-  width: 100%;
 `;
 
 const SearchBox = styled.div<{ active: boolean }>`
@@ -41,7 +40,6 @@ const SearchBox = styled.div<{ active: boolean }>`
   flex-basis: 40%;
   border: 1px solid var(--third-bluegrey-color);
   padding: 10px;
-  height: 10px;
   align-items: center;
   justify-content: center;
 `;
