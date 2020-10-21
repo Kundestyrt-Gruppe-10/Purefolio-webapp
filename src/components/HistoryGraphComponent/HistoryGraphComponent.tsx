@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import {
@@ -9,7 +9,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from 'recharts';
 
 const data = [
@@ -186,10 +185,9 @@ const TextBox = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   margin-left: 5%;
   margin-right: 5%;
-  border-bottom: 0.6px solid #ced8f4;
 `;
 const TableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
@@ -213,20 +211,23 @@ const UnitOfMeasureBox = styled.div<{ active: boolean }>`
 const TableInfoContainer = styled.div<{ active: boolean }>`
   flex-direction: row;
   flex-grow: 1;
+  font-weight: 450;
   }
 `;
+
 const ESGFactorContainer = styled.div<{ active: boolean }>`
   flex-direction: row;
-  justify-content: space-between;
-`;
-const DescriptorBox = styled.div<{ active: boolean }>`
-  font-size: 12px;
-  }
 `;
 
 const PeriodContainer = styled.div<{ active: boolean }>`
   flex-direction: row;
 `;
+
+const DescriptorBox = styled.div<{ active: boolean }>`
+  font-size: 12px;
+  }
+`;
+
 const DescriptionBox = styled.div<{ active: boolean }>`
   text-align: right;
   font-size: 14px;
