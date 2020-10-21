@@ -1,3 +1,5 @@
+import { NaceRegionData } from './types';
+
 export const naces = [
   {
     naceId: 1,
@@ -426,5 +428,86 @@ export const naces = [
     naceId: 104,
     naceCode: 'U',
     naceName: 'Activities of extraterritorial organisations and bodies',
+  },
+];
+
+export const naceRegionData: NaceRegionData[] = [
+  {
+    naceRegionDataId: 1770,
+    nace: {
+      naceId: 1,
+      naceCode: 'A',
+      naceName: 'Agriculture, forestry and fishing',
+    },
+    naceId: 1,
+    region: {
+      regionId: 18,
+      regionCode: 'IS',
+      regionName: 'Iceland',
+      area: 102775,
+    },
+    regionId: 18,
+    year: 2015,
+    emissionPerYear: 3213.34972,
+    genderPayGap: undefined,
+    workAccidentsIncidentRate: undefined,
+    environmentTaxes: undefined,
+    fatalAccidentsAtWork: undefined,
+    temporaryemployment: 0.8,
+    employeesPrimaryEducation: 35.8,
+    employeesSecondaryEducation: 48.2,
+    employeesTertiaryEducation: 16,
+  },
+  {
+    naceRegionDataId: 1656,
+    nace: {
+      naceId: 1,
+      naceCode: 'A',
+      naceName: 'Agriculture, forestry and fishing',
+    },
+    naceId: 1,
+    region: {
+      regionId: 32,
+      regionCode: 'SK',
+      regionName: 'Slovakia',
+      area: 49036,
+    },
+    regionId: 32,
+    year: 2015,
+    emissionPerYear: 403.59544,
+    genderPayGap: undefined,
+    workAccidentsIncidentRate: 871.19,
+    environmentTaxes: 67.91,
+    fatalAccidentsAtWork: 10.11,
+    temporaryemployment: 5.2,
+    employeesPrimaryEducation: 9.6,
+    employeesSecondaryEducation: 82.3,
+    employeesTertiaryEducation: 8.1,
+  },
+  {
+    naceRegionDataId: 1670,
+    nace: {
+      naceId: 1,
+      naceCode: 'A',
+      naceName: 'Agriculture, forestry and fishing',
+    },
+    naceId: 1,
+    region: {
+      regionId: 24,
+      regionCode: 'NL',
+      regionName: 'Netherlands',
+      area: 41198,
+    },
+    regionId: 24,
+    year: 2015,
+    emissionPerYear: 1712.62112,
+    genderPayGap: undefined,
+    workAccidentsIncidentRate: 670.9,
+    environmentTaxes: 589,
+    fatalAccidentsAtWork: 0.27,
+    temporaryemployment: 20.4,
+    employeesPrimaryEducation: 45.5,
+    employeesSecondaryEducation: 43.7,
+    employeesTertiaryEducation: 10.8,
   },
 ];

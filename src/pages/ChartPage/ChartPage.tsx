@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
@@ -7,7 +6,9 @@ import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
-import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
+import { ChartView } from '../../components/ChartView/ChartView';
+import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -17,7 +18,7 @@ export function isValidEsgFactorIdString(esgFactorString: string): boolean {
   return /^[0-9]*$/.test(esgFactorString);
 }
 /**
- * Input: '11,12;21;22'
+ * Input: '11,12;21,22'
  * Output: [[11,12],[21,22]]
  */
 export function naceRegionIdStringToList(
@@ -44,8 +45,10 @@ export const ChartPage: React.FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
-  const [naceRegionData, setNaceRegionData] = useState<NaceRegionData[]>();
-  const [esgFactorList, setEsgFactorList] = useState<string[]>();
+  const [naceRegionDataListList, setNaceRegionData] = useState<
+    NaceRegionData[][]
+  >();
+  const [, /*esgFactorList*/ setEsgFactorList] = useState<string[]>();
   const history = useHistory();
 
   // Check if correct URL and parse URL string
@@ -64,33 +67,41 @@ export const ChartPage: React.FC<Props> = ({
 
   // Fetch data from API
   useEffect(() => {
-    function fetchData() {
-      ApiGet<Region[]>('/regions')
-        .then((res) => setRegionList(res))
-        .catch((err) => setError(err));
+    async function fetchData() {
+      return await Promise.all([
+        ApiGet<Region[]>('/regions')
+          .then((res) => setRegionList(res))
+          .catch((err) => setError(err)),
 
-      ApiGet<Nace[]>('/naces')
-        .then((res) => setNaceList(res))
-        .catch((err) => setError(err));
+        ApiGet<Nace[]>('/naces')
+          .then((res) => setNaceList(res))
+          .catch((err) => setError(err)),
 
-      ApiGet<string[]>('/tables/esg-factors')
-        .then((res) => setEsgFactorList(res))
-        .catch((err) => setError(err));
-      console.log(esgFactorList);
+        ApiGet<string[]>('/tables/esg-factors')
+          .then((res) => setEsgFactorList(res))
+          .catch((err) => setError(err)),
 
-      naceRegionIdList.map((naceId) =>
-        ApiGet<NaceRegionData[]>(`/naceregiondata/${naceId[0]}/${naceId[1]}`)
-          .then((res) => setNaceRegionData(res))
-          .catch((err) => {
-            console.log(err);
-            setError(err);
-          }),
-      );
-
-      setLoading(false);
+        Promise.all(
+          naceRegionIdList.map((regionIdNaceId) =>
+            ApiGet<NaceRegionData[]>(
+              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+            ).then((res) => {
+              console.log(res);
+              if (res.length < 1) throw new Error('one list was empy');
+              return res;
+            }),
+          ),
+        )
+          .then((res) => {
+            console.log('AWAIT ALLL:');
+            console.log(res);
+            setNaceRegionData(res);
+          })
+          .catch((err) => setError(err)),
+      ]);
     }
 
-    void fetchData();
+    void fetchData().then(() => setLoading(false));
   }, [naceRegionIdString, esgFactorIdString]);
 
   /**
@@ -108,7 +119,7 @@ export const ChartPage: React.FC<Props> = ({
     <>
       <ChartPageHeaderContainer>
         {/**TODO: ChartPageHeader */}
-        <h1>PLACEHOLDER HEADER</h1>
+        <p>Placeholder header</p>
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>
@@ -119,31 +130,25 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              <NaceRegionCardContainer>
-                {/**TODO: NaceRegionCardContainer*/}
-                <h1>PLACEHOLDER NaceRegionCARD</h1>
-              </NaceRegionCardContainer>
-              <ChartViewContainer>
-                {/**TODO: ChartView*/}
-                <h1>PLACEHOLDER ChartViewContainer</h1>
-                <HistoryGraphComponent />
-                <OverviewTableComponent />
-              </ChartViewContainer>
-              <h1>
-                {regionList && regionList[0] ? regionList[0].regionName : null}
-                {naceList && naceList[0] ? naceList[0].naceName : null}
-                {esgFactorIdString}
-              </h1>
-              <ul>
-                {naceRegionData?.map((data) => (
-                  <li key={data.naceRegionDataId}>
-                    Emission: {data.emissionPerYear} Year:{data.year}
-                  </li>
-                ))}
-              </ul>
-              <button onClick={() => setUrlParams('2,2', '2')}>
-                Click me!{' '}
-              </button>
+              {regionList && naceList && naceRegionIdString ? (
+                <NaceRegionCardContainer
+                  regionList={regionList}
+                  naceList={naceList}
+                  setUrlParams={setUrlParams}
+                  naceRegionIdList={naceRegionIdStringToList(
+                    naceRegionIdString,
+                  )}
+                />
+              ) : null}
+              <ChartView>
+                {naceRegionDataListList ? (
+                  <BarchartComponent
+                    naceRegionData={naceRegionDataListList}
+                    esgFactor={esgFactorIdString}
+                  />
+                ) : null}
+              </ChartView>
+              <HistoryGraphComponent />
             </>
           )}
         </ChartPageContainer>
@@ -157,19 +162,17 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
+  background: var(--sec-purple-color);
+  color: var(--main-white-color);
 `;
-const NaceRegionCardContainer = styled.div`
-  grid-column-start: main-start;
-  grid-column-end: main-stop;
-  grid-row-start: card-start;
-  grid-row-end: card-stop;
-`;
-const ChartViewContainer = styled.div`
+
+// TODO: Unused, remove?
+/* const ChartViewContainer = styled.div`
   grid-column-start: left-pad-stop;
   grid-column-end: right-pad-start;
   grid-row-start: main-start;
   grid-row-end: main-stop;
-`;
+`; */
 
 const ChartPageContainer = styled.div`
   grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];
