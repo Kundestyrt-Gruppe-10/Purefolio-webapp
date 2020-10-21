@@ -7,6 +7,7 @@ import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
+import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
 import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
 
 // ----Helper functions----
@@ -117,8 +118,7 @@ export const ChartPage: React.FC<Props> = ({
   return (
     <>
       <ChartPageHeaderContainer>
-        {/**TODO: ChartPageHeader */}
-        <p>Placeholder header</p>
+        <ChartPageHeaderComponent />
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>
@@ -160,8 +160,6 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
-  background: var(--sec-purple-color);
-  color: var(--main-white-color);
 `;
 
 // TODO: Unused, remove?
