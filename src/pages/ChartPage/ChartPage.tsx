@@ -8,6 +8,7 @@ import { ContentContainer } from '../../components/BaseLayout';
 import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
 import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
+import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -44,8 +45,10 @@ export const ChartPage: React.FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
-  const [naceRegionData, setNaceRegionData] = useState<NaceRegionData[]>();
-  const [esgFactorList, setEsgFactorList] = useState<string[]>();
+  const [naceRegionDataListList, setNaceRegionData] = useState<
+    NaceRegionData[][]
+  >();
+  const [, /*esgFactorList*/ setEsgFactorList] = useState<string[]>();
   const history = useHistory();
 
   // Check if correct URL and parse URL string
@@ -64,33 +67,41 @@ export const ChartPage: React.FC<Props> = ({
 
   // Fetch data from API
   useEffect(() => {
-    function fetchData() {
-      ApiGet<Region[]>('/regions')
-        .then((res) => setRegionList(res))
-        .catch((err) => setError(err));
+    async function fetchData() {
+      return await Promise.all([
+        ApiGet<Region[]>('/regions')
+          .then((res) => setRegionList(res))
+          .catch((err) => setError(err)),
 
-      ApiGet<Nace[]>('/naces')
-        .then((res) => setNaceList(res))
-        .catch((err) => setError(err));
+        ApiGet<Nace[]>('/naces')
+          .then((res) => setNaceList(res))
+          .catch((err) => setError(err)),
 
-      ApiGet<string[]>('/tables/esg-factors')
-        .then((res) => setEsgFactorList(res))
-        .catch((err) => setError(err));
-      console.log(esgFactorList);
+        ApiGet<string[]>('/tables/esg-factors')
+          .then((res) => setEsgFactorList(res))
+          .catch((err) => setError(err)),
 
-      naceRegionIdList.map((naceId) =>
-        ApiGet<NaceRegionData[]>(`/naceregiondata/${naceId[0]}/${naceId[1]}`)
-          .then((res) => setNaceRegionData(res))
-          .catch((err) => {
-            console.log(err);
-            setError(err);
-          }),
-      );
-
-      setLoading(false);
+        Promise.all(
+          naceRegionIdList.map((regionIdNaceId) =>
+            ApiGet<NaceRegionData[]>(
+              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+            ).then((res) => {
+              console.log(res);
+              if (res.length < 1) throw new Error('one list was empy');
+              return res;
+            }),
+          ),
+        )
+          .then((res) => {
+            console.log('AWAIT ALLL:');
+            console.log(res);
+            setNaceRegionData(res);
+          })
+          .catch((err) => setError(err)),
+      ]);
     }
 
-    void fetchData();
+    void fetchData().then(() => setLoading(false));
   }, [naceRegionIdString, esgFactorIdString]);
 
   /**
@@ -128,21 +139,14 @@ export const ChartPage: React.FC<Props> = ({
                   )}
                 />
               ) : null}
-              <ChartView />
-              {/*
-              <h1>
-                {regionList && regionList[0] ? regionList[0].regionName : null}
-                {naceList && naceList[0] ? naceList[0].naceName : null}
-                {esgFactorIdString}
-              </h1>
-              <ul>
-                {naceRegionData?.map((data) => (
-                  <li key={data.naceRegionDataId}>
-                    Emission: {data.emissionPerYear} Year:{data.year}
-                  </li>
-                ))}
-              </ul>
-              */}
+              <ChartView>
+                {naceRegionDataListList ? (
+                  <BarchartComponent
+                    naceRegionData={naceRegionDataListList}
+                    esgFactor={esgFactorIdString}
+                  />
+                ) : null}
+              </ChartView>
             </>
           )}
         </ChartPageContainer>
@@ -157,12 +161,14 @@ const ChartPageHeaderContainer = styled.div`
   grid-row-start: header-start;
   grid-row-end: header-stop;
 `;
-const ChartViewContainer = styled.div`
+
+// TODO: Unused, remove?
+/* const ChartViewContainer = styled.div`
   grid-column-start: left-pad-stop;
   grid-column-end: right-pad-start;
   grid-row-start: main-start;
   grid-row-end: main-stop;
-`;
+`; */
 
 const ChartPageContainer = styled.div`
   grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];

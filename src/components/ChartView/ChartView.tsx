@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
 
-export const ChartView: React.FC = () => {
+export const ChartView: React.FC = (props) => {
   return (
     <ChartViewContainer active={false}>
       <ContainerLine active={true} />
       <ChartViewTabs />
       <OverviewTableComponent />
       <ContainerLine active={true} />
+      {props.children}
     </ChartViewContainer>
   );
 };

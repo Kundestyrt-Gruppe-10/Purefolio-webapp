@@ -28,13 +28,13 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   //TODO: Fix eslint type
   /*eslint-disable*/
   const handleChangeRegion = (selectedOption: any) => {
-    const newRegionId = selectedOption.value-1; // Convert 1-indexed value to 0-indexed array
+    const newRegionId = selectedOption.value; // Convert 1-indexed value to 0-indexed array
     setRegionId(newRegionId);
     props.setNaceRegionId(naceId, newRegionId, props.id);
   };
 
-  const handleChangeNace = (selectedOption: any) =>{
-    const newNaceId = selectedOption.value-1; // Convert 1-indexed value to 0-indexed array
+  const handleChangeNace = (selectedOption: any) => {
+    const newNaceId = selectedOption.value; // Convert 1-indexed value to 0-indexed array
     setNaceId(newNaceId);
     props.setNaceRegionId(newNaceId, regionId, props.id);
   };
@@ -50,7 +50,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             classNamePrefix="react-select"
             active={true}
             options={selectRegion}
-            defaultValue={selectRegion[props.regionId]}
+            defaultValue={selectRegion[props.regionId - 1]}
             onChange={handleChangeRegion}
           />
           <Button
@@ -101,7 +101,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             classNamePrefix="react-select"
             active={true}
             options={selectNace}
-            defaultValue={selectNace[props.naceId]}
+            defaultValue={selectNace[props.naceId - 1]}
             onChange={handleChangeNace}
           />
         </div>
@@ -121,7 +121,8 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   );
 };
 
-const handleColorType = (colorID: number) => {
+// TODO: Used other places, should be moved to an util file
+export const handleColorType = (colorID: number) => {
   colorID = colorID % 5;
   switch (colorID) {
     case 0:
