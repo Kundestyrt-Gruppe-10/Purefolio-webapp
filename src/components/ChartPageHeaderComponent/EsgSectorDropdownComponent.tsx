@@ -149,7 +149,8 @@ const CategoryBox = styled.div<{ active: boolean }>`
   text-align: right;
   text-justify: center;
 `;
-
+// TODO: Unused, remove??
+/*
 const Button = styled.button<{ active: boolean }>`
   font-family: 'Roboto', sans-serif;
   background: var(--sec-orange-color);
@@ -161,3 +162,4 @@ const Button = styled.button<{ active: boolean }>`
   width: 120px;
   padding: 10px;
 `;
+*/

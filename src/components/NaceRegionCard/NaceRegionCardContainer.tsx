@@ -13,8 +13,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
   // const newList = [...list];
 
   // Function passes as prop to NaceRegionCard, so that it can update the NaceRegionIdList
-  function setNaceRegionId(naceId: number, regionId: number, cardId: number) {
-    const naceRegion = [naceId, regionId]; // Set naceID and regionID pair
+  function setNaceRegionId(regionId: number, naceId: number, cardId: number) {
+    const naceRegion = [regionId, naceId]; // Set naceID and regionID pair
     const newNaceRegionIdList = naceRegionIdList;
     newNaceRegionIdList[cardId] = naceRegion;
     setNaceRegionIdList(newNaceRegionIdList);
@@ -76,15 +76,15 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
           id={index}
           regionList={props.regionList}
           naceList={props.naceList}
-          naceId={props.naceRegionIdList[index][0]}
-          regionId={props.naceRegionIdList[index][1]}
+          naceId={props.naceRegionIdList[index][1]}
+          regionId={props.naceRegionIdList[index][0]}
           setNaceRegionId={setNaceRegionId}
         />
       ))}
       <AddCardButton
         active={true}
         onClick={() => {
-          addCard(0, 0);
+          addCard(1, 1);
         }}
       >
         {' '}
