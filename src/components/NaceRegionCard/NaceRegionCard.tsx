@@ -33,7 +33,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
     props.setNaceRegionId(naceId, newRegionId, props.id);
   };
 
-  const handleChangeNace = (selectedOption: any) =>{
+  const handleChangeNace = (selectedOption: any) => {
     const newNaceId = selectedOption.value; // Convert 1-indexed value to 0-indexed array
     setNaceId(newNaceId);
     props.setNaceRegionId(newNaceId, regionId, props.id);
@@ -121,7 +121,8 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   );
 };
 
-const handleColorType = (colorID: number) => {
+// TODO: Used other places, should be moved to an util file
+export const handleColorType = (colorID: number) => {
   colorID = colorID % 5;
   switch (colorID) {
     case 0:

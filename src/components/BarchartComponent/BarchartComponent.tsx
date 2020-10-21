@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'recharts';
 import { NaceRegionData } from '../../types';
+import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 // TODO: Add tests
 
 /**
@@ -43,7 +44,6 @@ interface Props {
 interface NaceRegionChartItem {
   year: number; // year
   [dataKey: string]: number | undefined; // naceRegionKey: data
-  // [key: string]: string | undefined; //NaceRegion
 }
 export const BarchartComponent: React.FC<Props> = ({
   naceRegionData: naceRegionData,
@@ -94,10 +94,13 @@ export const BarchartComponent: React.FC<Props> = ({
         <Legend />
         {naceRegionData.map((item, idx) => {
           return (
-            // TODO: Fix dynamic fill color
             // This is number of Bars per group/ year. If we compare multiple NaceRegions
             // We will have multiple bars
-            <Bar key={idx} dataKey={item[0].region.regionName} fill="#8884d8" />
+            <Bar
+              key={idx}
+              dataKey={item[0].region.regionName}
+              fill={handleColorType(idx)}
+            />
           );
         })}
       </BarChart>
