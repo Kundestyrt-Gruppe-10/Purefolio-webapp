@@ -1,15 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NaceRegionData } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
+import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
+import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 
-export const ChartView: React.FC = (props) => {
+interface Props {
+  naceRegionData: NaceRegionData[][];
+  esgFactor: string;
+}
+
+export const ChartView: React.FC<Props> = ({
+  naceRegionData: naceRegionData,
+  esgFactor: esgFactor,
+}) => {
   return (
     <ChartViewContainer active={false}>
       <ContainerLine active={true} />
       <ChartViewTabs />
-      <OverviewTableComponent />
+
+      <DataView active={true}>
+        <BarchartComponent
+          naceRegionData={naceRegionData}
+          esgFactor={esgFactor}
+        />
+
+        {/*<OverviewTableComponent />*/}
+
+        {/*<HistoryGraphComponent />*/}
+      </DataView>
+
       <ContainerLine active={true} />
-      {props.children}
     </ChartViewContainer>
   );
 };
@@ -32,6 +53,13 @@ const ChartViewContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+`;
+
+const DataView = styled.div<{ active: boolean }>`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ContainerLine = styled.hr<{ active: boolean }>`
