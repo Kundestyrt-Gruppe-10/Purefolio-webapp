@@ -5,27 +5,6 @@ import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { useHistory } from 'react-router-dom';
 
-/*import React from 'react';
-import * as CSS from 'csstype';
-import Select from 'react-select';
-
-const options = [
-  { value: 'airEmissionAccount', label: 'Air emission accounts' },
-  { value: 'strawberry', label: 'Non-fatal accidents at work' },
-  { value: 'vanilla', label: 'Gender pay gap in unadjusted form ' },
-];
-
-export const EsgSectorDropdown: React.FC = () => {
-  return (
-    <Select
-      options={options}
-      defaultInputValue={''}
-      placeholder={'Choose factor...'}
-    />
-  );
-};
-*/
-
 export const EsgFactorDropdown: React.FC = () => {
   const { setSearchQuery } = useQuery();
   const history = useHistory();
@@ -96,7 +75,7 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 5px;
+  top: 10px;
 `;
 
 const Input = styled.input<{ active: boolean }>`
@@ -105,7 +84,7 @@ const Input = styled.input<{ active: boolean }>`
   font-family: Roboto;
   background: var(--main-white-color);
   border: none;
-  width: 350px;
+  width: 330px;
   padding: 14px;
   border-radius: 0;
   background-image: 'url(' ${SearchIcon} ')';
@@ -114,14 +93,14 @@ const Input = styled.input<{ active: boolean }>`
 const DropdownContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 338px;
+  width: 318px;
   min-height: 200px;
   position: absolute;
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   padding: 20px;
-  z-index: 2;
+  z-index: 3;
   border-top: 1px solid var(--main-black-color);
 `;
 

@@ -11,9 +11,9 @@ export const ChartPageHeaderComponent: React.FC = () => {
         <SearchBox active={false}>
           <SearchBar onChartPage={true} />
         </SearchBox>
-        <DropDownBox active={false}>
+        <ESGBox active={false}>
           <EsgFactorDropdown />
-        </DropDownBox>
+        </ESGBox>
         <YearBox active={false}>
           <PeriodDropdown />
         </YearBox>
@@ -27,37 +27,33 @@ export const ChartPageHeaderComponent: React.FC = () => {
 };
 
 const HeaderContainer = styled.div<{ active: boolean }>`
-  margin: 0;
   background-color: var(--sec-purple-color);
-  padding: 20px 30px 30px 20px;
+  padding: 20px 30px 20px 30px;
   color: white;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 `;
 
 const SearchBox = styled.div<{ active: boolean }>`
   font: Roboto, sans-serif;
-  flex-basis: 40%;
   padding: 10px;
   align-items: center;
-  justify-content: center;
+  flex-basis: 50%;
 `;
 
-const DropDownBox = styled.div<{ active: boolean }>`
+const ESGBox = styled.div<{ active: boolean }>`
   font: Roboto, sans-serif;
   flex-basis: 20%;
   padding: 10px;
 `;
 const YearBox = styled.div<{ active: boolean }>`
-  flex-basis: 10%;
   padding: 10px;
 `;
 
 const YearLineBox = styled.div<{ active: boolean }>`
   flex-basis: 5%;
   height: 2px;
-  border: 0;
-  border-top: 1px solid var(--third-bluegrey-color);
-  margin: 20px 0;
-  padding: 0;
+  border-top: 2px solid var(--third-bluegrey-color);
+  align-self: center;
 `;
