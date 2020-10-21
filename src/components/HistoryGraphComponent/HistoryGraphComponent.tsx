@@ -60,7 +60,7 @@ export const HistoryGraphComponent: React.FC = () => {
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
-          <ResponsiveContainer aspect={2} width="100%" height="100%">
+          <ResponsiveContainer aspect={2} width="97%" height="97%">
             <LineChart
               data={data}
               margin={{
@@ -71,8 +71,12 @@ export const HistoryGraphComponent: React.FC = () => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" stroke="#f7f8f6" />
-              <YAxis tickFormatter={DataFormater} stroke="#f7f8f6" />
+              <XAxis dataKey="name" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
+              <YAxis
+                tickFormatter={DataFormater}
+                stroke="#f7f8f6"
+                tick={{ fontSize: 14 }}
+              />
               <Tooltip />
               {/*TODO: Fix color fetching from index.css */}
               <Line
@@ -80,30 +84,35 @@ export const HistoryGraphComponent: React.FC = () => {
                 dataKey="Norway"
                 stroke="#e87f38"
                 strokeWidth={2}
+                activeDot={{ r: 6 }}
               />
               <Line
                 type="monotone"
                 dataKey="Sweden"
                 stroke="#a84924"
                 strokeWidth={2}
+                activeDot={{ r: 6 }}
               />
               <Line
                 type="monotone"
                 dataKey="Denmark"
                 stroke="#91e5ce"
                 strokeWidth={2}
+                activeDot={{ r: 6 }}
               />
               <Line
                 type="monotone"
                 dataKey="Netherlands"
                 stroke="#f9c4a0"
                 strokeWidth={2}
+                activeDot={{ r: 6 }}
               />
               <Line
                 type="monotone"
                 dataKey="Germany"
                 stroke="#7f96f7"
                 strokeWidth={2}
+                activeDot={{ r: 6 }}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -111,20 +120,22 @@ export const HistoryGraphComponent: React.FC = () => {
         <TextBox active={false}>
           <TableTitleContainer active={false}>
             <TitleBox active={false}>History Graph</TitleBox>
-            <UnitOfMeasureContainer active={false}>
+            <UnitOfMeasureBox active={false}>
               By millions tons of CO2
-            </UnitOfMeasureContainer>
+            </UnitOfMeasureBox>
           </TableTitleContainer>
-          <ESGFactorContainer active={false}>
-            <DescriptorBox active={false}>ESG Factor:</DescriptorBox>
-            <DescriptionBox active={false}>
-              Air Emission accounts
-            </DescriptionBox>
-          </ESGFactorContainer>
-          <PeriodContainer active={false}>
-            <DescriptorBox active={false}>Year:</DescriptorBox>
-            <DescriptionBox active={false}> 2014-2018</DescriptionBox>
-          </PeriodContainer>
+          <TableInfoContainer active={false}>
+            <ESGFactorContainer active={false}>
+              <DescriptorBox active={false}>ESG Factor:</DescriptorBox>
+              <DescriptionBox active={false}>
+                Air Emission accounts
+              </DescriptionBox>
+            </ESGFactorContainer>
+            <PeriodContainer active={false}>
+              <DescriptorBox active={false}>Year:</DescriptorBox>
+              <DescriptionBox active={false}> 2014-2018</DescriptionBox>
+            </PeriodContainer>
+          </TableInfoContainer>
         </TextBox>
       </TableContainer>
     </OuterContainer>
@@ -144,7 +155,7 @@ const DataFormater = (number: number) => {
   }
 };
 const OuterContainer = styled.div<{ active: boolean }>`
-  height: 75vh;
+  height: 100vh;
   margin: auto;
   padding-top: 8em;
   padding-bottom: 50px;
@@ -157,7 +168,7 @@ const TableContainer = styled.div<{ active: boolean }>`
   position: relative;
   border-radius: 5px;
   padding-top: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   z-index: 1;
 `;
 
@@ -165,38 +176,27 @@ const GraphContainer = styled.div<{ active: boolean }>`
   background-color: var(--sec-purple-color);
   width: 90%;
   margin: auto;
-  position: relative;
   border-radius: 5px;
-  padding-top: 10px;
+  padding-top: 20px;
   z-index: 1;
-  transform: translateY(-70px);
+  transform: translateY(-56px);
 `;
 
 const TextBox = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
   border-bottom: 0.6px solid #ced8f4;
-  height: 50%;
 `;
 const TableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
   margin-left: 5%;
   margin-right: 5%;
-  border-bottom: 0.6px solid #ced8f4;
-  height: 50%;
-  &:nth-child(1) {
-    text-align: left;
-  }
-  &:nth-child(2) {
-    text-align: left;
-  }
+  flex-grow: 1;
 `;
 const TitleBox = styled.div<{ active: boolean }>`
   font-size: 20px;
@@ -205,43 +205,29 @@ const TitleBox = styled.div<{ active: boolean }>`
   text-align: center;
 `;
 
-const UnitOfMeasureContainer = styled.div<{ active: boolean }>`
-  flex-basis: 16.7%;
-  text-align: center;
-  align-self: end;
+const UnitOfMeasureBox = styled.div<{ active: boolean }>`
+  font-size: 14px;
+  font-weight: 100;
 `;
 
-const ESGFactorContainer = styled.div<{ active: boolean }>`
-  font-size: 12px;
-  text-align: center;
-  align-self: center;
-  flex-basis: 16.7%;
-  &:nth-child(1) {
-    text-align: left;
+const TableInfoContainer = styled.div<{ active: boolean }>`
+  flex-direction: row;
+  flex-grow: 1;
   }
+`;
+const ESGFactorContainer = styled.div<{ active: boolean }>`
+  flex-direction: row;
+  justify-content: space-between;
 `;
 const DescriptorBox = styled.div<{ active: boolean }>`
   font-size: 12px;
-  text-align: right;
-  align-self: center;
   }
 `;
 
 const PeriodContainer = styled.div<{ active: boolean }>`
-  font-size: 12px;
-  text-align: center;
-  align-self: center;
-  flex-basis: 16.7%;
-  &:nth-child(1) {
-    text-align: left;
-  }
+  flex-direction: row;
 `;
 const DescriptionBox = styled.div<{ active: boolean }>`
-  font-size: 12px;
-  text-align: center;
-  align-self: center;
-  flex-basis: 16.7%;
-  &:nth-child(1) {
-    text-align: left;
-  }
+  text-align: right;
+  font-size: 14px;
 `;
