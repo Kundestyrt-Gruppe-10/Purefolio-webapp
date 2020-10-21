@@ -59,7 +59,7 @@ export const HistoryGraphComponent: React.FC = () => {
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
-          <ResponsiveContainer aspect={2} width="97%" height="97%">
+          <ResponsiveContainer aspect={2.5} width="97%" height="97%">
             <LineChart
               data={data}
               margin={{
