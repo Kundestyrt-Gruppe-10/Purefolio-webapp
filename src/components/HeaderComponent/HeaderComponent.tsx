@@ -21,7 +21,7 @@ export const HeaderComponent: React.FC = () => {
             <NavButton active={false}>Test</NavButton>
           </Nav>
         </NavArea>
-        <SearchBar />
+        <SearchBar onChartPage={false} />
       </Background>
     </>
   );
