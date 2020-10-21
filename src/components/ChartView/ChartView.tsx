@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
 
-export const ChartView: React.FC = () => {
+export const ChartView: React.FC = (props) => {
   return (
     <ChartViewContainer active={false}>
+      <ContainerLine active={true} />
       <ChartViewTabs />
+      <OverviewTableComponent />
+      <ContainerLine active={true} />
+      {props.children}
     </ChartViewContainer>
   );
 };
@@ -12,21 +17,18 @@ export const ChartView: React.FC = () => {
 export const ChartViewTabs: React.FC = () => {
   return (
     <>
-      <ContainerLine active={true} />
       <ChartTabsContainer active={true}>
         <ChartTabs active={true}>History Graph</ChartTabs>
         <ChartTabs active={true}>History Diagram</ChartTabs>
         <ChartTabs active={true}>Overview Table</ChartTabs>
-        <ChartTabs active={true}>Percentace Table</ChartTabs>
+        <ChartTabs active={true}>Percentage Table</ChartTabs>
       </ChartTabsContainer>
-      <ContainerLine active={true} />
     </>
   );
 };
 
 const ChartViewContainer = styled.div<{ active: boolean }>`
   background-color: var(--main-white-color);
-  padding: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -41,7 +43,7 @@ const ContainerLine = styled.hr<{ active: boolean }>`
 `;
 
 const ChartTabsContainer = styled.nav<{ active: boolean }>`
-  width: 30%;
+  width: 40%;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -55,7 +57,7 @@ const ChartTabs = styled.a<{ active: boolean }>`
   background-color: var(--main-white-color);
   color: var(--main-blackAlpha-color);
   text-decoration: none;
-  font-size: var(--font-size-xtiny);
+  font-size: var(--font-size-tiny);
   :hover {
     color: var(--main-black-color);
     font-weight: 700;
