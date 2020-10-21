@@ -1,3 +1,4 @@
+const useProductionApi = process.env.production;
 export enum Environment {
   LOCAL = 'LOCAL',
   DEV = 'DEV',
@@ -49,6 +50,9 @@ export const getConfig = (
   origin: string = window.origin,
 ): IAppConfiguration => {
   const environment = getEnvironment(origin);
+  if (useProductionApi) {
+    return envToConfigMap[Environment.PROD];
+  }
 
   return envToConfigMap[environment];
 };

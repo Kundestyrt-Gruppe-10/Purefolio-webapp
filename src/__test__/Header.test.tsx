@@ -1,6 +1,6 @@
-import * as React from 'react';
+//import * as React from 'react';
 //import * as renderer from 'react-test-renderer';
-import { HeaderComponent } from '../components/HeaderComponent/HeaderComponent';
+// import { HeaderComponent } from '../components/HeaderComponent/HeaderComponent';
 
 it('SubjectToBeTested renders correctly', () => {
   // TODO: jsdom does not support svg jet:

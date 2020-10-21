@@ -1,5 +1,6 @@
-/* Roboto font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/* Font APIs */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
   background-color: var(--main-white-color);
@@ -10,6 +11,7 @@ body {
 :root {
   --main-white-color: rgb(247, 248, 246);
   --main-black-color: rgb(19, 22, 28);
+  --main-blackAlpha-color: rgba(19, 22, 28, 0.53);
   --sec-purple-color: rgb(63, 24, 170);
   --sec-orange-color: rgb(232, 127, 56);
   --third-blue-color: rgb(127, 150, 247);
@@ -20,9 +22,72 @@ body {
   --third-bluegrey-color: rgb(206, 216, 244);
   --third-purple-color: rgb(63, 24, 170);
   --third-orange-color: rgb(232, 127, 56);
+  --font-size-xtiny: 12px;
   --font-size-tiny: 14px;
   --font-size-small: 16px;
   --font-size-medium: 18px;
   --font-size-large: 20px;
   --font-size-xlarge: 40px;
+}
+
+.country-select {
+  background: var(--third-bluegrey-color);
+  border: none;
+  border-radius: 0;
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  margin: 10px 0;
+  width: 65%;
+}
+
+.react-select-container {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.react-select__indicator-separator {
+  display: none;
+}
+
+.react-select__control {
+  background: var(--third-bluegrey-color) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  opacity: 1 !important;
+  padding: 0;
+}
+
+.react-select__value-container {
+  background: var(--third-bluegrey-color);
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.react-select__indicator {
+  border: none;
+  border-radius: 0;
+  color: var(--main-black-color) !important;
+  opacity: 1;
+}
+
+.react-select__menu {
+  background: var(--third-bluegrey-color) !important;
+  border: none;
+  border-radius: 0 !important;
+  opacity: 1;
+}
+
+.react-select__menu-list {
+  border: none;
+  border-radius: 0;
+  opacity: 1;
+}
+
+.react-select__option {
+  border: none;
+  border-radius: 0;
+  display: none;
 }

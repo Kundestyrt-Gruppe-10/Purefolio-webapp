@@ -15,7 +15,9 @@ export const HeaderComponent: React.FC = () => {
             </Link>
           </LogoContainer>
           <Nav active={false}>
-            <NavButton active={false}>Test</NavButton>
+            <Link to="/chartpage">
+              <NavButton active={false}>ChartPage</NavButton>
+            </Link>
             <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>
             <NavButton active={false}>Test</NavButton>
@@ -52,7 +54,7 @@ const Nav = styled.nav<{ active: boolean }>`
 
 const NavButton = styled.a<{ active: boolean }>`
   font: Roboto, sans-serif;
-  color: var(--main-color-white);
+  color: #f7f8f6;
   text-decoration: none;
 `;
 
