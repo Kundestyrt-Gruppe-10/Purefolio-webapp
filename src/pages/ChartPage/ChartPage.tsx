@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
+import { ChartView } from '../../components/ChartView/ChartView';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -15,7 +16,7 @@ export function isValidEsgFactorIdString(esgFactorString: string): boolean {
   return /^[0-9]*$/.test(esgFactorString);
 }
 /**
- * Input: '11,12;21;22'
+ * Input: '11,12;21,22'
  * Output: [[11,12],[21,22]]
  */
 export function naceRegionIdStringToList(
@@ -106,7 +107,7 @@ export const ChartPage: React.FC<Props> = ({
     <>
       <ChartPageHeaderContainer>
         {/**TODO: ChartPageHeader */}
-        <h1>PLACEHOLDER HEADER</h1>
+        <p>Placeholder header</p>
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>
@@ -117,15 +118,18 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              <NaceRegionCardContainer>
-                {/**TODO: NaceRegionCardContainer*/}
-                <h1>PLACEHOLDER NaceRegionCARD</h1>
-              </NaceRegionCardContainer>
-              <ChartViewContainer>
-                {/**TODO: ChartView*/}
-                <h1>PLACEHOLDER ChartViewContainer</h1>
-                <OverviewTableComponent />
-              </ChartViewContainer>
+              {regionList && naceList && naceRegionIdString ? (
+                <NaceRegionCardContainer
+                  regionList={regionList}
+                  naceList={naceList}
+                  setUrlParams={setUrlParams}
+                  naceRegionIdList={naceRegionIdStringToList(
+                    naceRegionIdString,
+                  )}
+                />
+              ) : null}
+              <ChartView />
+              {/*
               <h1>
                 {regionList && regionList[0] ? regionList[0].regionName : null}
                 {naceList && naceList[0] ? naceList[0].naceName : null}
@@ -138,9 +142,7 @@ export const ChartPage: React.FC<Props> = ({
                   </li>
                 ))}
               </ul>
-              <button onClick={() => setUrlParams('2,2', '2')}>
-                Click me!{' '}
-              </button>
+              */}
             </>
           )}
         </ChartPageContainer>
@@ -154,12 +156,8 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
-`;
-const NaceRegionCardContainer = styled.div`
-  grid-column-start: main-start;
-  grid-column-end: main-stop;
-  grid-row-start: card-start;
-  grid-row-end: card-stop;
+  background: var(--sec-purple-color);
+  color: var(--main-white-color);
 `;
 const ChartViewContainer = styled.div`
   grid-column-start: left-pad-stop;
