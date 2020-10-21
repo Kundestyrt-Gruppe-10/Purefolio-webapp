@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 // TODO: Add tests
 
@@ -38,6 +38,7 @@ import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
+  naceRegionList: NaceRegion[];
   esgFactor: string;
 }
 
@@ -46,13 +47,16 @@ interface NaceRegionChartItem {
   [dataKey: string]: number | undefined; // naceRegionKey: data
 }
 export const BarchartComponent: React.FC<Props> = ({
-  naceRegionData: naceRegionData,
+  naceRegionData,
+  naceRegionList,
   // TODO: Fix so esgFactor can be passed as type!
   // esgFactor,
 }) => {
   // TODO: Remove this, should be prop
   const esgFactor = 'emissionPerYear';
   const naceRegionItems: NaceRegionChartItem[] = [];
+
+  // TODO: This should be a function and moved out from component
   naceRegionData.forEach((naceRegion: NaceRegionData[]) => {
     naceRegion.forEach((element: NaceRegionData) => {
       // If year already in naceRegionItems, update existing object

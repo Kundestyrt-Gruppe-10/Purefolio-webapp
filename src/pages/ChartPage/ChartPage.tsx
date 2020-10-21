@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { Nace, NaceRegionData, Region } from '../../types';
+import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
@@ -50,6 +50,7 @@ export const ChartPage: React.FC<Props> = ({
     NaceRegionData[][]
   >();
   const [, /*esgFactorList*/ setEsgFactorList] = useState<string[]>();
+  const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>();
   const history = useHistory();
 
   // Check if correct URL and parse URL string
@@ -88,7 +89,7 @@ export const ChartPage: React.FC<Props> = ({
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
             ).then((res) => {
               console.log(res);
-              if (res.length < 1) throw new Error('one list was empy');
+              // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
           ),
@@ -97,6 +98,13 @@ export const ChartPage: React.FC<Props> = ({
             console.log('AWAIT ALLL:');
             console.log(res);
             setNaceRegionData(res);
+            const naceRegionList: NaceRegion[] = res.map((naceRegionData) => {
+              return {
+                nace: naceRegionData[0].nace,
+                region: naceRegionData[0].region,
+              };
+            });
+            setNaceRegionList(naceRegionList);
           })
           .catch((err) => setError(err)),
       ]);
