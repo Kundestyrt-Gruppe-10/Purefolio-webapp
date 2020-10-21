@@ -166,7 +166,7 @@ const TableContainer = styled.div<{ active: boolean }>`
   margin: auto;
   position: relative;
   border-radius: 5px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   z-index: 1;
 `;
 
@@ -211,7 +211,7 @@ const UnitOfMeasureBox = styled.div<{ active: boolean }>`
 const TableInfoContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  flex-basis: 40%;
+  flex-basis: 35%;
   font-weight: 450;
   }
 `;
