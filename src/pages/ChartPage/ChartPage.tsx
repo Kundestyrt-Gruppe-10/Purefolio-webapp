@@ -86,9 +86,11 @@ export const ChartPage: React.FC<Props> = ({
           naceRegionIdList.map((regionIdNaceId) =>
             ApiGet<NaceRegionData[]>(
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
-            ).then((res) => {
+            ).then((res): NaceRegionData[] => {
               console.log(res);
               if (res.length < 1) throw new Error('one list was empy');
+              // TODO: Fix unsafe return eslint error
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               return res;
             }),
           ),

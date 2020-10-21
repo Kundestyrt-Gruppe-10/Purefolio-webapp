@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SearchBar } from '../HeaderComponent/SearchBarComponent';
-import { EsgSectorDropdown } from './EsgSectorDropdownComponent';
+import { EsgFactorDropdown } from './EsgSectorDropdownComponent';
 import { PeriodDropdown } from './PeriodDropDownComponent';
 
 export const ChartPageHeaderComponent: React.FC = () => {
@@ -12,7 +12,7 @@ export const ChartPageHeaderComponent: React.FC = () => {
           <SearchBar onChartPage={true} />
         </SearchBox>
         <DropDownBox active={false}>
-          <EsgSectorDropdown />
+          <EsgFactorDropdown />
         </DropDownBox>
         <YearBox active={false}>
           <PeriodDropdown />
@@ -29,7 +29,7 @@ export const ChartPageHeaderComponent: React.FC = () => {
 const HeaderContainer = styled.div<{ active: boolean }>`
   margin: 0;
   background-color: var(--sec-purple-color);
-  padding: 10px 30px 10px 30px;
+  padding: 20px 30px 30px 20px;
   color: white;
   display: flex;
   flex-direction: row;
@@ -38,7 +38,6 @@ const HeaderContainer = styled.div<{ active: boolean }>`
 const SearchBox = styled.div<{ active: boolean }>`
   font: Roboto, sans-serif;
   flex-basis: 40%;
-  border: 1px solid var(--third-bluegrey-color);
   padding: 10px;
   align-items: center;
   justify-content: center;
@@ -47,12 +46,10 @@ const SearchBox = styled.div<{ active: boolean }>`
 const DropDownBox = styled.div<{ active: boolean }>`
   font: Roboto, sans-serif;
   flex-basis: 20%;
-  border: 1px solid var(--third-bluegrey-color);
   padding: 10px;
 `;
 const YearBox = styled.div<{ active: boolean }>`
   flex-basis: 10%;
-  border: 1px solid var(--third-bluegrey-color);
   padding: 10px;
 `;
 
