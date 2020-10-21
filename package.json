@@ -77,7 +77,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-select": "^3.1.0",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "stylelint-config-styled-components": "^0.1.1"
   },
   "browserslist": {
     "production": [
