@@ -25,6 +25,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
     }),
   );
 
+  //TODO: Fix eslint type
   /*eslint-disable*/
   const handleChangeRegion = (selectedOption: any) => {
     const newRegionId = selectedOption.value-1; // Convert 1-indexed value to 0-indexed array
@@ -136,14 +137,6 @@ const handleColorType = (colorID: number) => {
   }
 };
 
-const Background = styled.div<{ active: boolean }>`
-  margin: 0;
-  background-color: var(--main-white-color);
-  padding: 0 100px;
-  display: flex;
-  flex-direction: row;
-`;
-
 const CardBackground = styled.div<{ active: boolean }>`
   z-index: 2;
   width: 200px;
@@ -201,11 +194,4 @@ const DangerButton = styled.button<{ danger: boolean }>`
 const Text = styled.div<{ active: boolean }>`
   font-size: var(--font-size-xtiny);
   font-weight: 600;
-`;
-
-const AddCardButton = styled.button<{ active: boolean }>`
-  background-color: var(--third-bluegrey-color);
-  color: var(--sec-purple-color);
-  border: none;
-  height: 40px;
 `;
