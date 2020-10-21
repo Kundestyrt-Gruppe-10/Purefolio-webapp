@@ -81,6 +81,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "recharts": "^1.8.5",
+    "@types/react-select": "^3.0.22",
+    "react-select": "^3.1.0",
     "styled-components": "^5.2.0"
   },
   "browserslist": {

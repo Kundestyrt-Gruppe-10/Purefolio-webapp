@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { OverviewTableComponent } from '../../components/OverviewTableComponent/OverviewTable';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
+import { ChartView } from '../../components/ChartView/ChartView';
 import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
 
 // ----Helper functions----
@@ -16,7 +17,7 @@ export function isValidEsgFactorIdString(esgFactorString: string): boolean {
   return /^[0-9]*$/.test(esgFactorString);
 }
 /**
- * Input: '11,12;21;22'
+ * Input: '11,12;21,22'
  * Output: [[11,12],[21,22]]
  */
 export function naceRegionIdStringToList(
@@ -97,28 +98,6 @@ export const ChartPage: React.FC<Props> = ({
           })
           .catch((err) => setError(err)),
       ]);
-
-      /*       naceRegionIdList.map((regionIdNaceId) =>
-        ApiGet<NaceRegionData[]>(
-          // `/naceregiondata?regionId=${regionIdNaceId[0]}&naceId=${regionIdNaceId[1]}`,
-          `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
-        )
-          .then((res) => {
-            // console.log(regionIdNaceId);
-            // console.log(res);
-            let newState: NaceRegionData[][];
-            if (naceRegionDataListList) {
-              newState = naceRegionDataListList?.concat([res]);
-            } else {
-              newState = [res];
-            }
-            setNaceRegionData(newState);
-          })
-          .catch((err) => {
-            console.log(err);
-            setError(err);
-          }),
-      ); */
     }
 
     void fetchData().then(() => setLoading(false));
@@ -139,7 +118,7 @@ export const ChartPage: React.FC<Props> = ({
     <>
       <ChartPageHeaderContainer>
         {/**TODO: ChartPageHeader */}
-        <h1>PLACEHOLDER HEADER</h1>
+        <p>Placeholder header</p>
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>
@@ -150,41 +129,24 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              <NaceRegionCardContainer>
-                {/**TODO: NaceRegionCardContainer*/}
-                <h1>PLACEHOLDER NaceRegionCARD</h1>
-              </NaceRegionCardContainer>
-              <ChartViewContainer>
-                {/**TODO: ChartView*/}
-                <h1>PLACEHOLDER ChartViewContainer</h1>
-                <OverviewTableComponent />
-              </ChartViewContainer>
-              <h1>
-                {regionList && regionList[0] ? regionList[0].regionName : null}
-                {naceList && naceList[0] ? naceList[0].naceName : null}
-                {esgFactorIdString}
-              </h1>
-              <ul>
-                {!loading && naceRegionDataListList ? (
+              {regionList && naceList && naceRegionIdString ? (
+                <NaceRegionCardContainer
+                  regionList={regionList}
+                  naceList={naceList}
+                  setUrlParams={setUrlParams}
+                  naceRegionIdList={naceRegionIdStringToList(
+                    naceRegionIdString,
+                  )}
+                />
+              ) : null}
+              <ChartView>
+                {naceRegionDataListList ? (
                   <BarchartComponent
                     naceRegionData={naceRegionDataListList}
-                    esgFactor={'emissionPerYear'}
+                    esgFactor={esgFactorIdString}
                   />
-                ) : (
-                  <h1>No naceRegionDataListList</h1>
-                )}
-                {naceRegionDataListList?.map((naceRegionDataList) =>
-                  naceRegionDataList.map((naceRegionData) => {
-                    <li key={naceRegionData.naceRegionDataId}>
-                      Emission: {naceRegionData.emissionPerYear} Year:
-                      {naceRegionData.year}
-                    </li>;
-                  }),
-                )}
-              </ul>
-              <button onClick={() => setUrlParams('2,2', '2')}>
-                Click me!{' '}
-              </button>
+                ) : null}
+              </ChartView>
             </>
           )}
         </ChartPageContainer>
@@ -198,19 +160,17 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
+  background: var(--sec-purple-color);
+  color: var(--main-white-color);
 `;
-const NaceRegionCardContainer = styled.div`
-  grid-column-start: main-start;
-  grid-column-end: main-stop;
-  grid-row-start: card-start;
-  grid-row-end: card-stop;
-`;
-const ChartViewContainer = styled.div`
+
+// TODO: Unused, remove?
+/* const ChartViewContainer = styled.div`
   grid-column-start: left-pad-stop;
   grid-column-end: right-pad-start;
   grid-row-start: main-start;
   grid-row-end: main-stop;
-`;
+`; */
 
 const ChartPageContainer = styled.div`
   grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];
