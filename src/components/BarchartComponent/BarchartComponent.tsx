@@ -55,6 +55,11 @@ export const BarchartComponent: React.FC<Props> = ({
   // TODO: Remove this, should be prop
   const esgFactor = 'emissionPerYear';
   const naceRegionItems: NaceRegionChartItem[] = [];
+  // console.log('Assert list of data == list of naceregions to compare');
+  // console.log(
+  //   `Length data: ${naceRegionData.length}, Length naceRegion: ${naceRegionList.length}`,
+  // );
+  // console.log(naceRegionList);
 
   // TODO: This should be a function and moved out from component
   naceRegionData.forEach((naceRegion: NaceRegionData[]) => {
@@ -66,14 +71,17 @@ export const BarchartComponent: React.FC<Props> = ({
           // or create new object if it does not exist
           ((naceRegionItems.find((el) => el.year === element.year) || {
             year: element.year,
-          })[element.region.regionName] = element[esgFactor]),
+          })[element.region.regionName + element.nace.naceCode] =
+            element[esgFactor]),
       );
       // Runs when element not yet in naceRegionItems
       const found = naceRegionItems.some((el) => el.year === element.year);
       if (!found) {
         naceRegionItems.push({
           year: element.year,
-          [element.region.regionName]: element[esgFactor],
+          [element.region.regionName + element.nace.naceCode]: element[
+            esgFactor
+          ],
         });
       }
     });
@@ -96,13 +104,13 @@ export const BarchartComponent: React.FC<Props> = ({
         <YAxis />
         <Tooltip />
         <Legend />
-        {naceRegionData.map((item, idx) => {
+        {naceRegionList.map((item, idx) => {
           return (
             // This is number of Bars per group/ year. If we compare multiple NaceRegions
             // We will have multiple bars
             <Bar
               key={idx}
-              dataKey={item[0].region.regionName}
+              dataKey={item.region.regionName + item.nace.naceCode}
               fill={handleColorType(idx)}
             />
           );
