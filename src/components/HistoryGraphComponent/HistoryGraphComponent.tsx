@@ -158,8 +158,7 @@ const TableContainer = styled.div<{ active: boolean }>`
   margin: auto;
   position: relative;
   border-radius: 5px;
-  padding-top: 10px;
-  padding-bottom: 15px;
+  padding-bottom: 30px;
 `;
 
 const GraphContainer = styled.div<{ active: boolean }>`
