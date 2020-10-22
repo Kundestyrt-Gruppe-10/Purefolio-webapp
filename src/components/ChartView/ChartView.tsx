@@ -1,26 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { NaceRegionData } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
+import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
+import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 
-export const ChartView: React.FC = (props) => {
+interface Props {
+  naceRegionData: NaceRegionData[][];
+  esgFactor: string;
+}
+
+interface TabProps {
+  tableIndex: number;
+  setTableIndex(id: number): void;
+}
+
+export const ChartView: React.FC<Props> = ({
+  naceRegionData: naceRegionData,
+  esgFactor: esgFactor,
+}) => {
+  const [tableIndex, setTableIndex] = useState(1);
+
   return (
     <ChartViewContainer active={false}>
       <ContainerLine active={true} />
-      <ChartViewTabs />
-      <OverviewTableComponent />
+      <ChartViewTabs tableIndex={tableIndex} setTableIndex={setTableIndex} />
+
+      <DataView active={true}>
+        <HistoryGraphContainer index={tableIndex}>
+          <HistoryGraphComponent />
+        </HistoryGraphContainer>
+
+        <BarChartContainer index={tableIndex}>
+          <BarchartComponent
+            naceRegionData={naceRegionData}
+            esgFactor={esgFactor}
+          />
+        </BarChartContainer>
+
+        <OverviewTableContainer index={tableIndex}>
+          <OverviewTableComponent />
+        </OverviewTableContainer>
+      </DataView>
+
       <ContainerLine active={true} />
-      {props.children}
     </ChartViewContainer>
   );
 };
 
-export const ChartViewTabs: React.FC = () => {
+export const ChartViewTabs: React.FC<TabProps> = ({
+  tableIndex: tableIndex,
+  setTableIndex: setTableIndex,
+}) => {
   return (
     <>
       <ChartTabsContainer active={true}>
-        <ChartTabs active={true}>History Graph</ChartTabs>
-        <ChartTabs active={true}>History Diagram</ChartTabs>
-        <ChartTabs active={true}>Overview Table</ChartTabs>
+        <ChartTabs
+          active={true}
+          onClick={() => {
+            setTableIndex(1);
+          }}
+        >
+          History Graph
+        </ChartTabs>
+        <ChartTabs
+          active={true}
+          onClick={() => {
+            setTableIndex(2);
+          }}
+        >
+          Bar Chart
+        </ChartTabs>
+        <ChartTabs
+          active={true}
+          onClick={() => {
+            setTableIndex(3);
+          }}
+        >
+          Overview Table
+        </ChartTabs>
         <ChartTabs active={true}>Percentage Table</ChartTabs>
       </ChartTabsContainer>
     </>
@@ -32,6 +90,13 @@ const ChartViewContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+`;
+
+const DataView = styled.div<{ active: boolean }>`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ContainerLine = styled.hr<{ active: boolean }>`
@@ -62,4 +127,25 @@ const ChartTabs = styled.a<{ active: boolean }>`
     color: var(--main-black-color);
     font-weight: 700;
   }
+`;
+
+const HistoryGraphContainer = styled.div<{ index: number }>`
+  display: ${(props) => (props.index === 1 ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const BarChartContainer = styled.div<{ index: number }>`
+  display: ${(props) => (props.index === 2 ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const OverviewTableContainer = styled.div<{ index: number }>`
+  display: ${(props) => (props.index === 3 ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;

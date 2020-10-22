@@ -60,15 +60,7 @@ export const HistoryGraphComponent: React.FC = () => {
       <TableContainer active={false}>
         <GraphContainer active={false}>
           <ResponsiveContainer aspect={2.7} width="97%" height="97%">
-            <LineChart
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 30,
-                bottom: 5,
-              }}
-            >
+            <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
               <YAxis
@@ -154,10 +146,10 @@ const DataFormater = (number: number) => {
   }
 };
 const OuterContainer = styled.div<{ active: boolean }>`
-  height: 100vh;
+  width: 100%;
   margin: auto;
-  padding-top: 8em;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 10px;
 `;
 
 const TableContainer = styled.div<{ active: boolean }>`
@@ -166,8 +158,8 @@ const TableContainer = styled.div<{ active: boolean }>`
   margin: auto;
   position: relative;
   border-radius: 5px;
-  padding-bottom: 30px;
-  z-index: 1;
+  padding-top: 10px;
+  padding-bottom: 15px;
 `;
 
 const GraphContainer = styled.div<{ active: boolean }>`

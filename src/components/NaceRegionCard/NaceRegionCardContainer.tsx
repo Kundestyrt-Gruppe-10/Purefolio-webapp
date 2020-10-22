@@ -44,9 +44,9 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     return naceRegionIdString;
   }
 
-  function addCard(naceId: number, regionId: number) {
+  function addCard(regionId: number, naceId: number) {
     const newNaceRegionIdList = naceRegionIdList;
-    newNaceRegionIdList.push([naceId, regionId]);
+    newNaceRegionIdList.push([regionId, naceId]);
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(naceRegionIdList);
     props.setUrlParams(newUrlString, '1');
