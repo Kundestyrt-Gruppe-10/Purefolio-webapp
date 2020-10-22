@@ -8,6 +8,7 @@ import { ContentContainer } from '../../components/BaseLayout';
 import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
 import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
+import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
 import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
 
 // ----Helper functions----
@@ -85,9 +86,11 @@ export const ChartPage: React.FC<Props> = ({
           naceRegionIdList.map((regionIdNaceId) =>
             ApiGet<NaceRegionData[]>(
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
-            ).then((res) => {
+            ).then((res): NaceRegionData[] => {
               console.log(res);
               if (res.length < 1) throw new Error('one list was empy');
+              // TODO: Fix unsafe return eslint error
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
               return res;
             }),
           ),
@@ -118,8 +121,7 @@ export const ChartPage: React.FC<Props> = ({
   return (
     <>
       <ChartPageHeaderContainer>
-        {/**TODO: ChartPageHeader */}
-        <p>Placeholder header</p>
+        <ChartPageHeaderComponent />
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>
@@ -162,8 +164,6 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
   grid-row-end: header-stop;
-  background: var(--sec-purple-color);
-  color: var(--main-white-color);
 `;
 
 // TODO: Unused, remove?

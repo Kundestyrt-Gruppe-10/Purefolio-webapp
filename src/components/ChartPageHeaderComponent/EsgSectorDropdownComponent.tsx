@@ -5,15 +5,28 @@ import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { useHistory } from 'react-router-dom';
 
-// TODO: Clear search bar on redirect to home page
+/*import React from 'react';
+import * as CSS from 'csstype';
+import Select from 'react-select';
 
-type searchBarProps = {
-  onChartPage: boolean;
+const options = [
+  { value: 'airEmissionAccount', label: 'Air emission accounts' },
+  { value: 'strawberry', label: 'Non-fatal accidents at work' },
+  { value: 'vanilla', label: 'Gender pay gap in unadjusted form ' },
+];
+
+export const EsgSectorDropdown: React.FC = () => {
+  return (
+    <Select
+      options={options}
+      defaultInputValue={''}
+      placeholder={'Choose factor...'}
+    />
+  );
 };
+*/
 
-export const SearchBar: React.FC<searchBarProps> = ({
-  onChartPage,
-}: searchBarProps) => {
+export const EsgFactorDropdown: React.FC = () => {
   const { setSearchQuery } = useQuery();
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -37,120 +50,116 @@ export const SearchBar: React.FC<searchBarProps> = ({
 
   return (
     <>
+      <Title active={false}>ESG factor</Title>
       <Input
         id="searchInput"
         autoComplete="off"
         onKeyPress={handleKeywordKeyPress}
-        placeholder="Search by country or industry"
+        placeholder="Choose factor..."
         active={false}
-        onChartPage={onChartPage}
+        onClick={() => setDropdownOpen(true)}
       />
-      <DropdownContainer active={dropdownOpen} onChartPage={onChartPage}>
+      <DropdownContainer active={dropdownOpen}>
         <ResultRow active={false}>
-          <NameBox active={false}>Norway</NameBox>
-          <CategoryBox active={false}>Region</CategoryBox>
+          <NameBox active={false}>Air emission accounts</NameBox>
+          <CategoryBox active={false}>Environment</CategoryBox>
         </ResultRow>
         <ResultRow active={false}>
-          <NameBox active={false}>Netherlands</NameBox>
-          <CategoryBox active={false}>Region</CategoryBox>
+          <NameBox active={false}>Non-fatal accidents at work</NameBox>
+          <CategoryBox active={false}>Social</CategoryBox>
         </ResultRow>
         <ResultRow active={false}>
-          <NameBox active={false}>North Macedonia</NameBox>
-          <CategoryBox active={false}>Region</CategoryBox>
+          <NameBox active={false}>Gender pay gap in unadjusted form</NameBox>
+          <CategoryBox active={false}>Government</CategoryBox>
         </ResultRow>
         <ResultRow active={false}>
-          <NameBox active={false}>N.85 - Health and social work</NameBox>
-          <CategoryBox active={false}>NACE</CategoryBox>
+          <NameBox active={false}>
+            Environmental taxes by economic activity
+          </NameBox>
+          <CategoryBox active={false}>Environment</CategoryBox>
         </ResultRow>
         <ResultRow active={false}>
-          <NameBox active={false}>N.85.10 - Human health activitie</NameBox>
-          <CategoryBox active={false}>NACE</CategoryBox>
+          <NameBox active={false}>Fatal accidents at work</NameBox>
+          <CategoryBox active={false}>Social</CategoryBox>
         </ResultRow>
         <ResultRow active={false}>
-          <NameBox active={false}>N.85.10 - Human health activitie</NameBox>
-          <CategoryBox active={false}>NACE</CategoryBox>
+          <NameBox active={false}>Non-fatal accidents at work</NameBox>
+          <CategoryBox active={false}>Social</CategoryBox>
         </ResultRow>
       </DropdownContainer>
-      <Button
-        id="searchButton"
-        active={false}
-        onChartPage={onChartPage}
-        onClick={() => {
-          setSearchQuery(
-            (document.getElementById('searchInput') as HTMLInputElement).value,
-          );
-          history.push(`/results/`);
-        }}
-      >
-        Search
-      </Button>
     </>
   );
 };
+const Title = styled.div<{ active: boolean }>`
+  color: var(--third-bluegrey-color);
+  font-size: var(--font-size-tiny);
+  font-weight: 700;
+  font-family: Roboto;
+  position: absolute;
+  top: 5px;
+`;
 
-const Input = styled.input<{ active: boolean; onChartPage: boolean }>`
+const Input = styled.input<{ active: boolean }>`
   color: var(--main-black-color);
   font-size: var(--font-size-tiny);
   font-family: Roboto;
   background: var(--main-white-color);
   border: none;
-  width: ${(props) => (props.onChartPage ? '350px' : '420px')};
-  padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
-  margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
+  width: 350px;
+  padding: 14px;
   border-radius: 0;
   background-image: 'url(' ${SearchIcon} ')';
 `;
 
-const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
+const DropdownContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${(props) => (props.onChartPage ? '330px' : '400px')};
+  width: 338px;
   min-height: 200px;
-  margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
   position: absolute;
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  padding: ${(props) => (props.onChartPage ? '20px' : '24px')};
+  padding: 20px;
   z-index: 2;
+  border-top: 1px solid var(--main-black-color);
 `;
 
 const ResultRow = styled.div<{ active: boolean }>`
   display: flex;
   width: 100%;
-  height: 40px;
-  padding: 5px;
+  height: 35px;
   flex-direction: row;
   justify-content: space-between;
 `;
 
 const NameBox = styled.div<{ active: boolean }>`
-  height: 40px;
   color: var(--main-black-color);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  flex-basis: 70%;
+  flex-basis: 80%;
   text-align: left;
   text-justify: center;
 `;
 
 const CategoryBox = styled.div<{ active: boolean }>`
-  height: 40px;
-  font-size: 14px;
+  font-size: 10px;
   color: var(--sec-purple-color);
-  flex-basis: 30%;
+  flex-basis: 20%;
   text-align: right;
   text-justify: center;
 `;
-
-const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
+// TODO: Unused, remove??
+/*
+const Button = styled.button<{ active: boolean }>`
   font-family: 'Roboto', sans-serif;
   background: var(--sec-orange-color);
   color: var(--main-black-color);
   border-radius: 0;
   font-size: var(--font-size-tiny);
-  padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
   margin-left: 6px;
   border: none;
-  width: ${(props) => (props.onChartPage ? '124px' : '137px')};
+  width: 120px;
+  padding: 10px;
 `;
+*/
