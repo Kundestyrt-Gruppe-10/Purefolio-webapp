@@ -88,13 +88,18 @@ export const SearchBar: React.FC<searchBarProps> = ({
   );
 };
 
-/*
-const styles: CSS.Properties = {
-  width: '100%',
-  maxWidth: '600px',
-  backgroundColor: 'green',
-};
-*/
+const Input = styled.input<{ active: boolean; onChartPage: boolean }>`
+  color: var(--main-black-color);
+  font-size: var(--font-size-tiny);
+  font-family: Roboto;
+  background: var(--main-white-color);
+  border: none;
+  width: ${(props) => (props.onChartPage ? '350px' : '420px')};
+  padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
+  margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
+  border-radius: 0;
+  background-image: 'url(' ${SearchIcon} ')';
+`;
 
 const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   display: flex;
@@ -106,7 +111,7 @@ const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  padding: 20px;
+  padding: ${(props) => (props.onChartPage ? '20px' : '24px')};
   z-index: 2;
 `;
 
@@ -138,29 +143,14 @@ const CategoryBox = styled.div<{ active: boolean }>`
   text-justify: center;
 `;
 
-const Input = styled.input<{ active: boolean; onChartPage: boolean }>`
-  color: var(--main-black-color);
-  font-size: var(--font-size-tiny);
-  font-family: Roboto;
-  background: var(--main-white-color);
-  border: none;
-  width: ${(props) => (props.onChartPage ? '350px' : '420px')};
-  height: ${(props) => (props.onChartPage ? '15px' : '25px')};
-  margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
-  padding: 10px;
-  border-radius: 0;
-  background-image: 'url(' ${SearchIcon} ')';
-`;
-
 const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
   font-family: 'Roboto', sans-serif;
   background: var(--sec-orange-color);
   color: var(--main-black-color);
   border-radius: 0;
   font-size: var(--font-size-tiny);
-  padding: 10px;
+  padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
   margin-left: 6px;
   border: none;
-  height: ${(props) => (props.onChartPage ? '35px' : '45px')};
   width: ${(props) => (props.onChartPage ? '124px' : '137px')};
 `;

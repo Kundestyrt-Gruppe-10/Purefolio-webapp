@@ -30,13 +30,13 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   const handleChangeRegion = (selectedOption: any) => {
     const newRegionId = selectedOption.value; // Convert 1-indexed value to 0-indexed array
     setRegionId(newRegionId);
-    props.setNaceRegionId(naceId, newRegionId, props.id);
+    props.setNaceRegionId(newRegionId, naceId, props.id);
   };
 
   const handleChangeNace = (selectedOption: any) => {
     const newNaceId = selectedOption.value; // Convert 1-indexed value to 0-indexed array
     setNaceId(newNaceId);
-    props.setNaceRegionId(newNaceId, regionId, props.id);
+    props.setNaceRegionId(regionId, newNaceId, props.id);
   };
   /*eslint-enable*/
 
