@@ -142,15 +142,14 @@ export const ChartPage: React.FC<Props> = ({
                   )}
                 />
               ) : null}
-              <ChartView>
+              <div>
                 {naceRegionDataListList ? (
-                  <BarchartComponent
+                  <ChartView
                     naceRegionData={naceRegionDataListList}
                     esgFactor={esgFactorIdString}
                   />
                 ) : null}
-              </ChartView>
-              <HistoryGraphComponent />
+              </div>
             </>
           )}
         </ChartPageContainer>

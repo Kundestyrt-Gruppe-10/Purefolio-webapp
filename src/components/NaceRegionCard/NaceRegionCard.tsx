@@ -56,7 +56,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <Button
             danger={false}
             onClick={() => {
-              props.addCard(props.naceId, props.regionId);
+              props.addCard(props.regionId, props.naceId);
             }}
           >
             <i

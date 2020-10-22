@@ -121,7 +121,7 @@ const DropdownContainer = styled.div<{ active: boolean }>`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   padding: 20px;
-  z-index: 2;
+  z-index: 3;
   border-top: 1px solid var(--main-black-color);
 `;
 

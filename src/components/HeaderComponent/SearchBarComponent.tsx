@@ -112,7 +112,7 @@ const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   padding: ${(props) => (props.onChartPage ? '20px' : '24px')};
-  z-index: 2;
+  z-index: 3;
 `;
 
 const ResultRow = styled.div<{ active: boolean }>`

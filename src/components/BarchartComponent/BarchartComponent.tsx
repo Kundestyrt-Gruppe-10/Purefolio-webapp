@@ -77,8 +77,8 @@ export const BarchartComponent: React.FC<Props> = ({
   return (
     <>
       <BarChart
-        width={500}
-        height={300}
+        width={1000}
+        height={500}
         data={naceRegionItems}
         margin={{
           top: 5,
