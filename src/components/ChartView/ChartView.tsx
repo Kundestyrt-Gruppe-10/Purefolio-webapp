@@ -30,7 +30,11 @@ export const ChartView: React.FC<Props> = ({
 
       <DataView active={true}>
         <HistoryGraphContainer index={tableIndex}>
-          <HistoryGraphComponent />
+          <HistoryGraphComponent
+            naceRegionData={naceRegionData}
+            esgFactor={esgFactor}
+            naceRegionList={naceRegionList}
+          />
         </HistoryGraphContainer>
 
         <BarChartContainer index={tableIndex}>

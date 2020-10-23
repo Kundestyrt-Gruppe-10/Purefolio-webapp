@@ -55,11 +55,6 @@ export const BarchartComponent: React.FC<Props> = ({
   // TODO: Remove this, should be prop
   const esgFactor = 'emissionPerYear';
   const naceRegionItems: NaceRegionChartItem[] = [];
-  // console.log('Assert list of data == list of naceregions to compare');
-  // console.log(
-  //   `Length data: ${naceRegionData.length}, Length naceRegion: ${naceRegionList.length}`,
-  // );
-  // console.log(naceRegionList);
 
   // TODO: This should be a function and moved out from component
   naceRegionData.forEach((naceRegion: NaceRegionData[]) => {
