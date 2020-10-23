@@ -5,11 +5,9 @@ import { Redirect } from 'react-router-dom';
 import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
-import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
-import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
 import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
-import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -171,16 +169,15 @@ export const ChartPage: React.FC<Props> = ({
                   )}
                 />
               ) : null}
-              <ChartView>
+              <div>
                 {naceRegionDataListList && naceRegionList ? (
-                  <BarchartComponent
+                  <ChartView
                     naceRegionData={naceRegionDataListList}
                     esgFactor={esgFactorIdString}
                     naceRegionList={naceRegionList}
                   />
                 ) : null}
-              </ChartView>
-              <HistoryGraphComponent />
+              </div>
             </>
           )}
         </ChartPageContainer>
