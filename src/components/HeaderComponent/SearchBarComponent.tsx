@@ -101,6 +101,18 @@ const Input = styled.input<{ active: boolean; onChartPage: boolean }>`
   background-image: 'url(' ${SearchIcon} ')';
 `;
 
+const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
+  font-family: 'Roboto', sans-serif;
+  background: var(--sec-orange-color);
+  color: var(--main-black-color);
+  border-radius: 0;
+  font-size: var(--font-size-tiny);
+  padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
+  margin-left: 6px;
+  border: none;
+  width: ${(props) => (props.onChartPage ? '114px' : '137px')};
+`;
+
 const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   display: flex;
   flex-direction: column;
@@ -141,16 +153,4 @@ const CategoryBox = styled.div<{ active: boolean }>`
   flex-basis: 30%;
   text-align: right;
   text-justify: center;
-`;
-
-const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
-  font-family: 'Roboto', sans-serif;
-  background: var(--sec-orange-color);
-  color: var(--main-black-color);
-  border-radius: 0;
-  font-size: var(--font-size-tiny);
-  padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
-  margin-left: 6px;
-  border: none;
-  width: ${(props) => (props.onChartPage ? '124px' : '137px')};
 `;

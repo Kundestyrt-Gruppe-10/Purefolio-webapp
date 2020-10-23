@@ -47,7 +47,7 @@ export const ChartPage: React.FC<Props> = ({
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
-  const [, /*esgFactorList*/ setEsgFactorList] = useState<string[]>();
+  const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
   const history = useHistory();
 
@@ -144,11 +144,34 @@ export const ChartPage: React.FC<Props> = ({
     history.push(path);
   }
 
+  TODO: 'Skal brukes når databasen kjører';
+  /*
+  {regionList && naceList && esgFactorList ? (
+    <ChartPageHeaderComponent
+      regionList={regionList}
+      esgFactorList={esgFactorList}
+    />
+    ) : null}
+
+  */
+
+  const mockDataEsgList: string[] = [
+    'emissonPerYear',
+    'workAccidentsIncidentRate',
+    'genderPayGap',
+    'environmentTaxes',
+    'fatalAccidentsAtWork',
+    'temporaryEmployment',
+    'employeesPrimaryEducation',
+    'employeesSecondaryEducation',
+    'employeesTertiaryEducation',
+  ];
+
   // Render components
   return (
     <>
       <ChartPageHeaderContainer>
-        <ChartPageHeaderComponent />
+        <ChartPageHeaderComponent esgFactorList={mockDataEsgList} />
       </ChartPageHeaderContainer>
       <ContentContainer>
         <ChartPageContainer>

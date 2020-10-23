@@ -5,28 +5,11 @@ import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { useHistory } from 'react-router-dom';
 
-/*import React from 'react';
-import * as CSS from 'csstype';
-import Select from 'react-select';
+interface Props {
+  esgFactorList: string[];
+}
 
-const options = [
-  { value: 'airEmissionAccount', label: 'Air emission accounts' },
-  { value: 'strawberry', label: 'Non-fatal accidents at work' },
-  { value: 'vanilla', label: 'Gender pay gap in unadjusted form ' },
-];
-
-export const EsgSectorDropdown: React.FC = () => {
-  return (
-    <Select
-      options={options}
-      defaultInputValue={''}
-      placeholder={'Choose factor...'}
-    />
-  );
-};
-*/
-
-export const EsgFactorDropdown: React.FC = () => {
+export const EsgFactorDropdown: React.FC<Props> = (props) => {
   const { setSearchQuery } = useQuery();
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -39,6 +22,13 @@ export const EsgFactorDropdown: React.FC = () => {
       history.push(`/results/`);
     } else if (e.key) {
       setDropdownOpen(true);
+    }
+  };
+
+  const generateDropdownList = () => {
+    if (dropdownOpen) {
+      const test = props.esgFactorList[0];
+      console.log(test);
     }
   };
 
@@ -59,8 +49,14 @@ export const EsgFactorDropdown: React.FC = () => {
         active={false}
         onClick={() => setDropdownOpen(true)}
       />
-      <DropdownContainer active={dropdownOpen}>
-        <ResultRow active={false}>
+      <DropdownContainer active={(generateDropdownList(), dropdownOpen)}>
+        {props.esgFactorList.map((factorString: string, i: number) => (
+          <ResultRow key={i} id={factorString} active={false}>
+            <NameBox active={false}>{factorString}</NameBox>
+            <CategoryBox active={false}>Environment</CategoryBox>
+          </ResultRow>
+        ))}
+        {/*<ResultRow active={false}>
           <NameBox active={false}>Air emission accounts</NameBox>
           <CategoryBox active={false}>Environment</CategoryBox>
         </ResultRow>
@@ -85,7 +81,7 @@ export const EsgFactorDropdown: React.FC = () => {
         <ResultRow active={false}>
           <NameBox active={false}>Non-fatal accidents at work</NameBox>
           <CategoryBox active={false}>Social</CategoryBox>
-        </ResultRow>
+        </ResultRow>Æ*/}
       </DropdownContainer>
     </>
   );
@@ -96,7 +92,7 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 5px;
+  top: 10px;
 `;
 
 const Input = styled.input<{ active: boolean }>`
@@ -105,7 +101,7 @@ const Input = styled.input<{ active: boolean }>`
   font-family: Roboto;
   background: var(--main-white-color);
   border: none;
-  width: 350px;
+  width: 330px;
   padding: 14px;
   border-radius: 0;
   background-image: 'url(' ${SearchIcon} ')';
@@ -114,7 +110,7 @@ const Input = styled.input<{ active: boolean }>`
 const DropdownContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 338px;
+  width: 318px;
   min-height: 200px;
   position: absolute;
   background-color: var(--main-white-color);
