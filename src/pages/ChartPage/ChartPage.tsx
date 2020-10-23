@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { Nace, NaceRegionData, Region } from '../../types';
+import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
-import { HistoryGraphComponent } from '../../components/HistoryGraphComponent/HistoryGraphComponent';
-import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 import { ChartView } from '../../components/ChartView/ChartView';
 import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
-import { BarchartComponent } from '../../components/BarchartComponent/BarchartComponent';
+import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
 
 // ----Helper functions----
 export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
@@ -50,13 +48,14 @@ export const ChartPage: React.FC<Props> = ({
     NaceRegionData[][]
   >();
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
+  const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
   const history = useHistory();
 
   // Check if correct URL and parse URL string
-  let naceRegionIdList: number[][];
+  let regionNaceIdList: number[][];
   // let esgFactorId: number;
   try {
-    naceRegionIdList = naceRegionIdStringToList(naceRegionIdString);
+    regionNaceIdList = naceRegionIdStringToList(naceRegionIdString);
     if (isValidEsgFactorIdString(esgFactorIdString)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
@@ -71,33 +70,61 @@ export const ChartPage: React.FC<Props> = ({
     async function fetchData() {
       return await Promise.all([
         ApiGet<Region[]>('/regions')
-          .then((res) => setRegionList(res))
+          .then((res) => {
+            setRegionList(res);
+          })
           .catch((err) => setError(err)),
 
+        // Fetches all Naces. Updates NaceList state, returns the chosen Naces.
         ApiGet<Nace[]>('/naces')
-          .then((res) => setNaceList(res))
+          .then((res) => {
+            setNaceList(res);
+          })
           .catch((err) => setError(err)),
+
+        // Fetch Chosen Nace Region Cards
+        regionNaceIdList.map((regionNace) => {
+          // Reset naceRegionState
+          setNaceRegionList([]);
+          Promise.all([
+            ApiGet<Region[]>(`/regions/${regionNace[0]}`).catch((err) =>
+              setError(err),
+            ),
+            ApiGet<Nace[]>(`/naces/${regionNace[1]}`).catch((err) =>
+              setError(err),
+            ),
+          ])
+            .then((res) => {
+              if (res[0] && res[1] && res[0][0] && res[0][0]) {
+                const naceRegion: NaceRegion = {
+                  region: res[0][0],
+                  nace: res[1][0],
+                };
+                setNaceRegionList((naceRegionList) => [
+                  ...naceRegionList,
+                  naceRegion,
+                ]);
+              }
+            })
+            .catch((err) => setError(err));
+        }),
 
         ApiGet<string[]>('/tables/esg-factors')
           .then((res) => setEsgFactorList(res))
           .catch((err) => setError(err)),
 
         Promise.all(
-          naceRegionIdList.map((regionIdNaceId) =>
+          regionNaceIdList.map((regionIdNaceId) =>
             ApiGet<NaceRegionData[]>(
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
             ).then((res): NaceRegionData[] => {
               console.log(res);
-              if (res.length < 1) throw new Error('one list was empy');
-              // TODO: Fix unsafe return eslint error
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+              // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
           ),
         )
           .then((res) => {
-            console.log('AWAIT ALLL:');
-            console.log(res);
             setNaceRegionData(res);
           })
           .catch((err) => setError(err)),
@@ -165,15 +192,15 @@ export const ChartPage: React.FC<Props> = ({
                   )}
                 />
               ) : null}
-              <ChartView>
-                {naceRegionDataListList ? (
-                  <BarchartComponent
+              <div>
+                {naceRegionDataListList && naceRegionList ? (
+                  <ChartView
                     naceRegionData={naceRegionDataListList}
                     esgFactor={esgFactorIdString}
+                    naceRegionList={naceRegionList}
                   />
                 ) : null}
-              </ChartView>
-              <HistoryGraphComponent />
+              </div>
             </>
           )}
         </ChartPageContainer>

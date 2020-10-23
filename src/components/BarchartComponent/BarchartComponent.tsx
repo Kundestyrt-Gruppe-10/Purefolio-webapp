@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 // TODO: Add tests
 
@@ -38,6 +38,7 @@ import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
+  naceRegionList: NaceRegion[];
   esgFactor: string;
 }
 
@@ -46,13 +47,21 @@ interface NaceRegionChartItem {
   [dataKey: string]: number | undefined; // naceRegionKey: data
 }
 export const BarchartComponent: React.FC<Props> = ({
-  naceRegionData: naceRegionData,
+  naceRegionData,
+  naceRegionList,
   // TODO: Fix so esgFactor can be passed as type!
   // esgFactor,
 }) => {
   // TODO: Remove this, should be prop
   const esgFactor = 'emissionPerYear';
   const naceRegionItems: NaceRegionChartItem[] = [];
+  // console.log('Assert list of data == list of naceregions to compare');
+  // console.log(
+  //   `Length data: ${naceRegionData.length}, Length naceRegion: ${naceRegionList.length}`,
+  // );
+  // console.log(naceRegionList);
+
+  // TODO: This should be a function and moved out from component
   naceRegionData.forEach((naceRegion: NaceRegionData[]) => {
     naceRegion.forEach((element: NaceRegionData) => {
       // If year already in naceRegionItems, update existing object
@@ -62,14 +71,17 @@ export const BarchartComponent: React.FC<Props> = ({
           // or create new object if it does not exist
           ((naceRegionItems.find((el) => el.year === element.year) || {
             year: element.year,
-          })[element.region.regionName] = element[esgFactor]),
+          })[element.region.regionName + element.nace.naceCode] =
+            element[esgFactor]),
       );
       // Runs when element not yet in naceRegionItems
       const found = naceRegionItems.some((el) => el.year === element.year);
       if (!found) {
         naceRegionItems.push({
           year: element.year,
-          [element.region.regionName]: element[esgFactor],
+          [element.region.regionName + element.nace.naceCode]: element[
+            esgFactor
+          ],
         });
       }
     });
@@ -77,8 +89,8 @@ export const BarchartComponent: React.FC<Props> = ({
   return (
     <>
       <BarChart
-        width={500}
-        height={300}
+        width={1000}
+        height={500}
         data={naceRegionItems}
         margin={{
           top: 5,
@@ -92,13 +104,13 @@ export const BarchartComponent: React.FC<Props> = ({
         <YAxis />
         <Tooltip />
         <Legend />
-        {naceRegionData.map((item, idx) => {
+        {naceRegionList.map((item, idx) => {
           return (
             // This is number of Bars per group/ year. If we compare multiple NaceRegions
             // We will have multiple bars
             <Bar
               key={idx}
-              dataKey={item[0].region.regionName}
+              dataKey={item.region.regionName + item.nace.naceCode}
               fill={handleColorType(idx)}
             />
           );

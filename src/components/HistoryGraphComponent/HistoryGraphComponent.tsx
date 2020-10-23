@@ -59,16 +59,8 @@ export const HistoryGraphComponent: React.FC = () => {
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
-          <ResponsiveContainer aspect={2} width="97%" height="97%">
-            <LineChart
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 30,
-                bottom: 5,
-              }}
-            >
+          <ResponsiveContainer aspect={2.7} width="97%" height="97%">
+            <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
               <YAxis
@@ -120,7 +112,7 @@ export const HistoryGraphComponent: React.FC = () => {
           <TableTitleContainer active={false}>
             <TitleBox active={false}>History Graph</TitleBox>
             <UnitOfMeasureBox active={false}>
-              By millions tons of CO2
+              By million tonnes of CO2
             </UnitOfMeasureBox>
           </TableTitleContainer>
           <TableInfoContainer active={false}>
@@ -154,10 +146,10 @@ const DataFormater = (number: number) => {
   }
 };
 const OuterContainer = styled.div<{ active: boolean }>`
-  height: 100vh;
+  width: 100%;
   margin: auto;
-  padding-top: 8em;
-  padding-bottom: 50px;
+  padding-top: 60px;
+  padding-bottom: 10px;
 `;
 
 const TableContainer = styled.div<{ active: boolean }>`
@@ -166,9 +158,7 @@ const TableContainer = styled.div<{ active: boolean }>`
   margin: auto;
   position: relative;
   border-radius: 5px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  z-index: 1;
+  padding-bottom: 30px;
 `;
 
 const GraphContainer = styled.div<{ active: boolean }>`
@@ -178,7 +168,7 @@ const GraphContainer = styled.div<{ active: boolean }>`
   border-radius: 5px;
   padding-top: 20px;
   z-index: 1;
-  transform: translateY(-56px);
+  transform: translateY(-35px);
 `;
 
 const TextBox = styled.div<{ active: boolean }>`
@@ -192,43 +182,54 @@ const TextBox = styled.div<{ active: boolean }>`
 const TableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  margin-left: 5%;
-  margin-right: 5%;
-  flex-grow: 1;
+  flex-basis: 35%;
+  margin-left: 2%;
+  margin-right: 2%;
 `;
 const TitleBox = styled.div<{ active: boolean }>`
   font-size: 20px;
   font-weight: 700;
   margin-right: auto;
   text-align: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const UnitOfMeasureBox = styled.div<{ active: boolean }>`
   font-size: 14px;
   font-weight: 100;
+  text-indent: 4%;
 `;
 
 const TableInfoContainer = styled.div<{ active: boolean }>`
-  flex-direction: row;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 35%;
   font-weight: 450;
   }
 `;
 
 const ESGFactorContainer = styled.div<{ active: boolean }>`
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const PeriodContainer = styled.div<{ active: boolean }>`
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const DescriptorBox = styled.div<{ active: boolean }>`
-  font-size: 12px;
+  font-size: 14px;
   }
 `;
 
 const DescriptionBox = styled.div<{ active: boolean }>`
-  text-align: right;
   font-size: 14px;
 `;

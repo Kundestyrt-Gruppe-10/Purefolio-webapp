@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const PeriodDropdown: React.FC<Props> = (props) => {
-  const { setSearchQuery } = useQuery();
-  const history = useHistory();
+  //const { setSearchQuery } = useQuery();
+  //const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [chosenYear, setChosenYear] = useState<string>('20100');
   const years: string[] = [
@@ -23,15 +23,15 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
     '2012',
   ];
 
+  TODO: 'Skal brukes under søk og brukerinput';
+  /*
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      setSearchQuery(
-        (document.getElementById('searchInput') as HTMLInputElement).value,
-      );
-      history.push(`/results/`);
-    } else if (e.key) {
-    }
+    const inputValue: string = document.getElementById('searchInputPeriod').value;
+    years.forEach(element => {
+      
+    });
   };
+  */
 
   const handleMousdownClick = () => {
     setDropdownOpen(false);
@@ -45,11 +45,12 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
         {props.periodStart ? 'Period Start:' : 'Period End:'}
       </Title>
       <Input
-        id="searchInput"
+        id="searchInputPeriod"
         autoComplete="off"
         value={dropdownOpen ? undefined : chosenYear}
         active={false}
         onClick={() => setDropdownOpen(true)}
+        //onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen}>
         {years.map((yearString: string, i: number) => (
