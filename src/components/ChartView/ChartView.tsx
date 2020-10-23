@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
@@ -8,6 +8,7 @@ import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 interface Props {
   naceRegionData: NaceRegionData[][];
   esgFactor: string;
+  naceRegionList: NaceRegion[];
 }
 
 interface TabProps {
@@ -18,6 +19,7 @@ interface TabProps {
 export const ChartView: React.FC<Props> = ({
   naceRegionData: naceRegionData,
   esgFactor: esgFactor,
+  naceRegionList,
 }) => {
   const [tableIndex, setTableIndex] = useState(1);
 
@@ -35,6 +37,7 @@ export const ChartView: React.FC<Props> = ({
           <BarchartComponent
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
+            naceRegionList={naceRegionList}
           />
         </BarChartContainer>
 
@@ -49,7 +52,8 @@ export const ChartView: React.FC<Props> = ({
 };
 
 export const ChartViewTabs: React.FC<TabProps> = ({
-  tableIndex: tableIndex,
+  // TODO: Unused, remove??
+  // tableIndex: tableIndex,
   setTableIndex: setTableIndex,
 }) => {
   return (
