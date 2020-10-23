@@ -1,10 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Region } from '../../types';
 import { SearchBar } from '../HeaderComponent/SearchBarComponent';
 import { EsgFactorDropdown } from './EsgSectorDropdownComponent';
 import { PeriodDropdown } from './PeriodDropDownComponent';
 
-export const ChartPageHeaderComponent: React.FC = () => {
+interface Props {
+  //regionList: Region[];
+  esgFactorList: string[];
+}
+export const ChartPageHeaderComponent: React.FC<Props> = ({
+  /*regionList,*/
+  esgFactorList,
+}) => {
   return (
     <>
       <HeaderContainer active={false}>
@@ -12,14 +20,14 @@ export const ChartPageHeaderComponent: React.FC = () => {
           <SearchBar onChartPage={true} />
         </SearchBox>
         <ESGBox active={false}>
-          <EsgFactorDropdown />
+          <EsgFactorDropdown esgFactorList={esgFactorList} />
         </ESGBox>
         <YearBox active={false}>
-          <PeriodDropdown />
+          <PeriodDropdown periodStart={true} />
         </YearBox>
         <YearLineBox active={false} />
         <YearBox active={false}>
-          <PeriodDropdown />
+          <PeriodDropdown periodStart={false} />
         </YearBox>
       </HeaderContainer>
     </>

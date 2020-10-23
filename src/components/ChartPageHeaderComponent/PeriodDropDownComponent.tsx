@@ -1,14 +1,27 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { useHistory } from 'react-router-dom';
 
-export const PeriodDropdown: React.FC = () => {
+interface Props {
+  periodStart: boolean;
+}
+
+export const PeriodDropdown: React.FC<Props> = (props) => {
   const { setSearchQuery } = useQuery();
   const history = useHistory();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [chosenYear, setChosenYear] = useState<string>('20100');
+  const years: string[] = [
+    '2018',
+    '2017',
+    '2016',
+    '2015',
+    '2014',
+    '2013',
+    '2012',
+  ];
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -17,7 +30,6 @@ export const PeriodDropdown: React.FC = () => {
       );
       history.push(`/results/`);
     } else if (e.key) {
-      setDropdownOpen(true);
     }
   };
 
@@ -25,20 +37,32 @@ export const PeriodDropdown: React.FC = () => {
     setDropdownOpen(false);
   };
 
-  document.addEventListener('mousedown', handleMousdownClick);
+  document.addEventListener('mouseup', handleMousdownClick);
 
   return (
     <>
-      <Title active={false}>Period Start:</Title>
+      <Title active={false}>
+        {props.periodStart ? 'Period Start:' : 'Period End:'}
+      </Title>
       <Input
         id="searchInput"
         autoComplete="off"
-        onKeyPress={handleKeywordKeyPress}
-        placeholder="2014"
+        value={dropdownOpen ? undefined : chosenYear}
         active={false}
         onClick={() => setDropdownOpen(true)}
       />
       <DropdownContainer active={dropdownOpen}>
+        {years.map((yearString: string, i: number) => (
+          <ResultRow
+            key={i}
+            id={yearString}
+            active={false}
+            onClick={() => setChosenYear(yearString)}
+          >
+            <NameBox active={false}>{yearString}</NameBox>
+          </ResultRow>
+        ))}
+        {/*
         <ResultRow active={false}>
           <NameBox active={false}>2018</NameBox>
         </ResultRow>
@@ -57,6 +81,7 @@ export const PeriodDropdown: React.FC = () => {
         <ResultRow active={false}>
           <NameBox active={false}>2013</NameBox>
         </ResultRow>
+        */}
       </DropdownContainer>
     </>
   );
@@ -67,7 +92,7 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 5px;
+  top: 10px;
 `;
 
 const Input = styled.input<{ active: boolean }>`
@@ -78,7 +103,7 @@ const Input = styled.input<{ active: boolean }>`
   border: none;
   padding: 14px;
   border-radius: 0;
-  width: 40px;
+  width: 50px;
   text-align: center;
 `;
 
@@ -90,7 +115,7 @@ const DropdownContainer = styled.div<{ active: boolean }>`
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  padding: 18.3px;
+  padding: 23px;
   z-index: 3;
   border-top: 1px solid var(--main-black-color);
 `;

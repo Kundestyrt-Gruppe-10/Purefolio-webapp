@@ -5,7 +5,11 @@ import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { useHistory } from 'react-router-dom';
 
-export const EsgFactorDropdown: React.FC = () => {
+interface Props {
+  esgFactorList: string[];
+}
+
+export const EsgFactorDropdown: React.FC<Props> = (props) => {
   const { setSearchQuery } = useQuery();
   const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -18,6 +22,13 @@ export const EsgFactorDropdown: React.FC = () => {
       history.push(`/results/`);
     } else if (e.key) {
       setDropdownOpen(true);
+    }
+  };
+
+  const generateDropdownList = () => {
+    if (dropdownOpen) {
+      const test = props.esgFactorList[0];
+      console.log(test);
     }
   };
 
@@ -38,8 +49,14 @@ export const EsgFactorDropdown: React.FC = () => {
         active={false}
         onClick={() => setDropdownOpen(true)}
       />
-      <DropdownContainer active={dropdownOpen}>
-        <ResultRow active={false}>
+      <DropdownContainer active={(generateDropdownList(), dropdownOpen)}>
+        {props.esgFactorList.map((factorString: string, i: number) => (
+          <ResultRow key={i} id={factorString} active={false}>
+            <NameBox active={false}>{factorString}</NameBox>
+            <CategoryBox active={false}>Environment</CategoryBox>
+          </ResultRow>
+        ))}
+        {/*<ResultRow active={false}>
           <NameBox active={false}>Air emission accounts</NameBox>
           <CategoryBox active={false}>Environment</CategoryBox>
         </ResultRow>
@@ -64,7 +81,7 @@ export const EsgFactorDropdown: React.FC = () => {
         <ResultRow active={false}>
           <NameBox active={false}>Non-fatal accidents at work</NameBox>
           <CategoryBox active={false}>Social</CategoryBox>
-        </ResultRow>
+        </ResultRow>Æ*/}
       </DropdownContainer>
     </>
   );
