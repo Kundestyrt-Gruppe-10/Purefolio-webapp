@@ -118,7 +118,6 @@ export const ChartPage: React.FC<Props> = ({
             ApiGet<NaceRegionData[]>(
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
             ).then((res): NaceRegionData[] => {
-              console.log(res);
               // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
