@@ -87,18 +87,18 @@ export const ChartPage: React.FC<Props> = ({
           // Reset naceRegionState
           setNaceRegionList([]);
           Promise.all([
-            ApiGet<Region[]>(`/regions/${regionNace[0]}`).catch((err) =>
+            ApiGet<Region>(`/regions/${regionNace[0]}`).catch((err) =>
               setError(err),
             ),
-            ApiGet<Nace[]>(`/naces/${regionNace[1]}`).catch((err) =>
+            ApiGet<Nace>(`/naces/${regionNace[1]}`).catch((err) =>
               setError(err),
             ),
           ])
             .then((res) => {
-              if (res[0] && res[1] && res[0][0] && res[0][0]) {
+              if (res[0] && res[1]) {
                 const naceRegion: NaceRegion = {
-                  region: res[0][0],
-                  nace: res[1][0],
+                  region: res[0],
+                  nace: res[1],
                 };
                 setNaceRegionList((naceRegionList) => [
                   ...naceRegionList,
