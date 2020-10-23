@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
 import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 import { useHistory } from 'react-router-dom';
 
@@ -10,78 +9,69 @@ interface Props {
 }
 
 export const EsgFactorDropdown: React.FC<Props> = (props) => {
-  const { setSearchQuery } = useQuery();
-  const history = useHistory();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  //const { setSearchQuery } = useQuery();
+  //const history = useHistory();
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [chosenFactor, setChosenFactor] = useState<string>('Choose factor...');
+  const [userInput, setUserInput] = useState<string>('');
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      setSearchQuery(
-        (document.getElementById('searchInput') as HTMLInputElement).value,
-      );
-      history.push(`/results/`);
-    } else if (e.key) {
-      setDropdownOpen(true);
+      if (props.esgFactorList.includes(userInput)) {
+        setChosenFactor(userInput);
+        setDropdownOpen(false);
+      }
     }
   };
 
-  const generateDropdownList = () => {
-    if (dropdownOpen) {
-      const test = props.esgFactorList[0];
-      console.log(test);
-    }
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue: string = e.target.value;
+    setUserInput(inputValue);
   };
 
   const handleMousdownClick = () => {
     setDropdownOpen(false);
+    setUserInput('');
   };
 
-  document.addEventListener('mousedown', handleMousdownClick);
+  document.addEventListener('mouseup', handleMousdownClick);
 
   return (
     <>
       <Title active={false}>ESG factor</Title>
       <Input
-        id="searchInput"
+        id={'esgDropDown'}
         autoComplete="off"
-        onKeyPress={handleKeywordKeyPress}
-        placeholder="Choose factor..."
-        active={false}
+        placeholder={'Choose factor...'}
+        value={dropdownOpen ? userInput : chosenFactor}
+        active={dropdownOpen}
         onClick={() => setDropdownOpen(true)}
+        onChange={handleUserInput}
+        onKeyPress={handleKeywordKeyPress}
       />
-      <DropdownContainer active={(generateDropdownList(), dropdownOpen)}>
-        {props.esgFactorList.map((factorString: string, i: number) => (
-          <ResultRow key={i} id={factorString} active={false}>
-            <NameBox active={false}>{factorString}</NameBox>
-            <CategoryBox active={false}>Environment</CategoryBox>
-          </ResultRow>
-        ))}
-        {/*<ResultRow active={false}>
-          <NameBox active={false}>Air emission accounts</NameBox>
-          <CategoryBox active={false}>Environment</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>Non-fatal accidents at work</NameBox>
-          <CategoryBox active={false}>Social</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>Gender pay gap in unadjusted form</NameBox>
-          <CategoryBox active={false}>Government</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>
-            Environmental taxes by economic activity
-          </NameBox>
-          <CategoryBox active={false}>Environment</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>Fatal accidents at work</NameBox>
-          <CategoryBox active={false}>Social</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>Non-fatal accidents at work</NameBox>
-          <CategoryBox active={false}>Social</CategoryBox>
-        </ResultRow>Æ*/}
+      <DropdownContainer active={dropdownOpen}>
+        {props.esgFactorList
+          .filter((factor) => factor.includes(userInput))
+          .map((factorString: string, i: number) => (
+            <ResultRow
+              key={i}
+              id={factorString}
+              active={factorString === chosenFactor ? true : false}
+              onClick={() => {
+                setChosenFactor(factorString);
+                setUserInput(factorString);
+              }}
+            >
+              <NameBox active={factorString === chosenFactor ? true : false}>
+                {factorString}
+              </NameBox>
+              <CategoryBox
+                active={factorString === chosenFactor ? true : false}
+              >
+                Environment
+              </CategoryBox>
+            </ResultRow>
+          ))}
       </DropdownContainer>
     </>
   );
@@ -96,66 +86,67 @@ const Title = styled.div<{ active: boolean }>`
 `;
 
 const Input = styled.input<{ active: boolean }>`
-  color: var(--main-black-color);
   font-size: var(--font-size-tiny);
   font-family: Roboto;
-  background: var(--main-white-color);
-  border: none;
-  width: 330px;
+  font-weight: 700;
+  background: ${(props) =>
+    props.active ? 'var(--main-white-color)' : 'transparent'};
+  border: ${(props) =>
+    props.active ? 'none' : '1px solid var(--main-white-color)'};
+  color: ${(props) =>
+    props.active ? 'var(--main-black-color)' : 'var(--main-white-color)'};
   padding: 14px;
   border-radius: 0;
-  background-image: 'url(' ${SearchIcon} ')';
+  width: 330px;
+  text-align: center;
 `;
 
 const DropdownContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 318px;
+  min-width: 358px;
   min-height: 200px;
   position: absolute;
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  padding: 20px;
   z-index: 3;
   border-top: 1px solid var(--main-black-color);
 `;
 
 const ResultRow = styled.div<{ active: boolean }>`
+  padding: 0px 20px 0px 20px;
   display: flex;
-  width: 100%;
   height: 35px;
   flex-direction: row;
   justify-content: space-between;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 35px;
+  border: ${(props) =>
+    props.active ? '2px solid var(--sec-purple-color)' : 'none'};
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
+  background-color: ${(props) =>
+    props.active ? 'rgba(206, 216, 244, 0.7);' : 'var(--main-white-color)'};
 `;
 
 const NameBox = styled.div<{ active: boolean }>`
-  color: var(--main-black-color);
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
   font-size: 14px;
   font-weight: 500;
   flex-basis: 80%;
   text-align: left;
-  text-justify: center;
+  align-self: center;
 `;
 
 const CategoryBox = styled.div<{ active: boolean }>`
   font-size: 10px;
-  color: var(--sec-purple-color);
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--sec-purple-color)'};
   flex-basis: 20%;
   text-align: right;
-  text-justify: center;
+  align-self: center;
 `;
-// TODO: Unused, remove??
-/*
-const Button = styled.button<{ active: boolean }>`
-  font-family: 'Roboto', sans-serif;
-  background: var(--sec-orange-color);
-  color: var(--main-black-color);
-  border-radius: 0;
-  font-size: var(--font-size-tiny);
-  margin-left: 6px;
-  border: none;
-  width: 120px;
-  padding: 10px;
-`;
-*/
