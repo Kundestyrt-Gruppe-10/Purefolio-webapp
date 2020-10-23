@@ -38,3 +38,8 @@ export interface RegionData {
   gdp?: number;
   corruptionRate?: number;
 }
+
+export interface NaceRegion {
+  nace: Nace;
+  region: Region;
+}
