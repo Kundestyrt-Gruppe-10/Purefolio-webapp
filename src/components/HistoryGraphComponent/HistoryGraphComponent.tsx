@@ -16,7 +16,16 @@ import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
-  esgFactor: string;
+  esgFactor:
+    | 'emissionPerYear'
+    | 'workAccidentsIncidentRate'
+    | 'genderPayGap'
+    | 'environmentTaxes'
+    | 'fatalAccidentsAtWork'
+    | 'temporaryemployment'
+    | 'employeesPrimaryEducation'
+    | 'employeesSecondaryEducation'
+    | 'employeesTertiaryEducation';
 }
 
 interface NaceRegionChartItem {
@@ -27,10 +36,8 @@ interface NaceRegionChartItem {
 export const HistoryGraphComponent: React.FC<Props> = ({
   naceRegionData,
   naceRegionList,
-  // esgFactor:
+  esgFactor,
 }) => {
-  // TODO: Remove this, should be prop
-  const esgFactor = 'emissionPerYear';
   const naceRegionItems: NaceRegionChartItem[] = [];
 
   // TODO: This should be a function and moved out from component

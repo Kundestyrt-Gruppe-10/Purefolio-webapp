@@ -28,14 +28,23 @@ export const App: React.FC = () => {
           <Switch>
             <Route exact path="/chartpage">
               {/* TODO: redirect to different default page? Redirect in component instead?*/}
-              <Redirect to="/chartpage/1,1/1" />
+              <Redirect to="/chartpage/1,1/emissionPerYear" />
             </Route>
             <Route
               path="/chartpage/:naceRegionIdString/:esgFactorIdString"
               render={(
                 props: RouteComponentProps<{
                   naceRegionIdString: string;
-                  esgFactorIdString: string;
+                  esgFactorIdString:
+                    | 'emissionPerYear'
+                    | 'workAccidentsIncidentRate'
+                    | 'genderPayGap'
+                    | 'environmentTaxes'
+                    | 'fatalAccidentsAtWork'
+                    | 'temporaryemployment'
+                    | 'employeesPrimaryEducation'
+                    | 'employeesSecondaryEducation'
+                    | 'employeesTertiaryEducation';
                 }>,
               ) => (
                 <ChartPage
