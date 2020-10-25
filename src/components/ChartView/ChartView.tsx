@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NaceRegion, NaceRegionData } from '../../types';
-import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
+import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableComponent';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 
@@ -55,7 +55,11 @@ export const ChartView: React.FC<Props> = ({
         </BarChartContainer>
 
         <OverviewTableContainer index={tableIndex}>
-          <OverviewTableComponent />
+          <OverviewTableComponent
+            naceRegionData={naceRegionData}
+            esgFactor={esgFactor}
+            naceRegionList={naceRegionList}
+          />
         </OverviewTableContainer>
       </DataView>
 

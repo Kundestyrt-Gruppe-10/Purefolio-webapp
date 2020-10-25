@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTable';
+import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTableComponent';
 import {
   BaseLayoutContainer,
   ContentContainer,
@@ -68,9 +68,6 @@ export const App: React.FC = () => {
               <ContentContainer>
                 <FrontPage />
               </ContentContainer>
-            </Route>
-            <Route path="/overviewtable">
-              <OverviewTableComponent />
             </Route>
             <Route path="/404">
               <HeaderContainer>
