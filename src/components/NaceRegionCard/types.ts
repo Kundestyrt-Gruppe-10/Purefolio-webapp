@@ -14,6 +14,16 @@ export interface NaceRegionCardInterface {
 export interface NaceRegionContainerInterface {
   regionList: Region[];
   naceList: Nace[];
+  esgFactor:
+    | 'emissionPerYear'
+    | 'workAccidentsIncidentRate'
+    | 'genderPayGap'
+    | 'environmentTaxes'
+    | 'fatalAccidentsAtWork'
+    | 'temporaryemployment'
+    | 'employeesPrimaryEducation'
+    | 'employeesSecondaryEducation'
+    | 'employeesTertiaryEducation';
   setUrlParams(naceRegionIdList: string, esgFactor: string): void;
   naceRegionIdList: number[][];
 }
