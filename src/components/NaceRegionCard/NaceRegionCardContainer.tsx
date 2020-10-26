@@ -19,7 +19,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     newNaceRegionIdList[cardId] = naceRegion;
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(naceRegionIdList);
-    props.setUrlParams(newUrlString, '1');
+    props.setUrlParams(newUrlString, props.esgFactor);
   }
 
   // Convert naceRegionIdList to a string that can be used to set URL params
@@ -49,7 +49,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     newNaceRegionIdList.push([regionId, naceId]);
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(naceRegionIdList);
-    props.setUrlParams(newUrlString, '1');
+    props.setUrlParams(newUrlString, props.esgFactor);
   }
 
   function deleteCard(id: number) {
@@ -61,7 +61,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
       .map((num) => num);
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(newNaceRegionIdList);
-    props.setUrlParams(newUrlString, '1');
+    props.setUrlParams(newUrlString, props.esgFactor);
   }
 
   //TODO: deleteCard() sets URL correctly, however it does not rerender correctly. Needs fix

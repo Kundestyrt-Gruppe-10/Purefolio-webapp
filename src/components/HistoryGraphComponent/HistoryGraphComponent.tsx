@@ -10,59 +10,69 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+import { NaceRegion, NaceRegionData } from '../../types';
+import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 
-const data = [
-  {
-    name: '2014',
-    Norway: 4552353,
-    Sweden: 3035235,
-    Denmark: 4425235,
-    Netherlands: 8235235,
-    Germany: 13664235,
-  },
-  {
-    name: '2015',
-    Norway: 5052353,
-    Sweden: 3435235,
-    Denmark: 5025235,
-    Netherlands: 9235235,
-    Germany: 14664635,
-  },
-  {
-    name: '2016',
-    Norway: 5152353,
-    Sweden: 3835235,
-    Denmark: 5245235,
-    Netherlands: 9535235,
-    Germany: 16542635,
-  },
-  {
-    name: '2017',
-    Norway: 5152353,
-    Sweden: 4035235,
-    Denmark: 5425235,
-    Netherlands: 9435235,
-    Germany: 18664265,
-  },
-  {
-    name: '2018',
-    Norway: 5152353,
-    Sweden: 4035235,
-    Denmark: 5425235,
-    Netherlands: 9235235,
-    Germany: 19664635,
-  },
-];
+interface Props {
+  naceRegionData: NaceRegionData[][];
+  naceRegionList: NaceRegion[];
+  esgFactor:
+    | 'emissionPerYear'
+    | 'workAccidentsIncidentRate'
+    | 'genderPayGap'
+    | 'environmentTaxes'
+    | 'fatalAccidentsAtWork'
+    | 'temporaryemployment'
+    | 'employeesPrimaryEducation'
+    | 'employeesSecondaryEducation'
+    | 'employeesTertiaryEducation';
+}
 
-export const HistoryGraphComponent: React.FC = () => {
+interface NaceRegionChartItem {
+  year: number; // year
+  [dataKey: string]: number | undefined; // naceRegionKey: data
+}
+
+export const HistoryGraphComponent: React.FC<Props> = ({
+  naceRegionData,
+  naceRegionList,
+  esgFactor,
+}) => {
+  const naceRegionItems: NaceRegionChartItem[] = [];
+
+  // TODO: This should be a function and moved out from component
+  naceRegionData.forEach((naceRegion: NaceRegionData[]) => {
+    naceRegion.forEach((element: NaceRegionData) => {
+      // If year already in naceRegionItems, update existing object
+      naceRegionItems.map(
+        () =>
+          // Return object if it exist with new key:value pair
+          // or create new object if it does not exist
+          ((naceRegionItems.find((el) => el.year === element.year) || {
+            year: element.year,
+          })[element.region.regionName + element.nace.naceCode] =
+            element[esgFactor]),
+      );
+      // Runs when element not yet in naceRegionItems
+      const found = naceRegionItems.some((el) => el.year === element.year);
+      if (!found) {
+        naceRegionItems.push({
+          year: element.year,
+          [element.region.regionName + element.nace.naceCode]: element[
+            esgFactor
+          ],
+        });
+      }
+    });
+  });
   return (
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <GraphContainer active={false}>
           <ResponsiveContainer aspect={2.7} width="97%" height="97%">
-            <LineChart data={data}>
+            <LineChart data={naceRegionItems}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
+              <XAxis dataKey="year" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
               <YAxis
                 tickFormatter={DataFormater}
                 stroke="#f7f8f6"
@@ -70,41 +80,19 @@ export const HistoryGraphComponent: React.FC = () => {
               />
               <Tooltip />
               {/*TODO: Fix color fetching from index.css */}
-              <Line
-                type="monotone"
-                dataKey="Norway"
-                stroke="#e87f38"
-                strokeWidth={2}
-                activeDot={{ r: 6 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="Sweden"
-                stroke="#a84924"
-                strokeWidth={2}
-                activeDot={{ r: 6 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="Denmark"
-                stroke="#91e5ce"
-                strokeWidth={2}
-                activeDot={{ r: 6 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="Netherlands"
-                stroke="#f9c4a0"
-                strokeWidth={2}
-                activeDot={{ r: 6 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="Germany"
-                stroke="#7f96f7"
-                strokeWidth={2}
-                activeDot={{ r: 6 }}
-              />
+              {naceRegionList.map((item, idx) => {
+                return (
+                  <Line
+                    key={idx}
+                    type="monotone"
+                    dataKey={item.region.regionName + item.nace.naceCode}
+                    // TODO: Fix Colors.
+                    stroke={handleColorType(idx)}
+                    strokeWidth={2}
+                    activeDot={{ r: 6 }}
+                  />
+                );
+              })}
             </LineChart>
           </ResponsiveContainer>
         </GraphContainer>

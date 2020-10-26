@@ -7,7 +7,16 @@ import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
-  esgFactor: string;
+  esgFactor:
+    | 'emissionPerYear'
+    | 'workAccidentsIncidentRate'
+    | 'genderPayGap'
+    | 'environmentTaxes'
+    | 'fatalAccidentsAtWork'
+    | 'temporaryemployment'
+    | 'employeesPrimaryEducation'
+    | 'employeesSecondaryEducation'
+    | 'employeesTertiaryEducation';
   naceRegionList: NaceRegion[];
 }
 
@@ -30,7 +39,11 @@ export const ChartView: React.FC<Props> = ({
 
       <DataView active={true}>
         <HistoryGraphContainer index={tableIndex}>
-          <HistoryGraphComponent />
+          <HistoryGraphComponent
+            naceRegionData={naceRegionData}
+            esgFactor={esgFactor}
+            naceRegionList={naceRegionList}
+          />
         </HistoryGraphContainer>
 
         <BarChartContainer index={tableIndex}>

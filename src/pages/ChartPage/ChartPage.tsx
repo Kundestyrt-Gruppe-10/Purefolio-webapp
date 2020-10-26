@@ -31,13 +31,22 @@ export function naceRegionIdStringToList(
 
 interface Props {
   naceRegionIdString: string;
-  esgFactorIdString: string;
+  esgFactorIdString:
+    | 'emissionPerYear'
+    | 'workAccidentsIncidentRate'
+    | 'genderPayGap'
+    | 'environmentTaxes'
+    | 'fatalAccidentsAtWork'
+    | 'temporaryemployment'
+    | 'employeesPrimaryEducation'
+    | 'employeesSecondaryEducation'
+    | 'employeesTertiaryEducation';
 }
 
 // ----React Component----
 export const ChartPage: React.FC<Props> = ({
   naceRegionIdString,
-  esgFactorIdString,
+  esgFactorIdString: esgFactorString,
 }) => {
   // ----States----
   const [error, setError] = useState<Error>();
@@ -56,11 +65,11 @@ export const ChartPage: React.FC<Props> = ({
   // let esgFactorId: number;
   try {
     regionNaceIdList = naceRegionIdStringToList(naceRegionIdString);
-    if (isValidEsgFactorIdString(esgFactorIdString)) {
+    /*     if (isValidEsgFactorIdString(esgFactorString)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
       throw new Error('Illegal argument');
-    }
+    } */
   } catch (error) {
     return <Redirect to="/404" />;
   }
@@ -87,18 +96,18 @@ export const ChartPage: React.FC<Props> = ({
           // Reset naceRegionState
           setNaceRegionList([]);
           Promise.all([
-            ApiGet<Region[]>(`/regions/${regionNace[0]}`).catch((err) =>
+            ApiGet<Region>(`/regions/${regionNace[0]}`).catch((err) =>
               setError(err),
             ),
-            ApiGet<Nace[]>(`/naces/${regionNace[1]}`).catch((err) =>
+            ApiGet<Nace>(`/naces/${regionNace[1]}`).catch((err) =>
               setError(err),
             ),
           ])
             .then((res) => {
-              if (res[0] && res[1] && res[0][0] && res[0][0]) {
+              if (res[0] && res[1]) {
                 const naceRegion: NaceRegion = {
-                  region: res[0][0],
-                  nace: res[1][0],
+                  region: res[0],
+                  nace: res[1],
                 };
                 setNaceRegionList((naceRegionList) => [
                   ...naceRegionList,
@@ -118,7 +127,6 @@ export const ChartPage: React.FC<Props> = ({
             ApiGet<NaceRegionData[]>(
               `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
             ).then((res): NaceRegionData[] => {
-              console.log(res);
               // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
@@ -132,7 +140,7 @@ export const ChartPage: React.FC<Props> = ({
     }
 
     void fetchData().then(() => setLoading(false));
-  }, [naceRegionIdString, esgFactorIdString]);
+  }, [naceRegionIdString, esgFactorString]);
 
   /**
    * Sets new url parameters and pushes the new state to history
@@ -144,7 +152,7 @@ export const ChartPage: React.FC<Props> = ({
     history.push(path);
   }
 
-  TODO: 'Skal brukes når databasen kjører';
+  // TODO: 'Skal brukes når databasen kjører';
   /*
   {regionList && naceList && esgFactorList ? (
     <ChartPageHeaderComponent
@@ -187,6 +195,7 @@ export const ChartPage: React.FC<Props> = ({
                   regionList={regionList}
                   naceList={naceList}
                   setUrlParams={setUrlParams}
+                  esgFactor={esgFactorString}
                   naceRegionIdList={naceRegionIdStringToList(
                     naceRegionIdString,
                   )}
@@ -196,7 +205,7 @@ export const ChartPage: React.FC<Props> = ({
                 {naceRegionDataListList && naceRegionList ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
-                    esgFactor={esgFactorIdString}
+                    esgFactor={esgFactorString}
                     naceRegionList={naceRegionList}
                   />
                 ) : null}
