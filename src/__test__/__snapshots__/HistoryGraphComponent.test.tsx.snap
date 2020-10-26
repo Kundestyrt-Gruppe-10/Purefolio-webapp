@@ -1,0 +1,407 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BarchartComponent /> Matches snapshot when 1 NaceCard is chosen 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="sc-gKAblj pSuCS"
+      >
+        <div
+          class="sc-iCoHVE bozkCI"
+        >
+          <div
+            class="sc-fujyUd VeEOy"
+          >
+            <div
+              class="recharts-responsive-container"
+              style="width: 97%; height: 97%;"
+            >
+              <div
+                style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
+              />
+            </div>
+          </div>
+          <div
+            class="sc-pNWxx kFHFLC"
+          >
+            <div
+              class="sc-jrsJCI fzuYIX"
+            >
+              <div
+                class="sc-kEqYlL fjxjkT"
+              >
+                History Graph
+              </div>
+              <div
+                class="sc-iqAbSa jdvqLV"
+              >
+                By million tonnes of CO2
+              </div>
+            </div>
+            <div
+              class="sc-crzoUp iKdPGR"
+            >
+              <div
+                class="sc-dIsAE hOSeLT"
+              >
+                <div
+                  class="sc-ksluoS gMpDis"
+                >
+                  ESG Factor:
+                </div>
+                <div
+                  class="sc-hBMVcZ iYOQhu"
+                >
+                  Air Emission accounts
+                </div>
+              </div>
+              <div
+                class="sc-bqGHjH eDezpz"
+              >
+                <div
+                  class="sc-ksluoS gMpDis"
+                >
+                  Year:
+                </div>
+                <div
+                  class="sc-hBMVcZ iYOQhu"
+                >
+                   2014-2018
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-gKAblj pSuCS"
+    >
+      <div
+        class="sc-iCoHVE bozkCI"
+      >
+        <div
+          class="sc-fujyUd VeEOy"
+        >
+          <div
+            class="recharts-responsive-container"
+            style="width: 97%; height: 97%;"
+          >
+            <div
+              style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
+            />
+          </div>
+        </div>
+        <div
+          class="sc-pNWxx kFHFLC"
+        >
+          <div
+            class="sc-jrsJCI fzuYIX"
+          >
+            <div
+              class="sc-kEqYlL fjxjkT"
+            >
+              History Graph
+            </div>
+            <div
+              class="sc-iqAbSa jdvqLV"
+            >
+              By million tonnes of CO2
+            </div>
+          </div>
+          <div
+            class="sc-crzoUp iKdPGR"
+          >
+            <div
+              class="sc-dIsAE hOSeLT"
+            >
+              <div
+                class="sc-ksluoS gMpDis"
+              >
+                ESG Factor:
+              </div>
+              <div
+                class="sc-hBMVcZ iYOQhu"
+              >
+                Air Emission accounts
+              </div>
+            </div>
+            <div
+              class="sc-bqGHjH eDezpz"
+            >
+              <div
+                class="sc-ksluoS gMpDis"
+              >
+                Year:
+              </div>
+              <div
+                class="sc-hBMVcZ iYOQhu"
+              >
+                 2014-2018
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`<BarchartComponent /> Matches snapshot when 3 NaceCard is chosen 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="sc-gKAblj pSuCS"
+      >
+        <div
+          class="sc-iCoHVE bozkCI"
+        >
+          <div
+            class="sc-fujyUd VeEOy"
+          >
+            <div
+              class="recharts-responsive-container"
+              style="width: 97%; height: 97%;"
+            >
+              <div
+                style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
+              />
+            </div>
+          </div>
+          <div
+            class="sc-pNWxx kFHFLC"
+          >
+            <div
+              class="sc-jrsJCI fzuYIX"
+            >
+              <div
+                class="sc-kEqYlL fjxjkT"
+              >
+                History Graph
+              </div>
+              <div
+                class="sc-iqAbSa jdvqLV"
+              >
+                By million tonnes of CO2
+              </div>
+            </div>
+            <div
+              class="sc-crzoUp iKdPGR"
+            >
+              <div
+                class="sc-dIsAE hOSeLT"
+              >
+                <div
+                  class="sc-ksluoS gMpDis"
+                >
+                  ESG Factor:
+                </div>
+                <div
+                  class="sc-hBMVcZ iYOQhu"
+                >
+                  Air Emission accounts
+                </div>
+              </div>
+              <div
+                class="sc-bqGHjH eDezpz"
+              >
+                <div
+                  class="sc-ksluoS gMpDis"
+                >
+                  Year:
+                </div>
+                <div
+                  class="sc-hBMVcZ iYOQhu"
+                >
+                   2014-2018
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="sc-gKAblj pSuCS"
+    >
+      <div
+        class="sc-iCoHVE bozkCI"
+      >
+        <div
+          class="sc-fujyUd VeEOy"
+        >
+          <div
+            class="recharts-responsive-container"
+            style="width: 97%; height: 97%;"
+          >
+            <div
+              style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
+            />
+          </div>
+        </div>
+        <div
+          class="sc-pNWxx kFHFLC"
+        >
+          <div
+            class="sc-jrsJCI fzuYIX"
+          >
+            <div
+              class="sc-kEqYlL fjxjkT"
+            >
+              History Graph
+            </div>
+            <div
+              class="sc-iqAbSa jdvqLV"
+            >
+              By million tonnes of CO2
+            </div>
+          </div>
+          <div
+            class="sc-crzoUp iKdPGR"
+          >
+            <div
+              class="sc-dIsAE hOSeLT"
+            >
+              <div
+                class="sc-ksluoS gMpDis"
+              >
+                ESG Factor:
+              </div>
+              <div
+                class="sc-hBMVcZ iYOQhu"
+              >
+                Air Emission accounts
+              </div>
+            </div>
+            <div
+              class="sc-bqGHjH eDezpz"
+            >
+              <div
+                class="sc-ksluoS gMpDis"
+              >
+                Year:
+              </div>
+              <div
+                class="sc-hBMVcZ iYOQhu"
+              >
+                 2014-2018
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
