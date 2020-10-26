@@ -110,6 +110,7 @@ export const BarchartComponent: React.FC<Props> = ({
             // This is number of Bars per group/ year. If we compare multiple NaceRegions
             // We will have multiple bars
             <Bar
+              data-testid="bar"
               key={idx}
               dataKey={item.region.regionName + item.nace.naceCode}
               fill={handleColorType(idx)}
