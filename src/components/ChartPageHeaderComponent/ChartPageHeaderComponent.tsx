@@ -16,7 +16,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
     <>
       <HeaderContainer active={false}>
         <SearchBox active={false}>
-          <SearchBar onChartPage={true} />
+          <SearchBar onChartPage={true} naceRegionList={esgFactorList} />
         </SearchBox>
         <ESGBox active={false}>
           <EsgFactorDropdown esgFactorList={esgFactorList} />

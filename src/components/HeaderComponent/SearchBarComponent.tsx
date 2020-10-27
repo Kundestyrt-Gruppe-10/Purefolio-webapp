@@ -1,104 +1,115 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import SearchIcon from '../../img/search-icon.svg'; // TODO: Fix search bar icon
-import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
-import { useHistory } from 'react-router-dom';
+//import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
+//import { useHistory } from 'react-router-dom';
 
-// TODO: Clear search bar on redirect to home page
-
-type searchBarProps = {
+type Props = {
   onChartPage: boolean;
+  naceRegionList: string[];
 };
 
-export const SearchBar: React.FC<searchBarProps> = ({
-  onChartPage,
-}: searchBarProps) => {
-  const { setSearchQuery } = useQuery();
-  const history = useHistory();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+export const SearchBar: React.FC<Props> = (props) => {
+  //const { setSearchQuery } = useQuery();
+  //const history = useHistory();
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [chosenNaceRegion, setChosenNaceRegion] = useState<string>(
+    'Choose Region or Industry...',
+  );
+  const [userInput, setUserInput] = useState<string>('');
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      setSearchQuery(
-        (document.getElementById('searchInput') as HTMLInputElement).value,
-      );
-      history.push(`/results/`);
-    } else if (e.key) {
-      setDropdownOpen(true);
+      if (props.naceRegionList.includes(userInput)) {
+        setChosenNaceRegion(userInput);
+        setDropdownOpen(false);
+      }
     }
+  };
+
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue: string = e.target.value;
+    setUserInput(inputValue);
   };
 
   const handleMousdownClick = () => {
     setDropdownOpen(false);
+    setUserInput('');
   };
 
-  document.addEventListener('mousedown', handleMousdownClick);
+  document.addEventListener('mouseup', handleMousdownClick);
 
   return (
     <>
       <Input
-        id="searchInput"
+        id={'searchBar'}
         autoComplete="off"
-        onKeyPress={handleKeywordKeyPress}
         placeholder="Search by country or industry"
-        active={false}
-        onChartPage={onChartPage}
+        value={dropdownOpen ? userInput : chosenNaceRegion}
+        active={dropdownOpen}
+        onChartPage={props.onChartPage}
+        onClick={() => setDropdownOpen(true)}
+        onChange={handleUserInput}
+        onKeyPress={handleKeywordKeyPress}
       />
-      <DropdownContainer active={dropdownOpen} onChartPage={onChartPage}>
-        <ResultRow active={false}>
-          <NameBox active={false}>Norway</NameBox>
-          <CategoryBox active={false}>Region</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>Netherlands</NameBox>
-          <CategoryBox active={false}>Region</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>North Macedonia</NameBox>
-          <CategoryBox active={false}>Region</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>N.85 - Health and social work</NameBox>
-          <CategoryBox active={false}>NACE</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>N.85.10 - Human health activitie</NameBox>
-          <CategoryBox active={false}>NACE</CategoryBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>N.85.10 - Human health activitie</NameBox>
-          <CategoryBox active={false}>NACE</CategoryBox>
-        </ResultRow>
+      <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
+        {props.naceRegionList
+          .filter((naceRegion) => naceRegion.includes(userInput))
+          .map((naceRegionString: string, i: number) => (
+            <ResultRow
+              key={i}
+              id={naceRegionString}
+              active={naceRegionString === chosenNaceRegion ? true : false}
+              onClick={() => {
+                setChosenNaceRegion(naceRegionString);
+                setUserInput(naceRegionString);
+              }}
+            >
+              <NameBox
+                active={naceRegionString === chosenNaceRegion ? true : false}
+              >
+                {naceRegionString}
+              </NameBox>
+              <CategoryBox
+                active={naceRegionString === chosenNaceRegion ? true : false}
+              >
+                Environment
+              </CategoryBox>
+            </ResultRow>
+          ))}
       </DropdownContainer>
       <Button
         id="searchButton"
         active={false}
-        onChartPage={onChartPage}
-        onClick={() => {
+        onChartPage={props.onChartPage}
+        /*onClick={() => {
           setSearchQuery(
             (document.getElementById('searchInput') as HTMLInputElement).value,
           );
           history.push(`/results/`);
-        }}
+        }}*/
       >
         Search
       </Button>
     </>
   );
 };
-
 const Input = styled.input<{ active: boolean; onChartPage: boolean }>`
-  color: var(--main-black-color);
   font-size: var(--font-size-tiny);
   font-family: Roboto;
-  background: var(--main-white-color);
-  border: none;
+  font-weight: 700;
+  background: ${(props) =>
+    props.active ? 'var(--main-white-color)' : 'transparent'};
+  border: ${(props) =>
+    props.active ? 'none' : '1px solid var(--main-white-color)'};
+  color: ${(props) =>
+    props.active ? 'var(--main-black-color)' : 'var(--main-white-color)'};
+  padding: 14px;
+  border-radius: 0;
   width: ${(props) => (props.onChartPage ? '350px' : '420px')};
   padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
   margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
-  border-radius: 0;
-  background-image: 'url(' ${SearchIcon} ')';
+  text-align: center;
 `;
 
 const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
@@ -109,7 +120,7 @@ const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
   font-size: var(--font-size-tiny);
   padding: ${(props) => (props.onChartPage ? '10px' : '14px')};
   margin-left: 6px;
-  border: none;
+  border: 1px solid var(--sec-orange-color);
   width: ${(props) => (props.onChartPage ? '114px' : '137px')};
 `;
 
@@ -122,35 +133,45 @@ const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   position: absolute;
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid var(--main-black-color);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   padding: ${(props) => (props.onChartPage ? '20px' : '24px')};
   z-index: 3;
 `;
 
 const ResultRow = styled.div<{ active: boolean }>`
+  padding: 0px 20px 0px 20px;
   display: flex;
-  width: 100%;
-  height: 40px;
-  padding: 5px;
+  height: 35px;
   flex-direction: row;
   justify-content: space-between;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 35px;
+  border: ${(props) =>
+    props.active ? '2px solid var(--sec-purple-color)' : 'none'};
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
+  background-color: ${(props) =>
+    props.active ? 'rgba(206, 216, 244, 0.7);' : 'var(--main-white-color)'};
 `;
 
 const NameBox = styled.div<{ active: boolean }>`
-  height: 40px;
-  color: var(--main-black-color);
-  font-size: 16px;
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
+  font-size: 14px;
   font-weight: 500;
-  flex-basis: 70%;
+  flex-basis: 80%;
   text-align: left;
-  text-justify: center;
+  align-self: center;
 `;
 
 const CategoryBox = styled.div<{ active: boolean }>`
-  height: 40px;
-  font-size: 14px;
-  color: var(--sec-purple-color);
-  flex-basis: 30%;
+  font-size: 10px;
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--sec-purple-color)'};
+  flex-basis: 20%;
   text-align: right;
-  text-justify: center;
+  align-self: center;
 `;
