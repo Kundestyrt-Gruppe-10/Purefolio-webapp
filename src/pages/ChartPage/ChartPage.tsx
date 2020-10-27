@@ -157,7 +157,7 @@ export const ChartPage: React.FC<Props> = (props) => {
         <ChartPageHeaderContainer>
           <ChartPageHeaderComponent
             esgFactorList={esgFactorList}
-            // urlParams={urlParams}
+            urlParams={urlParams}
           />
         </ChartPageHeaderContainer>
       ) : null}

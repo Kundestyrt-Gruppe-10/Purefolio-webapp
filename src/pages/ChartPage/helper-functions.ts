@@ -4,7 +4,7 @@ import { EsgFactor } from '../../types';
  * Convert naceRegionIdList to a string that can be used to set URL params
  * @param naceRegionIdList
  */
-export function naceRegionIdListToString(naceRegionIdList: number[][]) {
+export function naceRegionIdListToString(naceRegionIdList: number[][]): string {
   let naceRegionIdString = '';
   let naceIt, regionIt;
   for (naceIt = 0; naceIt < naceRegionIdList.length; naceIt++) {
