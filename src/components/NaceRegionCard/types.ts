@@ -24,7 +24,12 @@ export interface NaceRegionContainerInterface {
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
     | 'employeesTertiaryEducation';
-  setUrlParams(naceRegionIdList: string, esgFactor: string): void;
+  chosenTab: string;
+  setUrlParams(
+    naceRegionIdList: string,
+    esgFactor: string,
+    chosenTab: string,
+  ): void;
   naceRegionIdList: number[][];
 }
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
-import { useHistory } from 'react-router-dom';
 
 interface Props {
   periodStart: boolean;

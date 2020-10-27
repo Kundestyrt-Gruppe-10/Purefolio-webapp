@@ -43,3 +43,15 @@ export interface NaceRegion {
   nace: Nace;
   region: Region;
 }
+
+export enum EsgFactor {
+  'emissionPerYear',
+  'workAccidentsIncidentRate',
+  'genderPayGap',
+  'environmentTaxes',
+  'fatalAccidentsAtWork',
+  'temporaryemployment',
+  'employeesPrimaryEducation',
+  'employeesSecondaryEducation',
+  'employeesTertiaryEducation',
+}

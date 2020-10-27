@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
+import {
+  Nace,
+  NaceRegion,
+  NaceRegionData,
+  Region,
+  EsgFactor,
+} from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { ChartView } from '../../components/ChartView/ChartView';
@@ -14,7 +20,8 @@ export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
   return /^[0-9,.;]*$/.test(naceRegionIdString);
 }
 export function isValidEsgFactorIdString(esgFactorString: string): boolean {
-  return /^[0-9]*$/.test(esgFactorString);
+  if (esgFactorString in EsgFactor) return true;
+  return false;
 }
 /**
  * Input: '11,12;21,22'
@@ -41,12 +48,14 @@ interface Props {
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
     | 'employeesTertiaryEducation';
+  chosenTab: string;
 }
 
 // ----React Component----
 export const ChartPage: React.FC<Props> = ({
   naceRegionIdString,
   esgFactorIdString: esgFactorString,
+  chosenTab,
 }) => {
   // ----States----
   const [error, setError] = useState<Error>();
@@ -56,7 +65,7 @@ export const ChartPage: React.FC<Props> = ({
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
-  const [esgFactorList, setEsgFactorList] = useState<string[]>();
+  const [, /* esgFactorList */ setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
   const history = useHistory();
 
@@ -65,11 +74,12 @@ export const ChartPage: React.FC<Props> = ({
   // let esgFactorId: number;
   try {
     regionNaceIdList = naceRegionIdStringToList(naceRegionIdString);
-    /*     if (isValidEsgFactorIdString(esgFactorString)) {
+    console.log(isValidEsgFactorIdString(esgFactorString));
+    if (isValidEsgFactorIdString(esgFactorString)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
       throw new Error('Illegal argument');
-    } */
+    }
   } catch (error) {
     return <Redirect to="/404" />;
   }
@@ -147,8 +157,12 @@ export const ChartPage: React.FC<Props> = ({
    * @param naceRegionIdList
    * @param esgFactor
    */
-  function setUrlParams(naceRegionIdList: string, esgFactor: string) {
-    const path = '/chartpage/' + naceRegionIdList + '/' + esgFactor;
+  function setUrlParams(
+    naceRegionIdList: string,
+    esgFactor: string,
+    chosenTab: string,
+  ) {
+    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${chosenTab}`;
     history.push(path);
   }
 
@@ -196,6 +210,7 @@ export const ChartPage: React.FC<Props> = ({
                   naceList={naceList}
                   setUrlParams={setUrlParams}
                   esgFactor={esgFactorString}
+                  chosenTab={chosenTab}
                   naceRegionIdList={naceRegionIdStringToList(
                     naceRegionIdString,
                   )}
@@ -207,6 +222,8 @@ export const ChartPage: React.FC<Props> = ({
                     naceRegionData={naceRegionDataListList}
                     esgFactor={esgFactorString}
                     naceRegionList={naceRegionList}
+                    chosenTab={chosenTab}
+                    setUrlParams={setUrlParams}
                   />
                 ) : null}
               </div>

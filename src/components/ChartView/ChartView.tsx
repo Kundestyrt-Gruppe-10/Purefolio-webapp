@@ -4,6 +4,7 @@ import { NaceRegion, NaceRegionData } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTable';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
+import { useLocation } from 'react-router-dom';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
@@ -18,6 +19,12 @@ interface Props {
     | 'employeesSecondaryEducation'
     | 'employeesTertiaryEducation';
   naceRegionList: NaceRegion[];
+  chosenTab: string;
+  setUrlParams(
+    naceRegionIdList: string,
+    esgFactor: string,
+    chosenTab: string,
+  ): void;
 }
 
 interface TabProps {
@@ -29,13 +36,25 @@ export const ChartView: React.FC<Props> = ({
   naceRegionData: naceRegionData,
   esgFactor: esgFactor,
   naceRegionList,
+  chosenTab,
+  setUrlParams,
 }) => {
-  const [tableIndex, setTableIndex] = useState(1);
-
+  const location = useLocation();
+  const chosenTabN = Number(chosenTab);
+  const [tableIndex, setTableIndex] = useState(chosenTabN);
+  // TODO: Check if chosenTab is a number and within range, or return error
+  function setTableIndexAndUpdateUrl(n: number) {
+    const splitedString = location.pathname.split('/');
+    setTableIndex(n);
+    setUrlParams(splitedString[2], splitedString[3], n.toString());
+  }
   return (
     <ChartViewContainer active={false}>
       <ContainerLine active={true} />
-      <ChartViewTabs tableIndex={tableIndex} setTableIndex={setTableIndex} />
+      <ChartViewTabs
+        tableIndex={tableIndex}
+        setTableIndex={setTableIndexAndUpdateUrl}
+      />
 
       <DataView active={true}>
         <HistoryGraphContainer index={tableIndex}>
