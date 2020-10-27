@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTable';
+import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTableComponent';
 import {
   BaseLayoutContainer,
   ContentContainer,
@@ -28,10 +28,10 @@ export const App: React.FC = () => {
           <Switch>
             <Route exact path="/chartpage">
               {/* TODO: redirect to different default page? Redirect in component instead?*/}
-              <Redirect to="/chartpage/1,1/emissionPerYear" />
+              <Redirect to="/chartpage/1,1/emissionPerYear/1" />
             </Route>
             <Route
-              path="/chartpage/:naceRegionIdString/:esgFactorIdString"
+              path="/chartpage/:naceRegionIdString/:esgFactorIdString/:chosenTab"
               render={(
                 props: RouteComponentProps<{
                   naceRegionIdString: string;
@@ -45,11 +45,13 @@ export const App: React.FC = () => {
                     | 'employeesPrimaryEducation'
                     | 'employeesSecondaryEducation'
                     | 'employeesTertiaryEducation';
+                  chosenTab: string;
                 }>,
               ) => (
                 <ChartPage
                   naceRegionIdString={props.match.params.naceRegionIdString}
                   esgFactorIdString={props.match.params.esgFactorIdString}
+                  chosenTab={props.match.params.chosenTab}
                 />
               )}
             />
@@ -68,9 +70,6 @@ export const App: React.FC = () => {
               <ContentContainer>
                 <FrontPage />
               </ContentContainer>
-            </Route>
-            <Route path="/overviewtable">
-              <OverviewTableComponent />
             </Route>
             <Route path="/404">
               <HeaderContainer>

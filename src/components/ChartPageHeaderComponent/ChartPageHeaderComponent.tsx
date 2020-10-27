@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Region } from '../../types';
 import { SearchBar } from '../HeaderComponent/SearchBarComponent';
 import { EsgFactorDropdown } from './EsgSectorDropdownComponent';
 import { PeriodDropdown } from './PeriodDropDownComponent';
