@@ -1,44 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
-import {
-  Nace,
-  NaceRegion,
-  NaceRegionData,
-  Region,
-  EsgFactor,
-} from '../../types';
+import { Redirect, useHistory } from 'react-router-dom';
+import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { ChartView } from '../../components/ChartView/ChartView';
 import { ChartPageHeaderComponent } from '../../components/ChartPageHeaderComponent/ChartPageHeaderComponent';
 import { NaceRegionCardContainer } from '../../components/NaceRegionCard/NaceRegionCardContainer';
-
-// ----Helper functions----
-export function isValidNaceRegionIdString(naceRegionIdString: string): boolean {
-  return /^[0-9,.;]*$/.test(naceRegionIdString);
-}
-export function isValidEsgFactorIdString(esgFactorString: string): boolean {
-  if (esgFactorString in EsgFactor) return true;
-  return false;
-}
-/**
- * Input: '11,12;21,22'
- * Output: [[11,12],[21,22]]
- */
-export function naceRegionIdStringToList(
-  naceRegionIdString: string,
-): number[][] {
-  if (!isValidNaceRegionIdString(naceRegionIdString)) {
-    throw new Error('Illegal argument');
-  }
-  return naceRegionIdString.split(';').map((s) => s.split(',').map(Number));
-}
+import {
+  isValidEsgFactorIdString,
+  naceRegionIdStringToList,
+} from './helper-functions';
 
 interface Props {
   naceRegionIdString: string;
-  esgFactorIdString:
+  chosenTab: string;
+  esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
     | 'genderPayGap'
@@ -48,15 +25,37 @@ interface Props {
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
     | 'employeesTertiaryEducation';
-  chosenTab: string;
 }
-
+// Interface for url parameters used in ChartPage
+export interface UrlParamsInterface extends Props {
+  setUrlParams(
+    naceRegionIdList: string,
+    esgFactor: string,
+    chosenTab: string,
+  ): void;
+}
 // ----React Component----
-export const ChartPage: React.FC<Props> = ({
-  naceRegionIdString,
-  esgFactorIdString: esgFactorString,
-  chosenTab,
-}) => {
+export const ChartPage: React.FC<Props> = (props) => {
+  const history = useHistory();
+  /**
+   * Sets new url parameters and pushes the new state to history
+   * @param naceRegionIdList
+   * @param esgFactor
+   */
+  function setUrlParams(
+    naceRegionIdList: string,
+    esgFactor: string,
+    chosenTab: string,
+  ): void {
+    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${chosenTab}`;
+    history.push(path);
+  }
+  // Object passed down to child components to easier handle URL-change
+  const urlParams: UrlParamsInterface = {
+    ...props,
+    setUrlParams: setUrlParams,
+  };
+
   // ----States----
   const [error, setError] = useState<Error>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -65,17 +64,16 @@ export const ChartPage: React.FC<Props> = ({
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
-  const [, /* esgFactorList */ setEsgFactorList] = useState<string[]>();
+  const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
-  const history = useHistory();
 
   // Check if correct URL and parse URL string
   let regionNaceIdList: number[][];
   // let esgFactorId: number;
   try {
-    regionNaceIdList = naceRegionIdStringToList(naceRegionIdString);
-    console.log(isValidEsgFactorIdString(esgFactorString));
-    if (isValidEsgFactorIdString(esgFactorString)) {
+    regionNaceIdList = naceRegionIdStringToList(urlParams.naceRegionIdString);
+    console.log(isValidEsgFactorIdString(urlParams.esgFactor));
+    if (isValidEsgFactorIdString(urlParams.esgFactor)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
       throw new Error('Illegal argument');
@@ -150,51 +148,19 @@ export const ChartPage: React.FC<Props> = ({
     }
 
     void fetchData().then(() => setLoading(false));
-  }, [naceRegionIdString, esgFactorString]);
-
-  /**
-   * Sets new url parameters and pushes the new state to history
-   * @param naceRegionIdList
-   * @param esgFactor
-   */
-  function setUrlParams(
-    naceRegionIdList: string,
-    esgFactor: string,
-    chosenTab: string,
-  ) {
-    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${chosenTab}`;
-    history.push(path);
-  }
-
-  // TODO: 'Skal brukes når databasen kjører';
-  /*
-  {regionList && naceList && esgFactorList ? (
-    <ChartPageHeaderComponent
-      regionList={regionList}
-      esgFactorList={esgFactorList}
-    />
-    ) : null}
-
-  */
-
-  const mockDataEsgList: string[] = [
-    'emissonPerYear',
-    'workAccidentsIncidentRate',
-    'genderPayGap',
-    'environmentTaxes',
-    'fatalAccidentsAtWork',
-    'temporaryEmployment',
-    'employeesPrimaryEducation',
-    'employeesSecondaryEducation',
-    'employeesTertiaryEducation',
-  ];
+  }, [urlParams.naceRegionIdString, urlParams.esgFactor]);
 
   // Render components
   return (
     <>
-      <ChartPageHeaderContainer>
-        <ChartPageHeaderComponent esgFactorList={mockDataEsgList} />
-      </ChartPageHeaderContainer>
+      {esgFactorList ? (
+        <ChartPageHeaderContainer>
+          <ChartPageHeaderComponent
+            esgFactorList={esgFactorList}
+            // urlParams={urlParams}
+          />
+        </ChartPageHeaderContainer>
+      ) : null}
       <ContentContainer>
         <ChartPageContainer>
           {loading ? (
@@ -204,25 +170,20 @@ export const ChartPage: React.FC<Props> = ({
             <h1 data-testid="error">Error: {error.message}</h1>
           ) : (
             <>
-              {regionList && naceList && naceRegionIdString ? (
+              {regionList && naceList && urlParams.naceRegionIdString ? (
                 <NaceRegionCardContainer
                   regionList={regionList}
                   naceList={naceList}
-                  setUrlParams={setUrlParams}
-                  esgFactor={esgFactorString}
-                  chosenTab={chosenTab}
-                  naceRegionIdList={naceRegionIdStringToList(
-                    naceRegionIdString,
-                  )}
+                  urlParams={urlParams}
                 />
               ) : null}
               <div>
                 {naceRegionDataListList && naceRegionList ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
-                    esgFactor={esgFactorString}
+                    esgFactor={urlParams.esgFactor}
                     naceRegionList={naceRegionList}
-                    chosenTab={chosenTab}
+                    chosenTab={urlParams.chosenTab}
                     setUrlParams={setUrlParams}
                   />
                 ) : null}

@@ -13,7 +13,6 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTableComponent';
 import {
   BaseLayoutContainer,
   ContentContainer,
@@ -50,7 +49,7 @@ export const App: React.FC = () => {
               ) => (
                 <ChartPage
                   naceRegionIdString={props.match.params.naceRegionIdString}
-                  esgFactorIdString={props.match.params.esgFactorIdString}
+                  esgFactor={props.match.params.esgFactorIdString}
                   chosenTab={props.match.params.chosenTab}
                 />
               )}
