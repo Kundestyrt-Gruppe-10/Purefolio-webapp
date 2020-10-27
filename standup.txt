@@ -1,0 +1,30 @@
+Hva jeg har gjort:
+* Begynt på getNaceById endepunkter i backend. Ble lei og gav oppgaven til Batman
+* Fikset slik at vi viser ingen data istedenfor ERROR hvis vi ikke har data for en valgt NaceRegion.
+* Fikset Url slik at den tar med valgt ESGFactor og endres dynamisk istedenfor hardkodet 'emissionPerYear'.
+* Fikset Prod slik at den funker HELE TIDEN!. Den hadde for kort timeOut. Tar 120 sek å gjøre migrasioner.
+* Gjort HistoryGraphComponent dynamisk som henter real data.
+* Gjort Overview Table dynamisk, som bruker real data.
+* Lagt til chosen Tab i URL, så tabben du har valgt holder seg ved refresh
+* Lagt til snapshot tester for BarchartComponent og HistoryGraphComponent.
+
+Ting som må gjøres:
+* Gjøre ferdig forsiden.
+	* Fjerne test linker
+	* passe på at all tekst er riktig og ikke mock
+* Gjøre ferdig header
+	* Search bar funksjonell og brukbar
+	* Esg Factor funksjonell og brukbar
+	* valg av periode funksjonell og brukbar
+		* Trenger endepunkter i backend
+
+* Designe percentage table og gjøre den funksjonell
+* Hente EU average for overview table og vise der
+* Fylle inn HistoryGraphComponent med
+	* Units (Trenger info fra backend)
+	* ESG Factor
+	* År valgt
+
+* Vise hvilket NaceRegion vi har data på, gitt nåværende filtrering
+	* Trenger info fra backend
+
