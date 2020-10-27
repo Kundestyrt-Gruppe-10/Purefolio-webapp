@@ -19,7 +19,6 @@ interface Props {
 
 export const OverviewTableComponent: React.FC<Props> = ({
   naceRegionData,
-  naceRegionList,
   esgFactor,
 }) => {
   return (

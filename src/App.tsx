@@ -13,7 +13,6 @@ import {
 } from 'react-router-dom';
 import { ChartPage } from './pages/ChartPage/ChartPage';
 import { NotFoundPage } from './pages/NotFoundPage/NoutFoundPage';
-import { OverviewTableComponent } from './components/OverviewTableComponent/OverviewTableComponent';
 import {
   BaseLayoutContainer,
   ContentContainer,
