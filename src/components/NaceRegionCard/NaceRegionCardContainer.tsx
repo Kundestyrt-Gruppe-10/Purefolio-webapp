@@ -67,7 +67,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
           regionList={props.regionList}
           naceList={props.naceList}
           naceId={naceRegionIdList[index][1]}
-          regionId={naceRegionIdList[index][1]}
+          regionId={naceRegionIdList[index][0]}
           setNaceRegionId={setNaceRegionId}
         />
       ))}
