@@ -1,3 +1,4 @@
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
 
 export interface NaceRegionCardInterface {
@@ -14,23 +15,7 @@ export interface NaceRegionCardInterface {
 export interface NaceRegionContainerInterface {
   regionList: Region[];
   naceList: Nace[];
-  esgFactor:
-    | 'emissionPerYear'
-    | 'workAccidentsIncidentRate'
-    | 'genderPayGap'
-    | 'environmentTaxes'
-    | 'fatalAccidentsAtWork'
-    | 'temporaryemployment'
-    | 'employeesPrimaryEducation'
-    | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
-  chosenTab: string;
-  setUrlParams(
-    naceRegionIdList: string,
-    esgFactor: string,
-    chosenTab: string,
-  ): void;
-  naceRegionIdList: number[][];
+  urlParams: UrlParamsInterface;
 }
 
 export interface SelectItemInterface {

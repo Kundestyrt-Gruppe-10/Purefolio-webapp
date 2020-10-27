@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NaceRegionCard } from './NaceRegionCard';
 import { NaceRegionContainerInterface } from './types';
+import { naceRegionIdListToString } from '../../pages/ChartPage/helper-functions';
+import { naceRegionIdStringToList } from '../../pages/ChartPage/helper-functions';
 
 export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
   props: NaceRegionContainerInterface,
 ) => {
   const [naceRegionIdList, setNaceRegionIdList] = useState<number[][]>(
-    props.naceRegionIdList,
+    naceRegionIdStringToList(props.urlParams.naceRegionIdString),
   );
-  // const [list /*setList*/] = useState(cardList); // integer state
-  // const newList = [...list];
 
   // Function passes as prop to NaceRegionCard, so that it can update the NaceRegionIdList
   function setNaceRegionId(regionId: number, naceId: number, cardId: number) {
@@ -19,29 +19,11 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     newNaceRegionIdList[cardId] = naceRegion;
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(naceRegionIdList);
-    props.setUrlParams(newUrlString, props.esgFactor, props.chosenTab);
-  }
-
-  // Convert naceRegionIdList to a string that can be used to set URL params
-  function naceRegionIdListToString(naceRegionIdList: number[][]) {
-    let naceRegionIdString = '';
-    let naceIt, regionIt;
-    for (naceIt = 0; naceIt < naceRegionIdList.length; naceIt++) {
-      for (
-        regionIt = 0;
-        regionIt < naceRegionIdList[naceIt].length;
-        regionIt++
-      ) {
-        naceRegionIdString += naceRegionIdList[naceIt][regionIt].toString();
-        if (regionIt + 1 != naceRegionIdList[naceIt].length) {
-          naceRegionIdString += ',';
-        }
-      }
-      if (naceIt + 1 != naceRegionIdList.length) {
-        naceRegionIdString += ';';
-      }
-    }
-    return naceRegionIdString;
+    props.urlParams.setUrlParams(
+      newUrlString,
+      props.urlParams.esgFactor,
+      props.urlParams.chosenTab,
+    );
   }
 
   function addCard(regionId: number, naceId: number) {
@@ -49,7 +31,11 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     newNaceRegionIdList.push([regionId, naceId]);
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(naceRegionIdList);
-    props.setUrlParams(newUrlString, props.esgFactor, props.chosenTab);
+    props.urlParams.setUrlParams(
+      newUrlString,
+      props.urlParams.esgFactor,
+      props.urlParams.chosenTab,
+    );
   }
 
   function deleteCard(id: number) {
@@ -61,14 +47,18 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
       .map((num) => num);
     setNaceRegionIdList(newNaceRegionIdList);
     const newUrlString = naceRegionIdListToString(newNaceRegionIdList);
-    props.setUrlParams(newUrlString, props.esgFactor, props.chosenTab);
+    props.urlParams.setUrlParams(
+      newUrlString,
+      props.urlParams.esgFactor,
+      props.urlParams.chosenTab,
+    );
   }
 
   //TODO: deleteCard() sets URL correctly, however it does not rerender correctly. Needs fix
 
   return (
     <Background active={true}>
-      {props.naceRegionIdList.map((item, index) => (
+      {naceRegionIdList.map((item, index) => (
         <NaceRegionCard
           addCard={addCard}
           deleteCard={deleteCard}
@@ -76,8 +66,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
           id={index}
           regionList={props.regionList}
           naceList={props.naceList}
-          naceId={props.naceRegionIdList[index][1]}
-          regionId={props.naceRegionIdList[index][0]}
+          naceId={naceRegionIdList[index][1]}
+          regionId={naceRegionIdList[index][1]}
           setNaceRegionId={setNaceRegionId}
         />
       ))}
