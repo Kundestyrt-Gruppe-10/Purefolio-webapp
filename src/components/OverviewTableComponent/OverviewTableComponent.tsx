@@ -56,13 +56,17 @@ export const OverviewTableComponent: React.FC<Props> = ({
                     <TableBox>
                       {naceRegion.region.regionName + naceRegion.nace.naceCode}
                     </TableBox>
-                    {naceRegionData[idx].map((naceRegion, idx) => {
-                      return (
-                        <TableBox key={idx}>
-                          {naceRegion.emissionPerYear}
-                        </TableBox>
-                      );
-                    })}
+                    {naceRegionData[idx] ? (
+                      naceRegionData[idx].map((naceRegion, idx) => {
+                        return (
+                          <TableBox key={idx}>
+                            {naceRegion.emissionPerYear}
+                          </TableBox>
+                        );
+                      })
+                    ) : (
+                      <p>No data</p>
+                    )}
                   </TableRow>
                 );
               })
