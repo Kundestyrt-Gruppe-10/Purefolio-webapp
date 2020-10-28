@@ -92,34 +92,65 @@ export const ChartViewTabs: React.FC<TabProps> = ({
   // tableIndex: tableIndex,
   setTableIndex: setTableIndex,
 }) => {
+  function setTabBold(id: string) {
+    const IDs = ['1', '2', '3', '4'];
+    IDs.forEach((element) => {
+      if (element === id) {
+        (document.getElementById(id) as HTMLElement).style.fontWeight = '700';
+        (document.getElementById(id) as HTMLElement).style.color =
+          'var(--main-black-color)';
+      } else {
+        (document.getElementById(element) as HTMLElement).style.fontWeight =
+          '200';
+        (document.getElementById(element) as HTMLElement).style.color =
+          'var( --main-blackAlpha-color)';
+      }
+    });
+  }
+
   return (
     <>
       <ChartTabsContainer active={true}>
         <ChartTabs
+          id="1"
           active={true}
           onClick={() => {
             setTableIndex(1);
+            setTabBold('1');
           }}
         >
           History Graph
         </ChartTabs>
-        <ChartTabs
+        <BarChartTab
+          id="2"
           active={true}
           onClick={() => {
             setTableIndex(2);
+            setTabBold('2');
           }}
         >
           Bar Chart
-        </ChartTabs>
-        <ChartTabs
+        </BarChartTab>
+        <OverviewTableTab
+          id="3"
           active={true}
           onClick={() => {
             setTableIndex(3);
+            setTabBold('3');
           }}
         >
           Overview Table
-        </ChartTabs>
-        <ChartTabs active={true}>Percentage Table</ChartTabs>
+        </OverviewTableTab>
+        <PercentageTableTab
+          id="4"
+          active={true}
+          onClick={() => {
+            setTableIndex(3);
+            setTabBold('4');
+          }}
+        >
+          Percentage Table
+        </PercentageTableTab>
       </ChartTabsContainer>
     </>
   );
@@ -166,8 +197,19 @@ const ChartTabs = styled.a<{ active: boolean }>`
   :hover {
     color: var(--main-black-color);
     font-weight: 700;
+    //border-top:2px solid var(--main-black-color);
+    margin: 0;
+    padding: 0;
   }
 `;
+
+const HistoryTab = styled(ChartTabs)``;
+
+const BarChartTab = styled(ChartTabs)``;
+
+const OverviewTableTab = styled(ChartTabs)``;
+
+const PercentageTableTab = styled(ChartTabs)``;
 
 const HistoryGraphContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 1 ? 'flex' : 'none')};
