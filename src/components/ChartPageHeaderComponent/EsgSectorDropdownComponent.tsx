@@ -1,18 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-//import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
-//import { useHistory } from 'react-router-dom';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   esgFactorList: string[];
+  urlParams: UrlParamsInterface;
 }
 
 export const EsgFactorDropdown: React.FC<Props> = (props) => {
   //const { setSearchQuery } = useQuery();
   //const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [chosenFactor, setChosenFactor] = useState<string>('Choose factor...');
+  const [chosenFactor, setChosenFactor] = useState<string>(
+    props.urlParams.esgFactor,
+  );
   const [userInput, setUserInput] = useState<string>('');
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
@@ -32,6 +34,15 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
   const handleMousdownClick = () => {
     setDropdownOpen(false);
     setUserInput('');
+  };
+  const handleEsgFactorClick = (esgfactorString: string): void => {
+    setChosenFactor(esgfactorString);
+    setUserInput(esgfactorString);
+    props.urlParams.setUrlParams(
+      props.urlParams.naceRegionIdString,
+      esgfactorString, // Setting new esgFactorString
+      props.urlParams.chosenTab,
+    );
   };
 
   document.addEventListener('mouseup', handleMousdownClick);
@@ -58,8 +69,7 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
               id={factorString}
               active={factorString === chosenFactor ? true : false}
               onClick={() => {
-                setChosenFactor(factorString);
-                setUserInput(factorString);
+                handleEsgFactorClick(factorString);
               }}
             >
               <NameBox active={factorString === chosenFactor ? true : false}>
