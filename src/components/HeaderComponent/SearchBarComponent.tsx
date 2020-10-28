@@ -1,28 +1,37 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
-//import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
-//import { useHistory } from 'react-router-dom';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { Nace, Region } from '../../types';
+import {
+  naceRegionIdStringToList,
+  naceRegionIdListToString,
+} from '../../pages/ChartPage/helper-functions';
 
 type Props = {
   onChartPage: boolean;
-  naceRegionList: string[];
+  naceList: Nace[];
+  regionList: Region[];
+  urlParams: UrlParamsInterface;
 };
 
 export const SearchBar: React.FC<Props> = (props) => {
-  //const { setSearchQuery } = useQuery();
-  //const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [chosenNaceRegion, setChosenNaceRegion] = useState<string>(
     'Choose Region or Industry...',
   );
   const [userInput, setUserInput] = useState<string>('');
+  const naceRegionStringList = props.naceList
+    .map((nace) => nace.naceName)
+    .concat(props.regionList.map((region) => region.regionName));
 
+  // TODO: How does this work?
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (props.naceRegionList.includes(userInput)) {
+      if (naceRegionStringList.includes(userInput)) {
         setChosenNaceRegion(userInput);
         setDropdownOpen(false);
+        redirectToPage(userInput);
       }
     }
   };
@@ -39,6 +48,44 @@ export const SearchBar: React.FC<Props> = (props) => {
 
   document.addEventListener('mouseup', handleMousdownClick);
 
+  const findNace = (naceName: string) => {
+    return props.naceList.find((nace) => nace.naceName === naceName);
+  };
+  const findRegion = (regionName: string) => {
+    return props.regionList.find((region) => region.regionName === regionName);
+  };
+  const redirectToPage = (naceRegionString: string): void => {
+    if (findNace(naceRegionString)) {
+      const nace = findNace(naceRegionString);
+      props.urlParams.setUrlParams(
+        naceRegionIdListToString(
+          naceRegionIdStringToList(
+            // Lol, fuck this line in perticular: DON'T LOOK AT ME, I'M SO UGLY
+            '1,' + (nace ? nace.naceId.toString() : '1'),
+          ),
+        ),
+        props.urlParams.esgFactor,
+        props.urlParams.chosenTab,
+      );
+    } else if (findRegion(naceRegionString)) {
+      const region = findRegion(naceRegionString);
+      props.urlParams.setUrlParams(
+        naceRegionIdListToString(
+          naceRegionIdStringToList(
+            // Lol, fuck this line in perticular: DON'T LOOK AT ME, I'M SO UGLY
+            (region ? region.regionId.toString() : '1') + ',1',
+          ),
+        ),
+        props.urlParams.esgFactor,
+        props.urlParams.chosenTab,
+      );
+    } else {
+      console.log(
+        `Could not match name: ${naceRegionString} with either a nace or a region`,
+      );
+    }
+  };
+
   return (
     <>
       <Input
@@ -53,16 +100,17 @@ export const SearchBar: React.FC<Props> = (props) => {
         onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
-        {props.naceRegionList
+        {naceRegionStringList
           .filter((naceRegion) => naceRegion.includes(userInput))
-          .map((naceRegionString: string, i: number) => (
+          .map((naceRegionString: string) => (
             <ResultRow
-              key={i}
+              key={naceRegionString}
               id={naceRegionString}
               active={naceRegionString === chosenNaceRegion ? true : false}
               onClick={() => {
                 setChosenNaceRegion(naceRegionString);
                 setUserInput(naceRegionString);
+                redirectToPage(naceRegionString);
               }}
             >
               <NameBox
@@ -73,7 +121,13 @@ export const SearchBar: React.FC<Props> = (props) => {
               <CategoryBox
                 active={naceRegionString === chosenNaceRegion ? true : false}
               >
-                Environment
+                {findNace(naceRegionString) ? (
+                  <>Nace</>
+                ) : findRegion(naceRegionString) ? (
+                  <>Region</>
+                ) : (
+                  <>String</>
+                )}
               </CategoryBox>
             </ResultRow>
           ))}

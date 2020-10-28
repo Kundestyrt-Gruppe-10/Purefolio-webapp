@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { Nace, Region } from '../../types';
 import { SearchBar } from '../HeaderComponent/SearchBarComponent';
 import { EsgFactorDropdown } from './EsgSectorDropdownComponent';
 import { PeriodDropdown } from './PeriodDropDownComponent';
 
 interface Props {
-  //regionList: Region[];
+  regionList: Region[];
+  naceList: Nace[];
   esgFactorList: string[];
   urlParams: UrlParamsInterface;
 }
 export const ChartPageHeaderComponent: React.FC<Props> = ({
+  regionList,
+  naceList,
   esgFactorList,
   urlParams,
 }) => {
@@ -18,7 +22,12 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
     <>
       <HeaderContainer active={false}>
         <SearchBox active={false}>
-          <SearchBar onChartPage={true} naceRegionList={esgFactorList} />
+          <SearchBar
+            onChartPage={true}
+            regionList={regionList}
+            naceList={naceList}
+            urlParams={urlParams}
+          />
         </SearchBox>
         <ESGBox active={false}>
           <EsgFactorDropdown

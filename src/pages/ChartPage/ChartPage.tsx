@@ -153,9 +153,11 @@ export const ChartPage: React.FC<Props> = (props) => {
   // Render components
   return (
     <>
-      {esgFactorList ? (
+      {esgFactorList && regionList && naceList ? (
         <ChartPageHeaderContainer>
           <ChartPageHeaderComponent
+            regionList={regionList}
+            naceList={naceList}
             esgFactorList={esgFactorList}
             urlParams={urlParams}
           />
