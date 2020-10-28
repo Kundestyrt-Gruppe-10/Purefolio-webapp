@@ -92,7 +92,7 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 10px;
+  top: 50px;
 `;
 
 const Input = styled.input<{ active: boolean }>`
