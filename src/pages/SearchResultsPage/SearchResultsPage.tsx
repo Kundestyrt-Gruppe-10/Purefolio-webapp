@@ -100,14 +100,16 @@ export const SearchResultsPage: React.FC = () => {
   } else {
     return (
       <>
-        <div style={{ marginTop: '60px' }}>
+        <div style={{ marginTop: '30px' }}>
           {results.map((result) => {
             return (
-              <div
-                key={result.id.toString() + ' ' + result.label}
-                style={{ marginBottom: 20 }}
-              >
-                <button onClick={() => handleClick(result.id, result.label)}>
+              <>
+                <Result
+                  key={result.id.toString() + ' ' + result.label}
+                  style={{ paddingTop: 5, marginBottom: 0 }}
+                  onClick={() => handleClick(result.id, result.label)}
+                  active={false}
+                >
                   {/* TODO:  On hover cursor and object change indicator, changes color for instance */}
                   <ElementTitle active={false}>{result.name}</ElementTitle>
                   <ElementType active={false}>
@@ -117,9 +119,9 @@ export const SearchResultsPage: React.FC = () => {
                       ) /* Convert the first letter of the string to uppercase */
                     }
                   </ElementType>
-                </button>
-                <hr />
-              </div>
+                </Result>
+                <hr style={{ margin: 0, border: '0.1px black solid' }} />
+              </>
             );
           })}
         </div>
@@ -128,14 +130,24 @@ export const SearchResultsPage: React.FC = () => {
   }
 };
 
+const Result = styled.div<{ active: boolean }>`
+  padding: 0 10px 5px 10px;
+  &:hover {
+    cursor: pointer;
+    background: rgb(240, 240, 240);
+  }
+`;
+
 const ElementTitle = styled.p<{ active: boolean }>`
   font-size: var(--font-size-large);
-  margin-top: 30px;
-  margin-bottom: 6px;
+  padding-top: 30px;
+  padding-bottom: 6px;
+  margin: 0;
 `;
 
 const ElementType = styled.p<{ active: boolean }>`
   color: var(--sec-purple-color);
-  margin-top: 6px;
-  margin-bottom: 30px;
+  padding-top: 6px;
+  padding-bottom: 30px;
+  margin: 0;
 `;
