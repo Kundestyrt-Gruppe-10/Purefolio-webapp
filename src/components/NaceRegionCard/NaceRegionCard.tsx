@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-//import { Redirect } from 'react-router-dom';
-//import {ChartPage} from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
 import { NaceRegionCardInterface, SelectItemInterface } from './types';
 
@@ -39,6 +37,10 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
     props.setNaceRegionId(regionId, newNaceId, props.id);
   };
   /*eslint-enable*/
+  useEffect(() => {
+    setRegionId(props.regionId);
+    setNaceId(props.naceId);
+  }, [props.naceId, props.regionId]);
 
   return (
     <>
@@ -49,14 +51,15 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             className="country-select"
             classNamePrefix="react-select"
             active={true}
+            value={selectRegion[regionId - 1]}
             options={selectRegion}
-            defaultValue={selectRegion[props.regionId - 1]}
+            defaultValue={selectRegion[regionId - 1]}
             onChange={handleChangeRegion}
           />
           <Button
             danger={false}
             onClick={() => {
-              props.addCard(props.regionId, props.naceId);
+              props.addCard(regionId, naceId);
             }}
           >
             <i
@@ -100,22 +103,12 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             height="5px"
             classNamePrefix="react-select"
             active={true}
+            value={selectNace[naceId - 1]}
             options={selectNace}
-            defaultValue={selectNace[props.naceId - 1]}
+            defaultValue={selectNace[naceId - 1]}
             onChange={handleChangeNace}
           />
         </div>
-        {/*
-        <Text active={true}>Sub-sector:</Text>
-        <div style={{ border: '2px solid var(--sec-purple-color)' }}>
-          <Select
-            width="100%"
-            classNamePrefix="react-select"
-            active={true}
-            options={selectNace}
-          />
-        </div>
-        */}
       </CardBackground>
     </>
   );

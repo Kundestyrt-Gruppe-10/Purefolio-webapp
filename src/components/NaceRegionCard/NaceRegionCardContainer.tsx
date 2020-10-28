@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { NaceRegionCard } from './NaceRegionCard';
 import { NaceRegionContainerInterface } from './types';
@@ -45,7 +45,10 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
         return newNaceRegionIdList.indexOf(item) !== id;
       })
       .map((num) => num);
-    setNaceRegionIdList(newNaceRegionIdList);
+    // setNaceRegionIdList(newNaceRegionIdList);
+    setNaceRegionIdList(
+      naceRegionIdStringToList(props.urlParams.naceRegionIdString),
+    );
     const newUrlString = naceRegionIdListToString(newNaceRegionIdList);
     props.urlParams.setUrlParams(
       newUrlString,
@@ -53,6 +56,11 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
       props.urlParams.chosenTab,
     );
   }
+  useEffect(() => {
+    setNaceRegionIdList(
+      naceRegionIdStringToList(props.urlParams.naceRegionIdString),
+    );
+  }, [props.urlParams.naceRegionIdString]);
 
   //TODO: deleteCard() sets URL correctly, however it does not rerender correctly. Needs fix
 
