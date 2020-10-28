@@ -31,6 +31,7 @@ export const SearchBar: React.FC<Props> = (props) => {
       if (naceRegionStringList.includes(userInput)) {
         setChosenNaceRegion(userInput);
         setDropdownOpen(false);
+        redirectToPage(userInput);
       }
     }
   };
@@ -72,7 +73,7 @@ export const SearchBar: React.FC<Props> = (props) => {
         naceRegionIdListToString(
           naceRegionIdStringToList(
             // Lol, fuck this line in perticular: DON'T LOOK AT ME, I'M SO UGLY
-            region ? region.regionId.toString() : '1' + ',1',
+            (region ? region.regionId.toString() : '1') + ',1',
           ),
         ),
         props.urlParams.esgFactor,
@@ -101,9 +102,9 @@ export const SearchBar: React.FC<Props> = (props) => {
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
         {naceRegionStringList
           .filter((naceRegion) => naceRegion.includes(userInput))
-          .map((naceRegionString: string, i: number) => (
+          .map((naceRegionString: string) => (
             <ResultRow
-              key={i}
+              key={naceRegionString}
               id={naceRegionString}
               active={naceRegionString === chosenNaceRegion ? true : false}
               onClick={() => {
