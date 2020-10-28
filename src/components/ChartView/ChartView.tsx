@@ -124,7 +124,14 @@ export const ChartViewTabs: React.FC<TabProps> = ({
         >
           Overview Table
         </ChartTabs>
-        <ChartTabs active={true}>Percentage Table</ChartTabs>
+        <ChartTabs
+          active={true}
+          onClick={() => {
+            setTableIndex(4);
+          }}
+        >
+          Percentage Table
+        </ChartTabs>
       </ChartTabsContainer>
     </>
   );
@@ -196,7 +203,7 @@ const OverviewTableContainer = styled.div<{ index: number }>`
 `;
 
 const PercentageTableContainer = styled.div<{ index: number }>`
-  display: ${(props) => (props.index === 3 ? 'flex' : 'none')};
+  display: ${(props) => (props.index === 4 ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   width: 100%;
