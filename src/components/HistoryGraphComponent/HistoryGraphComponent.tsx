@@ -72,14 +72,19 @@ export const HistoryGraphComponent: React.FC<Props> = ({
           <ResponsiveContainer aspect={2.7} width="97%" height="97%">
             <LineChart data={naceRegionItems}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="year" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
+              <XAxis
+                dy={5}
+                dataKey="year"
+                stroke="#f7f8f6"
+                tick={{ fontSize: 14 }}
+              />
               <YAxis
+                dx={-5}
                 tickFormatter={DataFormater}
                 stroke="#f7f8f6"
                 tick={{ fontSize: 14 }}
               />
               <Tooltip />
-              {/*TODO: Fix color fetching from index.css */}
               {naceRegionList.map((item, idx) => {
                 return (
                   <Line
@@ -90,6 +95,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
                     stroke={handleColorType(idx)}
                     strokeWidth={2}
                     activeDot={{ r: 6 }}
+                    //connectNulls={true}
                   />
                 );
               })}

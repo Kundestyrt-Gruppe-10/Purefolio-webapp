@@ -106,8 +106,18 @@ export const BarchartComponent: React.FC<Props> = ({
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="year" />
-              <YAxis />
+              <XAxis
+                dy={5}
+                dataKey="year"
+                stroke="#f7f8f6"
+                tick={{ fontSize: 14 }}
+              />
+              <YAxis
+                dx={-5}
+                tickFormatter={DataFormater}
+                stroke="#f7f8f6"
+                tick={{ fontSize: 14 }}
+              />
               <Tooltip />
               {naceRegionList.map((item, idx) => {
                 return (
@@ -118,6 +128,7 @@ export const BarchartComponent: React.FC<Props> = ({
                     key={idx}
                     dataKey={item.region.regionName + item.nace.naceCode}
                     fill={handleColorType(idx)}
+                    barSize={35}
                   />
                 );
               })}
@@ -147,6 +158,19 @@ export const BarchartComponent: React.FC<Props> = ({
       </TableContainer>
     </OuterContainer>
   );
+};
+
+/*Help function to display Y-axis value with base of number */
+const DataFormater = (number: number) => {
+  if (number > 1000000000) {
+    return (number / 1000000000).toString() + 'B';
+  } else if (number > 1000000) {
+    return (number / 1000000).toString() + 'M';
+  } else if (number > 1000) {
+    return (number / 1000).toString() + 'K';
+  } else {
+    return number.toString();
+  }
 };
 
 const OuterContainer = styled.div<{ active: boolean }>`
