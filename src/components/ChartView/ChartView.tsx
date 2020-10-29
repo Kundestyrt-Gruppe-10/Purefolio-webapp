@@ -9,6 +9,7 @@ import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
+  euData: NaceRegionData[];
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -34,10 +35,10 @@ export const ChartView: React.FC<Props> = ({
   esgFactor: esgFactor,
   naceRegionList,
   chosenTab,
+  euData,
   urlParams,
 }) => {
   console.log(naceRegionData);
-  const location = useLocation();
   const chosenTabN = Number(chosenTab);
   const [tableIndex, setTableIndex] = useState(chosenTabN);
   // TODO: Check if chosenTab is a number and within range, or return error
@@ -80,6 +81,7 @@ export const ChartView: React.FC<Props> = ({
           <OverviewTableComponent
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
+            euData={euData}
             naceRegionList={naceRegionList}
           />
         </OverviewTableContainer>
