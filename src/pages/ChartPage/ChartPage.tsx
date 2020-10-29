@@ -11,6 +11,7 @@ import {
   isValidEsgFactorIdString,
   naceRegionIdStringToList,
 } from './helper-functions';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
 
 interface Props {
   naceRegionIdString: string;
@@ -178,8 +179,7 @@ export const ChartPage: React.FC<Props> = (props) => {
           {loading ? (
             <h1>Laster...</h1>
           ) : error ? (
-            /* TODO: Make error component */
-            <h1 data-testid="error">Error: {error.message}</h1>
+            <ErrorComponent error={error} />
           ) : (
             <>
               {regionList && naceList && urlParams.naceRegionIdString ? (
