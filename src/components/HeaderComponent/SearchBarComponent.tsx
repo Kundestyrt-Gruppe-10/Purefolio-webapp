@@ -25,10 +25,17 @@ export const SearchBar: React.FC<Props> = (props) => {
     .map((nace) => nace.naceName)
     .concat(props.regionList.map((region) => region.regionName));
 
+  const dropDownList = naceRegionStringList.filter((naceRegion) => naceRegion.toLowerCase().includes(userInput.toLowerCase()))
+
   // TODO: How does this work?
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (naceRegionStringList.includes(userInput)) {
+      if (dropDownList.length==1){
+        setChosenNaceRegion(dropDownList[0])
+        setDropdownOpen(false);
+        redirectToPage(dropDownList[0]);
+      }
+      else if (naceRegionStringList.includes(userInput)) {
         setChosenNaceRegion(userInput);
         setDropdownOpen(false);
         redirectToPage(userInput);
@@ -104,9 +111,8 @@ export const SearchBar: React.FC<Props> = (props) => {
         onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
-        {naceRegionStringList
-          .filter((naceRegion) => naceRegion.includes(userInput))
-          .map((naceRegionString: string, idx: number) => (
+        {
+          dropDownList.map((naceRegionString: string, idx: number) => (
             <ResultRow
               key={naceRegionString + idx.toString()}
               id={naceRegionString}
@@ -186,7 +192,6 @@ const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${(props) => (props.onChartPage ? '330px' : '400px')};
-  min-height: 200px;
   margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
   position: absolute;
   background-color: var(--main-white-color);
@@ -195,6 +200,8 @@ const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   padding: ${(props) => (props.onChartPage ? '20px' : '24px')};
   z-index: 3;
+  max-height: 50vh;
+  overflow-y: auto;
 `;
 
 const ResultRow = styled.div<{ active: boolean }>`
