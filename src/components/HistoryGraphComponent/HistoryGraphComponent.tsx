@@ -94,7 +94,8 @@ export const HistoryGraphComponent: React.FC<Props> = ({
                     // TODO: Fix Colors.
                     stroke={handleColorType(idx)}
                     strokeWidth={2}
-                    activeDot={{ r: 6 }}
+                    activeDot={{ r: 8 }}
+                    dot={{ r: 5, fill: handleColorType(idx) }}
                     //connectNulls={true}
                   />
                 );
