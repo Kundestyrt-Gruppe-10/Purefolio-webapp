@@ -69,6 +69,7 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
+  const [euData, setEuData] = useState<NaceRegionData[]>();
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
@@ -91,6 +92,13 @@ export const ChartPage: React.FC<Props> = (props) => {
   }
 
   // Fetch data from API
+  // Fetch EU data. Needed for OverviewTable and PercentageTable
+  useEffect(() => {
+    ApiGet<NaceRegionData[]>(`naceregiondata/12/105`)
+      .then((res) => setEuData(res))
+      .catch((err) => setError(err));
+  }, []);
+  // TODO: Split up in multiple useEffect chunks?
   useEffect(() => {
     async function fetchData() {
       return await Promise.all([
@@ -191,9 +199,10 @@ export const ChartPage: React.FC<Props> = (props) => {
                 />
               ) : null}
               <div>
-                {naceRegionDataListList && naceRegionList ? (
+                {naceRegionDataListList && naceRegionList && euData ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
+                    euData={euData}
                     esgFactor={urlParams.esgFactor}
                     naceRegionList={naceRegionList}
                     chosenTab={urlParams.chosenTab}
