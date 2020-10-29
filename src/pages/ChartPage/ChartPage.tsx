@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Redirect, useHistory } from 'react-router-dom';
-import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
+import {
+  EuroStatTable,
+  Nace,
+  NaceRegion,
+  NaceRegionData,
+  Region,
+} from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { ChartView } from '../../components/ChartView/ChartView';
@@ -86,6 +92,12 @@ export const ChartPage: React.FC<Props> = (props) => {
   useEffect(() => {
     async function fetchData() {
       return await Promise.all([
+        ApiGet<EuroStatTable>('/tables')
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => setError(err)),
+
         ApiGet<Region[]>('/regions')
           .then((res) => {
             setRegionList(res);

@@ -99,12 +99,13 @@ export const SearchBar: React.FC<Props> = (props) => {
         onChange={handleUserInput}
         onKeyPress={handleKeywordKeyPress}
       />
+
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
         {naceRegionStringList
           .filter((naceRegion) => naceRegion.includes(userInput))
-          .map((naceRegionString: string) => (
+          .map((naceRegionString: string, idx: number) => (
             <ResultRow
-              key={naceRegionString}
+              key={naceRegionString + idx.toString()}
               id={naceRegionString}
               active={naceRegionString === chosenNaceRegion ? true : false}
               onClick={() => {
