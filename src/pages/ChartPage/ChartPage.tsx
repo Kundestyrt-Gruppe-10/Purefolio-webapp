@@ -216,5 +216,5 @@ const ChartPageHeaderContainer = styled.div`
 `;
 
 const ChartPageContainer = styled.div`
-  grid-template-rows: [card-start] 200px [card-stop chart-start] 200px [chart-stop];
+  grid-template-rows: [card-start] 200px [card-stop chart-start] 500px [chart-stop];
 `;
