@@ -17,9 +17,6 @@ export const HeaderComponent: React.FC = () => {
             <Link to="/chartpage">
               <NavButton active={false}>ChartPage</NavButton>
             </Link>
-            <NavButton active={false}>Test</NavButton>
-            <NavButton active={false}>Test</NavButton>
-            <NavButton active={false}>Test</NavButton>
           </Nav>
         </NavArea>
         {/* <SearchBar onChartPage={false} /> */}

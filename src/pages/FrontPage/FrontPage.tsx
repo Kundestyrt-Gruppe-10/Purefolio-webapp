@@ -14,12 +14,11 @@ export const FrontPage: React.FC = () => {
         <TextArea active={false}>
           <Headline active={false}>PureFolio</Headline>
           <HeaderText active={false}>
-            1. Første tab ESG Risk RatingProin condimentum accumsan velit, sed
-            fermentum sapien mollis non. Donec id lorem eu ipsum dignissim
-            maximus vitae non lorem. Nam dictum odio ut dui scelerisque, eu
-            mattis felis egestas. Ut aliquam nisl id pharetra pellentesque. Nam
-            ac auctor ipsum, dapibus gravida quam. Nam id ultricies arcu. Donec
-            aliquet malesuada volutpat.
+            Proin condimentum accumsan velit, sed fermentum sapien mollis non.
+            Donec id lorem eu ipsum dignissim maximus vitae non lorem. Nam
+            dictum odio ut dui scelerisque, eu mattis felis egestas. Ut aliquam
+            nisl id pharetra pellentesque. Nam ac auctor ipsum, dapibus gravida
+            quam. Nam id ultricies arcu. Donec aliquet malesuada volutpat.
           </HeaderText>
         </TextArea>
       </Layout>
