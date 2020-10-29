@@ -44,7 +44,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
         </TableTitleContainer>
         <TableDataContainer active={false}>
           <TableRow>
-            <TableBox>EU avarage </TableBox>
+            <TableBox>EU</TableBox>
             {euData.map((euDataYear, idx) => {
               return <TableBox key={idx}>{euDataYear[esgFactor]}</TableBox>;
             })}
