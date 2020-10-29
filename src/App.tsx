@@ -49,7 +49,7 @@ export const App: React.FC = () => {
               ) => (
                 <ChartPage
                   naceRegionIdString={props.match.params.naceRegionIdString}
-                  esgFactorIdString={props.match.params.esgFactorIdString}
+                  esgFactor={props.match.params.esgFactorIdString}
                   chosenTab={props.match.params.chosenTab}
                 />
               )}

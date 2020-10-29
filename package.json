@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "start:prod": "webpack-dev-server --env.production",
-    "build": "webpack --env.production",
+    "build": "webpack --env.production && cp ./web.config build/",
     "build:measure": "MEASURE=true webpack --env.production",
     "build:analyze": "ANALYZE=true webpack --env.production",
     "test": "jest --coverage src",

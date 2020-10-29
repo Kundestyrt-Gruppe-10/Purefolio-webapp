@@ -8,6 +8,20 @@ body {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--third-bluegrey-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--sec-purple-color);
+}
+
 :root {
   --main-white-color: rgb(247, 248, 246);
   --main-black-color: rgb(19, 22, 28);
@@ -28,6 +42,12 @@ body {
   --font-size-medium: 18px;
   --font-size-large: 20px;
   --font-size-xlarge: 40px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:focus {
+  background: var(--third-orange-color);
 }
 
 .country-select {

@@ -10,7 +10,8 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
   //const { setSearchQuery } = useQuery();
   //const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [chosenYear, setChosenYear] = useState<string>('20100');
+  const [chosenYear, setChosenYear] = useState<string>('2014');
+  const [userInput, setUserInput] = useState<string>('');
   const years: string[] = [
     '2018',
     '2017',
@@ -19,20 +20,30 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
     '2014',
     '2013',
     '2012',
+    '2011',
+    '2010',
+    '2009',
+    '2008',
+    '2007',
   ];
 
-  TODO: 'Skal brukes under søk og brukerinput';
-  /*
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
-    const inputValue: string = document.getElementById('searchInputPeriod').value;
-    years.forEach(element => {
-      
-    });
+    if (e.key === 'Enter') {
+      if (years.includes(userInput)) {
+        setChosenYear(userInput);
+        setDropdownOpen(false);
+      }
+    }
   };
-  */
+
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue: string = e.target.value;
+    setUserInput(inputValue);
+  };
 
   const handleMousdownClick = () => {
     setDropdownOpen(false);
+    setUserInput('');
   };
 
   document.addEventListener('mouseup', handleMousdownClick);
@@ -43,44 +54,30 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
         {props.periodStart ? 'Period Start:' : 'Period End:'}
       </Title>
       <Input
-        id="searchInputPeriod"
+        id={props.periodStart ? 'inputPeriodStart' : 'inputPeriodEnd:'}
         autoComplete="off"
-        value={dropdownOpen ? undefined : chosenYear}
-        active={false}
+        value={dropdownOpen ? userInput : chosenYear}
+        active={dropdownOpen}
         onClick={() => setDropdownOpen(true)}
-        //onKeyPress={handleKeywordKeyPress}
+        onChange={handleUserInput}
+        onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen}>
-        {years.map((yearString: string, i: number) => (
-          <ResultRow
-            key={i}
-            id={yearString}
-            active={false}
-            onClick={() => setChosenYear(yearString)}
-          >
-            <NameBox active={false}>{yearString}</NameBox>
-          </ResultRow>
-        ))}
-        {/*
-        <ResultRow active={false}>
-          <NameBox active={false}>2018</NameBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>2017</NameBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>2016</NameBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>2015</NameBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>2014</NameBox>
-        </ResultRow>
-        <ResultRow active={false}>
-          <NameBox active={false}>2013</NameBox>
-        </ResultRow>
-        */}
+        {years
+          .filter((year) => year.includes(userInput))
+          .map((yearString: string, i: number) => (
+            <ResultRow
+              key={i}
+              id={yearString}
+              active={yearString === chosenYear ? true : false}
+              onClick={() => {
+                setChosenYear(yearString);
+                setUserInput(yearString);
+              }}
+            >
+              {yearString}
+            </ResultRow>
+          ))}
       </DropdownContainer>
     </>
   );
@@ -91,15 +88,19 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 10px;
+  top: 50px;
 `;
 
 const Input = styled.input<{ active: boolean }>`
-  color: var(--main-black-color);
   font-size: var(--font-size-tiny);
   font-family: Roboto;
-  background: var(--main-white-color);
-  border: none;
+  font-weight: 700;
+  background: ${(props) =>
+    props.active ? 'var(--main-white-color)' : 'transparent'};
+  border: ${(props) =>
+    props.active ? 'none' : '1px solid var(--main-white-color)'};
+  color: ${(props) =>
+    props.active ? 'var(--main-black-color)' : 'var(--main-white-color)'};
   padding: 14px;
   border-radius: 0;
   width: 50px;
@@ -107,42 +108,30 @@ const Input = styled.input<{ active: boolean }>`
 `;
 
 const DropdownContainer = styled.div<{ active: boolean }>`
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  max-height: 200px;
+  min-width: 78px;
+  max-width: 78px;
   position: absolute;
   background-color: var(--main-white-color);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  padding: 23px;
   z-index: 3;
   border-top: 1px solid var(--main-black-color);
 `;
 
 const ResultRow = styled.div<{ active: boolean }>`
-  width: 100%;
-  height: 35px;
-`;
-
-const NameBox = styled.div<{ active: boolean }>`
-  color: var(--main-black-color);
+  text-align: center;
   font-size: 14px;
   font-weight: 500;
-  text-align: center;
-  text-justify: center;
+  min-height: 35px;
+  height: 35px;
+  border: ${(props) =>
+    props.active ? '2px solid var(--sec-purple-color)' : 'none'};
+  color: ${(props) =>
+    props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
+  background-color: ${(props) =>
+    props.active ? 'rgba(206, 216, 244, 0.7);' : 'var(--main-white-color)'};
 `;
-
-// TODO: Unused, remove??
-/*
-const Button = styled.button<{ active: boolean }>`
-  font-family: 'Roboto', sans-serif;
-  background: var(--sec-orange-color);
-  color: var(--main-black-color);
-  border-radius: 0;
-  font-size: var(--font-size-tiny);
-  margin-left: 6px;
-  border: none;
-  width: 120px;
-  padding: 10px;
-`;
-*/

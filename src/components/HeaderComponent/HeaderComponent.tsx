@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SearchBar } from './SearchBarComponent';
 import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
 import { Link } from 'react-router-dom';
 
@@ -23,7 +22,7 @@ export const HeaderComponent: React.FC = () => {
             <NavButton active={false}>Test</NavButton>
           </Nav>
         </NavArea>
-        <SearchBar onChartPage={false} />
+        {/*<SearchBar onChartPage={false} />*/}
       </Background>
     </>
   );

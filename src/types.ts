@@ -3,6 +3,18 @@ export interface Nace {
   naceCode: string;
   naceName: string;
 }
+export interface EuroStatTable {
+  tableId: number;
+  tableCode?: string;
+  attributeName?: string;
+  filters?: string;
+  dataType?: string;
+  unit?: string;
+  datasetName?: string;
+  esgFactor?: string;
+  description?: string;
+  href?: string;
+}
 
 export interface NaceRegionData {
   naceRegionDataId: number;
