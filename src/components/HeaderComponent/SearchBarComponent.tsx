@@ -65,6 +65,8 @@ export const SearchBar: React.FC<Props> = (props) => {
           ),
         ),
         props.urlParams.esgFactor,
+        props.urlParams.yearStart,
+        props.urlParams.yearEnd,
         props.urlParams.chosenTab,
       );
     } else if (findRegion(naceRegionString)) {
@@ -77,6 +79,8 @@ export const SearchBar: React.FC<Props> = (props) => {
           ),
         ),
         props.urlParams.esgFactor,
+        props.urlParams.yearStart,
+        props.urlParams.yearEnd,
         props.urlParams.chosenTab,
       );
     } else {

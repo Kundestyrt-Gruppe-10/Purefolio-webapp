@@ -22,6 +22,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.urlParams.setUrlParams(
       newUrlString,
       props.urlParams.esgFactor,
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   }
@@ -34,6 +36,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.urlParams.setUrlParams(
       newUrlString,
       props.urlParams.esgFactor,
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   }
@@ -53,6 +57,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.urlParams.setUrlParams(
       newUrlString,
       props.urlParams.esgFactor,
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   }
