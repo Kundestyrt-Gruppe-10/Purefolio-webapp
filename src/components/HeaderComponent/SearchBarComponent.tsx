@@ -28,16 +28,10 @@ export const SearchBar: React.FC<Props> = (props) => {
 
   const handleKeywordKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (dropDownList.length==1){
-        setChosenNaceRegion(dropDownList[0])
-        setDropdownOpen(false);
-        redirectToPage(dropDownList[0]);
-      }
-      else{
-        setChosenNaceRegion(dropDownList[naceRegionProposalIndex])
-        setDropdownOpen(false);
-        redirectToPage(dropDownList[naceRegionProposalIndex]);
-      }
+      setChosenNaceRegion(dropDownList[naceRegionProposalIndex])
+      setDropdownOpen(false);
+      redirectToPage(dropDownList[naceRegionProposalIndex]);
+      setUserInput("");
     }
     else if (e.key == "ArrowUp"	&& naceRegionProposalIndex != 0){
       setNaceRegionProposalIndex(naceRegionProposalIndex - 1)
@@ -55,7 +49,7 @@ export const SearchBar: React.FC<Props> = (props) => {
 
   const handleMousdownClick = () => {
     setDropdownOpen(false);
-    setUserInput(chosenNaceRegion);
+    setUserInput("");
   };
 
   document.addEventListener('mouseup', handleMousdownClick);
@@ -230,12 +224,15 @@ const ResultRow = styled.div<{ active: boolean }>`
 const NameBox = styled.div<{ active: boolean }>`
   color: ${(props) =>
     props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
+  height: 16px;
   font-size: 14px;
+  line-height: 14px; 
   font-weight: 500;
   flex-basis: 80%;
   text-align: left;
   align-self: center;
   overflow-x: hidden;
+  white-space: nowrap;
 `;
 
 const CategoryBox = styled.div<{ active: boolean }>`
