@@ -12,6 +12,7 @@ import {
   naceRegionIdStringToList,
 } from './helper-functions';
 import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { LoadingComponent } from '../../components/LoadingComponent/LoadingComponent';
 
 interface Props {
   naceRegionIdString: string;
@@ -177,7 +178,7 @@ export const ChartPage: React.FC<Props> = (props) => {
       <ContentContainer>
         <ChartPageContainer>
           {loading ? (
-            <h1>Laster...</h1>
+            <LoadingComponent />
           ) : error ? (
             <ErrorComponent error={error} />
           ) : (
