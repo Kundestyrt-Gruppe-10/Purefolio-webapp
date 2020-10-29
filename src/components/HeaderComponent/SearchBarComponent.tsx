@@ -65,6 +65,8 @@ export const SearchBar: React.FC<Props> = (props) => {
           ),
         ),
         props.urlParams.esgFactor,
+        props.urlParams.yearStart,
+        props.urlParams.yearEnd,
         props.urlParams.chosenTab,
       );
     } else if (findRegion(naceRegionString)) {
@@ -77,6 +79,8 @@ export const SearchBar: React.FC<Props> = (props) => {
           ),
         ),
         props.urlParams.esgFactor,
+        props.urlParams.yearStart,
+        props.urlParams.yearEnd,
         props.urlParams.chosenTab,
       );
     } else {
@@ -102,9 +106,9 @@ export const SearchBar: React.FC<Props> = (props) => {
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
         {naceRegionStringList
           .filter((naceRegion) => naceRegion.includes(userInput))
-          .map((naceRegionString: string) => (
+          .map((naceRegionString: string, idx: number) => (
             <ResultRow
-              key={naceRegionString}
+              key={naceRegionString + idx.toString()}
               id={naceRegionString}
               active={naceRegionString === chosenNaceRegion ? true : false}
               onClick={() => {

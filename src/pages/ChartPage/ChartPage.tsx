@@ -15,6 +15,8 @@ import {
 interface Props {
   naceRegionIdString: string;
   chosenTab: string;
+  yearStart: string;
+  yearEnd: string;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -31,6 +33,8 @@ export interface UrlParamsInterface extends Props {
   setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
+    yearStart: string,
+    yearEnd: string,
     chosenTab: string,
   ): void;
 }
@@ -45,9 +49,11 @@ export const ChartPage: React.FC<Props> = (props) => {
   function setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
+    yearStart: string,
+    yearEnd: string,
     chosenTab: string,
   ): void {
-    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${chosenTab}`;
+    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${yearStart}/${yearEnd}/${chosenTab}`;
     history.push(path);
   }
   // Object passed down to child components to easier handle URL-change
@@ -133,9 +139,8 @@ export const ChartPage: React.FC<Props> = (props) => {
         Promise.all(
           regionNaceIdList.map((regionIdNaceId) =>
             ApiGet<NaceRegionData[]>(
-              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
             ).then((res): NaceRegionData[] => {
-              // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
           ),
@@ -148,7 +153,12 @@ export const ChartPage: React.FC<Props> = (props) => {
     }
 
     void fetchData().then(() => setLoading(false));
-  }, [urlParams.naceRegionIdString, urlParams.esgFactor]);
+  }, [
+    urlParams.naceRegionIdString,
+    urlParams.esgFactor,
+    urlParams.yearStart,
+    urlParams.yearEnd,
+  ]);
 
   // Render components
   return (
@@ -186,7 +196,7 @@ export const ChartPage: React.FC<Props> = (props) => {
                     esgFactor={urlParams.esgFactor}
                     naceRegionList={naceRegionList}
                     chosenTab={urlParams.chosenTab}
-                    setUrlParams={setUrlParams}
+                    urlParams={urlParams}
                   />
                 ) : null}
               </div>
