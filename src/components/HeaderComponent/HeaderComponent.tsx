@@ -22,7 +22,7 @@ export const HeaderComponent: React.FC = () => {
             <NavButton active={false}>Test</NavButton>
           </Nav>
         </NavArea>
-        {/*<SearchBar onChartPage={false} />*/}
+        {/* <SearchBar onChartPage={false} /> */}
       </Background>
     </>
   );
