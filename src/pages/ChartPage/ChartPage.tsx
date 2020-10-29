@@ -205,14 +205,6 @@ const ChartPageHeaderContainer = styled.div`
   grid-row-end: header-stop;
 `;
 
-// TODO: Unused, remove?
-/* const ChartViewContainer = styled.div`
-  grid-column-start: left-pad-stop;
-  grid-column-end: right-pad-start;
-  grid-row-start: main-start;
-  grid-row-end: main-stop;
-`; */
-
 const ChartPageContainer = styled.div`
-  grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];
+  grid-template-rows: [card-start] 200px [card-stop chart-start] 200px [chart-stop];
 `;
