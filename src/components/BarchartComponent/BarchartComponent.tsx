@@ -118,7 +118,7 @@ export const BarchartComponent: React.FC<Props> = ({
                 stroke="#f7f8f6"
                 tick={{ fontSize: 14 }}
               />
-              <Tooltip />
+              <Tooltip cursor={{ fill: '#5a31ca91' }} />
               {naceRegionList.map((item, idx) => {
                 return (
                   // This is number of Bars per group/ year. If we compare multiple NaceRegions
