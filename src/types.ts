@@ -10,7 +10,7 @@ export interface EuroStatTable {
   filters?: string;
   dataType?: string;
   unit?: string;
-  datasetName?: string;
+  dataSetName?: string;
   esgFactor?: string;
   description?: string;
   href?: string;

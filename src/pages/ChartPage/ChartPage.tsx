@@ -70,8 +70,11 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
+  //TODO: Remove esgFactorList?
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
+  const [eurostatTableList, setEurostatTableList] = useState<EuroStatTable[]>();
+  const [esgFactorInfo, setEsgFactorInfo] = useState<EuroStatTable>();
 
   // Check if correct URL and parse URL string
   let regionNaceIdList: number[][];
@@ -88,13 +91,20 @@ export const ChartPage: React.FC<Props> = (props) => {
     return <Redirect to="/404" />;
   }
 
-  // Fetch data from API
   useEffect(() => {
     async function fetchData() {
       return await Promise.all([
-        ApiGet<EuroStatTable>('/tables')
+        ApiGet<EuroStatTable[]>('/tables')
           .then((res) => {
+            setEurostatTableList(res);
             console.log(res);
+            const esgFactorInfo = res.find(
+              (r) => r.attributeName === props.esgFactor,
+            );
+            if (!esgFactorInfo) throw new Error('No esgFactorInfo Found');
+            setEsgFactorInfo(esgFactorInfo);
+            // Fetch data from API
+            console.log(esgFactorInfo);
           })
           .catch((err) => setError(err)),
 
@@ -192,13 +202,14 @@ export const ChartPage: React.FC<Props> = (props) => {
                 />
               ) : null}
               <div>
-                {naceRegionDataListList && naceRegionList ? (
+                {naceRegionDataListList && naceRegionList && esgFactorInfo ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
                     esgFactor={urlParams.esgFactor}
                     naceRegionList={naceRegionList}
                     chosenTab={urlParams.chosenTab}
                     setUrlParams={setUrlParams}
+                    esgFactorInfo={esgFactorInfo}
                   />
                 ) : null}
               </div>

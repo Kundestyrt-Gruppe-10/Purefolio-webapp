@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 // TODO: Add tests
 
@@ -39,6 +39,7 @@ import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
+  //esgFactorInfo: EuroStatTable;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'

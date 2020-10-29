@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableComponent';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
@@ -20,6 +20,7 @@ interface Props {
     | 'employeesTertiaryEducation';
   naceRegionList: NaceRegion[];
   chosenTab: string;
+  esgFactorInfo: EuroStatTable;
   setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
@@ -37,6 +38,7 @@ export const ChartView: React.FC<Props> = ({
   esgFactor: esgFactor,
   naceRegionList,
   chosenTab,
+  esgFactorInfo,
   setUrlParams,
 }) => {
   const location = useLocation();
@@ -62,6 +64,7 @@ export const ChartView: React.FC<Props> = ({
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
           />
         </HistoryGraphContainer>
 
@@ -70,6 +73,7 @@ export const ChartView: React.FC<Props> = ({
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
             naceRegionList={naceRegionList}
+            //esgFactorInfo={esgFactorInfo}
           />
         </BarChartContainer>
 
