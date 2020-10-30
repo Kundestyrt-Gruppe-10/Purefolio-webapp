@@ -15,28 +15,7 @@ Object {
         </p>
         <div
           class="sc-dlnjPT hmQamB"
-        >
-          <a
-            class="sc-hKFyIo"
-          >
-            Test
-          </a>
-          <a
-            class="sc-hKFyIo"
-          >
-            Test
-          </a>
-          <a
-            class="sc-hKFyIo"
-          >
-            Test
-          </a>
-          <a
-            class="sc-hKFyIo"
-          >
-            Test
-          </a>
-        </div>
+        />
       </div>
     </div>
   </body>,
@@ -51,28 +30,7 @@ Object {
       </p>
       <div
         class="sc-dlnjPT hmQamB"
-      >
-        <a
-          class="sc-hKFyIo"
-        >
-          Test
-        </a>
-        <a
-          class="sc-hKFyIo"
-        >
-          Test
-        </a>
-        <a
-          class="sc-hKFyIo"
-        >
-          Test
-        </a>
-        <a
-          class="sc-hKFyIo"
-        >
-          Test
-        </a>
-      </div>
+      />
     </div>
   </div>,
   "debug": [Function],

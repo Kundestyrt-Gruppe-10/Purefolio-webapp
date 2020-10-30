@@ -5,9 +5,11 @@ import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableC
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 import { useLocation } from 'react-router-dom';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
+  euData: NaceRegionData[];
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -20,11 +22,7 @@ interface Props {
     | 'employeesTertiaryEducation';
   naceRegionList: NaceRegion[];
   chosenTab: string;
-  setUrlParams(
-    naceRegionIdList: string,
-    esgFactor: string,
-    chosenTab: string,
-  ): void;
+  urlParams: UrlParamsInterface;
 }
 
 interface TabProps {
@@ -37,16 +35,22 @@ export const ChartView: React.FC<Props> = ({
   esgFactor: esgFactor,
   naceRegionList,
   chosenTab,
-  setUrlParams,
+  euData,
+  urlParams,
 }) => {
-  const location = useLocation();
+  console.log(naceRegionData);
   const chosenTabN = Number(chosenTab);
   const [tableIndex, setTableIndex] = useState(chosenTabN);
   // TODO: Check if chosenTab is a number and within range, or return error
   function setTableIndexAndUpdateUrl(n: number) {
-    const splitedString = location.pathname.split('/');
     setTableIndex(n);
-    setUrlParams(splitedString[2], splitedString[3], n.toString());
+    urlParams.setUrlParams(
+      urlParams.naceRegionIdString,
+      urlParams.esgFactor,
+      urlParams.yearStart,
+      urlParams.yearEnd,
+      n.toString(),
+    );
   }
   return (
     <ChartViewContainer active={false}>
@@ -77,6 +81,7 @@ export const ChartView: React.FC<Props> = ({
           <OverviewTableComponent
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
+            euData={euData}
             naceRegionList={naceRegionList}
           />
         </OverviewTableContainer>

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const BaseLayoutContainer = styled.div`
   display: grid;
   grid-template-rows:
-    [header-start] 245px [header-stop content-start] minmax(900px, auto)
-    [content-stop footer-start] 200px [footer-stop];
+    [header-start] 150px [header-stop content-start] minmax(200px, auto)
+    [content-stop ];
   grid-template-columns: [left-pad-start] 20px [left-pad-stop main-start] auto [main-stop right-pad-start] 20px[right-pad-stop];
 `;
 

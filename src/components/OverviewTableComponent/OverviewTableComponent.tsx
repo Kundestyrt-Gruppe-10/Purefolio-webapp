@@ -5,6 +5,7 @@ import { NaceRegion, NaceRegionData } from '../../types';
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
+  euData: NaceRegionData[];
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -20,6 +21,7 @@ interface Props {
 export const OverviewTableComponent: React.FC<Props> = ({
   naceRegionData,
   naceRegionList,
+  euData,
   esgFactor,
 }) => {
   return (
@@ -42,12 +44,10 @@ export const OverviewTableComponent: React.FC<Props> = ({
         </TableTitleContainer>
         <TableDataContainer active={false}>
           <TableRow>
-            <TableBox>EU avarage (tonnes CO2)</TableBox>
-            <TableBox>2000000</TableBox>
-            <TableBox>3777667</TableBox>
-            <TableBox>4343434</TableBox>
-            <TableBox>534343434</TableBox>
-            <TableBox>634343</TableBox>
+            <TableBox>EU</TableBox>
+            {euData.map((euDataYear, idx) => {
+              return <TableBox key={idx}>{euDataYear[esgFactor]}</TableBox>;
+            })}
           </TableRow>
           {naceRegionData && naceRegionData[0] && naceRegionList
             ? naceRegionList.map((naceRegion, idx) => {
@@ -59,9 +59,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
                     {naceRegionData[idx] ? (
                       naceRegionData[idx].map((naceRegion, idx) => {
                         return (
-                          <TableBox key={idx}>
-                            {naceRegion.emissionPerYear}
-                          </TableBox>
+                          <TableBox key={idx}>{naceRegion[esgFactor]}</TableBox>
                         );
                       })
                     ) : (

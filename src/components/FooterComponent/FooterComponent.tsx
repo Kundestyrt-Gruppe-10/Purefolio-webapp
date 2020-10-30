@@ -10,10 +10,10 @@ export const FooterComponent: React.FC = () => {
           course TDT4290 at Norwegian University of Science and Technology.
         </FooterInfo>
         <FooterLinks active={false}>
+          {/*           <Link active={false}>Test</Link>
           <Link active={false}>Test</Link>
           <Link active={false}>Test</Link>
-          <Link active={false}>Test</Link>
-          <Link active={false}>Test</Link>
+          <Link active={false}>Test</Link> */}
         </FooterLinks>
       </Background>
     </>
