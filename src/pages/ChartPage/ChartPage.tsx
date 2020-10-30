@@ -94,7 +94,7 @@ export const ChartPage: React.FC<Props> = (props) => {
   // Fetch data from API
   // Fetch EU data. Needed for OverviewTable and PercentageTable
   useEffect(() => {
-    ApiGet<NaceRegionData[]>(`naceregiondata/12/105`)
+    ApiGet<NaceRegionData[]>(`/naceregiondata/12/105`)
       .then((res) => setEuData(res))
       .catch((err) => setError(err));
   }, []);
