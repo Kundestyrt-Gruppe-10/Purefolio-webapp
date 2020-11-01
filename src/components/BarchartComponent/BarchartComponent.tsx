@@ -8,7 +8,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from 'recharts';
 import { NaceRegion, NaceRegionData } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
@@ -94,17 +93,7 @@ export const BarchartComponent: React.FC<Props> = ({
       <TableContainer active={false}>
         <GraphContainer active={false}>
           <ResponsiveContainer aspect={2.7} width="97%" height="97%">
-            <BarChart
-              width={1000}
-              height={500}
-              data={naceRegionItems}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
+            <BarChart data={naceRegionItems}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dy={5}
@@ -184,7 +173,6 @@ const TableContainer = styled.div<{ active: boolean }>`
   background-color: var(--third-bluegrey-color);
   width: 90%;
   margin: auto;
-  position: relative;
   border-radius: 5px;
   padding-bottom: 30px;
 `;
