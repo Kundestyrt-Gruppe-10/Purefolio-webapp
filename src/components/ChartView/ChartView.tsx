@@ -4,28 +4,14 @@ import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableComponent';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
-import { useLocation } from 'react-router-dom';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
-  esgFactor:
-    | 'emissionPerYear'
-    | 'workAccidentsIncidentRate'
-    | 'genderPayGap'
-    | 'environmentTaxes'
-    | 'fatalAccidentsAtWork'
-    | 'temporaryemployment'
-    | 'employeesPrimaryEducation'
-    | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
+  euData: NaceRegionData[];
   naceRegionList: NaceRegion[];
-  chosenTab: string;
   esgFactorInfo: EuroStatTable;
-  setUrlParams(
-    naceRegionIdList: string,
-    esgFactor: string,
-    chosenTab: string,
-  ): void;
+  urlParams: UrlParamsInterface;
 }
 
 interface TabProps {
@@ -35,20 +21,24 @@ interface TabProps {
 
 export const ChartView: React.FC<Props> = ({
   naceRegionData: naceRegionData,
-  esgFactor: esgFactor,
   naceRegionList,
-  chosenTab,
   esgFactorInfo,
-  setUrlParams,
+  euData,
+  urlParams,
 }) => {
-  const location = useLocation();
-  const chosenTabN = Number(chosenTab);
+  console.log(naceRegionData);
+  const chosenTabN = Number(urlParams.chosenTab);
   const [tableIndex, setTableIndex] = useState(chosenTabN);
   // TODO: Check if chosenTab is a number and within range, or return error
   function setTableIndexAndUpdateUrl(n: number) {
-    const splitedString = location.pathname.split('/');
     setTableIndex(n);
-    setUrlParams(splitedString[2], splitedString[3], n.toString());
+    urlParams.setUrlParams(
+      urlParams.naceRegionIdString,
+      urlParams.esgFactor,
+      urlParams.yearStart,
+      urlParams.yearEnd,
+      n.toString(),
+    );
   }
   return (
     <ChartViewContainer active={false}>
@@ -62,7 +52,7 @@ export const ChartView: React.FC<Props> = ({
         <HistoryGraphContainer index={tableIndex}>
           <HistoryGraphComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
           />
@@ -71,7 +61,7 @@ export const ChartView: React.FC<Props> = ({
         <BarChartContainer index={tableIndex}>
           <BarchartComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
           />
@@ -80,7 +70,8 @@ export const ChartView: React.FC<Props> = ({
         <OverviewTableContainer index={tableIndex}>
           <OverviewTableComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
+            euData={euData}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
           />

@@ -41,6 +41,8 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
     props.urlParams.setUrlParams(
       props.urlParams.naceRegionIdString,
       esgfactorString, // Setting new esgFactorString
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   };
@@ -92,7 +94,7 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 10px;
+  top: 50px;
 `;
 
 const Input = styled.input<{ active: boolean }>`

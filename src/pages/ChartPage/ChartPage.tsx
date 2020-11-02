@@ -17,10 +17,14 @@ import {
   isValidEsgFactorIdString,
   naceRegionIdStringToList,
 } from './helper-functions';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { LoadingComponent } from '../../components/LoadingComponent/LoadingComponent';
 
 interface Props {
   naceRegionIdString: string;
   chosenTab: string;
+  yearStart: string;
+  yearEnd: string;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -37,6 +41,8 @@ export interface UrlParamsInterface extends Props {
   setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
+    yearStart: string,
+    yearEnd: string,
     chosenTab: string,
   ): void;
 }
@@ -51,9 +57,11 @@ export const ChartPage: React.FC<Props> = (props) => {
   function setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
+    yearStart: string,
+    yearEnd: string,
     chosenTab: string,
   ): void {
-    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${chosenTab}`;
+    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${yearStart}/${yearEnd}/${chosenTab}`;
     history.push(path);
   }
   // Object passed down to child components to easier handle URL-change
@@ -67,6 +75,7 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
+  const [euData, setEuData] = useState<NaceRegionData[]>();
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
@@ -91,6 +100,14 @@ export const ChartPage: React.FC<Props> = (props) => {
     return <Redirect to="/404" />;
   }
 
+  // Fetch data from API
+  // Fetch EU data. Needed for OverviewTable and PercentageTable
+  useEffect(() => {
+    ApiGet<NaceRegionData[]>(`/naceregiondata/12/105`)
+      .then((res) => setEuData(res))
+      .catch((err) => setError(err));
+  }, []);
+  // TODO: Split up in multiple useEffect chunks?
   useEffect(() => {
     async function fetchData() {
       return await Promise.all([
@@ -155,9 +172,8 @@ export const ChartPage: React.FC<Props> = (props) => {
         Promise.all(
           regionNaceIdList.map((regionIdNaceId) =>
             ApiGet<NaceRegionData[]>(
-              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
             ).then((res): NaceRegionData[] => {
-              // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
           ),
@@ -170,7 +186,12 @@ export const ChartPage: React.FC<Props> = (props) => {
     }
 
     void fetchData().then(() => setLoading(false));
-  }, [urlParams.naceRegionIdString, urlParams.esgFactor]);
+  }, [
+    urlParams.naceRegionIdString,
+    urlParams.esgFactor,
+    urlParams.yearStart,
+    urlParams.yearEnd,
+  ]);
 
   // Render components
   return (
@@ -188,10 +209,9 @@ export const ChartPage: React.FC<Props> = (props) => {
       <ContentContainer>
         <ChartPageContainer>
           {loading ? (
-            <h1>Laster...</h1>
+            <LoadingComponent />
           ) : error ? (
-            /* TODO: Make error component */
-            <h1 data-testid="error">Error: {error.message}</h1>
+            <ErrorComponent error={error} />
           ) : (
             <>
               {regionList && naceList && urlParams.naceRegionIdString ? (
@@ -202,14 +222,16 @@ export const ChartPage: React.FC<Props> = (props) => {
                 />
               ) : null}
               <div>
-                {naceRegionDataListList && naceRegionList && esgFactorInfo ? (
+                {naceRegionDataListList &&
+                naceRegionList &&
+                esgFactorInfo &&
+                euData ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
-                    esgFactor={urlParams.esgFactor}
+                    euData={euData}
                     naceRegionList={naceRegionList}
-                    chosenTab={urlParams.chosenTab}
-                    setUrlParams={setUrlParams}
                     esgFactorInfo={esgFactorInfo}
+                    urlParams={urlParams}
                   />
                 ) : null}
               </div>
@@ -228,14 +250,6 @@ const ChartPageHeaderContainer = styled.div`
   grid-row-end: header-stop;
 `;
 
-// TODO: Unused, remove?
-/* const ChartViewContainer = styled.div`
-  grid-column-start: left-pad-stop;
-  grid-column-end: right-pad-start;
-  grid-row-start: main-start;
-  grid-row-end: main-stop;
-`; */
-
 const ChartPageContainer = styled.div`
-  grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];
+  grid-template-rows: [card-start] 200px [card-stop chart-start] 500px [chart-stop];
 `;
