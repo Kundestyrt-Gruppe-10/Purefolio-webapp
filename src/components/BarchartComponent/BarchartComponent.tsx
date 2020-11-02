@@ -39,7 +39,7 @@ import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
-  //esgFactorInfo: EuroStatTable;
+  esgFactorInfo: EuroStatTable;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -60,6 +60,7 @@ export const BarchartComponent: React.FC<Props> = ({
   naceRegionData,
   naceRegionList,
   esgFactor,
+  esgFactorInfo,
 }) => {
   const naceRegionItems: NaceRegionChartItem[] = [];
 
