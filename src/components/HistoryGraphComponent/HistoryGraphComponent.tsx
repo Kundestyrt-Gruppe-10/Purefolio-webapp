@@ -109,7 +109,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
             <ESGFactorContainer active={false}>
               <DescriptionBox active={false}>ESG Factor:</DescriptionBox>
               <DescriptionBox active={false}>
-                {esgFactorInfo.attributeName}
+                {esgFactorInfo.datasetName}
               </DescriptionBox>
             </ESGFactorContainer>
             <PeriodContainer active={false}>
@@ -205,7 +205,6 @@ const TableInfoContainer = styled.div<{ active: boolean }>`
   flex-direction: column;
   flex-basis: 35%;
   font-weight: 450;
-  }
 `;
 
 const ESGFactorContainer = styled.div<{ active: boolean }>`
@@ -237,13 +236,15 @@ const DescriptionBox = styled.div<{ active: boolean }>`
 `;
 
 const LargeDescriptionBox = styled.div<{ active: boolean }>`
-  font-size: 14px;
+  font-size: var(--font-size-tiny);
   width: 40%;
   padding: 15px;
 `;
 
-const SmallDescriptionBox = styled.div<{ active: boolean }>``;
-
-const LinkContainer = styled.a<{ active: boolean }>`
+const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-xtiny);
   color: var(--main-black-color);
+  margin-top: 15px;
 `;
+
+const LinkContainer = styled.a<{ active: boolean }>``;

@@ -1007,7 +1007,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'airpol=GHG&na_item=B1G&unit=G_EUR_CP',
     dataType: 'NaceRegionData',
     unit: 'Gram per Euro',
-    dataSetName: 'Emmisions of Greenhouse gases',
+    datasetName: 'Emmisions of Greenhouse gases',
     esgFactor: 'Environment',
     description:
       'Air Emissions Accounts record the flows of residual gaseous and particulate materials emitted by resident units and flowing into the atmosphere. Residual gaseous and particulate materials are the physical flows of gaseous or particulate materials (‘air emissions’).',
@@ -1021,7 +1021,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'unit=RT_INC&age=TOTAL',
     dataType: 'NaceRegionData',
     unit: 'Incidence rate',
-    dataSetName: 'Non-fatal accidents at work',
+    datasetName: 'Non-fatal accidents at work',
     esgFactor: 'Social',
     description:
       "An accident at work is defined as 'a discrete occurrence in the course of work which leads to physical or mental harm'. The data include non-fatal accidents involving more than 3 calendar days of absence from work. If the accident does not lead to the death of the victim it is called a 'non-fatal' (or 'serious') accident.",
@@ -1035,7 +1035,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'unit=PC',
     dataType: 'NaceRegionData',
     unit: 'Percentage',
-    dataSetName: 'Gender pay gap',
+    datasetName: 'Gender pay gap',
     esgFactor: 'Corporate Governance',
     description:
       'The unadjusted gender pay gap (GPG) represents the difference between average gross hourly earnings of male paid employees and of female paid employees as a percentage of average gross hourly earnings of male paid employees.',
@@ -1049,7 +1049,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'tax=ENV&unit=MIO_EUR',
     dataType: 'NaceRegionData',
     unit: 'Million Euros',
-    dataSetName: 'Environmental taxes by economic activity',
+    datasetName: 'Environmental taxes by economic activity',
     esgFactor: 'Environment',
     description:
       "The environmental tax statistics are based on Eurostat’s 2013 'Environmental taxes - a statistical guide'. Environmental tax statistics are part of the environmental accounts which constitute satellite accounts to national accounts.",
@@ -1063,7 +1063,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'unit=RT_INC',
     dataType: 'NaceRegionData',
     unit: 'Incidence rate',
-    dataSetName: 'Fatal Accidents at work',
+    datasetName: 'Fatal Accidents at work',
     esgFactor: 'Social',
     description:
       "An accident at work is defined as 'a discrete occurrence in the course of work which leads to physical or mental harm'. A fatal accident at work is defined as an accident which leads to the death of a victim within one year of the accident.",
@@ -1077,7 +1077,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'sex=T&unit=THS&age=Y15-74',
     dataType: 'NaceRegionData',
     unit: 'Thousand',
-    dataSetName: 'Temporary employees',
+    datasetName: 'Temporary employees',
     esgFactor: 'Social',
     description: 'Temporary employment.',
     href: 'https://ec.europa.eu/eurostat/cache/metadata/en/lfsa_esms.htm',
@@ -1089,7 +1089,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'sex=T&unit=PC&isced11=ED0-2&age=Y15-74',
     dataType: 'NaceRegionData',
     unit: 'Percentage',
-    dataSetName: 'Employees with less than secondary education',
+    datasetName: 'Employees with less than secondary education',
     esgFactor: 'Corporate Governance',
     description:
       'Less than primary, primary and lower secondary education: this aggregate refers to levels 0, 1 and 2 of the ISCED 2011 (online code ED0-2). Data up to 2013 refer to ISCED 1997 levels 0, 1 and 2 but also include level 3C short (educational attainment from ISCED level 3 programmes of less than two years).',
@@ -1102,7 +1102,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'sex=T&unit=PC&isced11=ED3_4&age=Y15-74',
     dataType: 'NaceRegionData',
     unit: 'Percentage',
-    dataSetName: 'Employees with secondary education',
+    datasetName: 'Employees with secondary education',
     esgFactor: 'Corporate Governance',
     description:
       'Upper secondary and post-secondary non-tertiary education: this aggregate corresponds to ISCED 2011 levels 3 and 4 (online code ED3_4). ISCED 2011 level 3 programmes of partial level completion are considered within ISCED level 3',
@@ -1115,7 +1115,7 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     filters: 'sex=T&unit=PC&isced11=ED5-8&age=Y15-74',
     dataType: 'NaceRegionData',
     unit: 'Percentage',
-    dataSetName: 'Employees with tertiary education',
+    datasetName: 'Employees with tertiary education',
     esgFactor: 'Corporate Governance',
     description:
       "Tertiary education: this aggregate covers ISCED 2011 levels 5, 6, 7 and 8 (short-cycle tertiary education, bachelor's or equivalent level, master's or equivalent level, doctoral or equivalent level, online code ED5-8 ‘tertiary education’).",
