@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
-import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+// import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
 import { Dropdown } from './Dropdown';
 import { getConfig } from '../../utils/config-utils';
@@ -17,7 +17,7 @@ type Props = {
   onChartPage: boolean;
   naceList: Nace[];
   regionList: Region[];
-  urlParams: UrlParamsInterface;
+  // urlParams: UrlParamsInterface;
 };
 
 export const SearchBar: React.FC<Props> = (props) => {
@@ -101,16 +101,20 @@ export const SearchBar: React.FC<Props> = (props) => {
     }
   }, []);
 
-  // TODO: How does this work?
+  // TODO: Fix handling on clicking enter
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     setDropdownOpen(true);
+    /*
     if (e.key === 'Enter') {
       if (naceRegionStringList.includes(userInput)) {
         setChosenNaceRegion(userInput);
         setDropdownOpen(false);
-        // redirectToPage(userInput);
+        setSearchQuery(userInput);
+        history.push(`/results/`);
+        redirectToPage(userInput);
       }
     }
+    */
   };
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -193,7 +197,7 @@ const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
 const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${(props) => (props.onChartPage ? '382px' : '400px')};
+  width: ${(props) => (props.onChartPage ? '382px' : '452px')};
   margin-left: ${(props) => (props.onChartPage ? '0px' : '30px')};
   position: absolute;
   background-color: var(--main-white-color);

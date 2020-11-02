@@ -33,7 +33,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
             onChartPage={true}
             regionList={regionList}
             naceList={naceList}
-            urlParams={urlParams}
+            // urlParams={urlParams}
           />
         </SearchBox>
         <ESGBox active={false}>

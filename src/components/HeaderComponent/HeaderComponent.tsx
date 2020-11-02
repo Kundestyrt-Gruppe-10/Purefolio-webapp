@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
 import { Link } from 'react-router-dom';
+import { SearchBar } from './SearchBarComponent';
 
 export const HeaderComponent: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ export const HeaderComponent: React.FC = () => {
             </Link>
           </Nav>
         </NavArea>
-        {/* <SearchBar onChartPage={false} /> */}
+        <SearchBar onChartPage={false} regionList={[]} naceList={[]} />
       </Background>
     </>
   );
