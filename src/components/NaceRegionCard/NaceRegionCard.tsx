@@ -39,9 +39,11 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
         setSelectRegion(
           res.map((region) => {
             return {
-              label: region.regionName,
+              label: `${region.regionName} ${
+                !region.hasData ? '(No Data)' : ''
+              }`,
               value: region.regionId,
-              isDisabled: !region.hasData,
+              isDisabled: false, // TODO: Remove?
             };
           }),
         ),
@@ -56,9 +58,9 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
         setSelectNace(
           res.map((nace) => {
             return {
-              label: nace.naceName,
+              label: `${nace.naceName} ${!nace.hasData ? '(No Data)' : ''}`,
               value: nace.naceId,
-              isDisabled: !nace.hasData,
+              isDisabled: false, // TODO: Remove? Not used
             };
           }),
         ),
