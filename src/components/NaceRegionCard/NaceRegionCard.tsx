@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-import AsyncSelect from 'react-select/async';
 import { Nace, NaceHasData, Region, RegionHasData } from '../../types';
 import { NaceRegionCardInterface, SelectItemInterface } from './types';
 import { ApiGet } from '../../utils/api';
