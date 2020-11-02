@@ -73,7 +73,7 @@ export const ChartView: React.FC<Props> = ({
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
             naceRegionList={naceRegionList}
-            //esgFactorInfo={esgFactorInfo}
+            esgFactorInfo={esgFactorInfo}
           />
         </BarChartContainer>
 
@@ -82,6 +82,7 @@ export const ChartView: React.FC<Props> = ({
             naceRegionData={naceRegionData}
             esgFactor={esgFactor}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
           />
         </OverviewTableContainer>
       </DataView>

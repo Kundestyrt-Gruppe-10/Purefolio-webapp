@@ -203,7 +203,7 @@ const UnitOfMeasureBox = styled.div<{ active: boolean }>`
 const TableInfoContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  flex-basis: 35%;
+  flex-basis: 40%;
   font-weight: 450;
 `;
 
