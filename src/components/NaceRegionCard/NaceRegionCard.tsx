@@ -1,28 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-import { Nace, Region } from '../../types';
+import AsyncSelect from 'react-select/async';
+import { Nace, NaceHasData, Region, RegionHasData } from '../../types';
 import { NaceRegionCardInterface, SelectItemInterface } from './types';
+import { ApiGet } from '../../utils/api';
 
+interface SelectItem {
+  label: string;
+  value: number;
+  isDisabled: boolean;
+}
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   props: NaceRegionCardInterface,
 ) => {
   const [regionId, setRegionId] = useState<number>(props.regionId);
   const [naceId, setNaceId] = useState<number>(props.naceId);
-  const selectRegion: SelectItemInterface[] = props.regionList.map(
-    (region: Region) => ({
+  const [selectRegion, setSelectRegion] = useState<SelectItem[]>(
+    props.regionList.map((region: Region) => ({
       label: region.regionName,
       value: region.regionId,
-    }),
+      isDisabled: false,
+    })),
   );
-
-  const selectNace: SelectItemInterface[] = props.naceList.map(
-    (nace: Nace) => ({
+  const [selectNace, setSelectNace] = useState<SelectItem[]>(
+    props.naceList.map((nace: Nace) => ({
       label: nace.naceName,
       value: nace.naceId,
-    }),
+      isDisabled: false,
+    })),
   );
 
+  // TODO: Use custom CSS style instead of isDisabled prop
+  const filterRegionOptions = () => {
+    // TODO: Pass down esgFactor object insted of hard coding esgFactor 1
+    ApiGet<RegionHasData[]>(`/regions/hasdata/${naceId}/1`)
+      .then((res) =>
+        setSelectRegion(
+          res.map((region) => {
+            return {
+              label: `${region.regionName} ${
+                !region.hasData ? '(No Data)' : ''
+              }`,
+              value: region.regionId,
+              isDisabled: false, // TODO: Remove?
+            };
+          }),
+        ),
+      )
+      .catch((err) => console.log(err));
+  };
+  // TODO: Use custom CSS style instead of isDisabled prop
+  const filterNaceOptions = () => {
+    // TODO: Pass down esgFactor object insted of hard coding esgFactor 1
+    ApiGet<NaceHasData[]>(`/naces/hasdata/${regionId}/1`)
+      .then((res) =>
+        setSelectNace(
+          res.map((nace) => {
+            return {
+              label: `${nace.naceName} ${!nace.hasData ? '(No Data)' : ''}`,
+              value: nace.naceId,
+              isDisabled: false, // TODO: Remove? Not used
+            };
+          }),
+        ),
+      )
+      .catch((err) => console.log(err));
+  };
   //TODO: Fix eslint type
   /*eslint-disable*/
   const handleChangeRegion = (selectedOption: any) => {
@@ -50,6 +94,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <Select
             className="country-select"
             classNamePrefix="react-select"
+            onMenuOpen={filterRegionOptions}
             active={true}
             value={selectRegion[regionId - 1]}
             options={selectRegion}
@@ -103,6 +148,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             height="5px"
             classNamePrefix="react-select"
             active={true}
+            onMenuOpen={filterNaceOptions}
             value={selectNace[naceId - 1]}
             options={selectNace}
             defaultValue={selectNace[naceId - 1]}
