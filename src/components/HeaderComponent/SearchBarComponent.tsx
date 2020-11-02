@@ -17,27 +17,32 @@ type Props = {
 
 export const SearchBar: React.FC<Props> = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [chosenNaceRegion, setChosenNaceRegion] = useState<string>("");
-  const [naceRegionProposalIndex, setNaceRegionProposalIndex] = useState<number>(0);
+  const [chosenNaceRegion, setChosenNaceRegion] = useState<string>('');
+  const [naceRegionProposalIndex, setNaceRegionProposalIndex] = useState<
+    number
+  >(0);
   const [userInput, setUserInput] = useState<string>('');
   const naceRegionStringList = props.naceList
     .map((nace) => nace.naceName)
     .concat(props.regionList.map((region) => region.regionName));
 
-  const dropDownList = naceRegionStringList.filter((naceRegion) => naceRegion.toLowerCase().includes(userInput.toLowerCase()))
+  const dropDownList = naceRegionStringList.filter((naceRegion) =>
+    naceRegion.toLowerCase().includes(userInput.toLowerCase()),
+  );
 
   const handleKeywordKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      setChosenNaceRegion(dropDownList[naceRegionProposalIndex])
+      setChosenNaceRegion(dropDownList[naceRegionProposalIndex]);
       setDropdownOpen(false);
       redirectToPage(dropDownList[naceRegionProposalIndex]);
-      setUserInput("");
-    }
-    else if (e.key == "ArrowUp"	&& naceRegionProposalIndex != 0){
-      setNaceRegionProposalIndex(naceRegionProposalIndex - 1)
-    }
-    else if (e.key == "ArrowDown"	&& naceRegionProposalIndex != dropDownList.length){
-      setNaceRegionProposalIndex(naceRegionProposalIndex + 1)
+      setUserInput('');
+    } else if (e.key == 'ArrowUp' && naceRegionProposalIndex != 0) {
+      setNaceRegionProposalIndex(naceRegionProposalIndex - 1);
+    } else if (
+      e.key == 'ArrowDown' &&
+      naceRegionProposalIndex != dropDownList.length
+    ) {
+      setNaceRegionProposalIndex(naceRegionProposalIndex + 1);
     }
   };
 
@@ -49,7 +54,7 @@ export const SearchBar: React.FC<Props> = (props) => {
 
   const handleMousdownClick = () => {
     setDropdownOpen(false);
-    setUserInput("");
+    setUserInput('');
   };
 
   document.addEventListener('mouseup', handleMousdownClick);
@@ -110,36 +115,31 @@ export const SearchBar: React.FC<Props> = (props) => {
         onKeyDown={handleKeywordKeyDown}
       />
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
-        {
-          dropDownList.map((naceRegionString: string, idx: number) => (
-            <ResultRow
-              key={naceRegionString + idx.toString()}
-              id={naceRegionString}
-              active={naceRegionProposalIndex === idx }
-              onClick={() => {
-                setChosenNaceRegion(naceRegionString);
-                setUserInput(naceRegionString);
-                redirectToPage(naceRegionString);
-              }}
-            >
-              <NameBox
-                active={naceRegionProposalIndex === idx}
-              >
-                {naceRegionString}
-              </NameBox>
-              <CategoryBox
-                active={naceRegionProposalIndex === idx}
-              >
-                {findNace(naceRegionString) ? (
-                  <>Nace</>
-                ) : findRegion(naceRegionString) ? (
-                  <>Region</>
-                ) : (
-                  <>String</>
-                )}
-              </CategoryBox>
-            </ResultRow>
-          ))}
+        {dropDownList.map((naceRegionString: string, idx: number) => (
+          <ResultRow
+            key={naceRegionString + idx.toString()}
+            id={naceRegionString}
+            active={naceRegionProposalIndex === idx}
+            onClick={() => {
+              setChosenNaceRegion(naceRegionString);
+              setUserInput(naceRegionString);
+              redirectToPage(naceRegionString);
+            }}
+          >
+            <NameBox active={naceRegionProposalIndex === idx}>
+              {naceRegionString}
+            </NameBox>
+            <CategoryBox active={naceRegionProposalIndex === idx}>
+              {findNace(naceRegionString) ? (
+                <>Nace</>
+              ) : findRegion(naceRegionString) ? (
+                <>Region</>
+              ) : (
+                <>String</>
+              )}
+            </CategoryBox>
+          </ResultRow>
+        ))}
       </DropdownContainer>
       <Button
         id="searchButton"
@@ -226,7 +226,7 @@ const NameBox = styled.div<{ active: boolean }>`
     props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
   height: 16px;
   font-size: 14px;
-  line-height: 14px; 
+  line-height: 14px;
   font-weight: 500;
   flex-basis: 80%;
   text-align: left;
