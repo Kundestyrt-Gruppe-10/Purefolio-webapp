@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableComponent';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
-import { useLocation } from 'react-router-dom';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
   euData: NaceRegionData[];
-  esgFactor:
-    | 'emissionPerYear'
-    | 'workAccidentsIncidentRate'
-    | 'genderPayGap'
-    | 'environmentTaxes'
-    | 'fatalAccidentsAtWork'
-    | 'temporaryemployment'
-    | 'employeesPrimaryEducation'
-    | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
   naceRegionList: NaceRegion[];
-  chosenTab: string;
+  esgFactorInfo: EuroStatTable;
   urlParams: UrlParamsInterface;
 }
 
@@ -32,14 +21,13 @@ interface TabProps {
 
 export const ChartView: React.FC<Props> = ({
   naceRegionData: naceRegionData,
-  esgFactor: esgFactor,
   naceRegionList,
-  chosenTab,
+  esgFactorInfo,
   euData,
   urlParams,
 }) => {
   console.log(naceRegionData);
-  const chosenTabN = Number(chosenTab);
+  const chosenTabN = Number(urlParams.chosenTab);
   const [tableIndex, setTableIndex] = useState(chosenTabN);
   // TODO: Check if chosenTab is a number and within range, or return error
   function setTableIndexAndUpdateUrl(n: number) {
@@ -64,25 +52,28 @@ export const ChartView: React.FC<Props> = ({
         <HistoryGraphContainer index={tableIndex}>
           <HistoryGraphComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
           />
         </HistoryGraphContainer>
 
         <BarChartContainer index={tableIndex}>
           <BarchartComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
           />
         </BarChartContainer>
 
         <OverviewTableContainer index={tableIndex}>
           <OverviewTableComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             euData={euData}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
           />
         </OverviewTableContainer>
       </DataView>

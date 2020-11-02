@@ -9,7 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 // TODO: Add tests
 
@@ -40,6 +40,7 @@ import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
+  esgFactorInfo: EuroStatTable;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -60,6 +61,7 @@ export const BarchartComponent: React.FC<Props> = ({
   naceRegionData,
   naceRegionList,
   esgFactor,
+  esgFactorInfo,
 }) => {
   const naceRegionItems: NaceRegionChartItem[] = [];
 

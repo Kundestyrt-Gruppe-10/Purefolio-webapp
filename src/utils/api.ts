@@ -1,7 +1,7 @@
 import { getConfig } from './config-utils';
 
-// const domain = getConfig().apiUrl;
-const domain = 'https://purefolio-backend-test.azurewebsites.net/'; //getConfig().apiUrl;
+const domain = getConfig().apiUrl;
+//const domain = 'https://purefolio-backend-test.azurewebsites.net/'; //getConfig().apiUrl;
 // For the "unwrapping" variation
 
 export function ApiGet<T>(path: string): Promise<T> {

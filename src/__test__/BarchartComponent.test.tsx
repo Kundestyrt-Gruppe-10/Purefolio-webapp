@@ -6,6 +6,7 @@ import {
   naceRegionDataListList_3_examples,
   naceRegionList_1,
   naceRegionList_3,
+  esgFactorInfo_example,
   // Arrange
 } from '../mockData';
 
@@ -17,6 +18,7 @@ describe('<BarchartComponent />', () => {
         naceRegionData={naceRegionDataListList_1_example}
         esgFactor="emissionPerYear"
         naceRegionList={naceRegionList_1}
+        esgFactorInfo={esgFactorInfo_example[0]}
       />,
     );
     // Assert
@@ -30,6 +32,7 @@ describe('<BarchartComponent />', () => {
         naceRegionData={naceRegionDataListList_3_examples}
         esgFactor="emissionPerYear"
         naceRegionList={naceRegionList_3}
+        esgFactorInfo={esgFactorInfo_example[0]}
       />,
     );
     // Assert

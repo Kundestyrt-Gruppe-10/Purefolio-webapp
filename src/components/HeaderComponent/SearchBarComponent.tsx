@@ -114,6 +114,7 @@ export const SearchBar: React.FC<Props> = (props) => {
         onChange={handleUserInput}
         onKeyDown={handleKeywordKeyDown}
       />
+
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
         {dropDownList.map((naceRegionString: string, idx: number) => (
           <ResultRow
