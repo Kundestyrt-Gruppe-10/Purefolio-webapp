@@ -1,13 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Fuse from 'fuse.js';
 import styled from 'styled-components';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 import { Nace, Region } from '../../types';
-import {
-  naceRegionIdStringToList,
-  naceRegionIdListToString,
-} from '../../pages/ChartPage/helper-functions';
 import { Dropdown } from './Dropdown';
+import { getConfig } from '../../utils/config-utils';
+import {
+  ResultInterface,
+  RegionInterface,
+  NaceInterface,
+} from '../../types/search';
+import { useHistory } from 'react-router-dom';
+import { useQuery } from '../../pages/GlobalProvider/GlobalProvider';
 
 type Props = {
   onChartPage: boolean;
@@ -17,6 +21,27 @@ type Props = {
 };
 
 export const SearchBar: React.FC<Props> = (props) => {
+  const history = useHistory();
+  /* For search functionality */
+  const { setSearchQuery } = useQuery();
+  const [formattedSearchList, setFormattedSearchList] = useState([
+    {
+      id: 0,
+      name: 'Default',
+      label: 'region',
+    },
+  ]);
+  const [results, setResults] = useState([
+    {
+      id: 0,
+      name: 'Default',
+      label: 'region',
+    },
+  ]);
+  const options: Fuse.IFuseOptions<ResultInterface> = {
+    keys: ['id', 'name', 'label'],
+  };
+
   const [inputHighlight, setInputHighlight] = useState<boolean>(false);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [chosenNaceRegion, setChosenNaceRegion] = useState<string>('');
@@ -25,6 +50,57 @@ export const SearchBar: React.FC<Props> = (props) => {
     .map((nace) => nace.naceName)
     .concat(props.regionList.map((region) => region.regionName));
 
+  useEffect(() => {
+    async function fetchData() {
+      const regionRes = await fetch(getConfig().apiUrl + '/regions/');
+      const naceRes = await fetch(getConfig().apiUrl + '/naces/');
+      /*eslint-disable */
+      const regionResObj: RegionInterface[] = await regionRes.json();
+      const naceResObj: NaceInterface[] = await naceRes.json();
+      /*eslint-enable */
+      const formattedItemList: ResultInterface[] = [];
+
+      regionResObj.forEach((element) => {
+        formattedItemList.push({
+          id: element.regionId,
+          name: element.regionName,
+          label: 'region',
+        });
+      });
+
+      naceResObj.forEach((element) => {
+        formattedItemList.push({
+          id: element.naceId,
+          name: element.naceName,
+          label: 'nace',
+        });
+      });
+
+      setFormattedSearchList(formattedItemList);
+    }
+    if (!props.onChartPage) {
+      void fetchData();
+    } else {
+      const formattedItemList: ResultInterface[] = [];
+      props.regionList.forEach((element) => {
+        formattedItemList.push({
+          id: element.regionId,
+          name: element.regionName,
+          label: 'region',
+        });
+      });
+      props.naceList.forEach((element) => {
+        formattedItemList.push({
+          id: element.naceId,
+          name: element.naceName,
+          label: 'nace',
+        });
+
+        setFormattedSearchList(formattedItemList);
+      });
+    }
+  }, []);
+
   // TODO: How does this work?
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     setDropdownOpen(true);
@@ -32,7 +108,7 @@ export const SearchBar: React.FC<Props> = (props) => {
       if (naceRegionStringList.includes(userInput)) {
         setChosenNaceRegion(userInput);
         setDropdownOpen(false);
-        redirectToPage(userInput);
+        // redirectToPage(userInput);
       }
     }
   };
@@ -40,53 +116,20 @@ export const SearchBar: React.FC<Props> = (props) => {
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue: string = e.target.value;
     setUserInput(inputValue);
+
+    const fuse = new Fuse(formattedSearchList, options);
+    const searchResult = fuse.search(inputValue);
+    const finalResults = searchResult.map((element) => element.item);
+    console.log(finalResults);
+    setResults(finalResults);
   };
 
   const handleMousdownClick = () => {
     setInputHighlight(false);
     setDropdownOpen(false);
-    setUserInput('');
   };
 
   document.addEventListener('mouseup', handleMousdownClick);
-
-  const findNace = (naceName: string) => {
-    return props.naceList.find((nace) => nace.naceName === naceName);
-  };
-  const findRegion = (regionName: string) => {
-    return props.regionList.find((region) => region.regionName === regionName);
-  };
-  const redirectToPage = (naceRegionString: string): void => {
-    if (findNace(naceRegionString)) {
-      const nace = findNace(naceRegionString);
-      props.urlParams.setUrlParams(
-        naceRegionIdListToString(
-          naceRegionIdStringToList(
-            // Lol, fuck this line in perticular: DON'T LOOK AT ME, I'M SO UGLY
-            '1,' + (nace ? nace.naceId.toString() : '1'),
-          ),
-        ),
-        props.urlParams.esgFactor,
-        props.urlParams.chosenTab,
-      );
-    } else if (findRegion(naceRegionString)) {
-      const region = findRegion(naceRegionString);
-      props.urlParams.setUrlParams(
-        naceRegionIdListToString(
-          naceRegionIdStringToList(
-            // Lol, fuck this line in perticular: DON'T LOOK AT ME, I'M SO UGLY
-            (region ? region.regionId.toString() : '1') + ',1',
-          ),
-        ),
-        props.urlParams.esgFactor,
-        props.urlParams.chosenTab,
-      );
-    } else {
-      console.log(
-        `Could not match name: ${naceRegionString} with either a nace or a region`,
-      );
-    }
-  };
 
   return (
     <>
@@ -98,35 +141,22 @@ export const SearchBar: React.FC<Props> = (props) => {
         active={inputHighlight}
         onClick={() => {
           setInputHighlight(true);
-          setUserInput('');
         }}
         onChartPage={props.onChartPage}
         onChange={handleUserInput}
         onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
-        <Dropdown
-          naceList={props.naceList}
-          regionList={props.regionList}
-          findNace={findNace}
-          findRegion={findRegion}
-          setChosenNaceRegion={setChosenNaceRegion}
-          setUserInput={setUserInput}
-          redirectToPage={redirectToPage}
-          userInput={userInput}
-          chosenNaceRegion={chosenNaceRegion}
-        />
+        <Dropdown results={results} setUserInput={setUserInput} />
       </DropdownContainer>
       <Button
         id="searchButton"
         active={false}
         onChartPage={props.onChartPage}
-        /*onClick={() => {
-          setSearchQuery(
-            (document.getElementById('searchBar') as HTMLInputElement).value,
-          );
+        onClick={() => {
+          setSearchQuery(userInput);
           history.push(`/results/`);
-        }}*/
+        }}
       >
         Search
       </Button>

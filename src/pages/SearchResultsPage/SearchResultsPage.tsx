@@ -4,25 +4,11 @@ import { useQuery } from '../GlobalProvider/GlobalProvider';
 import { getConfig } from '../../utils/config-utils';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-
-interface ResultInterface {
-  id: number;
-  name: string;
-  label: string;
-}
-
-interface RegionInterface {
-  regionId: number;
-  regionCode: string;
-  regionName: string;
-  area: number;
-}
-
-interface NaceInterface {
-  naceId: number;
-  naceCode: string;
-  naceName: string;
-}
+import {
+  ResultInterface,
+  RegionInterface,
+  NaceInterface,
+} from '../../types/search';
 
 export const SearchResultsPage: React.FC = () => {
   const { searchQuery } = useQuery();
@@ -80,13 +66,11 @@ export const SearchResultsPage: React.FC = () => {
 
   function handleClick(id: number, label: string) {
     let path = '';
-
     if (label === 'region') {
       path = `/chartpage/${id.toString()},1/emissionPerYear/1`;
     } else {
       path = `/chartpage/1,${id.toString()}/emissionPerYear/1`;
     }
-
     history.push(path);
   }
 
