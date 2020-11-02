@@ -12,11 +12,13 @@ import {
 } from 'recharts';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
   esgFactorInfo: EuroStatTable;
+  urlParams: UrlParamsInterface;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -39,6 +41,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
   naceRegionList,
   esgFactor,
   esgFactorInfo,
+  urlParams,
 }) => {
   const naceRegionItems: NaceRegionChartItem[] = [];
 
@@ -121,7 +124,10 @@ export const HistoryGraphComponent: React.FC<Props> = ({
             </ESGFactorContainer>
             <PeriodContainer active={false}>
               <DescriptionBox active={false}>Year:</DescriptionBox>
-              <DescriptionBox active={false}> 2014-2018</DescriptionBox>
+              <DescriptionBox active={false}>
+                {' '}
+                {urlParams.yearStart} - {urlParams.yearEnd}
+              </DescriptionBox>
             </PeriodContainer>
           </TableInfoContainer>
           <LargeDescriptionBox active={false}>
