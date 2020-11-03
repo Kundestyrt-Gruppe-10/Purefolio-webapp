@@ -36,6 +36,9 @@ body {
   --third-bluegrey-color: rgb(206, 216, 244);
   --third-purple-color: rgb(63, 24, 170);
   --third-orange-color: rgb(232, 127, 56);
+  --third-green-color: rgb(0, 119, 112);
+  --third-grey-color: rgb(214, 215, 217);
+  --third-red-color: rgb(195, 12, 62);
   --font-size-xtiny: 12px;
   --font-size-tiny: 14px;
   --font-size-small: 16px;
