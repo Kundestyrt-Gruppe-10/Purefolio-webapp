@@ -79,15 +79,16 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
-  //TODO: Remove esgFactorList?
+  //TODO: Refactor: esgFactorList can be removed and use eurostatTableList instead
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
+  // List of all eurostat tables
   const [eurostatTableList, setEurostatTableList] = useState<EuroStatTable[]>();
+  // The currently chosen eurostat table
   const [esgFactorInfo, setEsgFactorInfo] = useState<EuroStatTable>();
 
   // Check if correct URL and parse URL string
   let regionNaceIdList: number[][];
-  // let esgFactorId: number;
   try {
     regionNaceIdList = naceRegionIdStringToList(urlParams.naceRegionIdString);
     console.log(isValidEsgFactorIdString(urlParams.esgFactor));
@@ -101,12 +102,14 @@ export const ChartPage: React.FC<Props> = (props) => {
   }
 
   // Fetch data from API
-  // Fetch EU data. Needed for OverviewTable and PercentageTable
   useEffect(() => {
-    ApiGet<NaceRegionData[]>(`/naceregiondata/12/105`)
+    // Fetch EU data. Needed for OverviewTable and PercentageTable
+    ApiGet<NaceRegionData[]>(
+      `/naceregiondata/12/105?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
+    )
       .then((res) => setEuData(res))
       .catch((err) => setError(err));
-  }, []);
+  }, [urlParams.yearStart, urlParams.yearEnd]);
   // TODO: Split up in multiple useEffect chunks?
   useEffect(() => {
     async function fetchData() {
@@ -114,7 +117,6 @@ export const ChartPage: React.FC<Props> = (props) => {
         ApiGet<EuroStatTable[]>('/tables')
           .then((res) => {
             setEurostatTableList(res);
-            console.log(res);
             const esgFactorInfo = res.find(
               (r) => r.attributeName === props.esgFactor,
             );
@@ -214,11 +216,15 @@ export const ChartPage: React.FC<Props> = (props) => {
             <ErrorComponent error={error} />
           ) : (
             <>
-              {regionList && naceList && urlParams.naceRegionIdString ? (
+              {regionList &&
+              naceList &&
+              urlParams.naceRegionIdString &&
+              esgFactorInfo ? (
                 <NaceRegionCardContainer
                   regionList={regionList}
                   naceList={naceList}
                   urlParams={urlParams}
+                  esgFactorInfo={esgFactorInfo}
                 />
               ) : null}
               <div>

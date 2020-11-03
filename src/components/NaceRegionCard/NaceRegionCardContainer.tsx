@@ -68,8 +68,6 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     );
   }, [props.urlParams.naceRegionIdString]);
 
-  //TODO: deleteCard() sets URL correctly, however it does not rerender correctly. Needs fix
-
   return (
     <Background active={true}>
       {naceRegionIdList.map((item, index) => (
@@ -78,6 +76,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
           deleteCard={deleteCard}
           key={index}
           id={index}
+          esgFactorInfo={props.esgFactorInfo}
           regionList={props.regionList}
           naceList={props.naceList}
           naceId={naceRegionIdList[index][1]}
