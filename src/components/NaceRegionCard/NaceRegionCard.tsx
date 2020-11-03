@@ -31,10 +31,12 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
     })),
   );
 
-  // TODO: Use custom CSS style instead of isDisabled prop
+  // TODO: Use custom CSS style instead of 'No Data' text?
   const filterRegionOptions = () => {
     // TODO: Pass down esgFactor object insted of hard coding esgFactor 1
-    ApiGet<RegionHasData[]>(`/regions/hasdata/${naceId}/1`)
+    ApiGet<RegionHasData[]>(
+      `/regions/hasdata/${naceId}/${props.esgFactorInfo.tableId}`,
+    )
       .then((res) =>
         setSelectRegion(
           res.map((region) => {
@@ -53,7 +55,9 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   // TODO: Use custom CSS style instead of isDisabled prop
   const filterNaceOptions = () => {
     // TODO: Pass down esgFactor object insted of hard coding esgFactor 1
-    ApiGet<NaceHasData[]>(`/naces/hasdata/${regionId}/1`)
+    ApiGet<NaceHasData[]>(
+      `/naces/hasdata/${regionId}/${props.esgFactorInfo.tableId}`,
+    )
       .then((res) =>
         setSelectNace(
           res.map((nace) => {
