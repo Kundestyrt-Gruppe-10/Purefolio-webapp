@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { Nace, NaceHasData, Region, RegionHasData } from '../../types';
 import { NaceRegionCardInterface, SelectItemInterface } from './types';
 import { ApiGet } from '../../utils/api';
+import { handleColorType } from '../../pages/ChartPage/helper-functions';
 
 interface SelectItem {
   label: string;
@@ -157,25 +158,6 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
       </CardBackground>
     </>
   );
-};
-
-// TODO: Used other places, should be moved to an util file
-export const handleColorType = (colorID: number): string => {
-  colorID = colorID % 5;
-  switch (colorID) {
-    case 0:
-      return 'var( --sec-orange-color)';
-    case 1:
-      return 'var(--third-turquoise-color)';
-    case 2:
-      return 'var(--sec-purple-color)';
-    case 3:
-      return 'var(--third-paleorange-color)';
-    case 4:
-      return 'var(--thrid-teal-color)';
-    default:
-      return 'var( --sec-orange-color)';
-  }
 };
 
 const CardBackground = styled.div<{ active: boolean }>`
