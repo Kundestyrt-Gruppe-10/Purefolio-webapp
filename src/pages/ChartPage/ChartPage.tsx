@@ -103,10 +103,12 @@ export const ChartPage: React.FC<Props> = (props) => {
   // Fetch data from API
   // Fetch EU data. Needed for OverviewTable and PercentageTable
   useEffect(() => {
-    ApiGet<NaceRegionData[]>(`/naceregiondata/12/105`)
+    ApiGet<NaceRegionData[]>(
+      `/naceregiondata/12/105?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
+    )
       .then((res) => setEuData(res))
       .catch((err) => setError(err));
-  }, []);
+  }, [urlParams.yearStart, urlParams.yearEnd]);
   // TODO: Split up in multiple useEffect chunks?
   useEffect(() => {
     async function fetchData() {
