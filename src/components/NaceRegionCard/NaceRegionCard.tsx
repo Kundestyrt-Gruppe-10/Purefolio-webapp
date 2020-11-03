@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 import { Nace, NaceHasData, Region, RegionHasData } from '../../types';
-import { NaceRegionCardInterface, SelectItemInterface } from './types';
+import { NaceRegionCardInterface } from './types';
 import { ApiGet } from '../../utils/api';
 
 interface SelectItem {

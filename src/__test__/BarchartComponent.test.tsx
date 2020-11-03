@@ -7,6 +7,7 @@ import {
   naceRegionList_1,
   naceRegionList_3,
   esgFactorInfo_example,
+  urlParams_example,
   // Arrange
 } from '../mockData';
 
@@ -19,6 +20,7 @@ describe('<BarchartComponent />', () => {
         esgFactor="emissionPerYear"
         naceRegionList={naceRegionList_1}
         esgFactorInfo={esgFactorInfo_example[0]}
+        urlParams={urlParams_example[0]}
       />,
     );
     // Assert
@@ -33,6 +35,7 @@ describe('<BarchartComponent />', () => {
         esgFactor="emissionPerYear"
         naceRegionList={naceRegionList_3}
         esgFactorInfo={esgFactorInfo_example[0]}
+        urlParams={urlParams_example[0]}
       />,
     );
     // Assert

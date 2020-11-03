@@ -85,6 +85,9 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [eurostatTableList, setEurostatTableList] = useState<EuroStatTable[]>();
   const [esgFactorInfo, setEsgFactorInfo] = useState<EuroStatTable>();
 
+  //TODO: ES-lint complains about eurostatTableList is assigned a value but never used
+  console.log(eurostatTableList);
+
   // Check if correct URL and parse URL string
   let regionNaceIdList: number[][];
   // let esgFactorId: number;
@@ -192,6 +195,8 @@ export const ChartPage: React.FC<Props> = (props) => {
     urlParams.yearStart,
     urlParams.yearEnd,
   ]);
+
+  console.log(urlParams);
 
   // Render components
   return (

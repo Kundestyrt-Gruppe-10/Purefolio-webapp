@@ -80,7 +80,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
       </TableContainer>
       <TextBox active={false}>
         <InfoTableTitleContainer active={false}>
-          <InfoTitleBox active={false}>Table Overview</InfoTitleBox>
+          <InfoTitleBox active={false}>Overview table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
             {esgFactorInfo.unit}
           </UnitOfMeasureBox>

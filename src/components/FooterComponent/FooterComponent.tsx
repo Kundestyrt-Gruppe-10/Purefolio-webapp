@@ -41,5 +41,3 @@ const FooterLinks = styled.div<{ active: boolean }>`
   flex-direction: row;
   justify-content: space-between;
 `;
-
-const Link = styled.a<{ active: boolean }>``;

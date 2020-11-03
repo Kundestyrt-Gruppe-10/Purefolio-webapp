@@ -236,14 +236,6 @@ const PeriodContainer = styled.div<{ active: boolean }>`
   padding-bottom: 2px;
 `;
 
-const InfoContainer = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 2px;
-  padding-bottom: 2px;
-`;
-
 const DescriptionBox = styled.div<{ active: boolean }>`
   font-size: 14px;
 `;
