@@ -43,11 +43,19 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
           />
         </ESGBox>
         <YearBox active={false}>
-          <PeriodDropdown periodStart={true} />
+          <PeriodDropdown
+            periodStart={true}
+            setValue={urlParams.yearStart}
+            urlParams={urlParams}
+          />
         </YearBox>
         <YearLineBox active={false} />
         <YearBox active={false}>
-          <PeriodDropdown periodStart={false} />
+          <PeriodDropdown
+            periodStart={false}
+            setValue={urlParams.yearEnd}
+            urlParams={urlParams}
+          />
         </YearBox>
       </HeaderContainer>
     </>

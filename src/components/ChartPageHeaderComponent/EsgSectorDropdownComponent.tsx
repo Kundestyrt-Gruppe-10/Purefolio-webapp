@@ -41,6 +41,8 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
     props.urlParams.setUrlParams(
       props.urlParams.naceRegionIdString,
       esgfactorString, // Setting new esgFactorString
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   };

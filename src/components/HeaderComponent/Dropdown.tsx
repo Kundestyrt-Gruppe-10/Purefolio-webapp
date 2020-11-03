@@ -17,9 +17,9 @@ export const Dropdown: React.FC<Props> = (props) => {
     props.setUserInput('');
     let path = '';
     if (label === 'region') {
-      path = `/chartpage/${id.toString()},1/emissionPerYear/1`;
+      path = `/chartpage/${id.toString()},1/emissionPerYear/2015/2018/1`;
     } else {
-      path = `/chartpage/1,${id.toString()}/emissionPerYear/1`;
+      path = `/chartpage/1,${id.toString()}/emissionPerYear/2015/2018/1`;
     }
     history.push(path);
   }

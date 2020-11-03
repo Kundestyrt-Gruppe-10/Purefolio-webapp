@@ -10,12 +10,13 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
+  esgFactorInfo: EuroStatTable;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -37,6 +38,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
   naceRegionData,
   naceRegionList,
   esgFactor,
+  esgFactorInfo,
 }) => {
   const naceRegionItems: NaceRegionChartItem[] = [];
 
@@ -72,14 +74,19 @@ export const HistoryGraphComponent: React.FC<Props> = ({
           <ResponsiveContainer aspect={2.7} width="97%" height="97%">
             <LineChart data={naceRegionItems}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="year" stroke="#f7f8f6" tick={{ fontSize: 14 }} />
+              <XAxis
+                dy={5}
+                dataKey="year"
+                stroke="#f7f8f6"
+                tick={{ fontSize: 14 }}
+              />
               <YAxis
+                dx={-5}
                 tickFormatter={DataFormater}
                 stroke="#f7f8f6"
                 tick={{ fontSize: 14 }}
               />
               <Tooltip />
-              {/*TODO: Fix color fetching from index.css */}
               {naceRegionList.map((item, idx) => {
                 return (
                   <Line
@@ -89,7 +96,9 @@ export const HistoryGraphComponent: React.FC<Props> = ({
                     // TODO: Fix Colors.
                     stroke={handleColorType(idx)}
                     strokeWidth={2}
-                    activeDot={{ r: 6 }}
+                    activeDot={{ r: 8 }}
+                    dot={{ r: 5, fill: handleColorType(idx) }}
+                    //connectNulls={true}
                   />
                 );
               })}
@@ -100,21 +109,29 @@ export const HistoryGraphComponent: React.FC<Props> = ({
           <TableTitleContainer active={false}>
             <TitleBox active={false}>History Graph</TitleBox>
             <UnitOfMeasureBox active={false}>
-              By million tonnes of CO2
+              {esgFactorInfo.unit}
             </UnitOfMeasureBox>
           </TableTitleContainer>
           <TableInfoContainer active={false}>
             <ESGFactorContainer active={false}>
-              <DescriptorBox active={false}>ESG Factor:</DescriptorBox>
+              <DescriptionBox active={false}>ESG Factor:</DescriptionBox>
               <DescriptionBox active={false}>
-                Air Emission accounts
+                {esgFactorInfo.datasetName}
               </DescriptionBox>
             </ESGFactorContainer>
             <PeriodContainer active={false}>
-              <DescriptorBox active={false}>Year:</DescriptorBox>
+              <DescriptionBox active={false}>Year:</DescriptionBox>
               <DescriptionBox active={false}> 2014-2018</DescriptionBox>
             </PeriodContainer>
           </TableInfoContainer>
+          <LargeDescriptionBox active={false}>
+            {esgFactorInfo.description}
+            <SmallDescriptionBox active={false}>
+              <LinkContainer href={esgFactorInfo.href} active={false}>
+                {esgFactorInfo.href}
+              </LinkContainer>
+            </SmallDescriptionBox>
+          </LargeDescriptionBox>
         </TextBox>
       </TableContainer>
     </OuterContainer>
@@ -166,6 +183,7 @@ const TextBox = styled.div<{ active: boolean }>`
   align-items: start;
   margin-left: 5%;
   margin-right: 5%;
+  flex-wrap: wrap;
 `;
 const TableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
@@ -192,9 +210,8 @@ const UnitOfMeasureBox = styled.div<{ active: boolean }>`
 const TableInfoContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  flex-basis: 35%;
+  flex-basis: 40%;
   font-weight: 450;
-  }
 `;
 
 const ESGFactorContainer = styled.div<{ active: boolean }>`
@@ -213,11 +230,28 @@ const PeriodContainer = styled.div<{ active: boolean }>`
   padding-bottom: 2px;
 `;
 
-const DescriptorBox = styled.div<{ active: boolean }>`
-  font-size: 14px;
-  }
+const InfoContainer = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 2px;
+  padding-bottom: 2px;
 `;
 
 const DescriptionBox = styled.div<{ active: boolean }>`
   font-size: 14px;
 `;
+
+const LargeDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-tiny);
+  width: 40%;
+  padding: 15px;
+`;
+
+const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-xtiny);
+  color: var(--main-black-color);
+  margin-top: 15px;
+`;
+
+const LinkContainer = styled.a<{ active: boolean }>``;

@@ -3,6 +3,19 @@ export interface Nace {
   naceCode: string;
   naceName: string;
 }
+export interface NaceHasData {
+  naceId: number;
+  naceCode: string;
+  naceName: string;
+  hasData: boolean;
+}
+
+export interface RegionHasData {
+  regionId: number;
+  regionCode: string;
+  regionName: string;
+  hasData: boolean;
+}
 export interface EuroStatTable {
   tableId: number;
   tableCode?: string;

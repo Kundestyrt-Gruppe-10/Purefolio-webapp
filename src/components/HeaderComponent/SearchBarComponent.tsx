@@ -118,6 +118,7 @@ export const SearchBar: React.FC<Props> = (props) => {
   };
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDropdownOpen(true);
     const inputValue: string = e.target.value;
     setUserInput(inputValue);
 
@@ -149,7 +150,9 @@ export const SearchBar: React.FC<Props> = (props) => {
         onChartPage={props.onChartPage}
         onChange={handleUserInput}
         onKeyPress={handleKeywordKeyPress}
+        // onKeyDown={handleKeywordKeyDown}
       />
+
       <DropdownContainer active={dropdownOpen} onChartPage={props.onChartPage}>
         <Dropdown results={results} setUserInput={setUserInput} />
       </DropdownContainer>
@@ -183,7 +186,6 @@ const Input = styled.input<{ active: boolean; onChartPage: boolean }>`
 `;
 
 const Button = styled.button<{ active: boolean; onChartPage: boolean }>`
-  font-family: 'Roboto', sans-serif;
   background: var(--sec-orange-color);
   color: var(--main-black-color);
   border-radius: 0;
@@ -206,4 +208,6 @@ const DropdownContainer = styled.div<{ active: boolean; onChartPage: boolean }>`
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
   padding: 0;
   z-index: 3;
+  max-height: 50vh;
+  overflow-y: auto;
 `;
