@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 export const PercentageTableComponent: React.FC = () => {
-  const percentageList: number[] = [0.5, -0.52, 0.78, 1.0];
+  const percentageList: number[] = [-0.4, -0.652, 0.3378, 1.0];
   const countriesList: string[] = [
     'Sweden',
     'Norway',
@@ -42,7 +42,7 @@ export const PercentageTableComponent: React.FC = () => {
               <PositivePercentageNumber
                 positive={percentageValue > 0 ? true : false}
               >
-                {percentageValue * 100}
+                {String(percentageValue * 100) + '%'}
               </PositivePercentageNumber>
               <NegativePercentageContainer
                 positive={percentageValue > 0 ? true : false}
@@ -56,7 +56,7 @@ export const PercentageTableComponent: React.FC = () => {
               <NegativePercentageNumber
                 positive={percentageValue > 0 ? true : false}
               >
-                {percentageValue * 100}
+                {String(percentageValue * 100) + '%'}
               </NegativePercentageNumber>
             </TableBox>
           ))}
@@ -189,6 +189,7 @@ const NegativePercentageContainer = styled.div<{
   background-color: var(--sec-orange-color);
   border-radius: 2px 0px 0px 2px;
   display: ${(props) => (props.positive ? 'none' : 'block')};
+  margin-left: auto;
 `;
 
 const PositivePercentageContainer = styled.div<{
@@ -201,18 +202,23 @@ const PositivePercentageContainer = styled.div<{
   background-color: var(--sec-orange-color);
   border-radius: 0px 2px 2px 0px;
   display: ${(props) => (props.positive ? 'block' : 'none')};
+  margin-right: auto;
 `;
 
 const PositivePercentageNumber = styled.div<{ positive: boolean }>`
-  flex-basis: 49.5%;
+  flex-basis: 46.5%;
   height: 15px;
   display: ${(props) => (props.positive ? 'block' : 'none')};
+  text-align: right;
+  padding: 0 3% 0 0;
 `;
 
 const NegativePercentageNumber = styled.div<{ positive: boolean }>`
-  flex-basis: 49.5%;
+  flex-basis: 46.5%;
   height: 15px;
   display: ${(props) => (props.positive ? 'none' : 'block')};
+  text-align: left;
+  padding: 0 0 0 3%;
 `;
 
 /*
