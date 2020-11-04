@@ -94,12 +94,6 @@ const YearLineBox = styled.div<{ active: boolean }>`
   align-self: center;
 `;
 
-const LogoArea = styled.div`
-  display: flex;
-  flex-direction: row;
-  background-color: var(--sec-purple-color);
-`;
-
 const LogoContainer = styled.a<{ active: boolean }>`
   display: flex;
   flex-direction: row;

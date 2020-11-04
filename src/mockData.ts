@@ -1,4 +1,5 @@
 import { NaceRegion, NaceRegionData, EuroStatTable } from './types';
+import { UrlParamsInterface } from './pages/ChartPage/ChartPage';
 
 export const naces = [
   {
@@ -1120,5 +1121,18 @@ export const esgFactorInfo_example: EuroStatTable[] = [
     description:
       "Tertiary education: this aggregate covers ISCED 2011 levels 5, 6, 7 and 8 (short-cycle tertiary education, bachelor's or equivalent level, master's or equivalent level, doctoral or equivalent level, online code ED5-8 ‘tertiary education’).",
     href: 'https://ec.europa.eu/eurostat/cache/metadata/en/edat1_esms.htm',
+  },
+];
+
+export const urlParams_example: UrlParamsInterface[] = [
+  {
+    naceRegionIdString: '1,1',
+    esgFactor: 'emissionPerYear',
+    chosenTab: '1',
+    yearStart: '2015',
+    yearEnd: '2018',
+    /* eslint-disable */ 
+    setUrlParams: (): void => {}, //Empty array function
+    /* eslint-enable */
   },
 ];
