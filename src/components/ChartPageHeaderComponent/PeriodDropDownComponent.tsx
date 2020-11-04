@@ -67,7 +67,7 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
           .filter((year) => year.includes(userInput))
           .map((yearString: string, i: number) => (
             <ResultRow
-              key={i}
+              key={yearString}
               id={yearString}
               active={yearString === chosenYear ? true : false}
               onClick={() => {

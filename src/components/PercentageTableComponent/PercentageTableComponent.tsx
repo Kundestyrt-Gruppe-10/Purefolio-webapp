@@ -3,163 +3,135 @@ import styled from 'styled-components';
 
 export const PercentageTableComponent: React.FC = () => {
   return (
-    <OuterContainer active={false}>
-      <TableContainer active={false}>
-        <TableTitleContainer active={false}>
-          <UpperBox active={false}>
-            <TitleBox active={false}>Air Emission accounts</TitleBox>
-            <PeriodBox active={false}>Period: 2014-2018</PeriodBox>
-          </UpperBox>
-          <LowerBox active={false}>
-            <YearBox active={false}>Year</YearBox>
-            <YearBox active={false}>2014</YearBox>
-            <YearBox active={false}>2015</YearBox>
-            <YearBox active={false}>2016</YearBox>
-            <YearBox active={false}>2017</YearBox>
-            <YearBox active={false}>2018</YearBox>
-          </LowerBox>
-        </TableTitleContainer>
-        <TableDataContainer active={false}>
-          <TableRow active={false}>
-            <TableBox active={false}>EU avarage (tonnes CO2)</TableBox>
-            <TableBox active={false}>2000000</TableBox>
-            <TableBox active={false}>3777667</TableBox>
-            <TableBox active={false}>4343434</TableBox>
-            <TableBox active={false}>534343434</TableBox>
-            <TableBox active={false}>634343</TableBox>
-          </TableRow>
-          <TableRow active={false}>
-            <TableBox active={false}>Sweden</TableBox>
-            <TableBox active={false}>2</TableBox>
-            <TableBox active={false}>3</TableBox>
-            <TableBox active={false}>4</TableBox>
-            <TableBox active={false}>5</TableBox>
-            <TableBox active={false}>6</TableBox>
-          </TableRow>
-          <TableRow active={false}>
-            <TableBox active={false}>Denmark</TableBox>
-            <TableBox active={false}>2</TableBox>
-            <TableBox active={false}>3</TableBox>
-            <TableBox active={false}>4</TableBox>
-            <TableBox active={false}>5</TableBox>
-            <TableBox active={false}>6</TableBox>
-          </TableRow>
-          <TableRow active={false}>
-            <TableBox active={false}>Netherlands</TableBox>
-            <TableBox active={false}>2</TableBox>
-            <TableBox active={false}>3</TableBox>
-            <TableBox active={false}>4</TableBox>
-            <TableBox active={false}>5</TableBox>
-            <TableBox active={false}>6</TableBox>
-          </TableRow>
-          <TableRow active={false}>
-            <TableBox active={false}>Russia</TableBox>
-            <TableBox active={false}>2</TableBox>
-            <TableBox active={false}>3</TableBox>
-            <TableBox active={false}>4</TableBox>
-            <TableBox active={false}>5</TableBox>
-            <TableBox active={false}>6</TableBox>
-          </TableRow>
-          <TableRow active={false}>
-            <TableBox active={false}>Germany</TableBox>
-            <TableBox active={false}>2</TableBox>
-            <TableBox active={false}>3</TableBox>
-            <TableBox active={false}>4</TableBox>
-            <TableBox active={false}>5</TableBox>
-            <TableBox active={false}>6</TableBox>
-          </TableRow>
-          <TableRow active={false}>
-            <TableBox active={false}>England</TableBox>
-            <TableBox active={false}>2</TableBox>
-            <TableBox active={false}>3</TableBox>
-            <TableBox active={false}>4</TableBox>
-            <TableBox active={false}>5</TableBox>
-            <TableBox active={false}>6</TableBox>
-          </TableRow>
-        </TableDataContainer>
-      </TableContainer>
-    </OuterContainer>
+    <TableContainer>
+      <TableTitleContainer>
+        <UpperBox>
+          <TitleBox>Air Emission accounts</TitleBox>
+          <PeriodBox>Period: 2014-2018</PeriodBox>
+        </UpperBox>
+        <LowerBox>
+          <YearBox>Year</YearBox>
+          <YearBox>2014</YearBox>
+          <YearBox>2015</YearBox>
+          <YearBox>2016</YearBox>
+          <YearBox>2017</YearBox>
+        </LowerBox>
+      </TableTitleContainer>
+      <TableDataContainer>
+        <TableRow>
+          <EuBox>EU avarage (tonnes CO2)</EuBox>
+          <EuBox>2000000</EuBox>
+          <EuBox>3777667</EuBox>
+          <EuBox>4343434</EuBox>
+          <EuBox>534343434</EuBox>
+        </TableRow>
+        <TableRow>
+          <TableBox>Sweden</TableBox>
+          <TableBox>
+            <PositivePercentageNumber positive={true}>
+              52%
+            </PositivePercentageNumber>
+            <NegativePercentageContainer positive={true} />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} />
+            <NegativePercentageNumber positive={true}>
+              -22%
+            </NegativePercentageNumber>
+          </TableBox>
+          <TableBox>
+            <NegativePercentageContainer positive={false} />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} />
+          </TableBox>
+          <TableBox>
+            <NegativePercentageContainer positive={false} />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} />
+          </TableBox>
+          <TableBox>
+            <NegativePercentageContainer positive={false} />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} />
+          </TableBox>
+        </TableRow>
+      </TableDataContainer>
+    </TableContainer>
   );
 };
-
-const OuterContainer = styled.div<{ active: boolean }>`
-  height: 75vh;
-  margin: auto;
-  padding-top: 8em;
-`;
-const TableContainer = styled.div<{ active: boolean }>`
+const TableContainer = styled.div`
   background-color: var(--third-bluegrey-color);
-  width: 90%;
+  width: 100%;
   margin: auto;
+  margin-top: 60px;
   position: relative;
   border-radius: 5px;
   padding-top: 20px;
   z-index: 1;
 `;
-const TableTitleContainer = styled.div<{ active: boolean }>`
+const TableTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--sec-purple-color);
-  width: 90%;
+  width: 95%;
   height: 96px;
-  left: 5%;
+  left: 2.5%;
   top: -60px;
   position: absolute;
   border-radius: 5px;
   color: #f7f8f6;
 `;
 
-const UpperBox = styled.div<{ active: boolean }>`
+const UpperBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   font-size: 20px;
   border-bottom: 0.6px solid #ced8f4;
   font-weight: 700;
   height: 50%;
 `;
 
-const LowerBox = styled.div<{ active: boolean }>`
+const LowerBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   height: 50%;
 `;
 
-const TitleBox = styled.div<{ active: boolean }>`
+const TitleBox = styled.div`
   margin-right: auto;
   text-align: center;
 `;
 
-const PeriodBox = styled.div<{ active: boolean }>``;
+const PeriodBox = styled.div``;
 
-const YearBox = styled.div<{ active: boolean }>`
-  flex-basis: 16.7%;
+const YearBox = styled.div`
+  width: 260px;
   text-align: center;
   &:nth-child(1) {
     text-align: left;
   }
 `;
 
-const TableDataContainer = styled.div<{ active: boolean }>`
+const TableDataContainer = styled.div`
   position: relative;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: -1;
-  width: 81%;
+  width: 90%;
   margin: auto;
   font-weight: 400;
 `;
 
-const TableRow = styled.div<{ active: boolean }>`
+const TableRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -174,11 +146,56 @@ const TableRow = styled.div<{ active: boolean }>`
   }
 `;
 
-const TableBox = styled.div<{ active: boolean }>`
+const EuBox = styled.div`
   text-align: center;
   align-self: center;
-  flex-basis: 16.7%;
+  width: 260px;
   &:nth-child(1) {
     text-align: left;
   }
+`;
+
+const TableBox = styled.div`
+  display: flex;
+  text-align: center;
+  align-self: center;
+  align-items: center;
+  width: 260px;
+  &:nth-child(1) {
+    text-align: left;
+  }
+`;
+
+const DelimiterLine = styled.div`
+  flex-basis: 1%;
+  background-color: var(--main-black-color);
+  height: 25px;
+`;
+
+const NegativePercentageContainer = styled.div<{ positive: boolean }>`
+  flex-basis: 49.5%;
+  height: 15px;
+  background-color: var(--sec-orange-color);
+  border-radius: 2px 0px 0px 2px;
+  display: ${(props) => (props.positive ? 'none' : 'block')};
+`;
+
+const PositivePercentageContainer = styled.div<{ positive: boolean }>`
+  flex-basis: 49.5%;
+  height: 15px;
+  background-color: var(--sec-orange-color);
+  border-radius: 0px 2px 2px 0px;
+  display: ${(props) => (props.positive ? 'block' : 'none')};
+`;
+
+const PositivePercentageNumber = styled.div<{ positive: boolean }>`
+  flex-basis: 49.5%;
+  height: 15px;
+  display: ${(props) => (props.positive ? 'block' : 'none')};
+`;
+
+const NegativePercentageNumber = styled.div<{ positive: boolean }>`
+  flex-basis: 49.5%;
+  height: 15px;
+  display: ${(props) => (props.positive ? 'none' : 'block')};
 `;
