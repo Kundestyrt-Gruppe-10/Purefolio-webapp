@@ -80,51 +80,6 @@ export const PercentageTableComponent: React.FC<Props> = ({
           })}
         </TableRow>
         <TableRow>
-          {naceRegionData && naceRegionData[0] && naceRegionList ? (
-            naceRegionList.map((naceRegion, idx) => {
-              return (
-                <>
-                  <TableBox key={idx}>
-                    {naceRegion.region.regionName + naceRegion.nace.naceCode}
-                  </TableBox>
-                  {naceRegionData[idx] ? (
-                    naceRegionData[idx].map((naceRegionData, idy) => {
-                      return (
-                        <TableBox
-                          key={idy}
-                          id={String(naceRegionData[esgFactor])}
-                        >
-                          <PositivePercentageNumber
-                            positive={1 > 0 ? true : false}
-                          >
-                            {1 * 100}
-                          </PositivePercentageNumber>
-                          <NegativePercentageContainer
-                            positive={1 > 0 ? true : false}
-                            percentageValue={1}
-                          />
-                          <DelimiterLine />
-                          <PositivePercentageContainer
-                            positive={1 > 0 ? true : false}
-                            percentageValue={1}
-                          />
-                          <NegativePercentageNumber
-                            positive={1 > 0 ? true : false}
-                          >
-                            {1 * 100}
-                          </NegativePercentageNumber>
-                        </TableBox>
-                      );
-                    })
-                  ) : (
-                    <p>No Data</p>
-                  )}
-                </>
-              );
-            })
-          ) : (
-            <p>No Data</p>
-          )}
           <TableBox>Russia</TableBox>
           {percentageList.map((percentageValue: number, i: number) => (
             <TableBox key={percentageValue + i} id={String(percentageValue)}>
