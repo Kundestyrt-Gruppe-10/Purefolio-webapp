@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { handleColorType } from '../../pages/ChartPage/helper-functions';
 import {
   ResponsiveContainer,
   LineChart,
@@ -11,7 +12,6 @@ import {
   Tooltip,
 } from 'recharts';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
-import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {

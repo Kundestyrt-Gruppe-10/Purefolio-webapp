@@ -5,14 +5,15 @@
   "main": "index.tsx",
   "scripts": {
     "start": "webpack-dev-server",
-    "start:prod": "webpack-dev-server --env.production",
+    "start:prod": "REACT_APP_USE_PROD_API=true webpack-dev-server",
     "build": "webpack --env.production",
     "build:measure": "MEASURE=true webpack --env.production",
     "build:analyze": "ANALYZE=true webpack --env.production",
     "test": "jest --coverage src",
     "test:watch": "jest src --watch",
     "lint": "eslint src",
-    "lint:fix": "eslint --fix src"
+    "lint:fix": "eslint --fix src",
+    "cypress:open": "cypress open"
   },
   "license": "Apache-2.0",
   "devDependencies": {

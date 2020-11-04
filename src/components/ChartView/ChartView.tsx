@@ -88,37 +88,52 @@ export const ChartView: React.FC<Props> = ({
 
 export const ChartViewTabs: React.FC<TabProps> = ({
   // TODO: Unused, remove??
-  // tableIndex: tableIndex,
+  tableIndex: tableIndex,
   setTableIndex: setTableIndex,
 }) => {
   return (
     <>
       <ChartTabsContainer active={true}>
-        <ChartTabs
-          active={true}
+        <HistoryTab
+          //id='1'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(1);
+            //setTabBold('1');
           }}
         >
           History Graph
-        </ChartTabs>
-        <ChartTabs
-          active={true}
+        </HistoryTab>
+        <BarChartTab
+          //id='2'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(2);
+            //setTabBold('2');
           }}
         >
           Bar Chart
-        </ChartTabs>
-        <ChartTabs
-          active={true}
+        </BarChartTab>
+        <OverviewTableTab
+          //id='3'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(3);
+            //setTabBold('3');
           }}
         >
           Overview Table
-        </ChartTabs>
-        <ChartTabs active={true}>Percentage Table</ChartTabs>
+        </OverviewTableTab>
+        <PercentageTableTab
+          //id='4'
+          index={tableIndex}
+          onClick={() => {
+            setTableIndex(4);
+            //setTabBold('4');
+          }}
+        >
+          Percentage Table
+        </PercentageTableTab>
       </ChartTabsContainer>
     </>
   );
@@ -156,7 +171,7 @@ const ChartTabsContainer = styled.nav<{ active: boolean }>`
   margin-right: 40px;
 `;
 
-const ChartTabs = styled.a<{ active: boolean }>`
+const ChartTabs = styled.a<{ index: number }>`
   font: Roboto, sans-serif;
   background-color: var(--main-white-color);
   color: var(--main-blackAlpha-color);
@@ -165,7 +180,42 @@ const ChartTabs = styled.a<{ active: boolean }>`
   :hover {
     color: var(--main-black-color);
     font-weight: 700;
+    //border-top:2px solid var(--main-black-color);
+    margin: 0;
+    padding: 0;
   }
+`;
+
+const HistoryTab = styled(ChartTabs)<{ index: number }>`
+  font-weight: ${(props) => (props.index === 1 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 1
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
+`;
+
+const BarChartTab = styled(ChartTabs)`
+  font-weight: ${(props) => (props.index === 2 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 2
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
+`;
+
+const OverviewTableTab = styled(ChartTabs)`
+  font-weight: ${(props) => (props.index === 3 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 3
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
+`;
+
+const PercentageTableTab = styled(ChartTabs)`
+  font-weight: ${(props) => (props.index === 4 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 4
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
 `;
 
 const HistoryGraphContainer = styled.div<{ index: number }>`

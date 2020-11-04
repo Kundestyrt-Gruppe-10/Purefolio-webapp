@@ -1,15 +1,15 @@
 # Purefolio frontend
 
 ## Installation
-1. Install: 
+1. Install:
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Node.js](https://nodejs.org/en/)
 
-2. Clone the repo: 
+2. Clone the repo:
     ```bash
     git clone https://github.com/Kundestyrt-Gruppe-10/Purefolio-webapp.git
     ```
-    
+
 3. Go into the repo
     ```bash
     cd Purefolio-webapp/
@@ -23,16 +23,22 @@
 ## Run the project locally
 
 - Developing locally is done with `webpack-dev-server` and is run on port 3000.
-- Hot reload and history API fallback are enabled by default. 
+- Hot reload and history API fallback are enabled by default.
 
 Command:
 ```
 $ npm start
 ```
 
+To use production backend instead of running a backend locally use:
+
+```
+$ npm run start:prod
+```
+
 ## Build the project
 
-Command: 
+Command:
 ```
 $ npm run build
 ```

@@ -10,8 +10,9 @@ import {
   Tooltip,
 } from 'recharts';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
-import { handleColorType } from '../NaceRegionCard/NaceRegionCard';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { handleColorType } from '../../pages/ChartPage/helper-functions';
+
 // TODO: Add tests
 
 /**
