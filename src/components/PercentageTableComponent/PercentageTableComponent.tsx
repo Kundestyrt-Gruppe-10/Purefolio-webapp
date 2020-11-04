@@ -1,7 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 export const PercentageTableComponent: React.FC = () => {
+  const percentageList: number[] = [0.5, -0.52, 0.78, 1.0];
+  const countriesList: string[] = [
+    'Sweden',
+    'Norway',
+    'Germany',
+    'Iceland',
+    'Greece',
+  ];
+
   return (
     <TableContainer>
       <TableTitleContainer>
@@ -26,33 +36,30 @@ export const PercentageTableComponent: React.FC = () => {
           <EuBox>534343434</EuBox>
         </TableRow>
         <TableRow>
-          <TableBox>Sweden</TableBox>
-          <TableBox>
-            <PositivePercentageNumber positive={true}>
-              52%
-            </PositivePercentageNumber>
-            <NegativePercentageContainer positive={true} />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} />
-            <NegativePercentageNumber positive={true}>
-              -22%
-            </NegativePercentageNumber>
-          </TableBox>
-          <TableBox>
-            <NegativePercentageContainer positive={false} />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} />
-          </TableBox>
-          <TableBox>
-            <NegativePercentageContainer positive={false} />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} />
-          </TableBox>
-          <TableBox>
-            <NegativePercentageContainer positive={false} />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} />
-          </TableBox>
+          <TableBox>Russia</TableBox>
+          {percentageList.map((percentageValue: number, i: number) => (
+            <TableBox key={percentageValue + i} id={String(percentageValue)}>
+              <PositivePercentageNumber
+                positive={percentageValue > 0 ? true : false}
+              >
+                {percentageValue * 100}
+              </PositivePercentageNumber>
+              <NegativePercentageContainer
+                positive={percentageValue > 0 ? true : false}
+                percentageValue={percentageValue}
+              />
+              <DelimiterLine />
+              <PositivePercentageContainer
+                positive={percentageValue > 0 ? true : false}
+                percentageValue={percentageValue}
+              />
+              <NegativePercentageNumber
+                positive={percentageValue > 0 ? true : false}
+              >
+                {percentageValue * 100}
+              </NegativePercentageNumber>
+            </TableBox>
+          ))}
         </TableRow>
       </TableDataContainer>
     </TableContainer>
@@ -172,16 +179,24 @@ const DelimiterLine = styled.div`
   height: 25px;
 `;
 
-const NegativePercentageContainer = styled.div<{ positive: boolean }>`
-  flex-basis: 49.5%;
+const NegativePercentageContainer = styled.div<{
+  positive: boolean;
+  percentageValue: number;
+}>`
+  flex-basis: ${(props) =>
+    String(Math.abs(props.percentageValue) * 49.5) + '%'};
   height: 15px;
   background-color: var(--sec-orange-color);
   border-radius: 2px 0px 0px 2px;
   display: ${(props) => (props.positive ? 'none' : 'block')};
 `;
 
-const PositivePercentageContainer = styled.div<{ positive: boolean }>`
-  flex-basis: 49.5%;
+const PositivePercentageContainer = styled.div<{
+  positive: boolean;
+  percentageValue: number;
+}>`
+  flex-basis: ${(props) =>
+    String(Math.abs(props.percentageValue) * 49.5) + '%'};
   height: 15px;
   background-color: var(--sec-orange-color);
   border-radius: 0px 2px 2px 0px;
@@ -199,3 +214,50 @@ const NegativePercentageNumber = styled.div<{ positive: boolean }>`
   height: 15px;
   display: ${(props) => (props.positive ? 'none' : 'block')};
 `;
+
+/*
+<TableBox>Sweden</TableBox>
+          <TableBox>
+            <PositivePercentageNumber positive={true}>
+              50%
+            </PositivePercentageNumber>
+            <NegativePercentageContainer
+              positive={true}
+              percentageValue={0.5}
+            />
+            <DelimiterLine />
+            <PositivePercentageContainer
+              positive={true}
+              percentageValue={0.5}
+            />
+            <NegativePercentageNumber positive={true}>
+              50%
+            </NegativePercentageNumber>
+          </TableBox>
+          <TableBox>
+            <NegativePercentageContainer
+              positive={false}
+              percentageValue={-0.4}
+            />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} percentageValue={50} />
+          </TableBox>
+          <TableBox>
+            <NegativePercentageContainer
+              positive={false}
+              percentageValue={-0.4}
+            />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} percentageValue={50} />
+          </TableBox>
+          <TableBox>
+            <NegativePercentageContainer
+              positive={false}
+              percentageValue={-0.4}
+            />
+            <DelimiterLine />
+            <PositivePercentageContainer positive={true} percentageValue={50} />
+          </TableBox>
+        </TableRow>
+
+        */
