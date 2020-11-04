@@ -16,7 +16,7 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [chosenYear, setChosenYear] = useState<string>(props.setValue);
   const [userInput, setUserInput] = useState<string>('');
-  const years: string[] = ['2018', '2017', '2016', '2015', '2014'];
+  const years: string[] = ['2018', '2017', '2016', '2015'];
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {

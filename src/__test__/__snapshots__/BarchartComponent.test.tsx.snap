@@ -6,13 +6,13 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="sc-gKAblj pSuCS"
+        class="sc-bdnylx jJzYjC"
       >
         <div
-          class="sc-iCoHVE dWRZZO"
+          class="sc-gtssRu fTLyvA"
         >
           <div
-            class="sc-fujyUd VeEOy"
+            class="sc-dlnjPT gwBdgz"
           >
             <div
               class="recharts-responsive-container"
@@ -24,49 +24,49 @@ Object {
             </div>
           </div>
           <div
-            class="sc-pNWxx fxawGb"
+            class="sc-hKFyIo kXNtHo"
           >
             <div
-              class="sc-jrsJCI fzuYIX"
+              class="sc-eCApGN ewbIPy"
             >
               <div
-                class="sc-kEqYlL fjxjkT"
+                class="sc-jSFkmK hOOrHT"
               >
                 History Graph
               </div>
               <div
-                class="sc-iqAbSa jdvqLV"
+                class="sc-gKAblj dThMZx"
               >
                 Gram per Euro
               </div>
             </div>
             <div
-              class="sc-crzoUp iKdPGR"
+              class="sc-iCoHVE cSIYwS"
             >
               <div
-                class="sc-dIsAE hOSeLT"
+                class="sc-fujyUd laPOEc"
               >
                 <div
-                  class="sc-ksluoS gMpDis"
+                  class="sc-jrsJCI hqHYC"
                 >
                   ESG Factor:
                 </div>
                 <div
-                  class="sc-hBMVcZ iYOQhu"
+                  class="sc-kEqYlL hRYLDA"
                 >
                   Emmisions of Greenhouse gases
                 </div>
               </div>
               <div
-                class="sc-bqGHjH eDezpz"
+                class="sc-pNWxx bUVZvo"
               >
                 <div
-                  class="sc-ksluoS gMpDis"
+                  class="sc-jrsJCI hqHYC"
                 >
                   Year:
                 </div>
                 <div
-                  class="sc-hBMVcZ iYOQhu"
+                  class="sc-kEqYlL hRYLDA"
                 >
                    
                   2015
@@ -76,14 +76,14 @@ Object {
               </div>
             </div>
             <div
-              class="sc-fnVYJo nUgzX"
+              class="sc-iqAbSa hfnmvk"
             >
               Air Emissions Accounts record the flows of residual gaseous and particulate materials emitted by resident units and flowing into the atmosphere. Residual gaseous and particulate materials are the physical flows of gaseous or particulate materials (‘air emissions’).
               <div
-                class="sc-fFSRdu gYZDfv"
+                class="sc-crzoUp jFzjOi"
               >
                 <a
-                  class="sc-bkbjAj"
+                  class="sc-dIsAE"
                   href="https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm"
                 >
                   https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm
@@ -97,13 +97,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-gKAblj pSuCS"
+      class="sc-bdnylx jJzYjC"
     >
       <div
-        class="sc-iCoHVE dWRZZO"
+        class="sc-gtssRu fTLyvA"
       >
         <div
-          class="sc-fujyUd VeEOy"
+          class="sc-dlnjPT gwBdgz"
         >
           <div
             class="recharts-responsive-container"
@@ -115,49 +115,49 @@ Object {
           </div>
         </div>
         <div
-          class="sc-pNWxx fxawGb"
+          class="sc-hKFyIo kXNtHo"
         >
           <div
-            class="sc-jrsJCI fzuYIX"
+            class="sc-eCApGN ewbIPy"
           >
             <div
-              class="sc-kEqYlL fjxjkT"
+              class="sc-jSFkmK hOOrHT"
             >
               History Graph
             </div>
             <div
-              class="sc-iqAbSa jdvqLV"
+              class="sc-gKAblj dThMZx"
             >
               Gram per Euro
             </div>
           </div>
           <div
-            class="sc-crzoUp iKdPGR"
+            class="sc-iCoHVE cSIYwS"
           >
             <div
-              class="sc-dIsAE hOSeLT"
+              class="sc-fujyUd laPOEc"
             >
               <div
-                class="sc-ksluoS gMpDis"
+                class="sc-jrsJCI hqHYC"
               >
                 ESG Factor:
               </div>
               <div
-                class="sc-hBMVcZ iYOQhu"
+                class="sc-kEqYlL hRYLDA"
               >
                 Emmisions of Greenhouse gases
               </div>
             </div>
             <div
-              class="sc-bqGHjH eDezpz"
+              class="sc-pNWxx bUVZvo"
             >
               <div
-                class="sc-ksluoS gMpDis"
+                class="sc-jrsJCI hqHYC"
               >
                 Year:
               </div>
               <div
-                class="sc-hBMVcZ iYOQhu"
+                class="sc-kEqYlL hRYLDA"
               >
                  
                 2015
@@ -167,14 +167,14 @@ Object {
             </div>
           </div>
           <div
-            class="sc-fnVYJo nUgzX"
+            class="sc-iqAbSa hfnmvk"
           >
             Air Emissions Accounts record the flows of residual gaseous and particulate materials emitted by resident units and flowing into the atmosphere. Residual gaseous and particulate materials are the physical flows of gaseous or particulate materials (‘air emissions’).
             <div
-              class="sc-fFSRdu gYZDfv"
+              class="sc-crzoUp jFzjOi"
             >
               <a
-                class="sc-bkbjAj"
+                class="sc-dIsAE"
                 href="https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm"
               >
                 https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm
@@ -245,13 +245,13 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        class="sc-gKAblj pSuCS"
+        class="sc-bdnylx jJzYjC"
       >
         <div
-          class="sc-iCoHVE dWRZZO"
+          class="sc-gtssRu fTLyvA"
         >
           <div
-            class="sc-fujyUd VeEOy"
+            class="sc-dlnjPT gwBdgz"
           >
             <div
               class="recharts-responsive-container"
@@ -263,49 +263,49 @@ Object {
             </div>
           </div>
           <div
-            class="sc-pNWxx fxawGb"
+            class="sc-hKFyIo kXNtHo"
           >
             <div
-              class="sc-jrsJCI fzuYIX"
+              class="sc-eCApGN ewbIPy"
             >
               <div
-                class="sc-kEqYlL fjxjkT"
+                class="sc-jSFkmK hOOrHT"
               >
                 History Graph
               </div>
               <div
-                class="sc-iqAbSa jdvqLV"
+                class="sc-gKAblj dThMZx"
               >
                 Gram per Euro
               </div>
             </div>
             <div
-              class="sc-crzoUp iKdPGR"
+              class="sc-iCoHVE cSIYwS"
             >
               <div
-                class="sc-dIsAE hOSeLT"
+                class="sc-fujyUd laPOEc"
               >
                 <div
-                  class="sc-ksluoS gMpDis"
+                  class="sc-jrsJCI hqHYC"
                 >
                   ESG Factor:
                 </div>
                 <div
-                  class="sc-hBMVcZ iYOQhu"
+                  class="sc-kEqYlL hRYLDA"
                 >
                   Emmisions of Greenhouse gases
                 </div>
               </div>
               <div
-                class="sc-bqGHjH eDezpz"
+                class="sc-pNWxx bUVZvo"
               >
                 <div
-                  class="sc-ksluoS gMpDis"
+                  class="sc-jrsJCI hqHYC"
                 >
                   Year:
                 </div>
                 <div
-                  class="sc-hBMVcZ iYOQhu"
+                  class="sc-kEqYlL hRYLDA"
                 >
                    
                   2015
@@ -315,14 +315,14 @@ Object {
               </div>
             </div>
             <div
-              class="sc-fnVYJo nUgzX"
+              class="sc-iqAbSa hfnmvk"
             >
               Air Emissions Accounts record the flows of residual gaseous and particulate materials emitted by resident units and flowing into the atmosphere. Residual gaseous and particulate materials are the physical flows of gaseous or particulate materials (‘air emissions’).
               <div
-                class="sc-fFSRdu gYZDfv"
+                class="sc-crzoUp jFzjOi"
               >
                 <a
-                  class="sc-bkbjAj"
+                  class="sc-dIsAE"
                   href="https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm"
                 >
                   https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm
@@ -336,13 +336,13 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-gKAblj pSuCS"
+      class="sc-bdnylx jJzYjC"
     >
       <div
-        class="sc-iCoHVE dWRZZO"
+        class="sc-gtssRu fTLyvA"
       >
         <div
-          class="sc-fujyUd VeEOy"
+          class="sc-dlnjPT gwBdgz"
         >
           <div
             class="recharts-responsive-container"
@@ -354,49 +354,49 @@ Object {
           </div>
         </div>
         <div
-          class="sc-pNWxx fxawGb"
+          class="sc-hKFyIo kXNtHo"
         >
           <div
-            class="sc-jrsJCI fzuYIX"
+            class="sc-eCApGN ewbIPy"
           >
             <div
-              class="sc-kEqYlL fjxjkT"
+              class="sc-jSFkmK hOOrHT"
             >
               History Graph
             </div>
             <div
-              class="sc-iqAbSa jdvqLV"
+              class="sc-gKAblj dThMZx"
             >
               Gram per Euro
             </div>
           </div>
           <div
-            class="sc-crzoUp iKdPGR"
+            class="sc-iCoHVE cSIYwS"
           >
             <div
-              class="sc-dIsAE hOSeLT"
+              class="sc-fujyUd laPOEc"
             >
               <div
-                class="sc-ksluoS gMpDis"
+                class="sc-jrsJCI hqHYC"
               >
                 ESG Factor:
               </div>
               <div
-                class="sc-hBMVcZ iYOQhu"
+                class="sc-kEqYlL hRYLDA"
               >
                 Emmisions of Greenhouse gases
               </div>
             </div>
             <div
-              class="sc-bqGHjH eDezpz"
+              class="sc-pNWxx bUVZvo"
             >
               <div
-                class="sc-ksluoS gMpDis"
+                class="sc-jrsJCI hqHYC"
               >
                 Year:
               </div>
               <div
-                class="sc-hBMVcZ iYOQhu"
+                class="sc-kEqYlL hRYLDA"
               >
                  
                 2015
@@ -406,14 +406,14 @@ Object {
             </div>
           </div>
           <div
-            class="sc-fnVYJo nUgzX"
+            class="sc-iqAbSa hfnmvk"
           >
             Air Emissions Accounts record the flows of residual gaseous and particulate materials emitted by resident units and flowing into the atmosphere. Residual gaseous and particulate materials are the physical flows of gaseous or particulate materials (‘air emissions’).
             <div
-              class="sc-fFSRdu gYZDfv"
+              class="sc-crzoUp jFzjOi"
             >
               <a
-                class="sc-bkbjAj"
+                class="sc-dIsAE"
                 href="https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm"
               >
                 https://ec.europa.eu/eurostat/cache/metadata/en/env_ac_ainah_r2_esms.htm

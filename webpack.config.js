@@ -80,6 +80,11 @@ module.exports = (env) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
+      new webpack.DefinePlugin({
+        'process.env.REACT_APP_USE_PROD_API': JSON.stringify(
+          process.env.REACT_APP_USE_PROD_API,
+        ),
+      }),
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
