@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
   esgFactorInfo: EuroStatTable;
   euData: NaceRegionData[];
+  urlParams: UrlParamsInterface;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -25,6 +27,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
   euData,
   esgFactor,
   esgFactorInfo,
+  urlParams,
 }) => {
   return (
     <OuterContainer active={false}>
@@ -32,7 +35,9 @@ export const OverviewTableComponent: React.FC<Props> = ({
         <TableTitleContainer active={false}>
           <UpperBox active={false}>
             <TitleBox active={false}>{esgFactorInfo.datasetName}</TitleBox>
-            <PeriodBox active={false}>Period: 2014-2018</PeriodBox>
+            <PeriodBox active={false}>
+              Period: {urlParams.yearStart} - {urlParams.yearEnd}
+            </PeriodBox>
           </UpperBox>
           <LowerBox active={false}>
             {/* TODO: Iterate over a year object instead?? */}
@@ -75,7 +80,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
       </TableContainer>
       <TextBox active={false}>
         <InfoTableTitleContainer active={false}>
-          <InfoTitleBox active={false}>Table Overview</InfoTitleBox>
+          <InfoTitleBox active={false}>Overview table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
             {esgFactorInfo.unit}
           </UnitOfMeasureBox>

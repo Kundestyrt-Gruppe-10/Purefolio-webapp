@@ -55,6 +55,7 @@ export const ChartView: React.FC<Props> = ({
             esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
           />
         </HistoryGraphContainer>
 
@@ -64,6 +65,7 @@ export const ChartView: React.FC<Props> = ({
             esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
           />
         </BarChartContainer>
 
@@ -74,6 +76,7 @@ export const ChartView: React.FC<Props> = ({
             euData={euData}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
           />
         </OverviewTableContainer>
       </DataView>

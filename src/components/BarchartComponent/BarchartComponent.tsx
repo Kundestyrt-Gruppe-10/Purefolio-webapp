@@ -10,7 +10,9 @@ import {
   Tooltip,
 } from 'recharts';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 import { handleColorType } from '../../pages/ChartPage/helper-functions';
+
 // TODO: Add tests
 
 /**
@@ -41,6 +43,7 @@ interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
   esgFactorInfo: EuroStatTable;
+  urlParams: UrlParamsInterface;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -62,6 +65,7 @@ export const BarchartComponent: React.FC<Props> = ({
   naceRegionList,
   esgFactor,
   esgFactorInfo,
+  urlParams,
 }) => {
   const naceRegionItems: NaceRegionChartItem[] = [];
 
@@ -130,21 +134,32 @@ export const BarchartComponent: React.FC<Props> = ({
           <TableTitleContainer active={false}>
             <TitleBox active={false}>History Graph</TitleBox>
             <UnitOfMeasureBox active={false}>
-              By million tonnes of CO2
+              {esgFactorInfo.unit}
             </UnitOfMeasureBox>
           </TableTitleContainer>
           <TableInfoContainer active={false}>
             <ESGFactorContainer active={false}>
               <DescriptorBox active={false}>ESG Factor:</DescriptorBox>
               <DescriptionBox active={false}>
-                Air Emission accounts
+                {esgFactorInfo.datasetName}
               </DescriptionBox>
             </ESGFactorContainer>
             <PeriodContainer active={false}>
               <DescriptorBox active={false}>Year:</DescriptorBox>
-              <DescriptionBox active={false}> 2014-2018</DescriptionBox>
+              <DescriptionBox active={false}>
+                {' '}
+                {urlParams.yearStart} - {urlParams.yearEnd}
+              </DescriptionBox>
             </PeriodContainer>
           </TableInfoContainer>
+          <LargeDescriptionBox active={false}>
+            {esgFactorInfo.description}
+            <SmallDescriptionBox active={false}>
+              <LinkContainer href={esgFactorInfo.href} active={false}>
+                {esgFactorInfo.href}
+              </LinkContainer>
+            </SmallDescriptionBox>
+          </LargeDescriptionBox>
         </TextBox>
       </TableContainer>
     </OuterContainer>
@@ -196,6 +211,7 @@ const TextBox = styled.div<{ active: boolean }>`
   align-items: start;
   margin-left: 5%;
   margin-right: 5%;
+  flex-wrap: wrap;
 `;
 const TableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
@@ -251,3 +267,17 @@ const DescriptorBox = styled.div<{ active: boolean }>`
 const DescriptionBox = styled.div<{ active: boolean }>`
   font-size: 14px;
 `;
+
+const LargeDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-tiny);
+  width: 40%;
+  padding: 15px;
+`;
+
+const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-xtiny);
+  color: var(--main-black-color);
+  margin-top: 15px;
+`;
+
+const LinkContainer = styled.a<{ active: boolean }>``;
