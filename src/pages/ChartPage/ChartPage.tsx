@@ -82,11 +82,10 @@ export const ChartPage: React.FC<Props> = (props) => {
   //TODO: Remove esgFactorList?
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
-  const [eurostatTableList, setEurostatTableList] = useState<EuroStatTable[]>();
+  const [, /*eurostatTableList*/ setEurostatTableList] = useState<
+    EuroStatTable[]
+  >();
   const [esgFactorInfo, setEsgFactorInfo] = useState<EuroStatTable>();
-
-  //TODO: ES-lint complains about eurostatTableList is assigned a value but never used
-  console.log(eurostatTableList);
 
   // Check if correct URL and parse URL string
   let regionNaceIdList: number[][];
