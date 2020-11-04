@@ -220,7 +220,7 @@ const TableTitleContainer = styled.div<{ active: boolean }>`
   margin-right: 2%;
 `;
 const TitleBox = styled.div<{ active: boolean }>`
-  font-size: 20px;
+  font-size: var(--font-size-large);
   font-weight: 700;
   margin-right: auto;
   text-align: center;
@@ -229,8 +229,8 @@ const TitleBox = styled.div<{ active: boolean }>`
 `;
 
 const UnitOfMeasureBox = styled.div<{ active: boolean }>`
-  font-size: 14px;
-  font-weight: 100;
+  font-size: var(--font-size-small);
+  font-weight: 200;
   text-indent: 4%;
 `;
 
@@ -258,7 +258,7 @@ const PeriodContainer = styled.div<{ active: boolean }>`
 `;
 
 const DescriptionBox = styled.div<{ active: boolean }>`
-  font-size: 14px;
+  var(--font-size-tiny)
 `;
 
 const LargeDescriptionBox = styled.div<{ active: boolean }>`
