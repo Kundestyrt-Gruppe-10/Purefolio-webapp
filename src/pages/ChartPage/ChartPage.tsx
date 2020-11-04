@@ -110,7 +110,6 @@ export const ChartPage: React.FC<Props> = (props) => {
   let regionNaceIdList: number[][];
   try {
     regionNaceIdList = naceRegionIdStringToList(urlParams.naceRegionIdString);
-    console.log(isValidEsgFactorIdString(urlParams.esgFactor));
     if (isValidEsgFactorIdString(urlParams.esgFactor)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
@@ -142,7 +141,6 @@ export const ChartPage: React.FC<Props> = (props) => {
             if (!esgFactorInfo) throw new Error('No esgFactorInfo Found');
             setEsgFactorInfo(esgFactorInfo);
             // Fetch data from API
-            console.log(esgFactorInfo);
           })
           .catch((err) => setError(err)),
 
@@ -213,8 +211,6 @@ export const ChartPage: React.FC<Props> = (props) => {
     urlParams.yearStart,
     urlParams.yearEnd,
   ]);
-
-  console.log(urlParams);
 
   // Render components
   return (

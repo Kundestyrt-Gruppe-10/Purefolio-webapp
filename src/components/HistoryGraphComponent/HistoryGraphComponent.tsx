@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { handleColorType } from '../../pages/ChartPage/helper-functions';
@@ -61,31 +61,36 @@ export const HistoryGraphComponent: React.FC<Props> = ({
 }) => {
   const naceRegionItems: NaceRegionChartItem[] = [];
 
+  // TODO: BUG: If the compared NaceRegionCards does not have
+  // data on the same years it can sometime fuck up
   // TODO: This should be a function and moved out from component
-  naceRegionData.forEach((naceRegion: NaceRegionData[]) => {
-    naceRegion.forEach((element: NaceRegionData) => {
-      // If year already in naceRegionItems, update existing object
-      naceRegionItems.map(
-        () =>
-          // Return object if it exist with new key:value pair
-          // or create new object if it does not exist
-          ((naceRegionItems.find((el) => el.year === element.year) || {
+  naceRegionData
+    // TODO: Does this sort fix the bug?? Not sure
+    .sort((a, b) => b.length - a.length)
+    .forEach((naceRegion: NaceRegionData[]) => {
+      naceRegion.forEach((element: NaceRegionData) => {
+        // If year already in naceRegionItems, update existing object
+        naceRegionItems.map(
+          () =>
+            // Return object if it exist with new key:value pair
+            // or create new object if it does not exist
+            ((naceRegionItems.find((el) => el.year === element.year) || {
+              year: element.year,
+            })[element.region.regionName + element.nace.naceCode] =
+              element[esgFactor]),
+        );
+        // Runs when element not yet in naceRegionItems
+        const found = naceRegionItems.some((el) => el.year === element.year);
+        if (!found) {
+          naceRegionItems.push({
             year: element.year,
-          })[element.region.regionName + element.nace.naceCode] =
-            element[esgFactor]),
-      );
-      // Runs when element not yet in naceRegionItems
-      const found = naceRegionItems.some((el) => el.year === element.year);
-      if (!found) {
-        naceRegionItems.push({
-          year: element.year,
-          [element.region.regionName + element.nace.naceCode]: element[
-            esgFactor
-          ],
-        });
-      }
+            [element.region.regionName + element.nace.naceCode]: element[
+              esgFactor
+            ],
+          });
+        }
+      });
     });
-  });
   return (
     <OuterContainer active={false}>
       <TableContainer active={false}>
