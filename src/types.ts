@@ -3,6 +3,31 @@ export interface Nace {
   naceCode: string;
   naceName: string;
 }
+export interface NaceHasData {
+  naceId: number;
+  naceCode: string;
+  naceName: string;
+  hasData: boolean;
+}
+
+export interface RegionHasData {
+  regionId: number;
+  regionCode: string;
+  regionName: string;
+  hasData: boolean;
+}
+export interface EuroStatTable {
+  tableId: number;
+  tableCode?: string;
+  attributeName?: string;
+  filters?: string;
+  dataType?: string;
+  unit?: string;
+  datasetName?: string;
+  esgFactor?: string;
+  description?: string;
+  href?: string;
+}
 
 export interface NaceRegionData {
   naceRegionDataId: number;
@@ -20,6 +45,22 @@ export interface NaceRegionData {
   employeesPrimaryEducation?: number;
   employeesSecondaryEducation?: number;
   employeesTertiaryEducation?: number;
+  employeesLowWage?: number;
+  hoursPaidAndNot?: number;
+  hoursWorkWeek?: number;
+  jobVacancyRate?: number;
+  trainingParticipation?: number;
+  totalWaste?: number;
+  totalHazardousWaste?: number;
+  totalNonHazardousWaste?: number;
+  environmentalProtectionPollution?: number;
+  environmentalProtectionTech?: number;
+  seasonalWork?: number;
+  supplyEnergyProducts?: number;
+  supplyEnergyResiduals?: number;
+  useNaturalEnergyInputs?: number;
+  useEnergyProducts?: number;
+  useEnergyResiduals?: number;
 }
 
 export interface Region {
@@ -54,4 +95,20 @@ export enum EsgFactor {
   'employeesPrimaryEducation',
   'employeesSecondaryEducation',
   'employeesTertiaryEducation',
+  'employeesLowWage',
+  'hoursPaidAndNot',
+  'hoursWorkWeek',
+  'jobVacancyRate',
+  'trainingParticipation',
+  'totalWaste',
+  'totalHazardousWaste',
+  'totalNonHazardousWaste',
+  'environmentalProtectionPollution',
+  'environmentalProtectionTech',
+  'seasonalWork',
+  'supplyEnergyProducts',
+  'supplyEnergyResiduals',
+  'useNaturalEnergyInputs',
+  'useEnergyProducts',
+  'useEnergyResiduals',
 }

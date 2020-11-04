@@ -1,5 +1,28 @@
 import { EsgFactor } from '../../types';
 
+export const handleColorType = (colorID: number): string => {
+  colorID = colorID % 8;
+  switch (colorID) {
+    case 0:
+      return 'var( --sec-orange-color)';
+    case 1:
+      return 'var(--third-turquoise-color)';
+    case 2:
+      return 'var(--third-red-color)';
+    case 3:
+      return 'var(--third-paleorange-color)';
+    case 4:
+      return 'var(--thrid-teal-color)';
+    case 5:
+      return 'var(--third-green-color)';
+    case 6:
+      return 'var(--third-grey-color)';
+    case 7:
+      return 'var(--main-white-color)';
+    default:
+      return 'var( --sec-orange-color)';
+  }
+};
 /**
  * Convert naceRegionIdList to a string that can be used to set URL params
  * @param naceRegionIdList

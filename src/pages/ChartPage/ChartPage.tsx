@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Redirect, useHistory } from 'react-router-dom';
-import { Nace, NaceRegion, NaceRegionData, Region } from '../../types';
+import {
+  EuroStatTable,
+  Nace,
+  NaceRegion,
+  NaceRegionData,
+  Region,
+} from '../../types';
 import { ApiGet } from '../../utils/api';
 import { ContentContainer } from '../../components/BaseLayout';
 import { ChartView } from '../../components/ChartView/ChartView';
@@ -11,10 +17,14 @@ import {
   isValidEsgFactorIdString,
   naceRegionIdStringToList,
 } from './helper-functions';
+import { ErrorComponent } from '../../components/ErrorComponent/ErrorComponent';
+import { LoadingComponent } from '../../components/LoadingComponent/LoadingComponent';
 
 interface Props {
   naceRegionIdString: string;
   chosenTab: string;
+  yearStart: string;
+  yearEnd: string;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -24,13 +34,32 @@ interface Props {
     | 'temporaryemployment'
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
+    | 'employeesTertiaryEducation'
+    | 'employeesLowWage'
+    | 'hoursPaidAndNot'
+    | 'hoursWorkWeek'
+    | 'jobVacancyRate'
+    | 'trainingParticipation'
+    | 'totalWaste'
+    | 'totalHazardousWaste'
+    | 'totalNonHazardousWaste'
+    | 'environmentalProtectionPollution'
+    | 'environmentalProtectionTech'
+    | 'seasonalWork'
+    | 'supplyEnergyProducts'
+    | 'supplyEnergyResiduals'
+    | 'useNaturalEnergyInputs'
+    | 'useEnergyProducts'
+    | 'useEnergyResiduals';
 }
+
 // Interface for url parameters used in ChartPage
 export interface UrlParamsInterface extends Props {
   setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
+    yearStart: string,
+    yearEnd: string,
     chosenTab: string,
   ): void;
 }
@@ -45,9 +74,11 @@ export const ChartPage: React.FC<Props> = (props) => {
   function setUrlParams(
     naceRegionIdList: string,
     esgFactor: string,
+    yearStart: string,
+    yearEnd: string,
     chosenTab: string,
   ): void {
-    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${chosenTab}`;
+    const path = `/chartpage/${naceRegionIdList}/${esgFactor}/${yearStart}/${yearEnd}/${chosenTab}`;
     history.push(path);
   }
   // Object passed down to child components to easier handle URL-change
@@ -61,18 +92,24 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
+  const [euData, setEuData] = useState<NaceRegionData[]>();
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
+  //TODO: Refactor: esgFactorList can be removed and use eurostatTableList instead
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
+  // List of all eurostat tables
+  const [, /*eurostatTableList*/ setEurostatTableList] = useState<
+    EuroStatTable[]
+  >();
+  // The currently chosen eurostat table
+  const [esgFactorInfo, setEsgFactorInfo] = useState<EuroStatTable>();
 
   // Check if correct URL and parse URL string
   let regionNaceIdList: number[][];
-  // let esgFactorId: number;
   try {
     regionNaceIdList = naceRegionIdStringToList(urlParams.naceRegionIdString);
-    console.log(isValidEsgFactorIdString(urlParams.esgFactor));
     if (isValidEsgFactorIdString(urlParams.esgFactor)) {
       // esgFactorId = Number(esgFactorIdString);
     } else {
@@ -84,8 +121,29 @@ export const ChartPage: React.FC<Props> = (props) => {
 
   // Fetch data from API
   useEffect(() => {
+    // Fetch EU data. Needed for OverviewTable and PercentageTable
+    ApiGet<NaceRegionData[]>(
+      `/naceregiondata/12/105?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
+    )
+      .then((res) => setEuData(res))
+      .catch((err) => setError(err));
+  }, [urlParams.yearStart, urlParams.yearEnd]);
+  // TODO: Split up in multiple useEffect chunks?
+  useEffect(() => {
     async function fetchData() {
       return await Promise.all([
+        ApiGet<EuroStatTable[]>('/tables')
+          .then((res) => {
+            setEurostatTableList(res);
+            const esgFactorInfo = res.find(
+              (r) => r.attributeName === props.esgFactor,
+            );
+            if (!esgFactorInfo) throw new Error('No esgFactorInfo Found');
+            setEsgFactorInfo(esgFactorInfo);
+            // Fetch data from API
+          })
+          .catch((err) => setError(err)),
+
         ApiGet<Region[]>('/regions')
           .then((res) => {
             setRegionList(res);
@@ -133,9 +191,8 @@ export const ChartPage: React.FC<Props> = (props) => {
         Promise.all(
           regionNaceIdList.map((regionIdNaceId) =>
             ApiGet<NaceRegionData[]>(
-              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}`,
+              `/naceregiondata/${regionIdNaceId[0]}/${regionIdNaceId[1]}?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
             ).then((res): NaceRegionData[] => {
-              // if (res.length < 1) throw new Error('one list was empy');
               return res;
             }),
           ),
@@ -148,50 +205,63 @@ export const ChartPage: React.FC<Props> = (props) => {
     }
 
     void fetchData().then(() => setLoading(false));
-  }, [urlParams.naceRegionIdString, urlParams.esgFactor]);
+  }, [
+    urlParams.naceRegionIdString,
+    urlParams.esgFactor,
+    urlParams.yearStart,
+    urlParams.yearEnd,
+  ]);
 
   // Render components
   return (
     <>
-      {esgFactorList ? (
+      {esgFactorList && regionList && naceList ? (
         <ChartPageHeaderContainer>
           <ChartPageHeaderComponent
+            regionList={regionList}
+            naceList={naceList}
             esgFactorList={esgFactorList}
             urlParams={urlParams}
           />
         </ChartPageHeaderContainer>
       ) : null}
-      <ContentContainer>
+      <ChartPageContentContainer>
         <ChartPageContainer>
           {loading ? (
-            <h1>Laster...</h1>
+            <LoadingComponent />
           ) : error ? (
-            /* TODO: Make error component */
-            <h1 data-testid="error">Error: {error.message}</h1>
+            <ErrorComponent error={error} />
           ) : (
             <>
-              {regionList && naceList && urlParams.naceRegionIdString ? (
+              {regionList &&
+              naceList &&
+              urlParams.naceRegionIdString &&
+              esgFactorInfo ? (
                 <NaceRegionCardContainer
                   regionList={regionList}
                   naceList={naceList}
                   urlParams={urlParams}
+                  esgFactorInfo={esgFactorInfo}
                 />
               ) : null}
               <div>
-                {naceRegionDataListList && naceRegionList ? (
+                {naceRegionDataListList &&
+                naceRegionList &&
+                esgFactorInfo &&
+                euData ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
-                    esgFactor={urlParams.esgFactor}
+                    euData={euData}
                     naceRegionList={naceRegionList}
-                    chosenTab={urlParams.chosenTab}
-                    setUrlParams={setUrlParams}
+                    esgFactorInfo={esgFactorInfo}
+                    urlParams={urlParams}
                   />
                 ) : null}
               </div>
             </>
           )}
         </ChartPageContainer>
-      </ContentContainer>
+      </ChartPageContentContainer>
     </>
   );
 };
@@ -200,17 +270,16 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-start: left-pad-start;
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
-  grid-row-end: header-stop;
+  grid-row-end: header-chartpage-stop;
 `;
 
-// TODO: Unused, remove?
-/* const ChartViewContainer = styled.div`
+const ChartPageContentContainer = styled.div`
   grid-column-start: left-pad-stop;
   grid-column-end: right-pad-start;
-  grid-row-start: main-start;
-  grid-row-end: main-stop;
-`; */
+  grid-row-start: content-chartpage-start;
+  grid-row-end: content-stop;
+`;
 
 const ChartPageContainer = styled.div`
-  grid-template-rows: [card-start] 200px [card-stop chart-start] 400px [chart-stop];
+  grid-template-rows: [card-start] 200px [card-stop chart-start] 500px [chart-stop];
 `;

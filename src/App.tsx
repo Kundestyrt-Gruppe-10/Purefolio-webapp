@@ -25,12 +25,9 @@ export const App: React.FC = () => {
       <GlobalProvider>
         <BaseLayoutContainer>
           <Switch>
-            <Route exact path="/chartpage">
-              {/* TODO: redirect to different default page? Redirect in component instead?*/}
-              <Redirect to="/chartpage/1,1/emissionPerYear/1" />
-            </Route>
             <Route
-              path="/chartpage/:naceRegionIdString/:esgFactorIdString/:chosenTab"
+              exact
+              path="/chartpage/:naceRegionIdString/:esgFactorIdString/:yearStart/:yearEnd/:chosenTab"
               render={(
                 props: RouteComponentProps<{
                   naceRegionIdString: string;
@@ -43,17 +40,41 @@ export const App: React.FC = () => {
                     | 'temporaryemployment'
                     | 'employeesPrimaryEducation'
                     | 'employeesSecondaryEducation'
-                    | 'employeesTertiaryEducation';
+                    | 'employeesTertiaryEducation'
+                    | 'employeesLowWage'
+                    | 'hoursPaidAndNot'
+                    | 'hoursWorkWeek'
+                    | 'jobVacancyRate'
+                    | 'trainingParticipation'
+                    | 'totalWaste'
+                    | 'totalHazardousWaste'
+                    | 'totalNonHazardousWaste'
+                    | 'environmentalProtectionPollution'
+                    | 'environmentalProtectionTech'
+                    | 'seasonalWork'
+                    | 'supplyEnergyProducts'
+                    | 'supplyEnergyResiduals'
+                    | 'useNaturalEnergyInputs'
+                    | 'useEnergyProducts'
+                    | 'useEnergyResiduals';
                   chosenTab: string;
+                  yearStart: string;
+                  yearEnd: string;
                 }>,
               ) => (
                 <ChartPage
                   naceRegionIdString={props.match.params.naceRegionIdString}
                   esgFactor={props.match.params.esgFactorIdString}
                   chosenTab={props.match.params.chosenTab}
+                  yearStart={props.match.params.yearStart}
+                  yearEnd={props.match.params.yearEnd}
                 />
               )}
             />
+            <Route path="/chartpage">
+              {/* TODO: redirect to different default page? Redirect in component instead?*/}
+              <Redirect to="/chartpage/1,1/emissionPerYear/2015/2018/1" />
+            </Route>
             <Route path="/results/">
               <HeaderContainer>
                 <HeaderComponent />

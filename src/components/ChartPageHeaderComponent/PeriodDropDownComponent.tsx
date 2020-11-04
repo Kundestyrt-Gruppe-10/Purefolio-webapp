@@ -1,16 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   periodStart: boolean;
+  // yearList: number[];
+  urlParams: UrlParamsInterface;
+  setValue: string;
 }
 
 export const PeriodDropdown: React.FC<Props> = (props) => {
   //const { setSearchQuery } = useQuery();
   //const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [chosenYear, setChosenYear] = useState<string>('2014');
+  const [chosenYear, setChosenYear] = useState<string>(props.setValue);
   const [userInput, setUserInput] = useState<string>('');
   const years: string[] = [
     '2018',
@@ -25,6 +29,13 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
     '2009',
     '2008',
     '2007',
+    '2006',
+    '2005',
+    '2004',
+    '2003',
+    '2002',
+    '2001',
+    '2000',
   ];
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
@@ -46,6 +57,18 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
     setUserInput('');
   };
 
+  const handleEsgFactorClick = (yearString: string): void => {
+    setChosenYear(yearString);
+    setUserInput(yearString);
+    props.urlParams.setUrlParams(
+      props.urlParams.naceRegionIdString,
+      props.urlParams.esgFactor,
+      props.periodStart ? yearString : props.urlParams.yearStart,
+      props.periodStart ? props.urlParams.yearEnd : yearString,
+      props.urlParams.chosenTab,
+    );
+    // props.setYearFilter(Number(yearString));
+  };
   document.addEventListener('mouseup', handleMousdownClick);
 
   return (
@@ -71,8 +94,7 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
               id={yearString}
               active={yearString === chosenYear ? true : false}
               onClick={() => {
-                setChosenYear(yearString);
-                setUserInput(yearString);
+                handleEsgFactorClick(yearString);
               }}
             >
               {yearString}
@@ -88,7 +110,7 @@ const Title = styled.div<{ active: boolean }>`
   font-weight: 700;
   font-family: Roboto;
   position: absolute;
-  top: 10px;
+  top: 50px;
 `;
 
 const Input = styled.input<{ active: boolean }>`

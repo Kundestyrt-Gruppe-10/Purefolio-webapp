@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
+  esgFactorInfo: EuroStatTable;
+  euData: NaceRegionData[];
+  urlParams: UrlParamsInterface;
   esgFactor:
     | 'emissionPerYear'
     | 'workAccidentsIncidentRate'
@@ -14,21 +18,42 @@ interface Props {
     | 'temporaryemployment'
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
+    | 'employeesTertiaryEducation'
+    | 'employeesLowWage'
+    | 'hoursPaidAndNot'
+    | 'hoursWorkWeek'
+    | 'jobVacancyRate'
+    | 'trainingParticipation'
+    | 'totalWaste'
+    | 'totalHazardousWaste'
+    | 'totalNonHazardousWaste'
+    | 'environmentalProtectionPollution'
+    | 'environmentalProtectionTech'
+    | 'seasonalWork'
+    | 'supplyEnergyProducts'
+    | 'supplyEnergyResiduals'
+    | 'useNaturalEnergyInputs'
+    | 'useEnergyProducts'
+    | 'useEnergyResiduals';
 }
 
 export const OverviewTableComponent: React.FC<Props> = ({
   naceRegionData,
   naceRegionList,
+  euData,
   esgFactor,
+  esgFactorInfo,
+  urlParams,
 }) => {
   return (
     <OuterContainer active={false}>
       <TableContainer active={false}>
         <TableTitleContainer active={false}>
           <UpperBox active={false}>
-            <TitleBox active={false}>{esgFactor}</TitleBox>
-            <PeriodBox active={false}>Period: 2014-2018</PeriodBox>
+            <TitleBox active={false}>{esgFactorInfo.datasetName}</TitleBox>
+            <PeriodBox active={false}>
+              Period: {urlParams.yearStart} - {urlParams.yearEnd}
+            </PeriodBox>
           </UpperBox>
           <LowerBox active={false}>
             {/* TODO: Iterate over a year object instead?? */}
@@ -42,12 +67,10 @@ export const OverviewTableComponent: React.FC<Props> = ({
         </TableTitleContainer>
         <TableDataContainer active={false}>
           <TableRow>
-            <TableBox>EU avarage (tonnes CO2)</TableBox>
-            <TableBox>2000000</TableBox>
-            <TableBox>3777667</TableBox>
-            <TableBox>4343434</TableBox>
-            <TableBox>534343434</TableBox>
-            <TableBox>634343</TableBox>
+            <TableBox>EU</TableBox>
+            {euData.map((euDataYear, idx) => {
+              return <TableBox key={idx}>{euDataYear[esgFactor]}</TableBox>;
+            })}
           </TableRow>
           {naceRegionData && naceRegionData[0] && naceRegionList
             ? naceRegionList.map((naceRegion, idx) => {
@@ -59,9 +82,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
                     {naceRegionData[idx] ? (
                       naceRegionData[idx].map((naceRegion, idx) => {
                         return (
-                          <TableBox key={idx}>
-                            {naceRegion.emissionPerYear}
-                          </TableBox>
+                          <TableBox key={idx}>{naceRegion[esgFactor]}</TableBox>
                         );
                       })
                     ) : (
@@ -73,6 +94,22 @@ export const OverviewTableComponent: React.FC<Props> = ({
             : null}
         </TableDataContainer>
       </TableContainer>
+      <TextBox active={false}>
+        <InfoTableTitleContainer active={false}>
+          <InfoTitleBox active={false}>Overview table</InfoTitleBox>
+          <UnitOfMeasureBox active={false}>
+            {esgFactorInfo.unit}
+          </UnitOfMeasureBox>
+        </InfoTableTitleContainer>
+        <LargeDescriptionBox active={false}>
+          {esgFactorInfo.description}
+          <SmallDescriptionBox active={false}>
+            <LinkContainer href={esgFactorInfo.href} active={false}>
+              {esgFactorInfo.href}
+            </LinkContainer>
+          </SmallDescriptionBox>
+        </LargeDescriptionBox>
+      </TextBox>
     </OuterContainer>
   );
 };
@@ -177,3 +214,50 @@ const TableBox = styled.div`
     text-align: left;
   }
 `;
+
+const TextBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  margin-left: 5%;
+  margin-right: 5%;
+  flex-wrap: wrap;
+`;
+
+const InfoTableTitleContainer = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 35%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
+`;
+const InfoTitleBox = styled.div<{ active: boolean }>`
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
+`;
+
+const UnitOfMeasureBox = styled.div<{ active: boolean }>`
+  font-size: 14px;
+  font-weight: 100;
+  text-indent: 4%;
+`;
+
+const LargeDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-tiny);
+  width: 40%;
+  margin-top: 2%;
+`;
+
+const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-xtiny);
+  color: var(--main-black-color);
+  margin-top: 15px;
+`;
+
+const LinkContainer = styled.a<{ active: boolean }>``;

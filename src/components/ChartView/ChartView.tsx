@@ -1,31 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NaceRegion, NaceRegionData } from '../../types';
+import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableComponent';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 import { PercentageTableComponent } from '../PercentageTableComponent/PercentageTableComponent';
 import { useLocation } from 'react-router-dom';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
-  esgFactor:
-    | 'emissionPerYear'
-    | 'workAccidentsIncidentRate'
-    | 'genderPayGap'
-    | 'environmentTaxes'
-    | 'fatalAccidentsAtWork'
-    | 'temporaryemployment'
-    | 'employeesPrimaryEducation'
-    | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
+  euData: NaceRegionData[];
   naceRegionList: NaceRegion[];
-  chosenTab: string;
-  setUrlParams(
-    naceRegionIdList: string,
-    esgFactor: string,
-    chosenTab: string,
-  ): void;
+  esgFactorInfo: EuroStatTable;
+  urlParams: UrlParamsInterface;
 }
 
 interface TabProps {
@@ -35,19 +23,24 @@ interface TabProps {
 
 export const ChartView: React.FC<Props> = ({
   naceRegionData: naceRegionData,
-  esgFactor: esgFactor,
   naceRegionList,
-  chosenTab,
-  setUrlParams,
+  esgFactorInfo,
+  euData,
+  urlParams,
 }) => {
-  const location = useLocation();
-  const chosenTabN = Number(chosenTab);
+  console.log(naceRegionData);
+  const chosenTabN = Number(urlParams.chosenTab);
   const [tableIndex, setTableIndex] = useState(chosenTabN);
   // TODO: Check if chosenTab is a number and within range, or return error
   function setTableIndexAndUpdateUrl(n: number) {
-    const splitedString = location.pathname.split('/');
     setTableIndex(n);
-    setUrlParams(splitedString[2], splitedString[3], n.toString());
+    urlParams.setUrlParams(
+      urlParams.naceRegionIdString,
+      urlParams.esgFactor,
+      urlParams.yearStart,
+      urlParams.yearEnd,
+      n.toString(),
+    );
   }
   return (
     <ChartViewContainer active={false}>
@@ -61,24 +54,31 @@ export const ChartView: React.FC<Props> = ({
         <HistoryGraphContainer index={tableIndex}>
           <HistoryGraphComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
           />
         </HistoryGraphContainer>
 
         <BarChartContainer index={tableIndex}>
           <BarchartComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
           />
         </BarChartContainer>
 
         <OverviewTableContainer index={tableIndex}>
           <OverviewTableComponent
             naceRegionData={naceRegionData}
-            esgFactor={esgFactor}
+            esgFactor={urlParams.esgFactor}
+            euData={euData}
             naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
           />
         </OverviewTableContainer>
 
@@ -94,44 +94,52 @@ export const ChartView: React.FC<Props> = ({
 
 export const ChartViewTabs: React.FC<TabProps> = ({
   // TODO: Unused, remove??
-  // tableIndex: tableIndex,
+  tableIndex: tableIndex,
   setTableIndex: setTableIndex,
 }) => {
   return (
     <>
       <ChartTabsContainer active={true}>
-        <ChartTabs
-          active={true}
+        <HistoryTab
+          //id='1'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(1);
+            //setTabBold('1');
           }}
         >
           History Graph
-        </ChartTabs>
-        <ChartTabs
-          active={true}
+        </HistoryTab>
+        <BarChartTab
+          //id='2'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(2);
+            //setTabBold('2');
           }}
         >
           Bar Chart
-        </ChartTabs>
-        <ChartTabs
-          active={true}
+        </BarChartTab>
+        <OverviewTableTab
+          //id='3'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(3);
+            //setTabBold('3');
           }}
         >
           Overview Table
-        </ChartTabs>
-        <ChartTabs
-          active={true}
+        </OverviewTableTab>
+        <PercentageTableTab
+          //id='4'
+          index={tableIndex}
           onClick={() => {
             setTableIndex(4);
+            //setTabBold('4');
           }}
         >
           Percentage Table
-        </ChartTabs>
+        </PercentageTableTab>
       </ChartTabsContainer>
     </>
   );
@@ -169,7 +177,7 @@ const ChartTabsContainer = styled.nav<{ active: boolean }>`
   margin-right: 40px;
 `;
 
-const ChartTabs = styled.a<{ active: boolean }>`
+const ChartTabs = styled.a<{ index: number }>`
   font: Roboto, sans-serif;
   background-color: var(--main-white-color);
   color: var(--main-blackAlpha-color);
@@ -178,7 +186,42 @@ const ChartTabs = styled.a<{ active: boolean }>`
   :hover {
     color: var(--main-black-color);
     font-weight: 700;
+    //border-top:2px solid var(--main-black-color);
+    margin: 0;
+    padding: 0;
   }
+`;
+
+const HistoryTab = styled(ChartTabs)<{ index: number }>`
+  font-weight: ${(props) => (props.index === 1 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 1
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
+`;
+
+const BarChartTab = styled(ChartTabs)`
+  font-weight: ${(props) => (props.index === 2 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 2
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
+`;
+
+const OverviewTableTab = styled(ChartTabs)`
+  font-weight: ${(props) => (props.index === 3 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 3
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
+`;
+
+const PercentageTableTab = styled(ChartTabs)`
+  font-weight: ${(props) => (props.index === 4 ? '700' : '200')};
+  color: ${(props) =>
+    props.index === 4
+      ? 'var(--main-black-color)'
+      : 'var( --main-blackAlpha-color)'};
 `;
 
 const HistoryGraphContainer = styled.div<{ index: number }>`

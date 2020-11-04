@@ -1,4 +1,5 @@
 const useProductionApi = process.env.production;
+const { REACT_APP_USE_PROD_API } = process.env;
 export enum Environment {
   LOCAL = 'LOCAL',
   DEV = 'DEV',
@@ -49,8 +50,9 @@ export const getEnvironment = (origin: string): Environment => {
 export const getConfig = (
   origin: string = window.origin,
 ): IAppConfiguration => {
+  console.log(REACT_APP_USE_PROD_API);
   const environment = getEnvironment(origin);
-  if (useProductionApi) {
+  if (REACT_APP_USE_PROD_API) {
     return envToConfigMap[Environment.PROD];
   }
 

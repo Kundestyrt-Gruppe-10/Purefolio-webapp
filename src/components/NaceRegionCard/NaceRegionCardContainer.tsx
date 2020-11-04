@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { NaceRegionCard } from './NaceRegionCard';
 import { NaceRegionContainerInterface } from './types';
@@ -22,6 +22,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.urlParams.setUrlParams(
       newUrlString,
       props.urlParams.esgFactor,
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   }
@@ -34,6 +36,8 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
     props.urlParams.setUrlParams(
       newUrlString,
       props.urlParams.esgFactor,
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   }
@@ -45,16 +49,24 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
         return newNaceRegionIdList.indexOf(item) !== id;
       })
       .map((num) => num);
-    setNaceRegionIdList(newNaceRegionIdList);
+    // setNaceRegionIdList(newNaceRegionIdList);
+    setNaceRegionIdList(
+      naceRegionIdStringToList(props.urlParams.naceRegionIdString),
+    );
     const newUrlString = naceRegionIdListToString(newNaceRegionIdList);
     props.urlParams.setUrlParams(
       newUrlString,
       props.urlParams.esgFactor,
+      props.urlParams.yearStart,
+      props.urlParams.yearEnd,
       props.urlParams.chosenTab,
     );
   }
-
-  //TODO: deleteCard() sets URL correctly, however it does not rerender correctly. Needs fix
+  useEffect(() => {
+    setNaceRegionIdList(
+      naceRegionIdStringToList(props.urlParams.naceRegionIdString),
+    );
+  }, [props.urlParams.naceRegionIdString]);
 
   return (
     <Background active={true}>
@@ -64,6 +76,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
           deleteCard={deleteCard}
           key={index}
           id={index}
+          esgFactorInfo={props.esgFactorInfo}
           regionList={props.regionList}
           naceList={props.naceList}
           naceId={naceRegionIdList[index][1]}
@@ -87,7 +100,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
 const Background = styled.div<{ active: boolean }>`
   margin: 0;
   background-color: var(--main-white-color);
-  padding: 50px 20px 20px 20px;
+  padding: 20px 20px 5px 20px;
   display: flex;
   flex-direction: row;
 `;

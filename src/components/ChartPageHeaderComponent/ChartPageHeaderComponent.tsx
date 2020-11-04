@@ -1,24 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { Nace, Region } from '../../types';
 import { SearchBar } from '../HeaderComponent/SearchBarComponent';
 import { EsgFactorDropdown } from './EsgSectorDropdownComponent';
 import { PeriodDropdown } from './PeriodDropDownComponent';
+import logo from '../../img/NT_Logo_original_primaer_negativ_RGB.svg';
+import { Link } from 'react-router-dom';
 
 interface Props {
-  //regionList: Region[];
+  regionList: Region[];
+  naceList: Nace[];
   esgFactorList: string[];
   urlParams: UrlParamsInterface;
 }
 export const ChartPageHeaderComponent: React.FC<Props> = ({
+  regionList,
+  naceList,
   esgFactorList,
   urlParams,
 }) => {
   return (
     <>
+      <LogoContainer active={false}>
+        <Link to="/">
+          <Logo src={logo} alt="Title" active={false} />
+        </Link>
+      </LogoContainer>
       <HeaderContainer active={false}>
         <SearchBox active={false}>
-          <SearchBar onChartPage={true} naceRegionList={esgFactorList} />
+          <SearchBar
+            onChartPage={true}
+            regionList={regionList}
+            naceList={naceList}
+            // urlParams={urlParams}
+          />
         </SearchBox>
         <ESGBox active={false}>
           <EsgFactorDropdown
@@ -27,11 +43,19 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
           />
         </ESGBox>
         <YearBox active={false}>
-          <PeriodDropdown periodStart={true} />
+          <PeriodDropdown
+            periodStart={true}
+            setValue={urlParams.yearStart}
+            urlParams={urlParams}
+          />
         </YearBox>
         <YearLineBox active={false} />
         <YearBox active={false}>
-          <PeriodDropdown periodStart={false} />
+          <PeriodDropdown
+            periodStart={false}
+            setValue={urlParams.yearEnd}
+            urlParams={urlParams}
+          />
         </YearBox>
       </HeaderContainer>
     </>
@@ -40,7 +64,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
 
 const HeaderContainer = styled.div<{ active: boolean }>`
   background-color: var(--sec-purple-color);
-  padding: 20px 30px 20px 30px;
+  padding: 0px 30px 20px 30px;
   color: white;
   display: flex;
   flex-direction: row;
@@ -68,4 +92,17 @@ const YearLineBox = styled.div<{ active: boolean }>`
   height: 2px;
   border-top: 2px solid var(--third-bluegrey-color);
   align-self: center;
+`;
+
+const LogoContainer = styled.a<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  background-color: var(--sec-purple-color);
+  width: 100%;
+  padding-top: 5px;
+  font: Roboto, sans-serif;
+`;
+
+const Logo = styled.img<{ active: boolean }>`
+  width: 300px;
 `;

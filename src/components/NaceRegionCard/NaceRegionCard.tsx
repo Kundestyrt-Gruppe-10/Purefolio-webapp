@@ -1,30 +1,76 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-//import { Redirect } from 'react-router-dom';
-//import {ChartPage} from '../../pages/ChartPage/ChartPage';
-import { Nace, Region } from '../../types';
-import { NaceRegionCardInterface, SelectItemInterface } from './types';
+import { Nace, NaceHasData, Region, RegionHasData } from '../../types';
+import { NaceRegionCardInterface } from './types';
+import { ApiGet } from '../../utils/api';
+import { handleColorType } from '../../pages/ChartPage/helper-functions';
 
+interface SelectItem {
+  label: string;
+  value: number;
+  isDisabled: boolean;
+}
 export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
   props: NaceRegionCardInterface,
 ) => {
   const [regionId, setRegionId] = useState<number>(props.regionId);
   const [naceId, setNaceId] = useState<number>(props.naceId);
-  const selectRegion: SelectItemInterface[] = props.regionList.map(
-    (region: Region) => ({
+  const [selectRegion, setSelectRegion] = useState<SelectItem[]>(
+    props.regionList.map((region: Region) => ({
       label: region.regionName,
       value: region.regionId,
-    }),
+      isDisabled: false,
+    })),
   );
-
-  const selectNace: SelectItemInterface[] = props.naceList.map(
-    (nace: Nace) => ({
+  const [selectNace, setSelectNace] = useState<SelectItem[]>(
+    props.naceList.map((nace: Nace) => ({
       label: nace.naceName,
       value: nace.naceId,
-    }),
+      isDisabled: false,
+    })),
   );
 
+  // TODO: Use custom CSS style instead of 'No Data' text?
+  const filterRegionOptions = () => {
+    // TODO: Pass down esgFactor object insted of hard coding esgFactor 1
+    ApiGet<RegionHasData[]>(
+      `/regions/hasdata/${naceId}/${props.esgFactorInfo.tableId}`,
+    )
+      .then((res) =>
+        setSelectRegion(
+          res.map((region) => {
+            return {
+              label: `${region.regionName} ${
+                !region.hasData ? '(No Data)' : ''
+              }`,
+              value: region.regionId,
+              isDisabled: false, // TODO: Remove?
+            };
+          }),
+        ),
+      )
+      .catch((err) => console.log(err));
+  };
+  // TODO: Use custom CSS style instead of isDisabled prop
+  const filterNaceOptions = () => {
+    // TODO: Pass down esgFactor object insted of hard coding esgFactor 1
+    ApiGet<NaceHasData[]>(
+      `/naces/hasdata/${regionId}/${props.esgFactorInfo.tableId}`,
+    )
+      .then((res) =>
+        setSelectNace(
+          res.map((nace) => {
+            return {
+              label: `${nace.naceName} ${!nace.hasData ? '(No Data)' : ''}`,
+              value: nace.naceId,
+              isDisabled: false, // TODO: Remove? Not used
+            };
+          }),
+        ),
+      )
+      .catch((err) => console.log(err));
+  };
   //TODO: Fix eslint type
   /*eslint-disable*/
   const handleChangeRegion = (selectedOption: any) => {
@@ -39,6 +85,10 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
     props.setNaceRegionId(regionId, newNaceId, props.id);
   };
   /*eslint-enable*/
+  useEffect(() => {
+    setRegionId(props.regionId);
+    setNaceId(props.naceId);
+  }, [props.naceId, props.regionId]);
 
   return (
     <>
@@ -48,15 +98,17 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <Select
             className="country-select"
             classNamePrefix="react-select"
+            onMenuOpen={filterRegionOptions}
             active={true}
+            value={selectRegion[regionId - 1]}
             options={selectRegion}
-            defaultValue={selectRegion[props.regionId - 1]}
+            defaultValue={selectRegion[regionId - 1]}
             onChange={handleChangeRegion}
           />
           <Button
             danger={false}
             onClick={() => {
-              props.addCard(props.regionId, props.naceId);
+              props.addCard(regionId, naceId);
             }}
           >
             <i
@@ -100,44 +152,16 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             height="5px"
             classNamePrefix="react-select"
             active={true}
+            onMenuOpen={filterNaceOptions}
+            value={selectNace[naceId - 1]}
             options={selectNace}
-            defaultValue={selectNace[props.naceId - 1]}
+            defaultValue={selectNace[naceId - 1]}
             onChange={handleChangeNace}
           />
         </div>
-        {/*
-        <Text active={true}>Sub-sector:</Text>
-        <div style={{ border: '2px solid var(--sec-purple-color)' }}>
-          <Select
-            width="100%"
-            classNamePrefix="react-select"
-            active={true}
-            options={selectNace}
-          />
-        </div>
-        */}
       </CardBackground>
     </>
   );
-};
-
-// TODO: Used other places, should be moved to an util file
-export const handleColorType = (colorID: number): string => {
-  colorID = colorID % 5;
-  switch (colorID) {
-    case 0:
-      return 'var( --sec-orange-color)';
-    case 1:
-      return 'var(--third-turquoise-color)';
-    case 2:
-      return 'var(--sec-purple-color)';
-    case 3:
-      return 'var(--third-paleorange-color)';
-    case 4:
-      return 'var(--thrid-teal-color)';
-    default:
-      return 'var( --sec-orange-color)';
-  }
 };
 
 const CardBackground = styled.div<{ active: boolean }>`

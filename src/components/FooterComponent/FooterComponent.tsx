@@ -10,10 +10,10 @@ export const FooterComponent: React.FC = () => {
           course TDT4290 at Norwegian University of Science and Technology.
         </FooterInfo>
         <FooterLinks active={false}>
+          {/*           <Link active={false}>Test</Link>
           <Link active={false}>Test</Link>
           <Link active={false}>Test</Link>
-          <Link active={false}>Test</Link>
-          <Link active={false}>Test</Link>
+          <Link active={false}>Test</Link> */}
         </FooterLinks>
       </Background>
     </>
@@ -41,5 +41,3 @@ const FooterLinks = styled.div<{ active: boolean }>`
   flex-direction: row;
   justify-content: space-between;
 `;
-
-const Link = styled.a<{ active: boolean }>``;
