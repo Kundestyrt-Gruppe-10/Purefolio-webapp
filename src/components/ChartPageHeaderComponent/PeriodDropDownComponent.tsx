@@ -41,6 +41,13 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (years.includes(userInput)) {
+        props.urlParams.setUrlParams(
+          props.urlParams.naceRegionIdString,
+          props.urlParams.esgFactor,
+          props.periodStart ? userInput : props.urlParams.yearStart,
+          props.periodStart ? props.urlParams.yearEnd : userInput,
+          props.urlParams.chosenTab,
+        );
         setChosenYear(userInput);
         setDropdownOpen(false);
       }
