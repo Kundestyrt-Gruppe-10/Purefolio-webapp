@@ -20,6 +20,13 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (props.esgFactorList.includes(userInput)) {
+        props.urlParams.setUrlParams(
+          props.urlParams.naceRegionIdString,
+          userInput, // Setting new esgFactorString
+          props.urlParams.yearStart,
+          props.urlParams.yearEnd,
+          props.urlParams.chosenTab,
+        );
         setChosenFactor(userInput);
         setDropdownOpen(false);
       }
