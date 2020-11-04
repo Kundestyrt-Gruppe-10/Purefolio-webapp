@@ -212,7 +212,7 @@ export const ChartPage: React.FC<Props> = (props) => {
           />
         </ChartPageHeaderContainer>
       ) : null}
-      <ContentContainer>
+      <ChartPageContentContainer>
         <ChartPageContainer>
           {loading ? (
             <LoadingComponent />
@@ -248,7 +248,7 @@ export const ChartPage: React.FC<Props> = (props) => {
             </>
           )}
         </ChartPageContainer>
-      </ContentContainer>
+      </ChartPageContentContainer>
     </>
   );
 };
@@ -257,7 +257,14 @@ const ChartPageHeaderContainer = styled.div`
   grid-column-start: left-pad-start;
   grid-column-end: right-pad-stop;
   grid-row-start: header-start;
-  grid-row-end: header-stop;
+  grid-row-end: header-chartpage-stop;
+`;
+
+const ChartPageContentContainer = styled.div`
+  grid-column-start: left-pad-stop;
+  grid-column-end: right-pad-start;
+  grid-row-start: content-chartpage-start;
+  grid-row-end: content-stop;
 `;
 
 const ChartPageContainer = styled.div`
