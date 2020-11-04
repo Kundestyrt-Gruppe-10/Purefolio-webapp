@@ -1,9 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
+import { EuroStatTable, NaceRegion, NaceRegionData } from '../../types';
+import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
-export const PercentageTableComponent: React.FC = () => {
+interface Props {
+  naceRegionData: NaceRegionData[][];
+  naceRegionList: NaceRegion[];
+  esgFactorInfo: EuroStatTable;
+  euData: NaceRegionData[];
+  urlParams: UrlParamsInterface;
+  esgFactor:
+    | 'emissionPerYear'
+    | 'workAccidentsIncidentRate'
+    | 'genderPayGap'
+    | 'environmentTaxes'
+    | 'fatalAccidentsAtWork'
+    | 'temporaryemployment'
+    | 'employeesPrimaryEducation'
+    | 'employeesSecondaryEducation'
+    | 'employeesTertiaryEducation'
+    | 'employeesLowWage'
+    | 'hoursPaidAndNot'
+    | 'hoursWorkWeek'
+    | 'jobVacancyRate'
+    | 'trainingParticipation'
+    | 'totalWaste'
+    | 'totalHazardousWaste'
+    | 'totalNonHazardousWaste'
+    | 'environmentalProtectionPollution'
+    | 'environmentalProtectionTech'
+    | 'seasonalWork'
+    | 'supplyEnergyProducts'
+    | 'supplyEnergyResiduals'
+    | 'useNaturalEnergyInputs'
+    | 'useEnergyProducts'
+    | 'useEnergyResiduals';
+}
+
+export const PercentageTableComponent: React.FC<Props> = ({
+  naceRegionData,
+  naceRegionList,
+  euData,
+  esgFactor,
+  esgFactorInfo,
+  urlParams,
+}) => {
   const percentageList: number[] = [0.5, -0.52, 0.78, 1.0];
+
+  /*   const normalizedNaceRegionData: NaceRegionData[][] = naceRegionData.map(
+    (naceRegion) =>
+      naceRegion.map(
+        (naceRegionData, idx) =>
+          naceRegionData[esgFactor] / euData[idx][esgFactor],
+      ),
+  ); */
   const countriesList: string[] = [
     'Sweden',
     'Norway',
@@ -20,22 +71,68 @@ export const PercentageTableComponent: React.FC = () => {
           <PeriodBox>Period: 2014-2018</PeriodBox>
         </UpperBox>
         <LowerBox>
+          {/* TODO: Iterate over a year object instead?? */}
           <YearBox>Year</YearBox>
-          <YearBox>2014</YearBox>
-          <YearBox>2015</YearBox>
-          <YearBox>2016</YearBox>
-          <YearBox>2017</YearBox>
+          {naceRegionData && naceRegionData[0]
+            ? naceRegionData[0].map((year, idx) => {
+                return <YearBox key={idx}>{year.year}</YearBox>;
+              })
+            : null}
         </LowerBox>
       </TableTitleContainer>
       <TableDataContainer>
         <TableRow>
-          <EuBox>EU avarage (tonnes CO2)</EuBox>
-          <EuBox>2000000</EuBox>
-          <EuBox>3777667</EuBox>
-          <EuBox>4343434</EuBox>
-          <EuBox>534343434</EuBox>
+          <EuBox>EU avarage</EuBox>
+          {euData.map((euDataYear, idx) => {
+            return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
+          })}
         </TableRow>
         <TableRow>
+          {naceRegionData && naceRegionData[0] && naceRegionList ? (
+            naceRegionList.map((naceRegion, idx) => {
+              return (
+                <>
+                  <TableBox key={idx}>
+                    {naceRegion.region.regionName + naceRegion.nace.naceCode}
+                  </TableBox>
+                  {naceRegionData[idx] ? (
+                    naceRegionData[idx].map((naceRegionData, idy) => {
+                      return (
+                        <TableBox
+                          key={idy}
+                          id={String(naceRegionData[esgFactor])}
+                        >
+                          <PositivePercentageNumber
+                            positive={1 > 0 ? true : false}
+                          >
+                            {1 * 100}
+                          </PositivePercentageNumber>
+                          <NegativePercentageContainer
+                            positive={1 > 0 ? true : false}
+                            percentageValue={1}
+                          />
+                          <DelimiterLine />
+                          <PositivePercentageContainer
+                            positive={1 > 0 ? true : false}
+                            percentageValue={1}
+                          />
+                          <NegativePercentageNumber
+                            positive={1 > 0 ? true : false}
+                          >
+                            {1 * 100}
+                          </NegativePercentageNumber>
+                        </TableBox>
+                      );
+                    })
+                  ) : (
+                    <p>No Data</p>
+                  )}
+                </>
+              );
+            })
+          ) : (
+            <p>No Data</p>
+          )}
           <TableBox>Russia</TableBox>
           {percentageList.map((percentageValue: number, i: number) => (
             <TableBox key={percentageValue + i} id={String(percentageValue)}>

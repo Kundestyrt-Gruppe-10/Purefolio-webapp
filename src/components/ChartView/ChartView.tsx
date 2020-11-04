@@ -83,7 +83,14 @@ export const ChartView: React.FC<Props> = ({
         </OverviewTableContainer>
 
         <PercentageTableContainer index={tableIndex}>
-          <PercentageTableComponent />
+          <PercentageTableComponent
+            naceRegionData={naceRegionData}
+            esgFactor={urlParams.esgFactor}
+            euData={euData}
+            naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
+          />
         </PercentageTableContainer>
       </DataView>
 
