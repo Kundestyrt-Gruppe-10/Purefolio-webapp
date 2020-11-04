@@ -4,6 +4,8 @@ import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { OverviewTableComponent } from '../OverviewTableComponent/OverviewTableComponent';
 import { HistoryGraphComponent } from '../HistoryGraphComponent/HistoryGraphComponent';
 import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
+import { PercentageTableComponent } from '../PercentageTableComponent/PercentageTableComponent';
+import { useLocation } from 'react-router-dom';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 
 interface Props {
@@ -79,6 +81,17 @@ export const ChartView: React.FC<Props> = ({
             urlParams={urlParams}
           />
         </OverviewTableContainer>
+
+        <PercentageTableContainer index={tableIndex}>
+          <PercentageTableComponent
+            naceRegionData={naceRegionData}
+            esgFactor={urlParams.esgFactor}
+            euData={euData}
+            naceRegionList={naceRegionList}
+            esgFactorInfo={esgFactorInfo}
+            urlParams={urlParams}
+          />
+        </PercentageTableContainer>
       </DataView>
 
       <ContainerLine active={true} />
@@ -234,6 +247,13 @@ const BarChartContainer = styled.div<{ index: number }>`
 
 const OverviewTableContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 3 ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const PercentageTableContainer = styled.div<{ index: number }>`
+  display: ${(props) => (props.index === 4 ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   width: 100%;

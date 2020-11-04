@@ -67,7 +67,7 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
           .filter((factor) => factor.includes(userInput))
           .map((factorString: string, i: number) => (
             <ResultRow
-              key={i}
+              key={factorString}
               id={factorString}
               active={factorString === chosenFactor ? true : false}
               onClick={() => {
