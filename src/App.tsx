@@ -40,7 +40,23 @@ export const App: React.FC = () => {
                     | 'temporaryemployment'
                     | 'employeesPrimaryEducation'
                     | 'employeesSecondaryEducation'
-                    | 'employeesTertiaryEducation';
+                    | 'employeesTertiaryEducation'
+                    | 'employeesLowWage'
+                    | 'hoursPaidAndNot'
+                    | 'hoursWorkWeek'
+                    | 'jobVacancyRate'
+                    | 'trainingParticipation'
+                    | 'totalWaste'
+                    | 'totalHazardousWaste'
+                    | 'totalNonHazardousWaste'
+                    | 'environmentalProtectionPollution'
+                    | 'environmentalProtectionTech'
+                    | 'seasonalWork'
+                    | 'supplyEnergyProducts'
+                    | 'supplyEnergyResiduals'
+                    | 'useNaturalEnergyInputs'
+                    | 'useEnergyProducts'
+                    | 'useEnergyResiduals';
                   chosenTab: string;
                   yearStart: string;
                   yearEnd: string;

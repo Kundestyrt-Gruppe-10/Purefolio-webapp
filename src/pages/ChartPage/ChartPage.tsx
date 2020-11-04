@@ -34,8 +34,25 @@ interface Props {
     | 'temporaryemployment'
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
+    | 'employeesTertiaryEducation'
+    | 'employeesLowWage'
+    | 'hoursPaidAndNot'
+    | 'hoursWorkWeek'
+    | 'jobVacancyRate'
+    | 'trainingParticipation'
+    | 'totalWaste'
+    | 'totalHazardousWaste'
+    | 'totalNonHazardousWaste'
+    | 'environmentalProtectionPollution'
+    | 'environmentalProtectionTech'
+    | 'seasonalWork'
+    | 'supplyEnergyProducts'
+    | 'supplyEnergyResiduals'
+    | 'useNaturalEnergyInputs'
+    | 'useEnergyProducts'
+    | 'useEnergyResiduals';
 }
+
 // Interface for url parameters used in ChartPage
 export interface UrlParamsInterface extends Props {
   setUrlParams(

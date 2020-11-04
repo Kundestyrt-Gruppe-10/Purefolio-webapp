@@ -53,7 +53,23 @@ interface Props {
     | 'temporaryemployment'
     | 'employeesPrimaryEducation'
     | 'employeesSecondaryEducation'
-    | 'employeesTertiaryEducation';
+    | 'employeesTertiaryEducation'
+    | 'employeesLowWage'
+    | 'hoursPaidAndNot'
+    | 'hoursWorkWeek'
+    | 'jobVacancyRate'
+    | 'trainingParticipation'
+    | 'totalWaste'
+    | 'totalHazardousWaste'
+    | 'totalNonHazardousWaste'
+    | 'environmentalProtectionPollution'
+    | 'environmentalProtectionTech'
+    | 'seasonalWork'
+    | 'supplyEnergyProducts'
+    | 'supplyEnergyResiduals'
+    | 'useNaturalEnergyInputs'
+    | 'useEnergyProducts'
+    | 'useEnergyResiduals';
 }
 
 interface NaceRegionChartItem {

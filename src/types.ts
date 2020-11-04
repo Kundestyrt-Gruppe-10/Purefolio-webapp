@@ -45,6 +45,22 @@ export interface NaceRegionData {
   employeesPrimaryEducation?: number;
   employeesSecondaryEducation?: number;
   employeesTertiaryEducation?: number;
+  employeesLowWage?: number;
+  hoursPaidAndNot?: number;
+  hoursWorkWeek?: number;
+  jobVacancyRate?: number;
+  trainingParticipation?: number;
+  totalWaste?: number;
+  totalHazardousWaste?: number;
+  totalNonHazardousWaste?: number;
+  environmentalProtectionPollution?: number;
+  environmentalProtectionTech?: number;
+  seasonalWork?: number;
+  supplyEnergyProducts?: number;
+  supplyEnergyResiduals?: number;
+  useNaturalEnergyInputs?: number;
+  useEnergyProducts?: number;
+  useEnergyResiduals?: number;
 }
 
 export interface Region {
