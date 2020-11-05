@@ -240,7 +240,9 @@ const NegativePercentageContainer = styled.div<{
   percentageValue: number;
 }>`
   flex-basis: ${(props) =>
-    String(Math.abs(props.percentageValue) * 49.5) + '%'};
+    Math.abs(props.percentageValue) < 1.0
+      ? String(Math.abs(props.percentageValue) * 49.5) + '%'
+      : '49.5%'};
   height: 15px;
   background-color: var(--sec-orange-color);
   border-radius: 2px 0px 0px 2px;
@@ -253,7 +255,9 @@ const PositivePercentageContainer = styled.div<{
   percentageValue: number;
 }>`
   flex-basis: ${(props) =>
-    String(Math.abs(props.percentageValue) * 49.5) + '%'};
+    Math.abs(props.percentageValue) < 1.0
+      ? String(Math.abs(props.percentageValue) * 49.5) + '%'
+      : '49.5%'};
   height: 15px;
   background-color: var(--sec-orange-color);
   border-radius: 0px 2px 2px 0px;
