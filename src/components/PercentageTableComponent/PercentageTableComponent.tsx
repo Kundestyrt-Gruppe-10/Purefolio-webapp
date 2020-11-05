@@ -92,11 +92,13 @@ export const PercentageTableComponent: React.FC<Props> = ({
             return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
           })}
         </TableRow>
-        {naceRegionList.map((naceRegion, idx) => {
+        {naceRegionData.map((naceRegion, idx) => {
           return (
             <TableRow key={idx}>
               <TableBox>
-                {naceRegion.region.regionName + naceRegion.nace.naceCode}
+                {naceRegion[0].region.regionName +
+                  ' - ' +
+                  naceRegion[0].nace.naceCode}
               </TableBox>
               {percentageListList[idx]
                 ? percentageListList[idx].map((percentageValue, i: number) => {

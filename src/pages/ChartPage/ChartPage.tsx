@@ -144,7 +144,7 @@ export const ChartPage: React.FC<Props> = (props) => {
     )
       .then((res) => setEuDataForAllChosenNaces(res))
       .catch((err) => setError(err));
-  }, [urlParams.yearStart, urlParams.yearEnd]);
+  }, [urlParams.yearStart, urlParams.yearEnd, urlParams.naceRegionIdString]);
   // TODO: Split up in multiple useEffect chunks?
   useEffect(() => {
     async function fetchData() {
@@ -266,6 +266,8 @@ export const ChartPage: React.FC<Props> = (props) => {
                 naceRegionList &&
                 esgFactorInfo &&
                 euDataForAllChosenNaces &&
+                euDataForAllChosenNaces.length ==
+                  naceRegionDataListList.length &&
                 euData ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
