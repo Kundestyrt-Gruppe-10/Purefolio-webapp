@@ -97,7 +97,7 @@ export const BarchartComponent: React.FC<Props> = ({
             // or create new object if it does not exist
             ((naceRegionItems.find((el) => el.year === element.year) || {
               year: element.year,
-            })[element.region.regionName + element.nace.naceCode] =
+            })[element.region.regionName + ' - ' + element.nace.naceCode] =
               element[esgFactor]),
         );
         // Runs when element not yet in naceRegionItems
@@ -105,9 +105,9 @@ export const BarchartComponent: React.FC<Props> = ({
         if (!found) {
           naceRegionItems.push({
             year: element.year,
-            [element.region.regionName + element.nace.naceCode]: element[
-              esgFactor
-            ],
+            [element.region.regionName +
+            ' - ' +
+            element.nace.naceCode]: element[esgFactor],
           });
         }
       });
@@ -132,19 +132,21 @@ export const BarchartComponent: React.FC<Props> = ({
                 tick={{ fontSize: 14 }}
               />
               <Tooltip cursor={{ fill: '#5a31ca91' }} />
-              {naceRegionList.map((item, idx) => {
-                return (
-                  // This is number of Bars per group/ year. If we compare multiple NaceRegions
-                  // We will have multiple bars
-                  <Bar
-                    data-testid="bar"
-                    key={idx}
-                    dataKey={item.region.regionName + item.nace.naceCode}
-                    fill={handleColorType(idx)}
-                    barSize={30}
-                  />
-                );
-              })}
+              {Object.keys(naceRegionItems[0])
+                .filter((k) => k != 'year')
+                .map((key, idx) => {
+                  return (
+                    // This is number of Bars per group/ year. If we compare multiple NaceRegions
+                    // We will have multiple bars
+                    <Bar
+                      data-testid="bar"
+                      key={idx}
+                      dataKey={key}
+                      fill={handleColorType(idx)}
+                      barSize={35}
+                    />
+                  );
+                })}
             </BarChart>
           </ResponsiveContainer>
         </GraphContainer>
