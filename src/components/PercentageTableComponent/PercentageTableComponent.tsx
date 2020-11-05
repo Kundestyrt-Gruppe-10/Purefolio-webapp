@@ -8,6 +8,7 @@ interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
   esgFactorInfo: EuroStatTable;
+  euDataForAllChosenNaces: NaceRegionData[][];
   euData: NaceRegionData[];
   urlParams: UrlParamsInterface;
   esgFactor:
@@ -44,6 +45,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
   euData,
   esgFactor,
   esgFactorInfo,
+  euDataForAllChosenNaces,
   urlParams,
 }) => {
   const percentageList: number[] = [-0.4, -0.652, 0.3378, 1.0];
@@ -51,7 +53,8 @@ export const PercentageTableComponent: React.FC<Props> = ({
     naceRegion.map(
       (naceRegionDataElement, idy) =>
         1 -
-        (naceRegionDataElement[esgFactor] || 1) / (euData[idy][esgFactor] || 1),
+        (naceRegionDataElement[esgFactor] || 1) /
+          (euDataForAllChosenNaces[idx][idy][esgFactor] || 1),
     ),
   );
   const countriesList: string[] = [
@@ -84,7 +87,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
       </TableTitleContainer>
       <TableDataContainer>
         <TableRow>
-          <EuBox>EU avarage</EuBox>
+          <EuBox>EU avarage over all naces</EuBox>
           {euData.map((euDataYear, idx) => {
             return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
           })}

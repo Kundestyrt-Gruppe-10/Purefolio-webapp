@@ -12,6 +12,7 @@ interface Props {
   naceRegionData: NaceRegionData[][];
   euData: NaceRegionData[];
   naceRegionList: NaceRegion[];
+  euDataForAllChosenNaces: NaceRegionData[][];
   esgFactorInfo: EuroStatTable;
   urlParams: UrlParamsInterface;
 }
@@ -26,6 +27,7 @@ export const ChartView: React.FC<Props> = ({
   naceRegionList,
   esgFactorInfo,
   euData,
+  euDataForAllChosenNaces,
   urlParams,
 }) => {
   console.log(naceRegionData);
@@ -87,6 +89,7 @@ export const ChartView: React.FC<Props> = ({
             naceRegionData={naceRegionData}
             esgFactor={urlParams.esgFactor}
             euData={euData}
+            euDataForAllChosenNaces={euDataForAllChosenNaces}
             naceRegionList={naceRegionList}
             esgFactorInfo={esgFactorInfo}
             urlParams={urlParams}
