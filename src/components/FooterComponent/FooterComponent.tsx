@@ -23,7 +23,7 @@ export const FooterComponent: React.FC = () => {
 const Background = styled.div<{ active: boolean }>`
   margin: 0;
   background-color: var(--main-black-color);
-  padding: 50px;
+  padding: 6vh;
   color: white;
   display: flex;
   flex-direction: row wrap;
