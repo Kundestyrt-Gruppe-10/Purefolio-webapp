@@ -235,26 +235,26 @@ const HistoryGraphContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 1 ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
 `;
 
 const BarChartContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 2 ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
 `;
 
 const OverviewTableContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 3 ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
 `;
 
 const PercentageTableContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 4 ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
 `;

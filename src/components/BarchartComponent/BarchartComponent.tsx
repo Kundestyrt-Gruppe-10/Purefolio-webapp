@@ -141,7 +141,7 @@ export const BarchartComponent: React.FC<Props> = ({
                     key={idx}
                     dataKey={item.region.regionName + item.nace.naceCode}
                     fill={handleColorType(idx)}
-                    barSize={35}
+                    barSize={30}
                   />
                 );
               })}
