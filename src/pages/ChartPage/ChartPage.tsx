@@ -265,6 +265,7 @@ export const ChartPage: React.FC<Props> = (props) => {
                 {naceRegionDataListList &&
                 naceRegionList &&
                 esgFactorInfo &&
+                euDataForAllChosenNaces &&
                 euData ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
