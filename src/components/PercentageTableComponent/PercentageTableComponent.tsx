@@ -66,8 +66,11 @@ export const PercentageTableComponent: React.FC<Props> = ({
     <TableContainer>
       <TableTitleContainer>
         <UpperBox>
-          <TitleBox>Air Emission accounts</TitleBox>
-          <PeriodBox>Period: 2014-2018</PeriodBox>
+          {/* TODO: Use real data            */}
+          <TitleBox>{esgFactor}</TitleBox>
+          <PeriodBox>
+            Period: {urlParams.yearStart}-{urlParams.yearEnd}
+          </PeriodBox>
         </UpperBox>
         <LowerBox>
           {/* TODO: Iterate over a year object instead?? */}
