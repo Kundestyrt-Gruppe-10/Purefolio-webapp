@@ -47,6 +47,13 @@ export const PercentageTableComponent: React.FC<Props> = ({
   urlParams,
 }) => {
   const percentageList: number[] = [-0.4, -0.652, 0.3378, 1.0];
+  const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
+    naceRegion.map(
+      (naceRegionDataElement, idy) =>
+        1 -
+        (naceRegionDataElement[esgFactor] || 1) / (euData[idy][esgFactor] || 1),
+    ),
+  );
   const countriesList: string[] = [
     'Sweden',
     'Norway',
@@ -79,32 +86,45 @@ export const PercentageTableComponent: React.FC<Props> = ({
             return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
           })}
         </TableRow>
-        <TableRow>
-          <TableBox>Russia</TableBox>
-          {percentageList.map((percentageValue: number, i: number) => (
-            <TableBox key={percentageValue + i} id={String(percentageValue)}>
-              <PositivePercentageNumber
-                positive={percentageValue > 0 ? true : false}
-              >
-                {String(percentageValue * 100) + '%'}
-              </PositivePercentageNumber>
-              <NegativePercentageContainer
-                positive={percentageValue > 0 ? true : false}
-                percentageValue={percentageValue}
-              />
-              <DelimiterLine />
-              <PositivePercentageContainer
-                positive={percentageValue > 0 ? true : false}
-                percentageValue={percentageValue}
-              />
-              <NegativePercentageNumber
-                positive={percentageValue > 0 ? true : false}
-              >
-                {String(percentageValue * 100) + '%'}
-              </NegativePercentageNumber>
-            </TableBox>
-          ))}
-        </TableRow>
+        {naceRegionList.map((naceRegion, idx) => {
+          return (
+            <TableRow key={idx}>
+              <TableBox>
+                {naceRegion.region.regionName + naceRegion.nace.naceCode}
+              </TableBox>
+              {percentageListList[idx]
+                ? percentageListList[idx].map((percentageValue, i: number) => {
+                    return (
+                      <TableBox
+                        key={percentageValue + i}
+                        id={String(percentageValue)}
+                      >
+                        <PositivePercentageNumber
+                          positive={percentageValue > 0 ? true : false}
+                        >
+                          {String(percentageValue * 100) + '%'}
+                        </PositivePercentageNumber>
+                        <NegativePercentageContainer
+                          positive={percentageValue > 0 ? true : false}
+                          percentageValue={percentageValue}
+                        />
+                        <DelimiterLine />
+                        <PositivePercentageContainer
+                          positive={percentageValue > 0 ? true : false}
+                          percentageValue={percentageValue}
+                        />
+                        <NegativePercentageNumber
+                          positive={percentageValue > 0 ? true : false}
+                        >
+                          {String(percentageValue * 100) + '%'}
+                        </NegativePercentageNumber>
+                      </TableBox>
+                    );
+                  })
+                : null}
+            </TableRow>
+          );
+        })}
       </TableDataContainer>
     </TableContainer>
   );

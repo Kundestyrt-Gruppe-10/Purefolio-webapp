@@ -88,7 +88,6 @@ export const BarchartComponent: React.FC<Props> = ({
   // TODO: This should be a function and moved out from component
   naceRegionData
     // TODO: Does this sort fix the bug?? Not sure
-    .sort((a, b) => b.length - a.length)
     .forEach((naceRegion: NaceRegionData[]) => {
       naceRegion.forEach((element: NaceRegionData) => {
         // If year already in naceRegionItems, update existing object
