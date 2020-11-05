@@ -234,22 +234,25 @@ const PercentageTableTab = styled(ChartTabs)`
 const HistoryGraphContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 1 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
+  min-height: 60vh;
 `;
 
 const BarChartContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 2 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
+  min-height: 60vh;
 `;
 
 const OverviewTableContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 3 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
+  min-height: 60vh;
 `;
 
 const PercentageTableContainer = styled.div<{ index: number }>`
@@ -257,4 +260,5 @@ const PercentageTableContainer = styled.div<{ index: number }>`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  min-height: 60vh;
 `;
