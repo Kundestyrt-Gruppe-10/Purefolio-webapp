@@ -46,21 +46,13 @@ export const PercentageTableComponent: React.FC<Props> = ({
   esgFactorInfo,
   urlParams,
 }) => {
-  const percentageList: number[] = [-0.4, -0.652, 0.3378, 1.0];
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
     naceRegion.map(
       (naceRegionDataElement, idy) =>
         1 -
-        (naceRegionDataElement[esgFactor] || 1) / (euData[idy][esgFactor] || 1),
+        (euData[idy][esgFactor] || 1) / (naceRegionDataElement[esgFactor] || 1),
     ),
   );
-  const countriesList: string[] = [
-    'Sweden',
-    'Norway',
-    'Germany',
-    'Iceland',
-    'Greece',
-  ];
 
   return (
     <TableContainer>
@@ -102,7 +94,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
                         <PositivePercentageNumber
                           positive={percentageValue > 0 ? true : false}
                         >
-                          {String(percentageValue * 100) + '%'}
+                          {String(Math.floor(percentageValue * 100)) + '%'}
                         </PositivePercentageNumber>
                         <NegativePercentageContainer
                           positive={percentageValue > 0 ? true : false}
@@ -116,7 +108,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
                         <NegativePercentageNumber
                           positive={percentageValue > 0 ? true : false}
                         >
-                          {String(percentageValue * 100) + '%'}
+                          {String(Math.floor(percentageValue * 100)) + '%'}
                         </NegativePercentageNumber>
                       </TableBox>
                     );
