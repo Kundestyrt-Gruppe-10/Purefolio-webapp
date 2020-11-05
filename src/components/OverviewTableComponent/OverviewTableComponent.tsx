@@ -73,14 +73,16 @@ export const OverviewTableComponent: React.FC<Props> = ({
             })}
           </TableRow>
           {naceRegionData && naceRegionData[0] && naceRegionList
-            ? naceRegionList.map((naceRegion, idx) => {
+            ? naceRegionData.map((naceRegion: NaceRegionData[], idx) => {
                 return (
                   <TableRow key={idx}>
                     <TableBox>
-                      {naceRegion.region.regionName + naceRegion.nace.naceCode}
+                      {naceRegion[0].region.regionName +
+                        ' - ' +
+                        naceRegion[0].nace.naceCode}
                     </TableBox>
-                    {naceRegionData[idx] ? (
-                      naceRegionData[idx].map((naceRegion, idx) => {
+                    {naceRegion ? (
+                      naceRegion.map((naceRegion, idx) => {
                         return (
                           <TableBox key={idx}>{naceRegion[esgFactor]}</TableBox>
                         );
