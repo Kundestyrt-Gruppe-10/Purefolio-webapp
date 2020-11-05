@@ -116,7 +116,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
 
 const OuterContainer = styled.div<{ active: boolean }>`
   margin: auto;
-  margin: 70px 0 30px 0;
+  margin: 85px 0 30px 0;
   width: 100%;
 `;
 const TableContainer = styled.div<{ active: boolean }>`
