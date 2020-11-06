@@ -72,7 +72,7 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
   return (
     <>
       <Container>
-        <Background active={true}>
+        <Background active={true} className="naceCardContainer">
           {naceRegionIdList.map((item, index) => (
             <NaceRegionCard
               addCard={addCard}
