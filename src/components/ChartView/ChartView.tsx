@@ -7,6 +7,7 @@ import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 import { PercentageTableComponent } from '../PercentageTableComponent/PercentageTableComponent';
 import { useLocation } from 'react-router-dom';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { ErrorComponent } from '../ErrorComponent/ErrorComponent';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
@@ -85,15 +86,25 @@ export const ChartView: React.FC<Props> = ({
         </OverviewTableContainer>
 
         <PercentageTableContainer index={tableIndex}>
-          <PercentageTableComponent
-            naceRegionData={naceRegionData}
-            esgFactor={urlParams.esgFactor}
-            euData={euData}
-            euDataForAllChosenNaces={euDataForAllChosenNaces}
-            naceRegionList={naceRegionList}
-            esgFactorInfo={esgFactorInfo}
-            urlParams={urlParams}
-          />
+          {euDataForAllChosenNaces[0].length == naceRegionData[0].length ? (
+            <PercentageTableComponent
+              naceRegionData={naceRegionData}
+              esgFactor={urlParams.esgFactor}
+              euData={euData}
+              euDataForAllChosenNaces={euDataForAllChosenNaces}
+              naceRegionList={naceRegionList}
+              esgFactorInfo={esgFactorInfo}
+              urlParams={urlParams}
+            />
+          ) : (
+            <ErrorComponent
+              error={
+                new Error(
+                  'Cannot compare euData because they have different length',
+                )
+              }
+            />
+          )}
         </PercentageTableContainer>
       </DataView>
 

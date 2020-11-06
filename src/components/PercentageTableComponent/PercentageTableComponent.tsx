@@ -48,6 +48,9 @@ export const PercentageTableComponent: React.FC<Props> = ({
   euDataForAllChosenNaces,
   urlParams,
 }) => {
+  /*   const euDataEqualLength = euDataForAllChosenNaces.map(
+    (el, idx) => (el[naceRegionData[idx].length] = null),
+  ); */
   const percentageList: number[] = [-0.4, -0.652, 0.3378, 1.0];
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
     naceRegion.map(
