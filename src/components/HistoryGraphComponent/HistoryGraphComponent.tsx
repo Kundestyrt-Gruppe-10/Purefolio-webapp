@@ -114,7 +114,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
                   return (
                     <Line
                       key={idx}
-                      type="monotone"
+                      connectNulls={true}
                       dataKey={key}
                       // TODO: Fix Colors.
                       stroke={handleColorType(idx)}
