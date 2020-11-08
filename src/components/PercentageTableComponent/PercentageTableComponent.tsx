@@ -49,25 +49,19 @@ export const PercentageTableComponent: React.FC<Props> = ({
   euDataForAllChosenNaces,
   urlParams,
 }) => {
-  /*   const euDataEqualLength = euDataForAllChosenNaces.map(
-    (el, idx) => (el[naceRegionData[idx].length] = null),
-  ); */
-  const percentageList: number[] = [-0.4, -0.652, 0.3378, 1.0];
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
-    naceRegion.map(
-      (naceRegionDataElement, idy) =>
-        1 -
-        (naceRegionDataElement[esgFactor] || 1) /
-          (euDataForAllChosenNaces[idx][idy][esgFactor] || 1),
-    ),
+    naceRegion.map((naceRegionDataElement, idy) => {
+      if (euDataForAllChosenNaces[idx][idy]) {
+        return (
+          1 -
+          (naceRegionDataElement[esgFactor] || 1) /
+            (euDataForAllChosenNaces[idx][idy][esgFactor] || 1)
+        );
+      } else {
+        return 1.337;
+      }
+    }),
   );
-  const countriesList: string[] = [
-    'Sweden',
-    'Norway',
-    'Germany',
-    'Iceland',
-    'Greece',
-  ];
 
   return (
     <OuterContainer>
@@ -285,7 +279,9 @@ const NegativePercentageContainer = styled.div<{
   percentageValue: number;
 }>`
   flex-basis: ${(props) =>
-    String(Math.abs(props.percentageValue) * 49.5) + '%'};
+    Math.abs(props.percentageValue) < 1.0
+      ? String(Math.abs(props.percentageValue) * 49.5) + '%'
+      : '49.5%'};
   height: 15px;
   background-color: var(--sec-orange-color);
   border-radius: 2px 0px 0px 2px;
@@ -298,7 +294,9 @@ const PositivePercentageContainer = styled.div<{
   percentageValue: number;
 }>`
   flex-basis: ${(props) =>
-    String(Math.abs(props.percentageValue) * 49.5) + '%'};
+    Math.abs(props.percentageValue) < 1.0
+      ? String(Math.abs(props.percentageValue) * 49.5) + '%'
+      : '49.5%'};
   height: 15px;
   background-color: var(--sec-orange-color);
   border-radius: 0px 2px 2px 0px;
