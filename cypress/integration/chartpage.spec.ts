@@ -20,7 +20,7 @@ describe('/Chartpage base layout test', () => {
 // FrontPage Url
 describe('/ChartPage URL ', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/chartpage');
+    cy.visit('http://localhost:3000/chartpage/1,1/emissionPerYear/2015/2018/1');
   });
   it('Redirects to default chartpage when incomplete url given', () => {
     cy.url().should('include', 'chartpage/1,1/emissionPerYear/2015/2018/1');
@@ -29,6 +29,24 @@ describe('/ChartPage URL ', () => {
   it('Gives 404 if naceregionString contains characters', () => {
     cy.visit('http://localhost:3000/chartpage/a,1/emissionPerYear/2015/2018/1');
     cy.url().should('include', '/404');
+  });
+  it('All url parameters are represented properly as text to the user', () => {
+    // Asses
+    cy.contains('2015');
+    cy.contains('2018');
+    cy.contains('emissionPerYear');
+  });
+});
+
+describe('ChartView tests ', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:3000/chartpage/1,1/emissionPerYear/2015/2018/1');
+  });
+  it('Can navigate ChartView tabs', () => {
+    cy.contains('History Graph');
+    cy.get('.chartViewContainer').contains('Bar Chart');
+    /*     cy.get('overviewtableTab').click();
+    cy.contains('Ove'); */
   });
 });
 

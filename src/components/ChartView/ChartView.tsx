@@ -46,7 +46,7 @@ export const ChartView: React.FC<Props> = ({
     );
   }
   return (
-    <ChartViewContainer active={false}>
+    <ChartViewContainer className={'chartViewContainer'} active={false}>
       <ContainerLine active={true} />
       <ChartViewTabs
         tableIndex={tableIndex}
@@ -123,6 +123,7 @@ export const ChartViewTabs: React.FC<TabProps> = ({
       <ChartTabsContainer active={true}>
         <HistoryTab
           //id='1'
+          className={'historyTab'}
           index={tableIndex}
           onClick={() => {
             setTableIndex(1);
@@ -133,6 +134,7 @@ export const ChartViewTabs: React.FC<TabProps> = ({
         </HistoryTab>
         <BarChartTab
           //id='2'
+          className={'barchartTab'}
           index={tableIndex}
           onClick={() => {
             setTableIndex(2);
@@ -143,6 +145,7 @@ export const ChartViewTabs: React.FC<TabProps> = ({
         </BarChartTab>
         <OverviewTableTab
           //id='3'
+          className={'overviewtableTab'}
           index={tableIndex}
           onClick={() => {
             setTableIndex(3);
@@ -152,6 +155,7 @@ export const ChartViewTabs: React.FC<TabProps> = ({
           Overview Table
         </OverviewTableTab>
         <PercentageTableTab
+          className={'percentagetableTab'}
           //id='4'
           index={tableIndex}
           onClick={() => {
