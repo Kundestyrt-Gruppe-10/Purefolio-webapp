@@ -97,31 +97,6 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
             <i className="material-icons">add</i>
           </AddCardButton>
         </Background>
-        <PresetContainer>
-          <h3>Presets:</h3>
-          <Link
-            to="/chartpage/25,1;25,5;25,11/emissionPerYear/2015/2017/1"
-            style={{
-              textDecoration: 'none',
-              backgroundColor: 'var(--third-bluegrey-color)',
-              width: '10%',
-              margin: '3px',
-            }}
-          >
-            Norway: Emission
-          </Link>
-          <Link
-            to="/chartpage/2,1;1,1;13,1;7,1/fatalAccidentsAtWork/2015/2018/1"
-            style={{
-              textDecoration: 'none',
-              backgroundColor: 'var(--third-bluegrey-color)',
-              width: '10%',
-              margin: '3px',
-            }}
-          >
-            EU: Agriculture
-          </Link>
-        </PresetContainer>
       </Container>
     </>
   );
@@ -130,15 +105,6 @@ export const NaceRegionCardContainer: React.FC<NaceRegionContainerInterface> = (
 const Container = styled.div`
   display: grid;
   grid-template-columns: auto 50px;
-`;
-const PresetContainer = styled.div`
-  display: flex;
-  grid-column-start: 1;
-  flex-direction: column;
-  justify-content: center;
-  color: var(--sec-purple-color);
-  font-size: var(--font-size-tiny);
-  padding-left: 30px;
 `;
 
 const Background = styled.div<{ active: boolean }>`

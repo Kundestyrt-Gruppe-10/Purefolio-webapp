@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import info_logo from '../../img/info_img.svg';
 
 import { handleColorType } from '../../pages/ChartPage/helper-functions';
 import {
@@ -150,16 +151,17 @@ export const HistoryGraphComponent: React.FC<Props> = ({
               </DescriptionBox>
             </PeriodContainer>
           </TableInfoContainer>
-          <LargeDescriptionBox active={false}>
-            {esgFactorInfo.description}
-            <SmallDescriptionBox active={false}>
-              <LinkContainer href={esgFactorInfo.href} active={false}>
-                {esgFactorInfo.href}
-              </LinkContainer>
-            </SmallDescriptionBox>
-          </LargeDescriptionBox>
         </TextBox>
       </TableContainer>
+      <LargeDescriptionBox active={false}>
+        <Logo src={info_logo} alt="Info" />
+        {esgFactorInfo.description}
+      </LargeDescriptionBox>
+      <SmallDescriptionBox active={false}>
+        <LinkContainer href={esgFactorInfo.href} active={false}>
+          {esgFactorInfo.href}
+        </LinkContainer>
+      </SmallDescriptionBox>
     </OuterContainer>
   );
 };
@@ -257,19 +259,30 @@ const PeriodContainer = styled.div<{ active: boolean }>`
 `;
 
 const DescriptionBox = styled.div<{ active: boolean }>`
-  var(--font-size-tiny)
+  font-size: var(--font-size-tiny);
 `;
 
 const LargeDescriptionBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
   font-size: var(--font-size-tiny);
   width: 40%;
   padding: 15px;
+  justify-content: flex-start;
+  margin-left: auto;
+  margin-right: 5%;
 `;
 
 const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  width: 36%;
+  margin-left: auto;
+  margin-right: 5%;
   font-size: var(--font-size-xtiny);
   color: var(--main-black-color);
-  margin-top: 15px;
 `;
 
 const LinkContainer = styled.a<{ active: boolean }>``;
+
+const Logo = styled.img``;

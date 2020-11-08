@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import info_logo from '../../img/info_img.svg';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
@@ -104,13 +105,14 @@ export const OverviewTableComponent: React.FC<Props> = ({
           </UnitOfMeasureBox>
         </InfoTableTitleContainer>
         <LargeDescriptionBox active={false}>
+          <Logo src={info_logo} alt="Info" />
           {esgFactorInfo.description}
-          <SmallDescriptionBox active={false}>
-            <LinkContainer href={esgFactorInfo.href} active={false}>
-              {esgFactorInfo.href}
-            </LinkContainer>
-          </SmallDescriptionBox>
         </LargeDescriptionBox>
+        <SmallDescriptionBox active={false}>
+          <LinkContainer href={esgFactorInfo.href} active={false}>
+            {esgFactorInfo.href}
+          </LinkContainer>
+        </SmallDescriptionBox>
       </TextBox>
     </OuterContainer>
   );
@@ -220,6 +222,7 @@ const TableBox = styled.div`
 const TextBox = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
+  width: 90%;
   justify-content: space-between;
   align-items: start;
   margin-left: 5%;
@@ -230,7 +233,6 @@ const TextBox = styled.div<{ active: boolean }>`
 const InfoTableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  flex-basis: 35%;
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 2%;
@@ -251,15 +253,24 @@ const UnitOfMeasureBox = styled.div<{ active: boolean }>`
 `;
 
 const LargeDescriptionBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
   font-size: var(--font-size-tiny);
   width: 40%;
-  margin-top: 2%;
+  padding: 15px;
+  justify-content: flex-start;
+  margin-left: auto;
 `;
 
 const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  width: 36%;
+  margin-left: auto;
   font-size: var(--font-size-xtiny);
   color: var(--main-black-color);
-  margin-top: 15px;
 `;
 
 const LinkContainer = styled.a<{ active: boolean }>``;
+
+const Logo = styled.img``;
