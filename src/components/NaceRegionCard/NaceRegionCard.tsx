@@ -96,6 +96,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
         <CardBar colorId={props.id} />
         <CardTop active={true}>
           <Select
+            data-test="RegionSelect"
             className="country-select"
             classNamePrefix="react-select"
             onMenuOpen={filterRegionOptions}
@@ -107,6 +108,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           />
           <Button
             danger={false}
+            className="add-nacecard-button"
             onClick={() => {
               props.addCard(regionId, naceId);
             }}
@@ -128,6 +130,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           </Button>
           <DangerButton
             danger={true}
+            className="deleteNaceCard"
             onClick={() => {
               props.deleteCard(props.id);
             }}
@@ -150,6 +153,7 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
           <Select
             width="100%"
             height="5px"
+            className="NaceSelect"
             classNamePrefix="react-select"
             active={true}
             onMenuOpen={filterNaceOptions}

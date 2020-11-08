@@ -8,9 +8,10 @@
     "plugin:prettier/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:import/errors",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:cypress/recommended"
   ],
-  "plugins": ["deprecation"],
+  "plugins": ["deprecation","cypress"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"]
@@ -18,7 +19,7 @@
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
-    "project": ["./tsconfig.json", "./e2e/tsconfig.json"]
+    "project": ["./tsconfig.json", "./cypress/tsconfig.json"]
   },
   "settings": {
     "react": {
