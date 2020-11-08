@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { EuroStatTable, NaceRegion, NaceRegionData } from '../../types';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import info_logo from '../../img/info_img.svg';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
@@ -69,77 +70,102 @@ export const PercentageTableComponent: React.FC<Props> = ({
   ];
 
   return (
-    <TableContainer>
-      <TableTitleContainer>
-        <UpperBox>
-          {/* TODO: Use real data            */}
-          <TitleBox>{esgFactor}</TitleBox>
-          <PeriodBox>
-            Period: {urlParams.yearStart}-{urlParams.yearEnd}
-          </PeriodBox>
-        </UpperBox>
-        <LowerBox>
-          {/* TODO: Iterate over a year object instead?? */}
-          <YearBox>Year</YearBox>
-          {naceRegionData && naceRegionData[0]
-            ? naceRegionData[0].map((year, idx) => {
-                return <YearBox key={idx}>{year.year}</YearBox>;
-              })
-            : null}
-        </LowerBox>
-      </TableTitleContainer>
-      <TableDataContainer>
-        <TableRow>
-          <EuBox>EU avarage over all naces</EuBox>
-          {euData.map((euDataYear, idx) => {
-            return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
+    <OuterContainer>
+      <TableContainer>
+        <TableTitleContainer>
+          <UpperBox>
+            {/* TODO: Use real data            */}
+            <TitleBox>{esgFactor}</TitleBox>
+            <PeriodBox>
+              Period: {urlParams.yearStart}-{urlParams.yearEnd}
+            </PeriodBox>
+          </UpperBox>
+          <LowerBox>
+            {/* TODO: Iterate over a year object instead?? */}
+            <YearBox>Year</YearBox>
+            {naceRegionData && naceRegionData[0]
+              ? naceRegionData[0].map((year, idx) => {
+                  return <YearBox key={idx}>{year.year}</YearBox>;
+                })
+              : null}
+          </LowerBox>
+        </TableTitleContainer>
+        <TableDataContainer>
+          <TableRow>
+            <EuBox>EU avarage over all naces</EuBox>
+            {euData.map((euDataYear, idx) => {
+              return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
+            })}
+          </TableRow>
+          {naceRegionData.map((naceRegion, idx) => {
+            return (
+              <TableRow key={idx}>
+                <TableBox>
+                  {naceRegion[0].region.regionName +
+                    ' - ' +
+                    naceRegion[0].nace.naceCode}
+                </TableBox>
+                {percentageListList[idx]
+                  ? percentageListList[idx].map(
+                      (percentageValue, i: number) => {
+                        return (
+                          <TableBox
+                            key={percentageValue + i}
+                            id={String(percentageValue)}
+                          >
+                            <PositivePercentageNumber
+                              positive={percentageValue > 0 ? true : false}
+                            >
+                              {String(percentageValue * 100) + '%'}
+                            </PositivePercentageNumber>
+                            <NegativePercentageContainer
+                              positive={percentageValue > 0 ? true : false}
+                              percentageValue={percentageValue}
+                            />
+                            <DelimiterLine />
+                            <PositivePercentageContainer
+                              positive={percentageValue > 0 ? true : false}
+                              percentageValue={percentageValue}
+                            />
+                            <NegativePercentageNumber
+                              positive={percentageValue > 0 ? true : false}
+                            >
+                              {String(percentageValue * 100) + '%'}
+                            </NegativePercentageNumber>
+                          </TableBox>
+                        );
+                      },
+                    )
+                  : null}
+              </TableRow>
+            );
           })}
-        </TableRow>
-        {naceRegionData.map((naceRegion, idx) => {
-          return (
-            <TableRow key={idx}>
-              <TableBox>
-                {naceRegion[0].region.regionName +
-                  ' - ' +
-                  naceRegion[0].nace.naceCode}
-              </TableBox>
-              {percentageListList[idx]
-                ? percentageListList[idx].map((percentageValue, i: number) => {
-                    return (
-                      <TableBox
-                        key={percentageValue + i}
-                        id={String(percentageValue)}
-                      >
-                        <PositivePercentageNumber
-                          positive={percentageValue > 0 ? true : false}
-                        >
-                          {String(percentageValue * 100) + '%'}
-                        </PositivePercentageNumber>
-                        <NegativePercentageContainer
-                          positive={percentageValue > 0 ? true : false}
-                          percentageValue={percentageValue}
-                        />
-                        <DelimiterLine />
-                        <PositivePercentageContainer
-                          positive={percentageValue > 0 ? true : false}
-                          percentageValue={percentageValue}
-                        />
-                        <NegativePercentageNumber
-                          positive={percentageValue > 0 ? true : false}
-                        >
-                          {String(percentageValue * 100) + '%'}
-                        </NegativePercentageNumber>
-                      </TableBox>
-                    );
-                  })
-                : null}
-            </TableRow>
-          );
-        })}
-      </TableDataContainer>
-    </TableContainer>
+        </TableDataContainer>
+      </TableContainer>
+      <TextBox active={false}>
+        <InfoTableTitleContainer active={false}>
+          <InfoTitleBox active={false}>Percentage Table</InfoTitleBox>
+          <UnitOfMeasureBox active={false}>
+            {esgFactorInfo.unit}
+          </UnitOfMeasureBox>
+        </InfoTableTitleContainer>
+        <LargeDescriptionBox active={false}>
+          <Logo src={info_logo} alt="Info" />
+          {esgFactorInfo.description}
+        </LargeDescriptionBox>
+        <SmallDescriptionBox active={false}>
+          <LinkContainer href={esgFactorInfo.href} active={false}>
+            {esgFactorInfo.href}
+          </LinkContainer>
+        </SmallDescriptionBox>
+      </TextBox>
+    </OuterContainer>
   );
 };
+const OuterContainer = styled.div`
+  width: 100%;
+`;
+
 const TableContainer = styled.div`
   background-color: var(--third-bluegrey-color);
   width: 100%;
@@ -342,3 +368,60 @@ const NegativePercentageNumber = styled.div<{ positive: boolean }>`
         </TableRow>
 
         */
+
+//Metadata area:
+
+const TextBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+  align-items: start;
+  margin-left: 5%;
+  margin-right: 0;
+  flex-wrap: wrap;
+`;
+
+const InfoTableTitleContainer = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+  margin-right: 15%;
+  margin-top: 2%;
+`;
+const InfoTitleBox = styled.div<{ active: boolean }>`
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 2px;
+`;
+
+const UnitOfMeasureBox = styled.div<{ active: boolean }>`
+  font-size: 14px;
+  font-weight: 100;
+  text-indent: 4%;
+`;
+
+const LargeDescriptionBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  font-size: var(--font-size-tiny);
+  width: 40%;
+  padding: 15px;
+  margin-left: auto;
+`;
+
+const SmallDescriptionBox = styled.div<{ active: boolean }>`
+  display: flex;
+  flex-direction: row;
+  width: 36%;
+  margin-left: auto;
+  font-size: var(--font-size-xtiny);
+  color: var(--main-black-color);
+`;
+
+const LinkContainer = styled.a<{ active: boolean }>``;
+
+const Logo = styled.img``;
