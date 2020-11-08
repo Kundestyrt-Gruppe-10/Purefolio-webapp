@@ -24,7 +24,10 @@ export const HeaderComponent: React.FC = () => {
             >
               <NavButton active={false}>Norway Emissions</NavButton>
             </Link>
-            <Link to="/chartpage/2,1;1,1;13,1;7,1/fatalAccidentsAtWork/2015/2018/1">
+            <Link
+              to="/chartpage/2,1;1,1;13,1;7,1/fatalAccidentsAtWork/2015/2018/1"
+              style={{ textDecoration: 'none' }}
+            >
               <NavButton active={false}>EU Agriculture</NavButton>
             </Link>
           </Nav>
