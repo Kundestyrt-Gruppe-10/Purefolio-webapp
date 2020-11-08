@@ -49,12 +49,17 @@ export const PercentageTableComponent: React.FC<Props> = ({
   urlParams,
 }) => {
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
-    naceRegion.map(
-      (naceRegionDataElement, idy) =>
-        1 -
-        (euDataForAllChosenNaces[idx][idy][esgFactor] || 1) /
-          (naceRegionDataElement[esgFactor] || 1),
-    ),
+    naceRegion.map((naceRegionDataElement, idy) => {
+      if (euDataForAllChosenNaces[idx][idy]) {
+        return (
+          1 -
+          (naceRegionDataElement[esgFactor] || 1) /
+            (euDataForAllChosenNaces[idx][idy][esgFactor] || 1)
+        );
+      } else {
+        return 1.337;
+      }
+    }),
   );
 
   return (
