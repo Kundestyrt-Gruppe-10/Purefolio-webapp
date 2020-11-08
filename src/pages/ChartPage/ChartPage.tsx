@@ -93,6 +93,9 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [regionList, setRegionList] = useState<Region[]>();
   const [naceList, setNaceList] = useState<Nace[]>();
   const [euData, setEuData] = useState<NaceRegionData[]>();
+  const [euDataForAllChosenNaces, setEuDataForAllChosenNaces] = useState<
+    NaceRegionData[][]
+  >();
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
@@ -122,12 +125,26 @@ export const ChartPage: React.FC<Props> = (props) => {
   // Fetch data from API
   useEffect(() => {
     // Fetch EU data. Needed for OverviewTable and PercentageTable
+    // EU Average over All naces
     ApiGet<NaceRegionData[]>(
       `/naceregiondata/12/105?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
     )
       .then((res) => setEuData(res))
       .catch((err) => setError(err));
-  }, [urlParams.yearStart, urlParams.yearEnd]);
+
+    // EU data over all chosen naces
+    Promise.all(
+      regionNaceIdList.map((regionNace) =>
+        ApiGet<NaceRegionData[]>(
+          `/naceregiondata/12/${regionNace[1]}?fromYear=${props.yearStart}&toYear=${props.yearEnd}`,
+        ).then((res): NaceRegionData[] => {
+          return res;
+        }),
+      ),
+    )
+      .then((res) => setEuDataForAllChosenNaces(res))
+      .catch((err) => setError(err));
+  }, [urlParams.yearStart, urlParams.yearEnd, urlParams.naceRegionIdString]);
   // TODO: Split up in multiple useEffect chunks?
   useEffect(() => {
     async function fetchData() {
@@ -248,10 +265,14 @@ export const ChartPage: React.FC<Props> = (props) => {
                 {naceRegionDataListList &&
                 naceRegionList &&
                 esgFactorInfo &&
+                euDataForAllChosenNaces &&
+                euDataForAllChosenNaces.length ==
+                  naceRegionDataListList.length &&
                 euData ? (
                   <ChartView
                     naceRegionData={naceRegionDataListList}
                     euData={euData}
+                    euDataForAllChosenNaces={euDataForAllChosenNaces}
                     naceRegionList={naceRegionList}
                     esgFactorInfo={esgFactorInfo}
                     urlParams={urlParams}

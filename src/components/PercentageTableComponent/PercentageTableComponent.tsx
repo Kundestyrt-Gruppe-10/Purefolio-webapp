@@ -8,6 +8,7 @@ interface Props {
   naceRegionData: NaceRegionData[][];
   naceRegionList: NaceRegion[];
   esgFactorInfo: EuroStatTable;
+  euDataForAllChosenNaces: NaceRegionData[][];
   euData: NaceRegionData[];
   urlParams: UrlParamsInterface;
   esgFactor:
@@ -44,13 +45,15 @@ export const PercentageTableComponent: React.FC<Props> = ({
   euData,
   esgFactor,
   esgFactorInfo,
+  euDataForAllChosenNaces,
   urlParams,
 }) => {
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
     naceRegion.map(
       (naceRegionDataElement, idy) =>
         1 -
-        (euData[idy][esgFactor] || 1) / (naceRegionDataElement[esgFactor] || 1),
+        (euDataForAllChosenNaces[idx][idy][esgFactor] || 1) /
+          (naceRegionDataElement[esgFactor] || 1),
     ),
   );
 
@@ -58,8 +61,11 @@ export const PercentageTableComponent: React.FC<Props> = ({
     <TableContainer>
       <TableTitleContainer>
         <UpperBox>
-          <TitleBox>Air Emission accounts</TitleBox>
-          <PeriodBox>Period: 2014-2018</PeriodBox>
+          {/* TODO: Use real data            */}
+          <TitleBox>{esgFactor}</TitleBox>
+          <PeriodBox>
+            Period: {urlParams.yearStart}-{urlParams.yearEnd}
+          </PeriodBox>
         </UpperBox>
         <LowerBox>
           {/* TODO: Iterate over a year object instead?? */}
@@ -73,16 +79,18 @@ export const PercentageTableComponent: React.FC<Props> = ({
       </TableTitleContainer>
       <TableDataContainer>
         <TableRow>
-          <EuBox>EU avarage</EuBox>
+          <EuBox>EU avarage over all naces</EuBox>
           {euData.map((euDataYear, idx) => {
             return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
           })}
         </TableRow>
-        {naceRegionList.map((naceRegion, idx) => {
+        {naceRegionData.map((naceRegion, idx) => {
           return (
             <TableRow key={idx}>
               <TableBox>
-                {naceRegion.region.regionName + naceRegion.nace.naceCode}
+                {naceRegion[0].region.regionName +
+                  ' - ' +
+                  naceRegion[0].nace.naceCode}
               </TableBox>
               {percentageListList[idx]
                 ? percentageListList[idx].map((percentageValue, i: number) => {

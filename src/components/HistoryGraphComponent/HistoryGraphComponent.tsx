@@ -73,7 +73,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
           // or create new object if it does not exist
           ((naceRegionItems.find((el) => el.year === element.year) || {
             year: element.year,
-          })[element.region.regionName + element.nace.naceCode] =
+          })[element.region.regionName + ' - ' + element.nace.naceCode] =
             element[esgFactor]),
       );
       // Runs when element not yet in naceRegionItems
@@ -81,7 +81,7 @@ export const HistoryGraphComponent: React.FC<Props> = ({
       if (!found) {
         naceRegionItems.push({
           year: element.year,
-          [element.region.regionName + element.nace.naceCode]: element[
+          [element.region.regionName + ' - ' + element.nace.naceCode]: element[
             esgFactor
           ],
         });
@@ -108,21 +108,23 @@ export const HistoryGraphComponent: React.FC<Props> = ({
                 tick={{ fontSize: 14 }}
               />
               <Tooltip />
-              {naceRegionList.map((item, idx) => {
-                return (
-                  <Line
-                    key={idx}
-                    type="monotone"
-                    dataKey={item.region.regionName + item.nace.naceCode}
-                    // TODO: Fix Colors.
-                    stroke={handleColorType(idx)}
-                    strokeWidth={2}
-                    activeDot={{ r: 8 }}
-                    dot={{ r: 5, fill: handleColorType(idx) }}
-                    //connectNulls={true}
-                  />
-                );
-              })}
+              {Object.keys(naceRegionItems[0])
+                .filter((k) => k != 'year')
+                .map((key, idx) => {
+                  return (
+                    <Line
+                      key={idx}
+                      connectNulls={true}
+                      dataKey={key}
+                      // TODO: Fix Colors.
+                      stroke={handleColorType(idx)}
+                      strokeWidth={2}
+                      activeDot={{ r: 8 }}
+                      dot={{ r: 5, fill: handleColorType(idx) }}
+                      //connectNulls={true}
+                    />
+                  );
+                })}
             </LineChart>
           </ResponsiveContainer>
         </GraphContainer>

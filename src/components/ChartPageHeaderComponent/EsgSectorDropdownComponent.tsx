@@ -117,7 +117,7 @@ const Input = styled.input<{ active: boolean }>`
   padding: 14px;
   border-radius: 0;
   width: 330px;
-  text-align: center;
+  text-align: left;
 `;
 
 const DropdownContainer = styled.div<{ active: boolean }>`

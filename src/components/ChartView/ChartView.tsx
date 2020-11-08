@@ -7,11 +7,13 @@ import { BarchartComponent } from '../BarchartComponent/BarchartComponent';
 import { PercentageTableComponent } from '../PercentageTableComponent/PercentageTableComponent';
 import { useLocation } from 'react-router-dom';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { ErrorComponent } from '../ErrorComponent/ErrorComponent';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
   euData: NaceRegionData[];
   naceRegionList: NaceRegion[];
+  euDataForAllChosenNaces: NaceRegionData[][];
   esgFactorInfo: EuroStatTable;
   urlParams: UrlParamsInterface;
 }
@@ -26,6 +28,7 @@ export const ChartView: React.FC<Props> = ({
   naceRegionList,
   esgFactorInfo,
   euData,
+  euDataForAllChosenNaces,
   urlParams,
 }) => {
   console.log(naceRegionData);
@@ -83,14 +86,25 @@ export const ChartView: React.FC<Props> = ({
         </OverviewTableContainer>
 
         <PercentageTableContainer index={tableIndex}>
-          <PercentageTableComponent
-            naceRegionData={naceRegionData}
-            esgFactor={urlParams.esgFactor}
-            euData={euData}
-            naceRegionList={naceRegionList}
-            esgFactorInfo={esgFactorInfo}
-            urlParams={urlParams}
-          />
+          {euDataForAllChosenNaces[0].length == naceRegionData[0].length ? (
+            <PercentageTableComponent
+              naceRegionData={naceRegionData}
+              esgFactor={urlParams.esgFactor}
+              euData={euData}
+              euDataForAllChosenNaces={euDataForAllChosenNaces}
+              naceRegionList={naceRegionList}
+              esgFactorInfo={esgFactorInfo}
+              urlParams={urlParams}
+            />
+          ) : (
+            <ErrorComponent
+              error={
+                new Error(
+                  'Cannot compare euData because they have different length',
+                )
+              }
+            />
+          )}
         </PercentageTableContainer>
       </DataView>
 
@@ -234,22 +248,25 @@ const PercentageTableTab = styled(ChartTabs)`
 const HistoryGraphContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 1 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
+  min-height: 60vh;
 `;
 
 const BarChartContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 2 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
+  min-height: 60vh;
 `;
 
 const OverviewTableContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 3 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
+  min-height: 60vh;
 `;
 
 const PercentageTableContainer = styled.div<{ index: number }>`
@@ -257,4 +274,5 @@ const PercentageTableContainer = styled.div<{ index: number }>`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  min-height: 60vh;
 `;
