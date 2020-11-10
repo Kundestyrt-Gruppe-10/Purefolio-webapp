@@ -110,7 +110,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
                             <PositivePercentageNumber
                               positive={percentageValue > 0 ? true : false}
                             >
-                              {String(percentageValue * 100) + '%'}
+                              {String(Math.floor(percentageValue * 100)) + '%'}
                             </PositivePercentageNumber>
                             <NegativePercentageContainer
                               positive={percentageValue > 0 ? true : false}
@@ -124,7 +124,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
                             <NegativePercentageNumber
                               positive={percentageValue > 0 ? true : false}
                             >
-                              {String(percentageValue * 100) + '%'}
+                              {String(Math.ceil(percentageValue * 100)) + '%'}
                             </NegativePercentageNumber>
                           </TableBox>
                         );
