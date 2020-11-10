@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const BaseLayoutContainer = styled.div`
+  /*
+  #TODO 'Is this needed? Does nothing but making redundant space'
   display: grid;
   grid-template-rows:
     [header-start] 150px [header-chartpage-stop content-chartpage-start] 250px [header-stop content-start] minmax(
@@ -9,6 +11,7 @@ export const BaseLayoutContainer = styled.div`
     )
     [content-stop ];
   grid-template-columns: [left-pad-start] 20px [left-pad-stop main-start] auto [main-stop right-pad-start] 20px[right-pad-stop];
+  */
 `;
 
 export const HeaderContainer = styled.div`

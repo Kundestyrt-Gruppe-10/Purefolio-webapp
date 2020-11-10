@@ -157,7 +157,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
   );
 };
 const OuterContainer = styled.div`
-  width: 100%;
+  width: 90%;
 `;
 
 const TableContainer = styled.div`

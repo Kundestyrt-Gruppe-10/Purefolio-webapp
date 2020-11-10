@@ -262,7 +262,6 @@ const TableInfoContainer = styled.div<{ active: boolean }>`
   flex-direction: column;
   flex-basis: 35%;
   font-weight: 450;
-  }
 `;
 
 const ESGFactorContainer = styled.div<{ active: boolean }>`
@@ -283,7 +282,6 @@ const PeriodContainer = styled.div<{ active: boolean }>`
 
 const DescriptorBox = styled.div<{ active: boolean }>`
   font-size: 14px;
-  }
 `;
 
 const DescriptionBox = styled.div<{ active: boolean }>`
