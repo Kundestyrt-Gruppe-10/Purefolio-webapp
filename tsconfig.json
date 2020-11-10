@@ -9,5 +9,5 @@
     "moduleResolution": "node",
     "esModuleInterop": true
   },
-  "include": ["src", "*.js", "src/img/img.d.ts"]
+  "include": ["src","__mocks__", "*.js", "src/img/img.d.ts"]
 }

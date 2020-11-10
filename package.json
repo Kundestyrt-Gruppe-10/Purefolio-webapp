@@ -113,7 +113,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix src"
+      "eslint --fix"
     ],
     "*.css": [
       "stylelint --fix",
