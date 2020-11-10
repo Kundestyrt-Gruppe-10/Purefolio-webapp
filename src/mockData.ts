@@ -1131,8 +1131,6 @@ export const urlParams_example: UrlParamsInterface[] = [
     chosenTab: '1',
     yearStart: '2015',
     yearEnd: '2018',
-    /* eslint-disable */ 
-    setUrlParams: (): void => {}, //Empty array function
-    /* eslint-enable */
+    setUrlParams: jest.fn(),
   },
 ];
