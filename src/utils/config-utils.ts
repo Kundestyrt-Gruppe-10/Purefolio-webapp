@@ -50,7 +50,6 @@ export const getEnvironment = (origin: string): Environment => {
 export const getConfig = (
   origin: string = window.origin,
 ): IAppConfiguration => {
-  console.log(REACT_APP_USE_PROD_API);
   const environment = getEnvironment(origin);
   if (REACT_APP_USE_PROD_API) {
     return envToConfigMap[Environment.PROD];

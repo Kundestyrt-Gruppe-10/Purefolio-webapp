@@ -1,14 +1,12 @@
-/*import {
+import {
   isValidNaceRegionIdString,
   naceRegionIdStringToList,
-} from '../pages/ChartPage/ChartPage';*/
-
+} from '../pages/ChartPage/helper-functions';
 it('SubjectToBeTested renders correctly', () => {
   expect(true).toBeTruthy();
 });
 
 //TODO: Fix tests that break on svg file
-/*
 test('renders a book data', () => {
   // Render components, perform requests, API communication is covered.
 });
@@ -47,4 +45,3 @@ describe('Function: naceRegionIdStringToListOrThrow404', () => {
     }).toThrow('Illegal argument');
   });
 });
-*/
