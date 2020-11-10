@@ -52,11 +52,17 @@ export const PercentageTableComponent: React.FC<Props> = ({
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
     naceRegion.map((naceRegionDataElement, idy) => {
       if (euDataForAllChosenNaces[idx][idy]) {
-        return (
-          1 -
-          (euDataForAllChosenNaces[idx][idy][esgFactor] || 1) /
-            (naceRegionDataElement[esgFactor] || 1)
-        );
+        if (
+          naceRegionDataElement[esgFactor] &&
+          euDataForAllChosenNaces[idx][idy][esgFactor]
+        ) {
+          return (
+            1 -
+            (euDataForAllChosenNaces[idx][idy][esgFactor] || 1) /
+              (naceRegionDataElement[esgFactor] || 1)
+          );
+        }
+        return 0;
       } else {
         return 1.337;
       }
@@ -110,7 +116,10 @@ export const PercentageTableComponent: React.FC<Props> = ({
                             <PositivePercentageNumber
                               positive={percentageValue > 0 ? true : false}
                             >
-                              {String(Math.floor(percentageValue * 100)) + '%'}
+                              {percentageValue === 0
+                                ? 'No Data'
+                                : String(Math.floor(percentageValue * 100)) +
+                                  '%'}
                             </PositivePercentageNumber>
                             <NegativePercentageContainer
                               positive={percentageValue > 0 ? true : false}
@@ -124,7 +133,10 @@ export const PercentageTableComponent: React.FC<Props> = ({
                             <NegativePercentageNumber
                               positive={percentageValue > 0 ? true : false}
                             >
-                              {String(Math.ceil(percentageValue * 100)) + '%'}
+                              {percentageValue === 0
+                                ? 'No Data'
+                                : String(Math.ceil(percentageValue * 100)) +
+                                  '%'}
                             </NegativePercentageNumber>
                           </TableBox>
                         );
