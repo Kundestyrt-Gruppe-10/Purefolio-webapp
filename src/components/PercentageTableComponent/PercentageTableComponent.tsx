@@ -169,6 +169,8 @@ export const PercentageTableComponent: React.FC<Props> = ({
   );
 };
 const OuterContainer = styled.div`
+  margin: auto;
+  margin: 45px 0 30px 0;
   width: 90%;
 `;
 
@@ -176,7 +178,6 @@ const TableContainer = styled.div`
   background-color: var(--third-bluegrey-color);
   width: 100%;
   margin: auto;
-  margin-top: 60px;
   position: relative;
   border-radius: 5px;
   padding-top: 20px;
@@ -189,7 +190,7 @@ const TableTitleContainer = styled.div`
   width: 95%;
   height: 96px;
   left: 2.5%;
-  top: -60px;
+  top: -48px;
   position: absolute;
   border-radius: 5px;
   color: #f7f8f6;
@@ -235,7 +236,7 @@ const YearBox = styled.div`
 
 const TableDataContainer = styled.div`
   position: relative;
-  padding: 20px;
+  padding: 32px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;

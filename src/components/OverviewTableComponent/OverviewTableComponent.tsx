@@ -120,7 +120,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
 
 const OuterContainer = styled.div<{ active: boolean }>`
   margin: auto;
-  margin: 85px 0 30px 0;
+  margin: 45px 0 30px 0;
   width: 100%;
 `;
 const TableContainer = styled.div<{ active: boolean }>`
@@ -139,7 +139,7 @@ const TableTitleContainer = styled.div<{ active: boolean }>`
   width: 90%;
   height: 96px;
   left: 5%;
-  top: -60px;
+  top: -48px;
   position: absolute;
   border-radius: 5px;
   color: #f7f8f6;
@@ -185,7 +185,7 @@ const YearBox = styled.div`
 
 const TableDataContainer = styled.div<{ active: boolean }>`
   position: relative;
-  padding: 20px;
+  padding: 32px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;

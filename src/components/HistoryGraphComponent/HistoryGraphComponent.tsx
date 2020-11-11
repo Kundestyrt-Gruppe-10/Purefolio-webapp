@@ -181,7 +181,7 @@ const DataFormater = (number: number) => {
 const OuterContainer = styled.div<{ active: boolean }>`
   width: 100%;
   margin: auto;
-  padding-top: 60px;
+  padding-top: 45px;
   padding-bottom: 10px;
 `;
 
@@ -201,7 +201,7 @@ const GraphContainer = styled.div<{ active: boolean }>`
   border-radius: 5px;
   padding-top: 20px;
   z-index: 1;
-  transform: translateY(-35px);
+  transform: translateY(-48px);
 `;
 
 const TextBox = styled.div<{ active: boolean }>`
