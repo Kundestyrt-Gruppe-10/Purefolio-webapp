@@ -56,7 +56,6 @@ export const SearchResultsPage: React.FC = () => {
       const fuse = new Fuse(formattedSearchList, options);
       const searchResult = fuse.search(searchQuery);
       const finalResults = searchResult.map((element) => element.item);
-      console.log(finalResults);
       setResults(finalResults);
       setLoading(false);
     }

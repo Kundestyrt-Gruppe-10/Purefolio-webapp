@@ -27,8 +27,6 @@ describe('ChartView Tests', () => {
   });
 
   it('Tab navigating works', () => {
-    screen.debug();
-    const handleClick = jest.fn();
     void userEvent.click(screen.getByText('Bar Chart'));
   });
 });

@@ -31,7 +31,6 @@ export const ChartView: React.FC<Props> = ({
   euDataForAllChosenNaces,
   urlParams,
 }) => {
-  console.log(naceRegionData);
   const chosenTabN = Number(urlParams.chosenTab);
   const [tableIndex, setTableIndex] = useState(chosenTabN);
   // TODO: Check if chosenTab is a number and within range, or return error
