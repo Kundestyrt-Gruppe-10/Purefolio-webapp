@@ -186,10 +186,10 @@ const DataView = styled.div<{ active: boolean }>`
 
 const ContainerLine = styled.hr<{ active: boolean }>`
   background-color: var(--third-bluegrey-color);
-  width: 100%;
+  width: 96%;
   height: 2px;
   border: none;
-  margin: 20px 20px 0px 20px;
+  margin: 20px 20px 0px 2%;
   position: absolute;
   z-index: 0;
 `;
