@@ -49,6 +49,8 @@ export const PercentageTableComponent: React.FC<Props> = ({
   euDataForAllChosenNaces,
   urlParams,
 }) => {
+  const [hover, setHover] = useState<boolean>(false);
+  const [hoverId, setHoverId] = useState<number>(0);
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
     naceRegion.map((naceRegionDataElement, idy) => {
       if (euDataForAllChosenNaces[idx][idy]) {
@@ -110,9 +112,22 @@ export const PercentageTableComponent: React.FC<Props> = ({
                       (percentageValue, i: number) => {
                         return (
                           <TableBox
-                            key={percentageValue + i}
+                            key={percentageValue + i + idx}
                             id={String(percentageValue)}
+                            onMouseEnter={() => {
+                              setHoverId(percentageValue + i + idx),
+                                setHover(true);
+                            }}
+                            onMouseLeave={() => setHover(false)}
                           >
+                            <HoverContainer
+                              key2={percentageValue + i + idx}
+                              hoverId={hoverId}
+                              hover={hover}
+                            >
+                              Deviation from EU average for given industry, in
+                              percent(%).
+                            </HoverContainer>
                             <PositivePercentageNumber
                               positive={percentageValue > 0 ? true : false}
                             >
@@ -331,6 +346,23 @@ const NegativePercentageNumber = styled.div<{ positive: boolean }>`
   display: ${(props) => (props.positive ? 'none' : 'block')};
   text-align: left;
   padding: 0 0 0 3%;
+`;
+
+const HoverContainer = styled.div<{
+  key2: number;
+  hoverId: number;
+  hover: boolean;
+}>`
+  background-color: var(--main-white-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  width: 110px;
+  transform: translate(34px, 66px);
+  padding: 5px;
+  border-radius: 2px;
+  font-weight: 400;
+  visibility: ${(props) =>
+    props.hover && props.hoverId == props.key2 ? 'visible' : 'hidden'};
 `;
 
 /*
