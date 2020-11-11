@@ -276,7 +276,7 @@ const OverviewTableContainer = styled.div<{ index: number }>`
 const PercentageTableContainer = styled.div<{ index: number }>`
   display: ${(props) => (props.index === 4 ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
+  align-items: top;
   width: 100vw;
   min-height: 60vh;
 `;
