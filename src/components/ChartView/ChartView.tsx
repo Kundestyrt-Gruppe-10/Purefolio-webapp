@@ -189,17 +189,20 @@ const ContainerLine = styled.hr<{ active: boolean }>`
   width: 100%;
   height: 2px;
   border: none;
-  margin: 20px;
+  margin: 20px 20px 0px 20px;
+  position: absolute;
+  z-index: 0;
 `;
 
 const ChartTabsContainer = styled.nav<{ active: boolean }>`
   width: 40%;
-  height: 40px;
+  //height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-left: auto;
   margin-right: 40px;
+  margin-top: 20px;
 `;
 
 const ChartTabs = styled.a<{ index: number }>`
@@ -208,12 +211,12 @@ const ChartTabs = styled.a<{ index: number }>`
   color: var(--main-blackAlpha-color);
   text-decoration: none;
   font-size: var(--font-size-tiny);
+  padding: 20px 0px 20px 0px;
   :hover {
     color: var(--main-black-color);
     font-weight: 700;
-    //border-top:2px solid var(--main-black-color);
     margin: 0;
-    padding: 0;
+    padding: 20px 0px 20px 0px;
   }
 `;
 
@@ -223,6 +226,9 @@ const HistoryTab = styled(ChartTabs)<{ index: number }>`
     props.index === 1
       ? 'var(--main-black-color)'
       : 'var( --main-blackAlpha-color)'};
+  border-top: ${(props) =>
+    props.index === 1 ? '2px solid var(--main-black-color)' : 'none'};
+  z-index: ${(props) => (props.index === 1 ? '1' : '0')};
 `;
 
 const BarChartTab = styled(ChartTabs)`
@@ -231,6 +237,9 @@ const BarChartTab = styled(ChartTabs)`
     props.index === 2
       ? 'var(--main-black-color)'
       : 'var( --main-blackAlpha-color)'};
+  border-top: ${(props) =>
+    props.index === 2 ? '2px solid var(--main-black-color)' : 'none'};
+  z-index: ${(props) => (props.index === 2 ? '1' : '0')};
 `;
 
 const OverviewTableTab = styled(ChartTabs)`
@@ -239,6 +248,9 @@ const OverviewTableTab = styled(ChartTabs)`
     props.index === 3
       ? 'var(--main-black-color)'
       : 'var( --main-blackAlpha-color)'};
+  border-top: ${(props) =>
+    props.index === 3 ? '2px solid var(--main-black-color)' : 'none'};
+  z-index: ${(props) => (props.index === 3 ? '1' : '0')};
 `;
 
 const PercentageTableTab = styled(ChartTabs)`
@@ -247,6 +259,9 @@ const PercentageTableTab = styled(ChartTabs)`
     props.index === 4
       ? 'var(--main-black-color)'
       : 'var( --main-blackAlpha-color)'};
+  border-top: ${(props) =>
+    props.index === 4 ? '2px solid var(--main-black-color)' : 'none'};
+  z-index: ${(props) => (props.index === 4 ? '1' : '0')};
 `;
 
 const HistoryGraphContainer = styled.div<{ index: number }>`

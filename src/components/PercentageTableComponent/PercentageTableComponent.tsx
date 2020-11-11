@@ -190,7 +190,7 @@ const TableTitleContainer = styled.div`
   width: 95%;
   height: 96px;
   left: 2.5%;
-  top: -48px;
+  top: -44px;
   position: absolute;
   border-radius: 5px;
   color: #f7f8f6;

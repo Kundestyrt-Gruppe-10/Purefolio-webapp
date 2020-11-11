@@ -139,7 +139,7 @@ const TableTitleContainer = styled.div<{ active: boolean }>`
   width: 90%;
   height: 96px;
   left: 5%;
-  top: -48px;
+  top: -44px;
   position: absolute;
   border-radius: 5px;
   color: #f7f8f6;

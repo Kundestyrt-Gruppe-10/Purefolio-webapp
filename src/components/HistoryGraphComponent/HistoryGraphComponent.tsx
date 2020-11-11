@@ -201,7 +201,7 @@ const GraphContainer = styled.div<{ active: boolean }>`
   border-radius: 5px;
   padding-top: 20px;
   z-index: 1;
-  transform: translateY(-48px);
+  transform: translateY(-44px);
 `;
 
 const TextBox = styled.div<{ active: boolean }>`
