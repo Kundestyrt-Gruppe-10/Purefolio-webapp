@@ -6,7 +6,7 @@ const domain = getConfig().apiUrl;
 
 export function ApiGet<T>(path: string): Promise<T> {
   return fetch(domain + path).then((response) => {
-    if (!response.ok || (response.json() as Promise<T>)) {
+    if (!response.ok) {
       throw new Error(response.statusText);
     }
     return response.json() as Promise<T>;
