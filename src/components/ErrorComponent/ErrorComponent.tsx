@@ -4,6 +4,8 @@ interface ErrorComponentProps {
   error: Error;
 }
 export const ErrorComponent: React.FC<ErrorComponentProps> = (props) => {
+  if (props.error.message === 'OK')
+    props.error.message = 'No data exist for this combination';
   return (
     <>
       <ErrorContainer>
