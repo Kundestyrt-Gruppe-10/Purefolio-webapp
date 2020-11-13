@@ -27,18 +27,7 @@ interface Props {
     | 'hoursWorkWeek'
     | 'jobVacancyRate'
     | 'trainingParticipation'
-    | 'totalWaste'
-    | 'totalHazardousWaste'
-    | 'co2'
-    | 'totalNonHazardousWaste'
-    | 'environmentalProtectionPollution'
-    | 'environmentalProtectionTech'
-    | 'seasonalWork'
-    | 'supplyEnergyProducts'
-    | 'supplyEnergyResiduals'
-    | 'useNaturalEnergyInputs'
-    | 'useEnergyProducts'
-    | 'useEnergyResiduals';
+    | 'co2';
 }
 
 export const PercentageTableComponent: React.FC<Props> = ({
