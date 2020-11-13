@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import info_logo from '../../img/info_img.svg';
 
 import { handleColorType } from '../../pages/ChartPage/helper-functions';
@@ -107,6 +107,16 @@ export const HistoryGraphComponent: React.FC<Props> = ({
                 tickFormatter={DataFormater}
                 stroke="#f7f8f6"
                 tick={{ fontSize: 14 }}
+                label={{
+                  value: esgFactorInfo.unit,
+                  angle: -90,
+                  position: 'insideBottomLeft',
+                  strokeWidth: 0.7,
+                  fontSize: 14,
+                  offset: 20,
+                  textAnchor: 'middle',
+                  fill: '#f7f8f6',
+                }}
               />
               <Tooltip />
               {Object.keys(naceRegionItems[0])

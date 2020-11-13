@@ -131,6 +131,16 @@ export const BarchartComponent: React.FC<Props> = ({
                 tickFormatter={DataFormater}
                 stroke="#f7f8f6"
                 tick={{ fontSize: 14 }}
+                label={{
+                  value: esgFactorInfo.unit,
+                  angle: -90,
+                  position: 'insideBottomLeft',
+                  strokeWidth: 0.7,
+                  fontSize: 14,
+                  offset: 20,
+                  textAnchor: 'middle',
+                  fill: '#f7f8f6',
+                }}
               />
               <Tooltip cursor={{ fill: '#5a31ca91' }} />
               {Object.keys(naceRegionItems[0])
