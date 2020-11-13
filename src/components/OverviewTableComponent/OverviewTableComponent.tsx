@@ -25,18 +25,7 @@ interface Props {
     | 'hoursWorkWeek'
     | 'jobVacancyRate'
     | 'trainingParticipation'
-    | 'totalWaste'
-    | 'totalHazardousWaste'
-    | 'totalNonHazardousWaste'
-    | 'environmentalProtectionPollution'
-    | 'environmentalProtectionTech'
-    | 'co2'
-    | 'seasonalWork'
-    | 'supplyEnergyProducts'
-    | 'supplyEnergyResiduals'
-    | 'useNaturalEnergyInputs'
-    | 'useEnergyProducts'
-    | 'useEnergyResiduals';
+    | 'co2';
 }
 
 export const OverviewTableComponent: React.FC<Props> = ({

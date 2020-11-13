@@ -35,18 +35,7 @@ interface Props {
     | 'hoursWorkWeek'
     | 'jobVacancyRate'
     | 'trainingParticipation'
-    | 'totalWaste'
-    | 'totalHazardousWaste'
-    | 'totalNonHazardousWaste'
-    | 'environmentalProtectionPollution'
-    | 'environmentalProtectionTech'
-    | 'seasonalWork'
-    | 'supplyEnergyProducts'
-    | 'co2'
-    | 'supplyEnergyResiduals'
-    | 'useNaturalEnergyInputs'
-    | 'useEnergyProducts'
-    | 'useEnergyResiduals';
+    | 'co2';
 }
 
 interface NaceRegionChartItem {

@@ -46,18 +46,7 @@ export const App: React.FC = () => {
                     | 'hoursWorkWeek'
                     | 'jobVacancyRate'
                     | 'trainingParticipation'
-                    | 'totalWaste'
-                    | 'totalHazardousWaste'
-                    | 'totalNonHazardousWaste'
-                    | 'environmentalProtectionPollution'
-                    | 'environmentalProtectionTech'
-                    | 'seasonalWork'
-                    | 'supplyEnergyProducts'
-                    | 'supplyEnergyResiduals'
-                    | 'useNaturalEnergyInputs'
-                    | 'useEnergyProducts'
-                    | 'co2'
-                    | 'useEnergyResiduals';
+                    | 'co2';
                   chosenTab: string;
                   yearStart: string;
                   yearEnd: string;
