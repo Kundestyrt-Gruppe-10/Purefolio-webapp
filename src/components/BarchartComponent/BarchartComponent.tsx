@@ -153,7 +153,7 @@ export const BarchartComponent: React.FC<Props> = ({
         </GraphContainer>
         <TextBox active={false}>
           <TableTitleContainer active={false}>
-            <TitleBox active={false}>History Graph</TitleBox>
+            <TitleBox active={false}>History Bar Chart</TitleBox>
             <UnitOfMeasureBox active={false}>
               {esgFactorInfo.unit}
             </UnitOfMeasureBox>
