@@ -70,6 +70,7 @@ interface Props {
     | 'supplyEnergyResiduals'
     | 'useNaturalEnergyInputs'
     | 'useEnergyProducts'
+    | 'co2'
     | 'useEnergyResiduals';
 }
 

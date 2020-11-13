@@ -61,6 +61,7 @@ export interface NaceRegionData {
   useNaturalEnergyInputs?: number;
   useEnergyProducts?: number;
   useEnergyResiduals?: number;
+  co2?: number;
 }
 
 export interface Region {
@@ -103,6 +104,7 @@ export enum EsgFactor {
   'totalWaste',
   'totalHazardousWaste',
   'totalNonHazardousWaste',
+  'co2',
   'environmentalProtectionPollution',
   'environmentalProtectionTech',
   'seasonalWork',

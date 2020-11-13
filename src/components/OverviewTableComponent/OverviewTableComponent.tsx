@@ -30,6 +30,7 @@ interface Props {
     | 'totalNonHazardousWaste'
     | 'environmentalProtectionPollution'
     | 'environmentalProtectionTech'
+    | 'co2'
     | 'seasonalWork'
     | 'supplyEnergyProducts'
     | 'supplyEnergyResiduals'

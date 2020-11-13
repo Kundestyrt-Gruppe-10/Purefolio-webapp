@@ -42,6 +42,7 @@ interface Props {
     | 'trainingParticipation'
     | 'totalWaste'
     | 'totalHazardousWaste'
+    | 'co2'
     | 'totalNonHazardousWaste'
     | 'environmentalProtectionPollution'
     | 'environmentalProtectionTech'

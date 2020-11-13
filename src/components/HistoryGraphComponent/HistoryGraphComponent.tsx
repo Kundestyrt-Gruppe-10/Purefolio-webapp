@@ -42,6 +42,7 @@ interface Props {
     | 'environmentalProtectionTech'
     | 'seasonalWork'
     | 'supplyEnergyProducts'
+    | 'co2'
     | 'supplyEnergyResiduals'
     | 'useNaturalEnergyInputs'
     | 'useEnergyProducts'
