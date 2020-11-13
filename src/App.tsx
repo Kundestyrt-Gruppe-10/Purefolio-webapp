@@ -56,6 +56,7 @@ export const App: React.FC = () => {
                     | 'supplyEnergyResiduals'
                     | 'useNaturalEnergyInputs'
                     | 'useEnergyProducts'
+                    | 'co2'
                     | 'useEnergyResiduals';
                   chosenTab: string;
                   yearStart: string;
