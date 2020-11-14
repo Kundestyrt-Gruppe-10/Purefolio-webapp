@@ -163,4 +163,7 @@ const ResultRow = styled.div<{ active: boolean }>`
     props.active ? 'var(--third-blue-color)' : 'var(--main-black-color)'};
   background-color: ${(props) =>
     props.active ? 'rgba(206, 216, 244, 0.7);' : 'var(--main-white-color)'};
+  :hover {
+    background-color: rgba(206, 216, 244, 0.7);
+  }
 `;

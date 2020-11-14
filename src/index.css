@@ -22,6 +22,11 @@ body {
   background: var(--sec-purple-color);
 }
 
+::placeholder {
+  color: var(--main-white-color);
+  opacity: 1;
+}
+
 :root {
   --main-white-color: rgb(247, 248, 246);
   --main-black-color: rgb(19, 22, 28);
@@ -97,15 +102,17 @@ body {
 }
 
 .react-select__menu {
-  background: var(--third-bluegrey-color) !important;
+  background: var(--main-white-color) !important;
   border: none;
   border-radius: 0 !important;
+  color: var(--main-black-color) !important;
   opacity: 1;
 }
 
 .react-select__menu-list {
   border: none;
   border-radius: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   opacity: 1;
 }
 
