@@ -15,9 +15,6 @@ export const HeaderComponent: React.FC = () => {
             </Link>
           </LogoContainer>
           <Nav active={false}>
-            <Link to="/chartpage" style={{ textDecoration: 'none' }}>
-              <NavButton active={false}>ChartPage</NavButton>
-            </Link>
             <Link
               to="/chartpage/25,1;25,5;25,11/emissionPerYear/2015/2017/1"
               style={{ textDecoration: 'none' }}
@@ -53,7 +50,7 @@ const NavArea = styled.div<{ active: boolean }>`
 `;
 
 const Nav = styled.nav<{ active: boolean }>`
-  width: 30%;
+  width: 25%;
   height: 80px;
   display: flex;
   flex-direction: row;
@@ -68,7 +65,7 @@ const NavButton = styled.a<{ active: boolean }>`
 `;
 
 const LogoContainer = styled.a<{ active: boolean }>`
-  width: 70%;
+  width: 75%;
   font: Roboto, sans-serif;
 `;
 
