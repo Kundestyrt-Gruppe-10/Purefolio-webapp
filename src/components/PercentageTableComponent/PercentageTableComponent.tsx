@@ -41,6 +41,19 @@ export const PercentageTableComponent: React.FC<Props> = ({
 }) => {
   const [hover, setHover] = useState<boolean>(false);
   const [hoverId, setHoverId] = useState<number>(0);
+  const numberMatrix: number[][] = [
+    Array.from(Array(15).keys()),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 15)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 30)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 45)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 60)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 75)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 90)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 105)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 120)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 135)),
+    Array.from(Array.from({ length: 15 }, (_, i) => i + 150)),
+  ];
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
     naceRegion.map((naceRegionDataElement, idy) => {
       if (euDataForAllChosenNaces[idx][idy]) {
@@ -83,35 +96,28 @@ export const PercentageTableComponent: React.FC<Props> = ({
           </LowerBox>
         </TableTitleContainer>
         <TableDataContainer>
-          <TableRow>
-            <EuBox>EU avarage over all naces</EuBox>
-            {euData.map((euDataYear, idx) => {
-              return <EuBox key={idx}>{euDataYear[esgFactor]}</EuBox>;
-            })}
-          </TableRow>
           {naceRegionData.map((naceRegion, idx) => {
             return (
               <TableRow key={idx}>
                 <TableBox>
                   {naceRegion[0].region.regionName +
                     ' - ' +
-                    naceRegion[0].nace.naceName}
+                    naceRegion[0].nace.naceCode}
                 </TableBox>
                 {percentageListList[idx]
                   ? percentageListList[idx].map(
                       (percentageValue, i: number) => {
                         return (
                           <TableBox
-                            key={percentageValue + i + idx}
+                            key={numberMatrix[idx][i]}
                             id={String(percentageValue)}
                             onMouseEnter={() => {
-                              setHoverId(percentageValue + i + idx),
-                                setHover(true);
+                              setHoverId(numberMatrix[idx][i]), setHover(true);
                             }}
                             onMouseLeave={() => setHover(false)}
                           >
                             <HoverContainer
-                              key2={percentageValue + i + idx}
+                              key2={numberMatrix[idx][i]}
                               hoverId={hoverId}
                               hover={hover}
                             >
@@ -259,9 +265,6 @@ const TableRow = styled.div`
   border-bottom: 2px dotted #abbdd7;
   height: 40px;
   font-size: 14px;
-  &:nth-child(1) {
-    font-weight: 700;
-  }
   &:nth-last-child(1) {
     border: none;
   }
