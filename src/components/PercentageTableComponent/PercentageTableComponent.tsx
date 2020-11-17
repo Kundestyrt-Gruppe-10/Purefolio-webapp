@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { EuroStatTable, NaceRegion, NaceRegionData } from '../../types';
@@ -41,6 +41,18 @@ export const PercentageTableComponent: React.FC<Props> = ({
 }) => {
   const [hover, setHover] = useState<boolean>(false);
   const [hoverId, setHoverId] = useState<number>(0);
+  const shouldShowRawData = () =>
+    euDataForAllChosenNaces[0][0][esgFactor] == undefined &&
+    esgFactorInfo.unit === 'Percentage'
+      ? true
+      : false;
+  // If unit is in percentage, and we lack EU data its better to show raw data rather than nothing
+  const [showRawData, setShowRawData] = useState<boolean>(shouldShowRawData());
+  useEffect(() => {
+    setShowRawData(shouldShowRawData());
+  }, [esgFactor, urlParams]);
+
+  // Number matrix used to make unique keys for hover box. Alexey?
   const numberMatrix: number[][] = [
     Array.from(Array(15).keys()),
     Array.from(Array.from({ length: 15 }, (_, i) => i + 15)),
@@ -55,7 +67,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
     Array.from(Array.from({ length: 15 }, (_, i) => i + 150)),
   ];
   const percentageListList: number[][] = naceRegionData.map((naceRegion, idx) =>
-    naceRegion.map((naceRegionDataElement, idy) => {
+    naceRegion.map((naceRegionDataElement, idy): number => {
       if (euDataForAllChosenNaces[idx][idy]) {
         if (
           naceRegionDataElement[esgFactor] &&
@@ -66,10 +78,16 @@ export const PercentageTableComponent: React.FC<Props> = ({
             (euDataForAllChosenNaces[idx][idy][esgFactor] || 1) /
               (naceRegionDataElement[esgFactor] || 1)
           );
+        } else if (
+          naceRegionDataElement[esgFactor] &&
+          !euDataForAllChosenNaces[idx][idy][esgFactor] && // No EU data for given esgFactor
+          esgFactorInfo.unit === 'Percentage'
+        ) {
+          return (naceRegionDataElement[esgFactor] || 0) / 100;
         }
         return 0;
       } else {
-        return 1.337;
+        return 0;
       }
     }),
   );
@@ -121,9 +139,15 @@ export const PercentageTableComponent: React.FC<Props> = ({
                               hoverId={hoverId}
                               hover={hover}
                             >
-                              {naceRegion[0].region.regionName}&apos;s deviation
-                              from EU, within &nbsp;
-                              {naceRegion[0].nace.naceName}.
+                              {showRawData === false ? (
+                                <p>
+                                  {naceRegion[0].region.regionName}&apos;s
+                                  deviation from EU, within &nbsp;
+                                  {naceRegion[0].nace.naceName}.
+                                </p>
+                              ) : (
+                                <p>Percentage</p>
+                              )}
                             </HoverContainer>
                             <PositivePercentageNumber
                               positive={percentageValue > 0 ? true : false}
@@ -164,7 +188,11 @@ export const PercentageTableComponent: React.FC<Props> = ({
         <InfoTableTitleContainer active={false}>
           <InfoTitleBox active={false}>Percentage Table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
-            Deviation from EU average for given industry
+            {showRawData === false ? (
+              <p>Deviation from EU average for given industry</p>
+            ) : (
+              <p>Raw data in percentage</p>
+            )}
           </UnitOfMeasureBox>
         </InfoTableTitleContainer>
         <LargeDescriptionBox active={false}>
