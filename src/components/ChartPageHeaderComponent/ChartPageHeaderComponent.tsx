@@ -47,7 +47,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
         <YearBox active={false}>
           <PeriodDropdown
             periodStart={true}
-            yearList={yearList}
+            yearList={yearList.slice(yearList.indexOf(urlParams.yearEnd), -1)}
             setValue={urlParams.yearStart}
             urlParams={urlParams}
           />
@@ -56,7 +56,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
         <YearBox active={false}>
           <PeriodDropdown
             periodStart={false}
-            yearList={yearList}
+            yearList={yearList.slice(0, yearList.indexOf(urlParams.yearStart))}
             setValue={urlParams.yearEnd}
             urlParams={urlParams}
           />
