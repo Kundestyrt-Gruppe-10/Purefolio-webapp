@@ -106,20 +106,22 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
             defaultValue={selectRegion[regionId - 1]}
             onChange={handleChangeRegion}
           />
-          <Button
-            danger={false}
-            className="add-nacecard-button"
-            onClick={() => {
-              props.addCard(regionId, naceId);
-            }}
-          >
-            <i
-              className="material-icons"
-              style={{ fontSize: 'inherit', fontWeight: 'bold' }}
+          <ButtonContainer active={false}>
+            <Button
+              danger={false}
+              className="add-nacecard-button"
+              onClick={() => {
+                props.addCard(regionId, naceId);
+              }}
             >
-              add
-            </i>
-          </Button>
+              <i
+                className="material-icons"
+                style={{ fontSize: 'inherit', fontWeight: 'bold' }}
+              >
+                add
+              </i>
+            </Button>
+            {/*
           <Button danger={false}>
             <i
               className="material-icons"
@@ -128,20 +130,22 @@ export const NaceRegionCard: React.FC<NaceRegionCardInterface> = (
               minimize
             </i>
           </Button>
-          <DangerButton
-            danger={true}
-            className="deleteNaceCard"
-            onClick={() => {
-              props.deleteCard(props.id);
-            }}
-          >
-            <i
-              className="material-icons"
-              style={{ fontSize: 'inherit', fontWeight: 'bold' }}
+          */}
+            <DangerButton
+              danger={true}
+              className="deleteNaceCard"
+              onClick={() => {
+                props.deleteCard(props.id);
+              }}
             >
-              close
-            </i>
-          </DangerButton>
+              <i
+                className="material-icons"
+                style={{ fontSize: 'inherit', fontWeight: 'bold' }}
+              >
+                close
+              </i>
+            </DangerButton>
+          </ButtonContainer>
         </CardTop>
         <Text active={true}>Industry:</Text>
         <div
@@ -172,7 +176,7 @@ const CardBackground = styled.div<{ active: boolean }>`
   z-index: 2;
   width: 200px;
   padding: 0px 20px 20px 20px;
-  margin: 0 10px;
+  margin: 0 10px 12px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -188,8 +192,14 @@ const CardBar = styled.div<{ colorId: number }>`
 `;
 
 const CardTop = styled.div<{ active: boolean }>`
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div<{ active: boolean }>`
+  width: 40px;
+  display: flex;
 `;
 
 const Button = styled.button<{ danger: boolean }>`

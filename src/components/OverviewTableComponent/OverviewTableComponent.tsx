@@ -91,30 +91,40 @@ export const OverviewTableComponent: React.FC<Props> = ({
             : null}
         </TableDataContainer>
       </TableContainer>
-      <TextBox active={false}>
+      <BottomContainer active={false}>
         <InfoTableTitleContainer active={false}>
           <InfoTitleBox active={false}>Overview table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
             {esgFactorInfo.unit}
           </UnitOfMeasureBox>
         </InfoTableTitleContainer>
-        <LargeDescriptionBox active={false}>
+        <InfoBox active={false}>
           <Logo src={info_logo} alt="Info" />
-          {esgFactorInfo.description}
-        </LargeDescriptionBox>
-        <SmallDescriptionBox active={false}>
-          <LinkContainer href={esgFactorInfo.href} active={false}>
-            {esgFactorInfo.href}
-          </LinkContainer>
-        </SmallDescriptionBox>
-      </TextBox>
+          <DescriptionBox active={false}>
+            <p>
+              <span
+                style={{ color: 'var(--sec-purple-color)', fontWeight: 'bold' }}
+              >
+                Information:{' '}
+              </span>
+              {esgFactorInfo.description}
+            </p>
+            <p>
+              For more information on this data, see the following link: <br />
+              <LinkContainer href={esgFactorInfo.href} active={false}>
+                {esgFactorInfo.href}
+              </LinkContainer>
+            </p>
+          </DescriptionBox>
+        </InfoBox>
+      </BottomContainer>
     </OuterContainer>
   );
 };
 
 const OuterContainer = styled.div<{ active: boolean }>`
   margin: auto;
-  margin: 45px 0 30px 0;
+  margin: 45px 0 0 0;
   width: 100%;
 `;
 const ColorBox = styled.div<{ colorId: number }>`
@@ -239,9 +249,8 @@ const TextBox = styled.div<{ active: boolean }>`
 const InfoTableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 2%;
+  margin-left: 50px;
+  margin-top: 20px;
 `;
 const InfoTitleBox = styled.div<{ active: boolean }>`
   font-size: 20px;
@@ -255,28 +264,27 @@ const InfoTitleBox = styled.div<{ active: boolean }>`
 const UnitOfMeasureBox = styled.div<{ active: boolean }>`
   font-size: 14px;
   font-weight: 100;
-  text-indent: 4%;
-`;
-
-const LargeDescriptionBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  font-size: var(--font-size-tiny);
-  width: 40%;
-  padding: 15px;
-  justify-content: flex-start;
-  margin-left: auto;
-`;
-
-const SmallDescriptionBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  width: 36%;
-  margin-left: auto;
-  font-size: var(--font-size-xtiny);
-  color: var(--main-black-color);
+  width: 205px;
+  margin-left: 20px;
 `;
 
 const LinkContainer = styled.a<{ active: boolean }>``;
 
 const Logo = styled.img``;
+
+const BottomContainer = styled.div<{ active: boolean }>`
+  width: 90%;
+  margin: 10px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-tiny);
+  width: 450px;
+  color: var(--main-black-color);
+`;
+
+const InfoBox = styled.div<{ active: boolean }>`
+  display: flex;
+`;

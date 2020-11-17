@@ -123,4 +123,5 @@ const AddCardButton = styled.button<{ active: boolean }>`
   color: var(--sec-purple-color);
   border: none;
   height: 40px;
+  margin: 0px 10px;
 `;

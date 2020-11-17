@@ -186,27 +186,33 @@ export const PercentageTableComponent: React.FC<Props> = ({
           })}
         </TableDataContainer>
       </TableContainer>
-      <TextBox active={false}>
+      <BottomContainer active={false}>
         <InfoTableTitleContainer active={false}>
-          <InfoTitleBox active={false}>Percentage Table</InfoTitleBox>
+          <InfoTitleBox active={false}>Percentage table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
-            {showRawData === false ? (
-              <p>Deviation from EU average for given industry</p>
-            ) : (
-              <p>Raw data in percentage</p>
-            )}
+            {esgFactorInfo.unit}
           </UnitOfMeasureBox>
         </InfoTableTitleContainer>
-        <LargeDescriptionBox active={false}>
+        <InfoBox active={false}>
           <Logo src={info_logo} alt="Info" />
-          {esgFactorInfo.description}
-        </LargeDescriptionBox>
-        <SmallDescriptionBox active={false}>
-          <LinkContainer href={esgFactorInfo.href} active={false}>
-            {esgFactorInfo.href}
-          </LinkContainer>
-        </SmallDescriptionBox>
-      </TextBox>
+          <DescriptionBox active={false}>
+            <p>
+              <span
+                style={{ color: 'var(--sec-purple-color)', fontWeight: 'bold' }}
+              >
+                Information:{' '}
+              </span>
+              {esgFactorInfo.description}
+            </p>
+            <p>
+              For more information on this data, see the following link: <br />
+              <LinkContainer href={esgFactorInfo.href} active={false}>
+                {esgFactorInfo.href}
+              </LinkContainer>
+            </p>
+          </DescriptionBox>
+        </InfoBox>
+      </BottomContainer>
     </OuterContainer>
   );
 };
@@ -398,29 +404,16 @@ const HoverContainer = styled.div<{
     props.hover && props.hoverId == props.key2 ? 'visible' : 'hidden'};
 `;
 
-const TextBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  justify-content: space-between;
-  align-items: start;
-  margin-left: 5%;
-  margin-right: 0;
-  flex-wrap: wrap;
-`;
-
 const InfoTableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  margin-left: 3%;
-  margin-right: 15%;
-  margin-top: 2%;
+  margin-left: 50px;
+  margin-top: 20px;
 `;
+
 const InfoTitleBox = styled.div<{ active: boolean }>`
   font-size: 20px;
   font-weight: 700;
-  margin-right: auto;
-  text-align: center;
   padding-top: 2px;
   padding-bottom: 2px;
 `;
@@ -431,25 +424,23 @@ const UnitOfMeasureBox = styled.div<{ active: boolean }>`
   width: 205px;
   margin-left: 20px;
 `;
-
-const LargeDescriptionBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  font-size: var(--font-size-tiny);
-  width: 40%;
-  padding: 15px;
-  margin-left: auto;
-`;
-
-const SmallDescriptionBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  width: 36%;
-  margin-left: auto;
-  font-size: var(--font-size-xtiny);
-  color: var(--main-black-color);
-`;
-
 const LinkContainer = styled.a<{ active: boolean }>``;
 
 const Logo = styled.img``;
+
+const BottomContainer = styled.div<{ active: boolean }>`
+  width: 100%;
+  margin: 10px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DescriptionBox = styled.div<{ active: boolean }>`
+  font-size: var(--font-size-tiny);
+  width: 450px;
+  color: var(--main-black-color);
+`;
+
+const InfoBox = styled.div<{ active: boolean }>`
+  display: flex;
+`;

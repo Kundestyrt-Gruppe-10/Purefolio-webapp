@@ -109,6 +109,7 @@ export const ChartView: React.FC<Props> = ({
       </DataView>
 
       <ContainerLine active={true} />
+      <BottomLine active={true} />
     </ChartViewContainer>
   );
 };
@@ -175,6 +176,7 @@ const ChartViewContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-bottom: 80px;
 `;
 
 const DataView = styled.div<{ active: boolean }>`
@@ -191,6 +193,15 @@ const ContainerLine = styled.hr<{ active: boolean }>`
   border: none;
   margin: 20px 20px 0px 2%;
   position: absolute;
+  z-index: 0;
+`;
+
+const BottomLine = styled.hr<{ active: boolean }>`
+  background-color: var(--third-bluegrey-color);
+  width: 96%;
+  height: 2px;
+  border: none;
+  margin: 40px 20px 0px 2%;
   z-index: 0;
 `;
 
