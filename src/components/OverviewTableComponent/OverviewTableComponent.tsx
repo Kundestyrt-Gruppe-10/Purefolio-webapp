@@ -235,9 +235,8 @@ const TextBox = styled.div<{ active: boolean }>`
 const InfoTableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 2%;
+  margin-left: 50px;
+  margin-top: 20px;
 `;
 const InfoTitleBox = styled.div<{ active: boolean }>`
   font-size: 20px;
@@ -251,7 +250,8 @@ const InfoTitleBox = styled.div<{ active: boolean }>`
 const UnitOfMeasureBox = styled.div<{ active: boolean }>`
   font-size: 14px;
   font-weight: 100;
-  text-indent: 4%;
+  width: 205px;
+  margin-left: 20px;
 `;
 
 const LinkContainer = styled.a<{ active: boolean }>``;
