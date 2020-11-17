@@ -6,10 +6,33 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 const urlParams = urlParams_example[0];
 
+const years: string[] = [
+  '2018',
+  '2017',
+  '2016',
+  '2015',
+  '2014',
+  '2013',
+  '2012',
+  '2011',
+  '2010',
+  '2009',
+  '2008',
+  '2007',
+  '2006',
+  '2005',
+  '2004',
+  '2003',
+  '2002',
+  '2001',
+  '2000',
+];
+
 describe('PerioDropDownComponent', () => {
   beforeEach(() => {
     render(
       <PeriodDropdown
+        yearList={years}
         periodStart={true}
         setValue="2018"
         urlParams={urlParams}

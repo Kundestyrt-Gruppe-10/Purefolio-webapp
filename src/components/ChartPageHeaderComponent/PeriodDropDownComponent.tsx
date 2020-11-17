@@ -8,6 +8,7 @@ interface Props {
   // yearList: number[];
   urlParams: UrlParamsInterface;
   setValue: string;
+  yearList: string[];
 }
 
 export const PeriodDropdown: React.FC<Props> = (props) => {
@@ -16,31 +17,10 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [chosenYear, setChosenYear] = useState<string>(props.setValue);
   const [userInput, setUserInput] = useState<string>('');
-  const years: string[] = [
-    '2018',
-    '2017',
-    '2016',
-    '2015',
-    '2014',
-    '2013',
-    '2012',
-    '2011',
-    '2010',
-    '2009',
-    '2008',
-    '2007',
-    '2006',
-    '2005',
-    '2004',
-    '2003',
-    '2002',
-    '2001',
-    '2000',
-  ];
 
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (years.includes(userInput)) {
+      if (props.yearList.includes(userInput)) {
         props.urlParams.setUrlParams(
           props.urlParams.naceRegionIdString,
           props.urlParams.esgFactor,
@@ -93,7 +73,7 @@ export const PeriodDropdown: React.FC<Props> = (props) => {
         onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen}>
-        {years
+        {props.yearList
           .filter((year) => year.includes(userInput))
           .map((yearString: string, i: number) => (
             <ResultRow

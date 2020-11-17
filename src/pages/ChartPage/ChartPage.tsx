@@ -86,6 +86,7 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [euDataForAllChosenNaces, setEuDataForAllChosenNaces] = useState<
     NaceRegionData[][]
   >();
+  const [yearList, setYearList] = useState<string[]>();
   const [naceRegionDataListList, setNaceRegionData] = useState<
     NaceRegionData[][]
   >();
@@ -113,6 +114,11 @@ export const ChartPage: React.FC<Props> = (props) => {
   }
 
   // Fetch data from API
+  useEffect(() => {
+    ApiGet<number[]>('/naceregiondata/years')
+      .then((res) => setYearList(res.map((year) => year.toString()).reverse()))
+      .catch((err) => setError(err));
+  }, []);
   useEffect(() => {
     // Fetch EU data. Needed for OverviewTable and PercentageTable
     // EU Average over All naces
@@ -222,11 +228,12 @@ export const ChartPage: React.FC<Props> = (props) => {
   // Render components
   return (
     <>
-      {esgFactorList && regionList && naceList ? (
+      {esgFactorList && regionList && naceList && yearList ? (
         <ChartPageHeaderContainer>
           <ChartPageHeaderComponent
             regionList={regionList}
             naceList={naceList}
+            yearList={yearList}
             esgFactorList={esgFactorList}
             urlParams={urlParams}
           />
