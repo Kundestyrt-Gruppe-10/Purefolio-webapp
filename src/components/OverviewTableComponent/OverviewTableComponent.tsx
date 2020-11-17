@@ -57,12 +57,12 @@ export const OverviewTableComponent: React.FC<Props> = ({
           </LowerBox>
         </TableTitleContainer>
         <TableDataContainer active={false}>
-          <TableRow>
+          {/*           <TableRow>
             <TableBox>EU</TableBox>
             {euData.map((euDataYear, idx) => {
               return <TableBox key={idx}>{euDataYear[esgFactor]}</TableBox>;
             })}
-          </TableRow>
+          </TableRow> */}
           {naceRegionData && naceRegionData[0] && naceRegionList
             ? naceRegionData.map((naceRegion: NaceRegionData[], idx) => {
                 return (
@@ -73,9 +73,11 @@ export const OverviewTableComponent: React.FC<Props> = ({
                         naceRegion[0].nace.naceCode}
                     </TableBox>
                     {naceRegion ? (
-                      naceRegion.map((naceRegion, idx) => {
+                      naceRegion.map((naceRegionYear, idx) => {
                         return (
-                          <TableBox key={idx}>{naceRegion[esgFactor]}</TableBox>
+                          <TableBox key={idx}>
+                            {naceRegionYear[esgFactor]}
+                          </TableBox>
                         );
                       })
                     ) : (
