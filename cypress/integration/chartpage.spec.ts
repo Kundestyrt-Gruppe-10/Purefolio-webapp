@@ -34,7 +34,7 @@ describe('/ChartPage URL ', () => {
     // Asses
     cy.contains('2015');
     cy.contains('2018');
-    cy.contains('emissionPerYear');
+    cy.contains('Emmisions of Greenhouse gases');
   });
 });
 

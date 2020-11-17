@@ -19,11 +19,11 @@ export interface RegionHasData {
 export interface EuroStatTable {
   tableId: number;
   tableCode?: string;
-  attributeName?: string;
+  attributeName: string;
   filters?: string;
   dataType?: string;
   unit?: string;
-  datasetName?: string;
+  datasetName: string;
   esgFactor?: string;
   description?: string;
   href?: string;
