@@ -14,11 +14,12 @@ export const FrontPage: React.FC = () => {
         <TextArea active={false}>
           <Headline active={false}>PureFolio</Headline>
           <HeaderText active={false}>
-            Proin condimentum accumsan velit, sed fermentum sapien mollis non.
-            Donec id lorem eu ipsum dignissim maximus vitae non lorem. Nam
-            dictum odio ut dui scelerisque, eu mattis felis egestas. Ut aliquam
-            nisl id pharetra pellentesque. Nam ac auctor ipsum, dapibus gravida
-            quam. Nam id ultricies arcu. Donec aliquet malesuada volutpat.
+            Purefolio is a tool that is both practical, simple, accurate, and of
+            course great to look at. Purefolio provides unprecedented
+            opportunities when it comes to ESG analysis within different
+            countries and industries. Proudly we present PureFolio - a tool for
+            comparing and analyzing ESG data, powering better investments, for a
+            better world.
           </HeaderText>
         </TextArea>
       </Layout>
