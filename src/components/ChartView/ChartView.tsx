@@ -97,9 +97,10 @@ export const ChartView: React.FC<Props> = ({
             />
           ) : (
             <ErrorComponent
+              errorHeader="Sorry"
               error={
                 new Error(
-                  'Cannot compare euData because they have different length',
+                  'Cannot compare with EU because EU only have data from 2008 and later',
                 )
               }
             />

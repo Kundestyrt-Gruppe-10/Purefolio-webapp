@@ -2,18 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 interface ErrorComponentProps {
   error: Error;
+  errorHeader?: string;
 }
-export const ErrorComponent: React.FC<ErrorComponentProps> = (props) => {
-  if (props.error.message === 'OK')
-    props.error.message = 'No data exist for this combination';
+export const ErrorComponent: React.FC<ErrorComponentProps> = ({
+  errorHeader = 'Something went wrong',
+  error,
+}) => {
+  if (error.message === 'OK')
+    error.message = 'No data exist for this combination';
   return (
     <>
       <ErrorContainer>
         <div>
-          <h1>Something went wrong</h1>
+          <h1>{errorHeader}</h1>
         </div>
-        <p>{props.error.name}</p>
-        <p>{props.error.message}</p>
+        <p>{error.message}</p>
       </ErrorContainer>
     </>
   );

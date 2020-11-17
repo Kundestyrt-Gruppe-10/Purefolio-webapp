@@ -13,12 +13,14 @@ interface Props {
   naceList: Nace[];
   esgFactorList: string[];
   urlParams: UrlParamsInterface;
+  yearList: string[];
 }
 export const ChartPageHeaderComponent: React.FC<Props> = ({
   regionList,
   naceList,
   esgFactorList,
   urlParams,
+  yearList,
 }) => {
   return (
     <>
@@ -45,6 +47,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
         <YearBox active={false}>
           <PeriodDropdown
             periodStart={true}
+            yearList={yearList.slice(yearList.indexOf(urlParams.yearEnd), -1)}
             setValue={urlParams.yearStart}
             urlParams={urlParams}
           />
@@ -53,6 +56,7 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
         <YearBox active={false}>
           <PeriodDropdown
             periodStart={false}
+            yearList={yearList.slice(0, yearList.indexOf(urlParams.yearStart))}
             setValue={urlParams.yearEnd}
             urlParams={urlParams}
           />
