@@ -67,7 +67,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
         <TableTitleContainer>
           <UpperBox>
             {/* TODO: Use real data            */}
-            <TitleBox>{esgFactor}</TitleBox>
+            <TitleBox>{esgFactorInfo.datasetName}</TitleBox>
             <PeriodBox>
               Period: {urlParams.yearStart}-{urlParams.yearEnd}
             </PeriodBox>
@@ -95,7 +95,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
                 <TableBox>
                   {naceRegion[0].region.regionName +
                     ' - ' +
-                    naceRegion[0].nace.naceCode}
+                    naceRegion[0].nace.naceName}
                 </TableBox>
                 {percentageListList[idx]
                   ? percentageListList[idx].map(
@@ -115,8 +115,9 @@ export const PercentageTableComponent: React.FC<Props> = ({
                               hoverId={hoverId}
                               hover={hover}
                             >
-                              Deviation from EU average for given industry, in
-                              percent(%).
+                              {naceRegion[0].region.regionName}&apos;s deviation
+                              from EU, within &nbsp;
+                              {naceRegion[0].nace.naceName}.
                             </HoverContainer>
                             <PositivePercentageNumber
                               positive={percentageValue > 0 ? true : false}
@@ -157,7 +158,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
         <InfoTableTitleContainer active={false}>
           <InfoTitleBox active={false}>Percentage Table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
-            {esgFactorInfo.unit}
+            Deviation from EU average for given industry
           </UnitOfMeasureBox>
         </InfoTableTitleContainer>
         <LargeDescriptionBox active={false}>
@@ -434,7 +435,8 @@ const InfoTitleBox = styled.div<{ active: boolean }>`
 const UnitOfMeasureBox = styled.div<{ active: boolean }>`
   font-size: 14px;
   font-weight: 100;
-  text-indent: 4%;
+  width: 205px;
+  margin-left: 20px;
 `;
 
 const LargeDescriptionBox = styled.div<{ active: boolean }>`
