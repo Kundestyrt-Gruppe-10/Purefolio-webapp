@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
-import { Nace, Region } from '../../types';
+import { EuroStatTable, Nace, Region } from '../../types';
 import { SearchBar } from '../HeaderComponent/SearchBarComponent';
 import { EsgFactorDropdown } from './EsgSectorDropdownComponent';
 import { PeriodDropdown } from './PeriodDropDownComponent';
@@ -14,6 +14,8 @@ interface Props {
   esgFactorList: string[];
   urlParams: UrlParamsInterface;
   yearList: string[];
+  euroStatTableList: EuroStatTable[];
+  esgFactorInfo: EuroStatTable;
 }
 export const ChartPageHeaderComponent: React.FC<Props> = ({
   regionList,
@@ -21,6 +23,8 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
   esgFactorList,
   urlParams,
   yearList,
+  euroStatTableList,
+  esgFactorInfo,
 }) => {
   return (
     <>
@@ -41,6 +45,8 @@ export const ChartPageHeaderComponent: React.FC<Props> = ({
         <ESGBox active={false}>
           <EsgFactorDropdown
             esgFactorList={esgFactorList}
+            euroStatTableList={euroStatTableList}
+            esgFactorInfo={esgFactorInfo}
             urlParams={urlParams}
           />
         </ESGBox>

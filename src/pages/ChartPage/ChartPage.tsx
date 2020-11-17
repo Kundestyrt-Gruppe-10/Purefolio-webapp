@@ -94,9 +94,7 @@ export const ChartPage: React.FC<Props> = (props) => {
   const [esgFactorList, setEsgFactorList] = useState<string[]>();
   const [naceRegionList, setNaceRegionList] = useState<NaceRegion[]>([]);
   // List of all eurostat tables
-  const [, /*eurostatTableList*/ setEurostatTableList] = useState<
-    EuroStatTable[]
-  >();
+  const [eurostatTableList, setEurostatTableList] = useState<EuroStatTable[]>();
   // The currently chosen eurostat table
   const [esgFactorInfo, setEsgFactorInfo] = useState<EuroStatTable>();
 
@@ -228,7 +226,12 @@ export const ChartPage: React.FC<Props> = (props) => {
   // Render components
   return (
     <>
-      {esgFactorList && regionList && naceList && yearList ? (
+      {esgFactorList &&
+      regionList &&
+      naceList &&
+      yearList &&
+      esgFactorInfo &&
+      eurostatTableList ? (
         <ChartPageHeaderContainer>
           <ChartPageHeaderComponent
             regionList={regionList}
@@ -236,6 +239,8 @@ export const ChartPage: React.FC<Props> = (props) => {
             yearList={yearList}
             esgFactorList={esgFactorList}
             urlParams={urlParams}
+            esgFactorInfo={esgFactorInfo}
+            euroStatTableList={eurostatTableList}
           />
         </ChartPageHeaderContainer>
       ) : null}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { EuroStatTable, NaceRegion, NaceRegionData } from '../../types';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 import info_logo from '../../img/info_img.svg';
+import { handleColorType } from '../../pages/ChartPage/helper-functions';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
@@ -118,6 +119,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
             return (
               <TableRow key={idx}>
                 <TableBox>
+                  <ColorBox id="colorBox" colorId={idx} />
                   {naceRegion[0].region.regionName +
                     ' - ' +
                     naceRegion[0].nace.naceCode}
@@ -304,8 +306,26 @@ const TableRow = styled.div`
   }
 `;
 
+const EuBox = styled.div`
+  text-align: center;
+  align-self: center;
+  width: 260px;
+  &:nth-child(1) {
+    text-align: left;
+  }
+`;
+const ColorBox = styled.div<{ colorId: number }>`
+  height: 11px;
+  width: 8px;
+  margin-top: 0px;
+  margin-right: 2px;
+  border-radius: 4px;
+  background-color: ${({ colorId }) => handleColorType(colorId)};
+`;
+
 const TableBox = styled.div`
   display: flex;
+  flex-direction: row;
   text-align: center;
   align-self: center;
   align-items: center;
@@ -383,55 +403,6 @@ const HoverContainer = styled.div<{
   visibility: ${(props) =>
     props.hover && props.hoverId == props.key2 ? 'visible' : 'hidden'};
 `;
-
-/*
-<TableBox>Sweden</TableBox>
-          <TableBox>
-            <PositivePercentageNumber positive={true}>
-              50%
-            </PositivePercentageNumber>
-            <NegativePercentageContainer
-              positive={true}
-              percentageValue={0.5}
-            />
-            <DelimiterLine />
-            <PositivePercentageContainer
-              positive={true}
-              percentageValue={0.5}
-            />
-            <NegativePercentageNumber positive={true}>
-              50%
-            </NegativePercentageNumber>
-          </TableBox>
-          <TableBox>
-            <NegativePercentageContainer
-              positive={false}
-              percentageValue={-0.4}
-            />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} percentageValue={50} />
-          </TableBox>
-          <TableBox>
-            <NegativePercentageContainer
-              positive={false}
-              percentageValue={-0.4}
-            />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} percentageValue={50} />
-          </TableBox>
-          <TableBox>
-            <NegativePercentageContainer
-              positive={false}
-              percentageValue={-0.4}
-            />
-            <DelimiterLine />
-            <PositivePercentageContainer positive={true} percentageValue={50} />
-          </TableBox>
-        </TableRow>
-
-        */
-
-//Metadata area:
 
 const InfoTableTitleContainer = styled.div<{ active: boolean }>`
   display: flex;

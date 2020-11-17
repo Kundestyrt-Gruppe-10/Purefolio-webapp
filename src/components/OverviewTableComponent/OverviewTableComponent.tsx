@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { NaceRegion, NaceRegionData, EuroStatTable } from '../../types';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
 import info_logo from '../../img/info_img.svg';
+import { handleColorType } from '../../pages/ChartPage/helper-functions';
 
 interface Props {
   naceRegionData: NaceRegionData[][];
@@ -68,6 +69,7 @@ export const OverviewTableComponent: React.FC<Props> = ({
                 return (
                   <TableRow key={idx}>
                     <TableBox>
+                      <ColorBox id="colorBox" colorId={idx} />
                       {naceRegion[0].region.regionName +
                         ' - ' +
                         naceRegion[0].nace.naceCode}
@@ -125,6 +127,15 @@ const OuterContainer = styled.div<{ active: boolean }>`
   margin: 45px 0 0 0;
   width: 100%;
 `;
+const ColorBox = styled.div<{ colorId: number }>`
+  height: 11px;
+  width: 8px;
+  margin-top: 2px;
+  margin-right: 2px;
+  border-radius: 4px;
+  color: red;
+  background-color: ${({ colorId }) => handleColorType(colorId)};
+`;
 const TableContainer = styled.div<{ active: boolean }>`
   background-color: var(--third-bluegrey-color);
   width: 90%;
@@ -177,14 +188,6 @@ const TitleBox = styled.div<{ active: boolean }>`
 
 const PeriodBox = styled.div<{ active: boolean }>``;
 
-const YearBox = styled.div`
-  flex-basis: 16.7%;
-  text-align: center;
-  &:nth-child(1) {
-    text-align: left;
-  }
-`;
-
 const TableDataContainer = styled.div<{ active: boolean }>`
   position: relative;
   padding: 32px 20px 20px 20px;
@@ -212,8 +215,19 @@ const TableRow = styled.div`
   }
 `;
 
+const YearBox = styled.div`
+  flex-basis: 16.7%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  &:nth-child(1) {
+    text-align: left;
+  }
+`;
 const TableBox = styled.div`
   text-align: center;
+  display: flex;
+  flex-direction: row;
   align-self: center;
   flex-basis: 16.7%;
   &:nth-child(1) {

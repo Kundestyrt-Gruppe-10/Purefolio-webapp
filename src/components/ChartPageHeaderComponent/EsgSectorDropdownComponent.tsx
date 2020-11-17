@@ -2,21 +2,23 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { UrlParamsInterface } from '../../pages/ChartPage/ChartPage';
+import { EuroStatTable } from '../../types';
 
 interface Props {
-  esgFactorList: string[];
+  esgFactorList: string[]; // TODO: This is not used any more. Remove.
   urlParams: UrlParamsInterface;
+  euroStatTableList: EuroStatTable[];
+  esgFactorInfo: EuroStatTable;
 }
 
 export const EsgFactorDropdown: React.FC<Props> = (props) => {
-  //const { setSearchQuery } = useQuery();
-  //const history = useHistory();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [chosenFactor, setChosenFactor] = useState<string>(
-    props.urlParams.esgFactor,
+    props.esgFactorInfo.datasetName || props.urlParams.esgFactor,
   );
   const [userInput, setUserInput] = useState<string>('');
 
+  // TODO: Keypress does not work after refactor to EsgFactorInfo. Fix this
   const handleKeywordKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (props.esgFactorList.includes(userInput)) {
@@ -42,12 +44,12 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
     setDropdownOpen(false);
     setUserInput('');
   };
-  const handleEsgFactorClick = (esgfactorString: string): void => {
-    setChosenFactor(esgfactorString);
-    setUserInput(esgfactorString);
+  const handleEsgFactorClick = (esgFactor: EuroStatTable): void => {
+    setChosenFactor(esgFactor.datasetName);
+    setUserInput(esgFactor.datasetName);
     props.urlParams.setUrlParams(
       props.urlParams.naceRegionIdString,
-      esgfactorString, // Setting new esgFactorString
+      esgFactor.attributeName, // Setting new esgFactorString
       props.urlParams.yearStart,
       props.urlParams.yearEnd,
       props.urlParams.chosenTab,
@@ -70,24 +72,26 @@ export const EsgFactorDropdown: React.FC<Props> = (props) => {
         onKeyPress={handleKeywordKeyPress}
       />
       <DropdownContainer active={dropdownOpen}>
-        {props.esgFactorList
-          .filter((factor) => factor.includes(userInput))
-          .map((factorString: string, i: number) => (
+        {props.euroStatTableList
+          .filter((factor) => factor.datasetName?.includes(userInput))
+          .map((factor: EuroStatTable, i: number) => (
             <ResultRow
-              key={factorString}
-              id={factorString}
-              active={factorString === chosenFactor ? true : false}
+              key={factor.tableId}
+              id={factor.tableId.toString()}
+              active={factor.datasetName === chosenFactor ? true : false}
               onClick={() => {
-                handleEsgFactorClick(factorString);
+                handleEsgFactorClick(factor);
               }}
             >
-              <NameBox active={factorString === chosenFactor ? true : false}>
-                {factorString}
+              <NameBox
+                active={factor.datasetName === chosenFactor ? true : false}
+              >
+                {factor.datasetName}
               </NameBox>
               <CategoryBox
-                active={factorString === chosenFactor ? true : false}
+                active={factor.datasetName === chosenFactor ? true : false}
               >
-                Environment
+                {factor.esgFactor}
               </CategoryBox>
             </ResultRow>
           ))}
