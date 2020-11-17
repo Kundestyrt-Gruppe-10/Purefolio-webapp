@@ -153,15 +153,25 @@ export const HistoryGraphComponent: React.FC<Props> = ({
           </TableInfoContainer>
         </TextBox>
       </TableContainer>
-      <LargeDescriptionBox active={false}>
+      <BottomContainer active={false}>
         <Logo src={info_logo} alt="Info" />
-        {esgFactorInfo.description}
-      </LargeDescriptionBox>
-      <SmallDescriptionBox active={false}>
-        <LinkContainer href={esgFactorInfo.href} active={false}>
-          {esgFactorInfo.href}
-        </LinkContainer>
-      </SmallDescriptionBox>
+        <InformationBox active={false}>
+          <p>
+            <span
+              style={{ color: 'var(--sec-purple-color)', fontWeight: 'bold' }}
+            >
+              Information:{' '}
+            </span>
+            {esgFactorInfo.description}
+          </p>
+          <p>
+            For more information on this data, see the following link: <br />
+            <LinkContainer href={esgFactorInfo.href} active={false}>
+              {esgFactorInfo.href}
+            </LinkContainer>
+          </p>
+        </InformationBox>
+      </BottomContainer>
     </OuterContainer>
   );
 };
@@ -258,28 +268,20 @@ const PeriodContainer = styled.div<{ active: boolean }>`
   padding-bottom: 2px;
 `;
 
+const BottomContainer = styled.div<{ active: boolean }>`
+  width: 90%;
+  margin: 10px auto 0 auto;
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const DescriptionBox = styled.div<{ active: boolean }>`
   font-size: var(--font-size-tiny);
 `;
 
-const LargeDescriptionBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
+const InformationBox = styled.div<{ active: boolean }>`
   font-size: var(--font-size-tiny);
-  width: 40%;
-  padding: 15px;
-  justify-content: flex-start;
-  margin-left: auto;
-  margin-right: 5%;
-`;
-
-const SmallDescriptionBox = styled.div<{ active: boolean }>`
-  display: flex;
-  flex-direction: row;
-  width: 36%;
-  margin-left: auto;
-  margin-right: 5%;
-  font-size: var(--font-size-xtiny);
+  width: 450px;
   color: var(--main-black-color);
 `;
 
