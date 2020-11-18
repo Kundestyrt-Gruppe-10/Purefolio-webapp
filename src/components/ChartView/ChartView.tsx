@@ -100,7 +100,7 @@ export const ChartView: React.FC<Props> = ({
               errorHeader="Sorry"
               error={
                 new Error(
-                  'Cannot compare with EU because EU only have data from 2008 and later',
+                  'This view is disabled for chosen combinations. EU does not have data for all chosen years, region and industry combinations.',
                 )
               }
             />
