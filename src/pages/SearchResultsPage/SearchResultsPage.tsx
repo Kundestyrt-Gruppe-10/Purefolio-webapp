@@ -9,6 +9,7 @@ import {
   RegionInterface,
   NaceInterface,
 } from '../../types/search';
+import { LoadingComponent } from '../../components/LoadingComponent/LoadingComponent';
 
 export const SearchResultsPage: React.FC = () => {
   const { searchQuery } = useQuery();
@@ -76,8 +77,7 @@ export const SearchResultsPage: React.FC = () => {
   if (loading === true) {
     return (
       <>
-        {/* TODO:  Simple loading animation */}
-        <p>Loading ...</p>
+        <LoadingComponent />
       </>
     );
   } else {
