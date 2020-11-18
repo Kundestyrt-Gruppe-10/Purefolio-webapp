@@ -148,7 +148,10 @@ export const PercentageTableComponent: React.FC<Props> = ({
                                   {naceRegion[0].nace.naceName}.
                                 </p>
                               ) : (
-                                <p>Percentage</p>
+                                <p>
+                                  Deviation within &nbsp;
+                                  {naceRegion[0].nace.naceName}
+                                </p>
                               )}
                             </HoverContainer>
                             <PositivePercentageNumber
