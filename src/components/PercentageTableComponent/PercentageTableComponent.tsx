@@ -53,7 +53,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
     setShowRawData(shouldShowRawData());
   }, [esgFactor, urlParams]);
 
-  // Number matrix used to make unique keys for hover box. Alexey?
+  // Number matrix used to make unique keys for hover box.
   const numberMatrix: number[][] = [
     Array.from(Array(15).keys()),
     Array.from(Array.from({ length: 15 }, (_, i) => i + 15)),
@@ -190,7 +190,7 @@ export const PercentageTableComponent: React.FC<Props> = ({
         <InfoTableTitleContainer active={false}>
           <InfoTitleBox active={false}>Percentage table</InfoTitleBox>
           <UnitOfMeasureBox active={false}>
-            {esgFactorInfo.unit}
+            Deviation from EU average for given industry
           </UnitOfMeasureBox>
         </InfoTableTitleContainer>
         <InfoBox active={false}>
@@ -443,4 +443,5 @@ const DescriptionBox = styled.div<{ active: boolean }>`
 
 const InfoBox = styled.div<{ active: boolean }>`
   display: flex;
+  align-self: center;
 `;

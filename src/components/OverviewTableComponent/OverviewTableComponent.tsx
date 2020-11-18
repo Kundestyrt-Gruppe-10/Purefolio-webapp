@@ -287,4 +287,5 @@ const DescriptionBox = styled.div<{ active: boolean }>`
 
 const InfoBox = styled.div<{ active: boolean }>`
   display: flex;
+  align-self: center;
 `;
